@@ -5,7 +5,7 @@ var dir = '';
 var path = dir + 'index';
 router.get('/' + path, function(req, res) {
 	res.render(path, {
-		title:'index',
+		title:req.session.views,
 		dir:dir,
 		path:path,
 		___: req.query.dist == 1 ? path.replace(/[^\/]+/g, '..') : ''

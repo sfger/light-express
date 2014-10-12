@@ -1,16 +1,15 @@
-var express = require('express');
-var fs = require('fs');
-var path = require('path');
-var libUrl	= require( 'url' );
-var favicon = require('static-favicon');
-var logger = require('morgan');
+var express      = require('express');
+var fs           = require('fs');
+var path         = require('path');
+var libUrl       = require( 'url' );
+var favicon      = require('static-favicon');
+var logger       = require('morgan');
 var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
-var async = require('async');
+var session      = require('cookie-session');
+var bodyParser   = require('body-parser');
+var async        = require('async');
+var app          = express();
 
-var app = express();
-
-// view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
@@ -21,6 +20,7 @@ app.use(bodyParser.urlencoded());
 app.use(cookieParser());
 app.use(require('node-compass')({mode:'compressed', css:'css', sass:'sass', img:'img'}));
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(session({name:'_SSID_', keys:['skey1', 'skey2'], secureProxy:false}));
 
 // UserConfig {{{
 var mkdirRecursive = function(dirpath, mode, callback) {
@@ -73,6 +73,7 @@ express.UserConfig = {
 };
 //}}}
 
+//async series{{{
 async.series([
 	function(){
 		express.UserConfig.routes(path.join(__dirname, 'routes'), '/');
@@ -110,5 +111,8 @@ async.series([
 		});
 	}
 ]);
+//}}}
+
 module.exports = app;
+
 /* vim: set fdm=marker tabstop=4 shiftwidth=4 softtabstop=4: */
