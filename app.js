@@ -1,7 +1,7 @@
 var express      = require('express');
 var fs           = require('fs');
 var path         = require('path');
-var libUrl       = require( 'url' );
+var libUrl       = require('url');
 var favicon      = require('static-favicon');
 var logger       = require('morgan');
 var cookieParser = require('cookie-parser');
@@ -18,9 +18,11 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
 app.use(cookieParser());
-app.use(require('node-compass')({mode:'compressed', css:'css', sass:'sass', img:'img'}));
+if("development" === app.get('env')){
+	app.use(require('node-compass')({mode:'compressed', css:'css', sass:'scss', img:'img'}));
+}
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(session({name:'_SSID_', keys:['skey1', 'skey2'], secureProxy:false}));
+app.use(session({name:'_SSID_', keys:['skey1', 'skey2']}));
 
 // UserConfig {{{
 var mkdirRecursive = function(dirpath, mode, callback) {
