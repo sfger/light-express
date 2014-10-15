@@ -8,7 +8,7 @@ router.get('/' + path, function(req, res) {
 		title:req.session.views,
 		dir:dir,
 		path:path,
-		___: req.query.dist == 1 ? path.replace(/[^\/]+/g, '..') : ''
+		___:req.query.dist == 1 ? path.replace(/[^\/]+/g, '..') : ''
 	}, express.UserConfig.dist.bind({req:req, res:res}));
 });
 

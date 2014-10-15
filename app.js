@@ -25,19 +25,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(session({name:'_SSID_', keys:['skey1', 'skey2']}));
 
 // UserConfig {{{
-var mkdirRecursive = function(dirpath, mode, callback) {
-	path.exists(dirpath, function(exists) {
-		if(exists) {
-			callback(dirpath);
-		} else {
-			mkdirRecursive(path.dirname(dirpath), mode, function(){
-				fs.mkdir(dirpath, mode, callback);
-			});
-		}
-	});
-};
 express.UserConfig = {
-	routes : function(dirPath, routePath){
+	routes: function(dirPath, routePath){
 		var routeFiles = fs.readdirSync(dirPath);
 		routeFiles.forEach(function(file){
 			fs.stat(dirPath + '/' + file, function(err, stats){
@@ -49,8 +38,9 @@ express.UserConfig = {
 						var name = list[0],
 							path = routePath + name,
 							module = './routes' + path;
-
-						console.log("Auto add route!\n\tPath: ", path, '\n\tModule: ', module);
+						if("development" === app.get('env')){
+							console.log("Auto add route!\n\tPath: ", path, '\n\tModule: ', module);
+						}
 						app.use('/', require(module));
 					}
 				}
@@ -59,22 +49,39 @@ express.UserConfig = {
 	},
 	dist: function(err, ret){
 		var req = this.req;
-		// console.log(req);
+		ret = express.UserConfig.minifyHTML(ret);
 		if(req.query.dist=='1'){
 			var url_path = req.route.path.replace(/^\/|\/$/g, '');
 			url_path = process.cwd() + '/public/html/' + (url_path || 'index') + '.html';
-			mkdirRecursive(path.dirname(url_path), 777, function(){
+			express.UserConfig.mkdirRecursive(path.dirname(url_path), 777, function(){
 				fs.writeFile(url_path, ret, function(err){
 					if(err) throw err;
-					console.log('Dist ' + url_path + ' succeed!');
+					if("development" === app.get('env')){
+						console.log('Dist ' + url_path + ' succeed!');
+					}
 				});
 			});
 		}
 		this.res.send(ret);
+	},
+	minifyHTML: function(str){
+		str = str.replace(/>\s+</g, '><');
+		return str;
+	},
+	mkdirRecursive: function(dirpath, mode, callback) {
+		var that = this;
+		path.exists(dirpath, function(exists) {
+			if(exists) {
+				callback(dirpath);
+			} else {
+				that.mkdirRecursive(path.dirname(dirpath), mode, function(){
+					fs.mkdir(dirpath, mode, callback);
+				});
+			}
+		});
 	}
 };
 //}}}
-
 //async series{{{
 async.series([
 	function(){
@@ -114,7 +121,5 @@ async.series([
 	}
 ]);
 //}}}
-
 module.exports = app;
-
 /* vim: set fdm=marker tabstop=4 shiftwidth=4 softtabstop=4: */
