@@ -1,6 +1,3 @@
-%ib{display:inline-block;*display:inline;*zoom:1;}
-%sln{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
-%mln{overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;}
 .cf:before,.cf:after{content:"";display:table;}
 .cf:after{clear:both;overflow:hidden;}
 .cf{*zoom:1;}
@@ -11,7 +8,7 @@
 }
 .imgc{
 	@extend .grid;text-align:center;overflow:hidden;
-	.imge,&:after,.ieicp{@extend %ib;vertical-align:middle;}
+	.imge,&:after,.iecp{@extend %ib;vertical-align:middle;}
 	.imge{max-width:100%;max-height:100%;}
-	&:after,.ieicp{content:"";height:100%;font-size:0;line-height:0;width:0;}
+	&:after,.iecp{content:"";height:100%;font-size:0;line-height:0;width:0;}
 }
