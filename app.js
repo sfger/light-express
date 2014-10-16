@@ -9,83 +9,24 @@ var session      = require('cookie-session');
 var bodyParser   = require('body-parser');
 var async        = require('async');
 var app          = express();
+var isDev        = "development" == app.get('env');
 
+express.UserConfig = require('./config');
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
-
 app.use(favicon());
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
 app.use(cookieParser());
-if("development" === app.get('env')){
-	app.use(require('node-compass')({mode:'compressed', css:'css', sass:'scss', img:'img'}));
-}
-app.use(express.static(path.join(__dirname, 'public')));
+if(isDev) app.use(require('node-compass')({mode:'compressed', css:'css', sass:'scss', img:'img'}));
+app.use(express.static(path.join(__dirname, express.UserConfig.staticDir)));
 app.use(session({name:'_SSID_', keys:['skey1', 'skey2']}));
 
-// UserConfig {{{
-express.UserConfig = {
-	routes: function(dirPath, routePath){
-		var routeFiles = fs.readdirSync(dirPath);
-		routeFiles.forEach(function(file){
-			fs.stat(dirPath + '/' + file, function(err, stats){
-				if( stats.isDirectory() ){
-					express.UserConfig.routes(dirPath + '/' + file, routePath+file+'/');
-				}else if( stats.isFile() ){
-					var list = file.split('.');
-					if(list.length==2 && list[1]==='js'){
-						var name = list[0],
-							path = routePath + name,
-							module = './routes' + path;
-						if("development" === app.get('env')){
-							console.log("Auto add route!\n\tPath: ", path, '\n\tModule: ', module);
-						}
-						app.use('/', require(module));
-					}
-				}
-			});
-		});
-	},
-	dist: function(err, ret){
-		var req = this.req;
-		ret = express.UserConfig.minifyHTML(ret);
-		if(req.query.dist=='1'){
-			var url_path = req.route.path.replace(/^\/|\/$/g, '');
-			url_path = process.cwd() + '/public/html/' + (url_path || 'index') + '.html';
-			express.UserConfig.mkdirRecursive(path.dirname(url_path), 777, function(){
-				fs.writeFile(url_path, ret, function(err){
-					if(err) throw err;
-					if("development" === app.get('env')){
-						console.log('Dist ' + url_path + ' succeed!');
-					}
-				});
-			});
-		}
-		this.res.send(ret);
-	},
-	minifyHTML: function(str){
-		str = str.replace(/>\s+</g, '><');
-		return str;
-	},
-	mkdirRecursive: function(dirpath, mode, callback) {
-		var that = this;
-		path.exists(dirpath, function(exists) {
-			if(exists) {
-				callback(dirpath);
-			} else {
-				that.mkdirRecursive(path.dirname(dirpath), mode, function(){
-					fs.mkdir(dirpath, mode, callback);
-				});
-			}
-		});
-	}
-};
-//}}}
 //async series{{{
 async.series([
 	function(){
-		express.UserConfig.routes(path.join(__dirname, 'routes'), '/');
+		express.UserConfig.routes(app, path.join(__dirname, 'routes'), '/');
 	}, 
 	function(){
 		/// catch 404 and forward to error handler
@@ -122,4 +63,4 @@ async.series([
 ]);
 //}}}
 module.exports = app;
-/* vim: set fdm=marker tabstop=4 shiftwidth=4 softtabstop=4: */
+/* vim:set fdm=marker tabstop=4 shiftwidth=4 softtabstop=4: */
