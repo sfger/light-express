@@ -1,0 +1,17 @@
+@import "base.scss";
+.icon-chart{background:url("../img/chart.png");}
+.icon-user{background:url("../img/user.png");}
+.icon-money{background:url("../img/money.png");}
+.menu-container{position:absolute;}
+.menu-container .wraper{border:1px solid #aaa;background:white;width:98px;_width:100px;}
+.menu-container .menu-vertical-line{position:absolute;top:0;left:22px;height:100%;border-left:1px solid #ccc;}
+.menu-container ul li{list-style:none;float:left;width:100%;}
+.menu-container li{height:22px;}
+.menu-container a{display:block;text-decoration:none;overflow:hidden;color:black;white-space:nowrap;border:1px solid white;margin:1px;border-radius:2px;}
+.menu-container a:hover{background:#e1e1e1;border-color:#bbb;color:#aaa;}
+.menu-container a.disabled{color:#aaa;}
+.menu-container span{display:inline-block;*display:inline;*zoom:1;height:16px;width:16px;line-height:16px;vertical-align:middle;cursor:pointer;}
+.menu-container .sub-tag {float:right;margin:4px 2px;_margin-top:3px;width:0px;height:0px;border-bottom:5px solid transparent;border-top:5px solid transparent;border-left:5px solid black;font-size:0;line-height:0;}
+.menu-container .text{width:auto;padding:2px 0 0 8px;white-space:nowrap;}
+.menu-container .separate {*font-size:0;*line-height:0;height:3px;;overflow:hidden;vertical-align:middle;}
+.menu-container .separate span {display:block;width:auto;height:0px;_height:1px;overflow:hidden;border-top:1px solid #ccc;margin:1px 4px 1px 26px;}
