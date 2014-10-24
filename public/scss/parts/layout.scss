@@ -3,12 +3,15 @@
 .cf{*zoom:1;}
 .grid{
 	font-size:0;line-height:0;
-	.col,.row{font-size:1rem;font-size:14px;font-size:1rem;line-height:normal;}
-	.col{@extend %ib;}
+	.col{@extend %ib;font-size:1rem;font-size:14px;font-size:1rem;line-height:normal;}
 }
 .imgc{
 	@extend .grid;text-align:center;overflow:hidden;
 	.imge,&:after,.iecp{@extend %ib;vertical-align:middle;}
 	.imge{max-width:100%;max-height:100%;font-size:14px;font-size:1rem;line-height:normal;}
 	&:after,.iecp{content:"";height:100%;font-size:0;line-height:0;width:0;}
+}
+.rowc{
+	@extend .imgc;
+	.rowe{@extend %ib;vertical-align:middle;font-size:14px;font-size:1rem;line-height:0;}
 }
