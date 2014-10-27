@@ -1,7 +1,7 @@
 @charset "utf-8"; //解决中文报错
 
 //inline-block
-%ib{display:inline-block;*display:inline;*zoom:1;}
+%ib{display:inline-block;*display:inline;*zoom:1;*vertical-align:auto;}
 
 //单行溢出省略
 %sln{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
