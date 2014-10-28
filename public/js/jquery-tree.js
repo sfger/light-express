@@ -1,5 +1,5 @@
-"use strict";
 (function($){
+"use strict";
 $.fn.tree=function(options){
 	if(!options){
 		var iTrees = [];

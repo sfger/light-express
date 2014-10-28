@@ -1,5 +1,5 @@
-"use strict";
 (function($){
+"use strict";
 $.fn.tabs=function(options){
 	if(!options){
 		var iTabs = [];

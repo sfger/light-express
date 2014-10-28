@@ -1,5 +1,5 @@
-"use strict";
 (function($){
+"use strict";
 $.fn.menu=function(options){
 	if(!options){
 		var iMenus = [];
