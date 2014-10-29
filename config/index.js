@@ -35,7 +35,7 @@ var config = {
 		this.res.send(ret);
 	},
 	minifyHTML: function(str){
-		str = str.replace(/>\s+</g, '><');
+		str = str.replace(/(\/?>)\s+|\s+(?=<)/g, '$1');
 		return str;
 	},
 	writeStaticCache: function(url, ret){
