@@ -15,7 +15,7 @@
 <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
 <link rel="stylesheet" type="text/css" href="<%-___%>/css/base.css" />
 <style type="text/css" media="all">
-.item{width:200px;height:200px;overflow:hidden;border:1px solid #666;background:#ddd;margin-left:5px;position:relative;display:inline-block;*display:inline;*zoom:1;text-decoration:none;cursor:pointer;vertical-align:middle;}
+.item{width:200px;height:200px;overflow:hidden;border:1px solid #666;background:#ddd;margin-left:5px;position:relative;text-decoration:none;cursor:pointer;vertical-align:middle;}
 .list{margin-bottom:5px;}
 .list .img-cover,.list .img-intro{transition:all 0.25s ease-out 0s;transform:scale(0);opacity:0;filter:alpha(opacity=0);}
 .item:hover .img-intro,.item:hover .img-cover{transform:scale(1);opacity:1;filter:alpha(opacity=100);}
@@ -42,7 +42,7 @@
 	%>
 	<div class="grid list">
 		<% for(var i=0; i<len; i++){ %>
-		<a href="http://www.baidu.com" target="_blank" class="imgc item">
+		<a href="http://www.baidu.com" target="_blank" class="col imgc item">
 			<img class="imge" src="<%-img_list[i]%>" alt="image" />
 			<!--[if lt IE 8]><span class="iecp"></span><![endif]--> 
 			<div class="imge img-intro">
@@ -57,7 +57,7 @@
 	</div>
 	<div class="grid list">
 		<% for(var i=0; i<len; i++){ %>
-		<a href="http://www.baidu.com" target="_blank" class="imgc item">
+		<a href="http://www.baidu.com" target="_blank" class="col imgc item">
 			<img class="imge" src="<%-img_list[i]%>" alt="image" />
 			<!--[if lt IE 8]><span class="iecp"></span><![endif]--> 
 			<div class="imge img-cover">
@@ -75,7 +75,7 @@
 	</div>
 	<div class="grid list">
 		<% for(var i=0; i<len; i++){ %>
-		<div class="imgc item">
+		<div class="col imgc item">
 			<img class="imge" src="<%-img_list[i]%>" alt="image" />
 			<!--[if lt IE 8]><span class="iecp"></span><![endif]--> 
 			<div class="imge img-intro">
@@ -90,7 +90,7 @@
 	</div>
 	<div class="grid list">
 		<% for(var i=0; i<len; i++){ %>
-		<div class="imgc item">
+		<div class="col imgc item">
 			<img class="imge" src="<%-img_list[i]%>" alt="image" />
 			<!--[if lt IE 8]><span class="iecp"></span><![endif]--> 
 			<div class="imge img-cover">
