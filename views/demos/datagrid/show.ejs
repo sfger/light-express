@@ -16,8 +16,10 @@
 <link rel="stylesheet" type="text/css" href="<%-___%>/css/pagination.css" />
 <link rel="stylesheet" type="text/css" href="<%-___%>/css/datagrid.css" />
 <style type="text/css" media="all">
-*{padding:0;margin:0;font-size:12px;}
+*{padding:0;margin:0;font-size:14px;}
 #my_datagrid{width:auto;_width:100%;border:1px solid green;}
+.warn{color:#ff0101;}
+.normal{color:#008f1f;}
 </style>
 </head>
 <body>
@@ -77,7 +79,12 @@ $('#my_datagrid').datagrid({
 					return '格式化: ' + val;
 				}
 			},
-			{field:'col-2', sort:fieldSortFns.sortNum, name:'冻结第二列'},
+			{field:'col-2', sort:fieldSortFns.sortNum, name:'冻结第二列',
+				formatter:function(val, row, key){
+					var cls = val<60 ? 'warn' : 'normal';
+					return '<span class="'+cls+'">' + val + '</span>';
+				}
+			},
 			{field:'col-3', name:'冻结第三列'},
 			{field:'col-4', name:'冻结第四列'}
 		]

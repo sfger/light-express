@@ -3,7 +3,7 @@
 .cf{*zoom:1;}
 .grid{
 	font-size:0;line-height:0;vertical-align:top;
-	.col{@extend %ib;font-size:1rem;font-size:14px;font-size:1rem;line-height:normal;}
+	.col{@extend %ib;vertical-align:top;font-size:14px;font-size:1rem;line-height:normal;}
 	.grid,.imgc{font-size:0;line-height:0;vertical-align:top;}
 }
 .imgc{
