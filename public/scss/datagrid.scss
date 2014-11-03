@@ -5,7 +5,7 @@
 	.view-wrapper{position:relative;}
 	.view{@extend .col;vertical-align:top;}
 	.head-wrapper{overflow:hidden;}
-	.body-wrapper{/*height:320px;*/*height:250px;overflow:auto;}
+	.body-wrapper{/*height:320px;*height:250px;*/overflow:auto;}
 	table,td{border:1px solid #ccc;}
 	table{border-collapse:collapse;}
 	.body-wrapper table,.body-wrapper tr:first-child td{border-top:none;}
