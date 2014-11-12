@@ -1,0 +1,18 @@
+@charset "utf-8";
+html,body{overflow:hidden;}
+.layout-middle-container{
+	&>div{height:100%;}
+	.layout-west,.bar-west{float:left;}
+	.layout-east,.bar-east{float:right;}
+}
+.layout-west,.layout-east,.layout-center{overflow:auto;}
+.resize-bar{
+	background:#cecece;overflow:hidden;cursor:n-resize;text-align:center;
+	span{background:#333;height:100%;width:21px;display:block;overflow:hidden;margin:auto;cursor:pointer;}
+}
+.bar-west,.bar-east{
+	cursor:e-resize;
+	span{width:100%;height:21px;}
+}
+.layout-south,.layout-north{height:25px;}
+.layout-west,.layout-east{width:180px;}

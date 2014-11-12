@@ -1,0 +1,13 @@
+@charset "utf-8";
+.window-container{
+	display:none;position:fixed;z-index:50;top:0;left:0;
+	.window-mask{height:100%;width:100%;background:#565656;opacity:0.72;filter:alpha(opacity=72);}
+	.window-wrapper{width:400px;height:260px;overflow:hidden;position:absolute;margin:auto;background:white;/*box-shadow:3px 3px 3px #defefe;*/}
+	.window-bar{background:#b6b6b6;padding:2px 4px;}
+	.closer{float:right;color:black;font-weight:bold;;text-decoration:none;transition:all 0.5s ease-out 0s;font-family:宋体;padding:0;border:none;}
+	.closer:hover{transform:rotate(360deg);-webkit-transform:rotate(360deg);background:none;border:none;}
+	.closer:active{box-shadow:none;}
+	.contents{padding:2px 1px 2px 5px;overflow:auto;text-align:left;}
+	.header{line-height:2;}
+	.footer{text-align:right;}
+}

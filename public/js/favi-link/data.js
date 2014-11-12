@@ -1,8 +1,3 @@
-<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8" /><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" /><title>Title</title><meta name="apple-mobile-web-app-capable" content="yes" /><meta name="apple-mobile-web-app-status-bar-style" content="black" /><meta name="format-detection" content="telephone=no" /><meta name="author" content="" /><meta name="revisit-after" content="1 days" /><meta name="keywords" content="" /><meta name="description" content="" /><link rel="icon" href="/favicon.ico" type="image/x-icon" /><link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" /><link rel="stylesheet" type="text/css" href="../../../css/tree.css" /><style type="text/css" media="all">#my_tree{height:300px;width:210px;overflow:auto;border:1px solid black;}</style></head><body><div id="page"><div id="my_tree"></div></div><!-- #page end! --><script type="text/javascript" src="../../../lib/jquery-min.js"></script><script type="text/javascript" src="../../../js/ecmaShim.js"></script><script type="text/javascript" src="../../../js/jquery-tree.js"></script><script type="text/javascript">//<![CDATA[
-try {
-	document.execCommand('BackgroundImageCache', false, true);
-}catch(e){}
-//test data{{{
 var data = [
 	//{{{BookMark
 	{
@@ -37,7 +32,7 @@ var data = [
 				name: '门户、新闻与社区',
 				children:[
 					{name:'网易', url:'http://www.163.com'},
-					{name:'新浪', url:'http://www.sina.com'},
+					{name:'新浪', url:'http://www.sina.com.cn'},
 					{name:'搜狐', url:'http://www.sohu.com/'},
 					{name:'腾讯', url:'http://www.qq.com/'},
 					{name:'新华网', url:'http://www.xinhuanet.com/'}
@@ -276,38 +271,7 @@ var data = [
 				]
 			}
 		]
-	},
-	//}}}
-	//UI{{{
-	{
-		name:'UI',
-		children:[
-			{name: 'popup', url: './ui/bundle/popup/popup.html'}
-		]
 	}
 	//}}}
 ];
-///}}}
-
-$('#my_tree').tree({
-	data: data,
-	dnd: true,
-	checkbox: true,
-	animate: {time:115},
-	onClick: function(e){
-		// alert('onClick');
-		return false;
-	},
-	onBeforeDrop: function(target, source, position){
-		// alert('Before Drop');
-		//return false;
-	},
-	onDrop: function(target, source, position){
-		// alert('Droped');
-	},
-	onContextmenu: function(e){
-		// alert('onContextmenu');
-		return false;
-	}
-});
-//]]></script></body></html><!-- vim: set fdm=marker : -->
+/* vim: set fdm=marker : */
