@@ -1,7 +1,7 @@
 @charset "utf-8";
-.icon-chart{background:url("../img/chart.png");}
-.icon-user{background:url("../img/user.png");}
-.icon-money{background:url("../img/money.png");}
+.icon-chart{background:url("#{$basePath}/img/chart.png");}
+.icon-user{background:url("#{$basePath}/img/user.png");}
+.icon-money{background:url("#{$basePath}/img/money.png");}
 .menu-container{
 	position:absolute;
 	.wraper{border:1px solid #aaa;background:white;width:98px;_width:100px;}

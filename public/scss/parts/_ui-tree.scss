@@ -9,14 +9,14 @@
 	li a.current{background:#d1d1d1;}
 	.indent,.join,.hit,.file,.folder,.checkbox,.title{cursor:pointer;display:inline-block;*display:inline;*zoom:1;width:16px;height:18px;line-height:18px;vertical-align:middle;overflow:hidden;}
 	.title{width:auto;padding:0 0 0 2px;}
-	.checkbox{background:url("../img/tree_icons.png") no-repeat scroll -208px -18px;}
-	.checkbox-some{background:url("../img/tree_icons.png") no-repeat scroll -240px -18px;}
-	.checkbox-all{background:url("../img/tree_icons.png") no-repeat scroll -224px -18px;}
-	.indent{background:url("../img/tree_icons.png") no-repeat scroll -176px 0;}
-	.join{background:url("../img/tree_icons.png") no-repeat scroll -192px 0;}
-	.hit{background:url("../img/tree_icons.png") no-repeat scroll -128px 0;}
-	.folder{background:url("../img/tree_icons.png") no-repeat scroll -208px 0;}
-	.hit-open{background:url("../img/tree_icons.png") no-repeat scroll -144px 0;}
-	.file{background:url("../img/tree_icons.png") no-repeat scroll -240px 0;}
+	.checkbox{background:url("#{$basePath}/img/tree_icons.png") no-repeat scroll -208px -18px;}
+	.checkbox-some{background:url("#{$basePath}/img/tree_icons.png") no-repeat scroll -240px -18px;}
+	.checkbox-all{background:url("#{$basePath}/img/tree_icons.png") no-repeat scroll -224px -18px;}
+	.indent{background:url("#{$basePath}/img/tree_icons.png") no-repeat scroll -176px 0;}
+	.join{background:url("#{$basePath}/img/tree_icons.png") no-repeat scroll -192px 0;}
+	.hit{background:url("#{$basePath}/img/tree_icons.png") no-repeat scroll -128px 0;}
+	.folder{background:url("#{$basePath}/img/tree_icons.png") no-repeat scroll -208px 0;}
+	.hit-open{background:url("#{$basePath}/img/tree_icons.png") no-repeat scroll -144px 0;}
+	.file{background:url("#{$basePath}/img/tree_icons.png") no-repeat scroll -240px 0;}
 }
 .tree-draging-proxy{display:none;position:absolute;padding:2px 8px;border:1px solid #ccc;background:#eee;border-radius:3px;}
