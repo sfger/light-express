@@ -8,3 +8,27 @@
 
 //webkit多行溢出省略
 %mln{overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;}
+
+@mixin opacity($val:0.5){
+	opacity:$val;
+	filter:alpha(opacity=$val*100);
+}
+
+@mixin size($height:auto, $width:auto){
+	height:$height;
+	width:$width;
+}
+
+@mixin boxSizing($mode:content-box){
+	-webkit-box-sizing:$mode;
+	-moz-box-sizing:$mode;
+	box-sizing:$mode;
+}
+
+@mixin borderRadius($n:0){
+	-webkit-border-radius:$n;
+	-moz-border-radius:$n;
+	-ms-border-radius:$n;
+	-o-border-radius:$n;
+	border-radius:$n;
+}

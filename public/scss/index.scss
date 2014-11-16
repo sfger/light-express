@@ -1,0 +1,27 @@
+// @import "compass/css3";
+@import "base.scss";
+html,body{font:normal 16px/normal "Helvetica Neue",Helvetica,Arial,"Hiragino Sans GB",sans-serif;}
+html,body{height:100%;overflow:hidden;}
+.c-ctn{
+	@extend body;
+	filter:progid:DXImageTransform.Microsoft.Gradient(gradientType=0, startColorStr=#ade8aa, endColorStr=#3b9739);
+	background:linear-gradient(0deg, #3b9739, #ade8aa);
+}
+.c-box{
+	position:relative;
+	.mask{
+		@include borderRadius(8px);@include opacity(0.3);position:absolute;z-index:1;top:0;left:0;width:100%;height:100%;border:1px solid #000;background:black;
+	}
+	.contents{
+		position:relative;z-index:2;max-width:455px;_width:455px;overflow:hidden;padding:20px;text-align:left;color:white;
+		h1,h3{font-size:25px;margin-bottom:10px;vertical-align:top;text-align:center;font-weight:normal;}
+		h3{font-size:14px;}
+		.linkc{width:470px;}
+		a{
+			@extend %ib;@extend %sln;@include size(auto,133px);@include borderRadius(4px);
+			font-size:14px;padding:2px 5px;margin:5px 10px 5px 0;border:1px solid #fff;line-height:25px;
+			vertical-align:middle;text-align:center;color:white;text-decoration:none;
+			&:hover{background:white;color:#666;}
+		}
+	}
+}

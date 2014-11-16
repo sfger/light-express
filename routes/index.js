@@ -3,7 +3,7 @@ var router = express.Router();
 
 var dir = '';
 var path = dir + 'index';
-router.get('/' + path, function(req, res) {
+router.get(['/' + path, '/'], function(req, res) {
 	res.render(path, {
 		title:req.session.views,
 		dir:dir,
