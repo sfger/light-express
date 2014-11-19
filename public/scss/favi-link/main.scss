@@ -4,10 +4,9 @@ $basePath: '../../';
 @import "../parts/ui-tree.scss";
 @import "../parts/ui-tabs.scss";
 html, body{overflow:hidden;}
-
 .tab-container .tab-content{height:100%;overflow:hidden;}
 .resize-bar{cursor:default;}
-
-.top{font-size:16px;color:purple;}
+.bar-west{cursor:e-resize;}
+.top{height:100%;font-size:16px;color:purple;}
 .left-menu{height:100%;}
 .bottom{text-align:center;}
