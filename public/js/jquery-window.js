@@ -10,7 +10,7 @@ $.fn.window=function(options){
 		return iWindows;
 	}
 	options = $.extend(true, {
-		title: 'title',
+		title: '',
 		show: false,
 		footer: {}
 	}, options);
@@ -19,15 +19,15 @@ $.fn.window=function(options){
 		init: function(box, options){
 			var $box = $(box);
 			var footer = options.footer.formatter ?
-							'<div class="window-bar footer clearfix">' + options.footer.formatter() + '</div>'
+							'<div class="window-bar footer cf">' + options.footer.formatter() + '</div>'
 							: '';
 			var ctn = '\
 <div class="window-container">\
 	<div class="window-mask"></div>\
-	<div class="window-wrapper clearfix">\
-		<div class="window-bar header clearfix">\
-			<span class="title">' + (options.title||'') + '</span>\
+	<div class="window-wrapper cf">\
+		<div class="window-bar header cf">\
 			<a href="javascript:;" class="closer">×</a>\
+			<span class="title">' + (options.title||'') + '</span>\
 		</div>\
 		<div class="contents"></div>' + footer + '\
 	</div>\
