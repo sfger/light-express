@@ -29,22 +29,20 @@
 <script type="text/javascript" src="<%-___%>/lib/jquery-min.js"></script>
 <script type="text/javascript" src="<%-___%>/js/jquery-window.js"></script>
 <script type="text/javascript">
-//<![CDATA[
-"use strict";
-var m_window = $('.b5m-pay').window({
-	/* show: false, */
-	title: '&nbsp;'
+var payWindow = $('.b5m-pay');
+payWindow.window({
+	/* show: true, */
+	/* title: '', */
 	/* onBeforeClose: function(){ */
 	/* 	return confirm('确定关闭窗口？'); */
 	/* }, */
 	/* onClose: function(){ */
 	/* 	alert('窗口已经关闭'); */
 	/* }, */
-}).window();
-$('#btn').on('click', function(){
-	m_window[0].show();
 });
-//]]>
+$('#btn').on('click', function(){
+	payWindow.window('show');
+});
 </script>
 </body>
 </html>

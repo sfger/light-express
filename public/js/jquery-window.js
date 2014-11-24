@@ -1,13 +1,25 @@
 (function($){
 "use strict";
-$.fn.window=function(options){
-	if(!options){
-		var iWindows = [];
+$.fn.window = function(options){
+	var type = $.type(options);
+	if(type==='string'){
+		console.log('test');
 		this.each(function(){
-			if(this.ui && this.ui.iWindow) iWindows.push(this.ui.iWindow);
-			else throw new Error('UI does not init...');
+			var ui = $(this).data('ui');
+			if(ui&&ui.iWindow){
+				$(this).data('ui').iWindow[options]();
+			}else{
+				throw new Error('UI:window does not init...');
+			}
 		});
-		return iWindows;
+		return true;
+		// var iWindows = [];
+		// this.each(function(){
+		// 	var ui = $(this).data('ui');
+		// 	if(ui && ui.iWindow) iWindows.push(ui.iWindow);
+		// 	else throw new Error('UI does not init...');
+		// });
+		// return iWindows;
 	}
 	options = $.extend(true, {
 		title: '',
@@ -19,8 +31,8 @@ $.fn.window=function(options){
 		init: function(box, options){
 			var $box = $(box);
 			var footer = options.footer.formatter ?
-							'<div class="window-bar footer cf">' + options.footer.formatter() + '</div>'
-							: '';
+				'<div class="window-bar footer cf">' + options.footer.formatter() + '</div>'
+				: '';
 			var ctn = '\
 <div class="window-container">\
 	<div class="window-mask"></div>\
@@ -134,9 +146,9 @@ $.fn.window=function(options){
 	};
 	handler.prototype.init.prototype = handler.prototype;
 	return this.each(function(){
-		this.ui = {
+		$(this).data('ui', {
 			iWindow: handler(this, $.extend({}, options))
-		};
+		});
 	});
 };
 })(jQuery);
