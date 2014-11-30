@@ -2,12 +2,12 @@
 @import "base.scss";
 html,body{font:normal 16px/normal "Helvetica Neue",Helvetica,Arial,"Hiragino Sans GB",sans-serif;}
 html,body{height:100%;overflow:hidden;}
-.c-ctn{
+.ctnc{
 	@extend body;
 	filter:progid:DXImageTransform.Microsoft.Gradient(gradientType=0, startColorStr=#ade8aa, endColorStr=#3b9739);
 	background:linear-gradient(0deg, #3b9739, #ade8aa);
 }
-.c-box{
+.boxc{
 	position:relative;
 	.mask{
 		@include borderRadius(8px);//@include opacity(0.3);background:black;
@@ -27,7 +27,8 @@ html,body{height:100%;overflow:hidden;}
 			@extend %ib;@extend %sln;@include size(auto,133px);@include borderRadius(4px);
 			font-size:14px;padding:2px 5px;margin:5px 10px 5px 0;border:1px solid #fff;line-height:25px;
 			text-align:center;color:white;text-decoration:none;
-			&:hover{background:white;color:#666;}
+			// transition:all 0.3s ease-in 0s;
+			&:hover{background:white;color:#666;/*transform:rotate(3deg);*/}
 		}
 	}
 }

@@ -35,10 +35,13 @@ var config = {
 		this.res.send(ret);
 	},
 	minifyHTML: function(str){
+		// console.log(str);
 		str = str.replace(/(\/?>)\s+|\s+(?=<)/g, '$1');
 		return str;
 	},
 	writeStaticCache: function(url, ret){
+		// console.log(url);
+		if(url.length) url = url[0];
 		var url_path = url.replace(/^\/|\/$/g, '');
 		url_path = process.cwd() + '/' + config.staticDir + '/html/' + (url_path || 'index') + '.html';
 		config.mkdirRecursive(path.dirname(url_path), 777, function(){
