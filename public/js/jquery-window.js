@@ -3,23 +3,16 @@
 $.fn.window = function(options){
 	var type = $.type(options);
 	if(type==='string'){
-		console.log('test');
 		this.each(function(){
 			var ui = $(this).data('ui');
 			if(ui&&ui.iWindow){
 				$(this).data('ui').iWindow[options]();
 			}else{
 				throw new Error('UI:window does not init...');
+				return false;
 			}
 		});
 		return true;
-		// var iWindows = [];
-		// this.each(function(){
-		// 	var ui = $(this).data('ui');
-		// 	if(ui && ui.iWindow) iWindows.push(ui.iWindow);
-		// 	else throw new Error('UI does not init...');
-		// });
-		// return iWindows;
 	}
 	options = $.extend(true, {
 		title: '',
@@ -31,24 +24,25 @@ $.fn.window = function(options){
 		init: function(box, options){
 			var $box = $(box);
 			var footer = options.footer.formatter ?
-				'<div class="window-bar footer cf">' + options.footer.formatter() + '</div>'
+				'<div class="bar footer cf">' + options.footer.formatter() + '</div>'
 				: '';
 			var ctn = '\
-<div class="window-container">\
-	<div class="window-mask"></div>\
-	<div class="window-wrapper cf">\
-		<div class="window-bar header cf">\
-			<a href="javascript:;" class="closer">×</a>\
+<div class="window-ctn imgc">\
+	<div class="mask"></div>\
+	<div class="wrapper imge cf">\
+		<div class="bar header cf">\
 			<span class="title">' + (options.title||'') + '</span>\
+			<a href="javascript:;" class="closer">×</a>\
 		</div>\
 		<div class="contents"></div>' + footer + '\
 	</div>\
+	<!--[if lt IE 8]><i class="iecp"></i><![endif]-->\
 </div>';
 			var w = $(ctn.replace(/>\s+</g, '><')).appendTo(document.body);
 			this.userOptions = options;
 			this.container   = w.get(0);
 			this.render		 = box;
-			this.wraper      = $('.window-wrapper', w).get(0);
+			this.wraper      = $('.wrapper', w).get(0);
 			this.closer      = $('.closer', w).get(0);
 			this.contents    = $('.contents', w).get(0);
 			this.title		 = $('.title', w).html(options.title).get(0);
@@ -90,15 +84,10 @@ $.fn.window = function(options){
 			var scrollTop = html.scrollTop || window.pageYOffset || body.scrollTop;
 			var viewHeight = this.getViewHeight();
 			var viewWidth = this.getViewWidth();
-			$container.css({width:viewWidth, height:viewHeight});
 			if(isIE6 || !css1compat){
 				$container.css({'position':'absolute', 'top':scrollTop});
 			}
 			var fix_position = function(n){ return n<0?0:n; };
-			$(wraper).css({
-				'top':fix_position((viewHeight - this.getElementHeight(wraper))/4),
-				'left':fix_position((viewWidth - this.getElementWidth(wraper))/2)
-			});
 			$contents.css({
 				height: (wraper.clientHeight>viewHeight ? viewHeight : wraper.clientHeight)
 					- $('.header', wraper).get(0).offsetHeight
@@ -116,12 +105,7 @@ $.fn.window = function(options){
 				viewHeight  = this.getViewHeight(),
 				wraper      = this.wraper,
 				$contents   = $(this.contents);
-			$(this.container).css({width:viewWidth, height:viewHeight});
 			var fix_position = function(n){ return n<0?0:n; };
-			$(wraper).css({
-				'top':fix_position((viewHeight - wraper.offsetHeight)/4),
-				'left':fix_position((viewWidth - wraper.offsetWidth)/2)
-			});
 			this.contents.style.height = '';
 			$contents.css({
 				height: (wraper.clientHeight>viewHeight ? viewHeight : wraper.clientHeight)
