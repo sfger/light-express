@@ -22,13 +22,18 @@ input.btn, button.btn{*line-height:0.8;}
 .btn-success:active{background-image:none;color:#cacaca;}
 input{*filter:chroma(color=black);}
 .my-window{width:400px;height:250px;overflow:hidden;}
-.window-ctn .wrapper, .window-ctn .content, .window-ctn .wrapper .bar{width:400px;overflow:hidden;}
+.my-window2{width:800px;height:450px;overflow:hidden;}
 </style>
 </head>
 <body>
 <div id="page">
     <a id="btn" class="btn" href="javascript:;">打开窗口</a>
-	<div class="my-window" style="display:none;">
+    <a id="btn2" class="btn" href="javascript:;">打开窗口2</a>
+	<div class="my-pop my-window" style="display:none;">
+		content<br /> content<br /> content<br /> content<br />
+	</div>
+	<div class="my-pop my-window2" style="display:none;">
+		content<br /> content<br /> content<br /> content<br />
 		content<br /> content<br /> content<br /> content<br />
 	</div>
 </div>
@@ -38,11 +43,21 @@ input{*filter:chroma(color=black);}
 //<![CDATA[
 "use strict";
 var $myWindow = $('.my-window');
-$myWindow.window({
+var $myWindow2 = $('.my-window2');
+$('.my-pop').window({
 	show: false,
 	title: '点我干啥？',
+	onBeforeOpen: function(){
+		alert('窗口马上打开！');
+		//return false;时阻止窗口显示
+		return true;
+	},
+	onOpen: function(){
+		alert('刚打开窗口！');
+	},
 	onBeforeClose: function(){
 		return confirm('确定关闭窗口？');
+		//return false;时阻止窗口隐藏
 	},
 	onClose: function(){
 		alert('窗口已经关闭');
@@ -58,6 +73,9 @@ $myWindow.window({
 });
 $('#btn').on('click', function(){
 	$myWindow.window('show');
+});
+$('#btn2').on('click', function(){
+	$myWindow2.window('show');
 });
 //]]>
 </script>

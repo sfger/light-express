@@ -24,17 +24,17 @@ $.fn.window = function(options){
 		init: function(box, options){
 			var $box = $(box);
 			var footer = options.footer.formatter ?
-				'<div class="bar footer cf">' + options.footer.formatter() + '</div>'
+				'<div class="window-bar window-footer cf">' + options.footer.formatter() + '</div>'
 				: '';
 			var ctn = '\
 <div class="window-ctn imgc">\
-	<div class="mask"></div>\
-	<div class="wrapper imge cf">\
-		<div class="bar header cf">\
-			<span class="title">' + (options.title||'') + '</span>\
-			<a href="javascript:;" class="closer">×</a>\
+	<div class="window-mask"></div>\
+	<div class="window-wrapper imge cf">\
+		<div class="window-bar window-header cf">\
+			<span class="window-title">' + (options.title||'') + '</span>\
+			<a href="javascript:;" class="window-closer">×</a>\
 		</div>\
-		<div class="contents"></div>' + footer + '\
+		<div class="window-contents"></div>' + footer + '\
 	</div>\
 	<!--[if lt IE 8]><i class="iecp"></i><![endif]-->\
 </div>';
@@ -42,10 +42,10 @@ $.fn.window = function(options){
 			this.userOptions = options;
 			this.container   = w.get(0);
 			this.render		 = box;
-			this.wraper      = $('.wrapper', w).get(0);
-			this.closer      = $('.closer', w).get(0);
-			this.contents    = $('.contents', w).get(0);
-			this.title		 = $('.title', w).html(options.title).get(0);
+			this.wraper      = $('.window-wrapper', w).get(0);
+			this.closer      = $('.window-closer', w).get(0);
+			this.contents    = $('.window-contents', w).get(0);
+			this.title		 = $('.window-title', w).html(options.title).get(0);
 			$box.show().appendTo(this.contents);
 			var that = this;
 			$(['Height', 'Width']).each(function(i, one){
@@ -61,7 +61,6 @@ $.fn.window = function(options){
 				};
 			});
 
-			$(window).resize(function(){that.resize();});
 			$(this.closer).on('click', function(e){
 				that.close();
 				e.preventDefault();
@@ -69,51 +68,49 @@ $.fn.window = function(options){
 				return false;
 			});
 			if(options.show) this.show();
+			var isIE6      = /MSIE 6.0/.exec(navigator.userAgent);
+			var css1compat = document.compatMode === "CSS1Compat";
+			if(isIE6 || !css1compat) $(window).resize(function(){that.resize();});
+		},
+		resize: function(){
+			var $container = $(this.container);
+			if($container.is(':visible')){
+				$container.css({
+					height:this.getViewWidth(),
+					width:this.getViewHeight()
+				});
+			}
 		},
 		show: function(){
 			var html = document.documentElement;
 			var body = document.body;
-			body.children[0].style.width = body.children[0].offsetWidth + 'px';
+			body.style.width = body.offsetWidth + 'px';
 			var $container = $(this.container),
 				$contents  = $(this.contents),
 				wraper     = this.wraper;
+			if($container.is(':visible')) return false;
 			var css1compat = document.compatMode === "CSS1Compat";
 			var isIE6      = /MSIE 6.0/.exec(navigator.userAgent);
+			var options = this.userOptions;
+			if(options.onBeforeOpen){
+				if(!options.onBeforeOpen()){
+					return false;
+				}
+			}
 			$([html, body]).css({overflow:'hidden'});
 			$container.show();
+			var contentWidth = this.render.offsetWidth;
+			$container.find('.window-bar').css({width:contentWidth});
+			$(wraper).css({width:contentWidth});
 			var scrollTop = html.scrollTop || window.pageYOffset || body.scrollTop;
 			var viewHeight = this.getViewHeight();
 			var viewWidth = this.getViewWidth();
 			if(isIE6 || !css1compat){
-				$container.css({'position':'absolute', 'top':scrollTop});
+				$container.css({height:viewHeight, 'position':'absolute', 'top':scrollTop});
+				$container.hide();
+				$container.show();
 			}
-			var fix_position = function(n){ return n<0?0:n; };
-			$contents.css({
-				height: (wraper.clientHeight>viewHeight ? viewHeight : wraper.clientHeight)
-					- $('.header', wraper).get(0).offsetHeight
-					- (this.userOptions.footer.formatter ? $('.footer', wraper).get(0).offsetHeight : 0)
-					- (isIE6 || !css1compat ? 0 : parseInt($contents.css('paddingTop')))
-					- (isIE6 || !css1compat ? 0 : parseInt($contents.css('paddingBottom')))
-			});
-			return this;
-		},
-		resize: function(){
-			if( $(document.body).css('overflow')!=='hidden' ) return false;
-			var css1compat = document.compatMode === "CSS1Compat";
-			var isIE6      = /MSIE 6.0/.exec(navigator.userAgent);
-			var viewWidth   = this.getViewWidth(),
-				viewHeight  = this.getViewHeight(),
-				wraper      = this.wraper,
-				$contents   = $(this.contents);
-			var fix_position = function(n){ return n<0?0:n; };
-			this.contents.style.height = '';
-			$contents.css({
-				height: (wraper.clientHeight>viewHeight ? viewHeight : wraper.clientHeight)
-					- $('.header', wraper).get(0).offsetHeight
-					- (this.userOptions.footer.formatter ? $('.footer', wraper).get(0).offsetHeight : 0)
-					- (isIE6 || !css1compat ? 0 : parseInt($contents.css('paddingTop')))
-					- (isIE6 || !css1compat ? 0 : parseInt($contents.css('paddingBottom')))
-			});
+			if(options.onOpen) options.onOpen();
 			return this;
 		},
 		close: function(){
@@ -121,7 +118,7 @@ $.fn.window = function(options){
 			if( options.onBeforeClose
 				&& typeof options.onClose==='function'
 				&& !options.onBeforeClose() ) return false;
-			document.body.children[0].style.width = 'auto';
+			document.body.style.width = '';
 			this.container.style.display = 'none';
 			$([document.documentElement, document.body]).css({overflow:''});
 			if(options.onClose && typeof options.onClose==='function') options.onClose();
