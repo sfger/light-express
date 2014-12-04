@@ -21,8 +21,8 @@ input.btn, button.btn{*line-height:0.8;}
 .btn-success{background-color:green;color:white;}
 .btn-success:active{background-image:none;color:#cacaca;}
 input{*filter:chroma(color=black);}
-.my-window{width:400px;height:250px;overflow:hidden;}
-.my-window2{width:800px;height:450px;overflow:hidden;}
+.my-window{width:400px;height:250px;}
+.my-window2{width:800px;height:450px;}
 </style>
 </head>
 <body>
@@ -48,19 +48,20 @@ $('.my-pop').window({
 	show: false,
 	title: '点我干啥？',
 	onBeforeOpen: function(){
-		alert('窗口马上打开！');
+		/* alert('窗口马上打开！'); */
 		//return false;时阻止窗口显示
 		return true;
 	},
 	onOpen: function(){
-		alert('刚打开窗口！');
+		/* alert('刚打开窗口！'); */
 	},
 	onBeforeClose: function(){
-		return confirm('确定关闭窗口？');
-		//return false;时阻止窗口隐藏
+		/* return confirm('确定关闭窗口？'); */
+		return true; // 允许窗口隐藏
+		// return false; // 阻止窗口隐藏
 	},
 	onClose: function(){
-		alert('窗口已经关闭');
+		/* alert('窗口已经关闭'); */
 	},
 	footer:{
 		formatter: function(){

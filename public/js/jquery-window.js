@@ -76,8 +76,8 @@ $.fn.window = function(options){
 			var $container = $(this.container);
 			if($container.is(':visible')){
 				$container.css({
-					height:this.getViewWidth(),
-					width:this.getViewHeight()
+					width: this.getViewWidth(),
+					height: this.getViewHeight()
 				});
 			}
 		},
@@ -89,24 +89,29 @@ $.fn.window = function(options){
 				$contents  = $(this.contents),
 				wraper     = this.wraper;
 			if($container.is(':visible')) return false;
-			var css1compat = document.compatMode === "CSS1Compat";
-			var isIE6      = /MSIE 6.0/.exec(navigator.userAgent);
-			var options = this.userOptions;
+
+			var options	   = this.userOptions;
 			if(options.onBeforeOpen){
 				if(!options.onBeforeOpen()){
 					return false;
 				}
 			}
+
 			$([html, body]).css({overflow:'hidden'});
 			$container.show();
 			var contentWidth = this.render.offsetWidth;
 			$container.find('.window-bar').css({width:contentWidth});
-			$(wraper).css({width:contentWidth});
-			var scrollTop = html.scrollTop || window.pageYOffset || body.scrollTop;
-			var viewHeight = this.getViewHeight();
-			var viewWidth = this.getViewWidth();
+			// $(wraper).css({width:contentWidth});
+			var css1compat = document.compatMode === "CSS1Compat";
+			var isIE6      = /MSIE 6.0/.exec(navigator.userAgent);
 			if(isIE6 || !css1compat){
-				$container.css({height:viewHeight, 'position':'absolute', 'top':scrollTop});
+				var scrollTop = html.scrollTop || window.pageYOffset || body.scrollTop;
+				$container.css({
+					width      : this.getViewWidth(),
+					height     : this.getViewHeight(),
+					'position' : 'absolute',
+					'top'      : scrollTop
+				});
 				$container.hide();
 				$container.show();
 			}
