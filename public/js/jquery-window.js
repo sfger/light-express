@@ -1,4 +1,4 @@
-(function($){
+(function($, undefined){
 "use strict";
 $.fn.window = function(options){
 	var type = $.type(options);

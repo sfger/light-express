@@ -1,6 +1,6 @@
-(function($){
+(function($, undefined){
 "use strict";
-$.fn.tabs=function(options){
+$.fn.tabs = function(options){
 	if(!options){
 		var iTabs = [];
 		this.each(function(){

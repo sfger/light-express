@@ -1,13 +1,18 @@
+(function($, undefined){
 "use strict";
-(function($){
-$.fn.accordion=function(options){
-	if(!options){
-		var iAccordions = [];
+$.fn.accordion = function(options){
+	var type = $.type(options);
+	if(type==='string'){
 		this.each(function(){
-			if(this.ui && this.ui.iAccordion) iAccordions.push(this.ui.iAccordion);
-			else throw new Error('UI does not init...');
+			var ui = $(this).data('ui');
+			if(ui&&ui.iAccordion){
+				$(this).data('ui').iAccordion[options]();
+			}else{
+				throw new Error('UI:window does not init...');
+				return false;
+			}
 		});
-		return iAccordions;
+		return true;
 	}
 	options = $.extend(true, {
 		data: []
@@ -82,9 +87,9 @@ $.fn.accordion=function(options){
 	};
 	handler.prototype.init.prototype = handler.prototype;
 	return this.each(function(){
-		this.ui = {
+		$(this).data('ui', {
 			iAccordion: handler(this, $.extend({}, options))
-		};
+		});
 	});
 };
 })(jQuery);
