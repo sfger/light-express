@@ -1,13 +1,18 @@
-(function($){
+(function($, undefined){
 "use strict";
-$.fn.tree=function(options){
-	if(!options){
-		var iTrees = [];
+$.fn.tree = function(options){
+	var type = $.type(options);
+	if(type==='string'){
 		this.each(function(){
-			if(this.ui && this.ui.iTree) iTrees.push(this.ui.iTree);
-			else throw new Error('UI does not init...');
+			var ui = $(this).data('ui');
+			if(ui&&ui.iTree){
+				ui.iTree[options]();
+			}else{
+				throw new Error('UI:window does not init...');
+				return false;
+			}
 		});
-		return iTrees;
+		return true;
 	}
 	options = $.extend(true, {
 		animate: {time:0},
@@ -59,7 +64,6 @@ $.fn.tree=function(options){
 			name.className = 'title';
 		}
 	};
-	var getType = function(obj){ return toString.call(obj).slice(8, -1); };
 	handler.prototype = {
 		init: function(box, options){
 			var that = this;
@@ -344,11 +348,10 @@ $.fn.tree=function(options){
 	};
 	handler.prototype.init.prototype = handler.prototype;
 	return this.each(function(){
-		this.ui = {
+		$(this).data('ui', {
 			iTree: handler(this, $.extend({}, options))
-		};
+		});
 	});
-	//return handler(this, options);
 };
 })(jQuery);
 /* vim: set fdm=marker : */

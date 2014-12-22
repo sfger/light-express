@@ -1,13 +1,18 @@
-(function($){
+(function($, undefined){
 "use strict";
-$.fn.datagrid=function(options){
-	if(!options){
-		var iDatagrids = [];
+$.fn.datagrid = function(options){
+	var type = $.type(options);
+	if(type==='string'){
 		this.each(function(){
-			if(this.ui && this.ui.iDatagrid) iDatagrids.push(this.ui.iDatagrid);
-			else throw new Error('UI does not init...');
+			var ui = $(this).data('ui');
+			if(ui&&ui.iDatagrid){
+				ui.iDatagrid[options]();
+			}else{
+				throw new Error('UI:window does not init...');
+				return false;
+			}
 		});
-		return iDatagrids;
+		return true;
 	}
 	options = $.extend(true, {
 		colWidth:80,
@@ -350,9 +355,9 @@ $.fn.datagrid=function(options){
 	};
 	handler.prototype.init.prototype = handler.prototype;
 	return this.each(function(){
-		this.ui = {
+		$(this).data('ui', {
 			iDatagrid: handler(this, $.extend({}, options))
-		}
+		});
 	});
 };
 })(jQuery);

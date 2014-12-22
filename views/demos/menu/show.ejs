@@ -31,7 +31,8 @@
 try {
 	document.execCommand('BackgroundImageCache', false, true);
 }catch(e){}
-var my_menu = $('#my_menu').menu({
+var $myMenu = $('#my_menu');
+$('#my_menu').menu({
 	width: 100,
 	data: [
 		{name:'chart', icon:'chart', text:'流量'},
@@ -86,10 +87,10 @@ var my_menu = $('#my_menu').menu({
 	onClick: function(item){
 		alert(item.name);
 	}
-}).menu();
+});
 $(document).on({
 	contextmenu: function(e){
-		my_menu[0].show(e);
+		$myMenu.menu('show', e);
 		return false;
 	}
 });

@@ -1,17 +1,18 @@
-(function($){
+(function($, undefined){
 "use strict";
-$.fn.layout=function(options){
-	if(!options){
-		var iLayouts = [];
+$.fn.layout = function(options){
+	var type = $.type(options);
+	if(type==='string'){
 		this.each(function(){
 			var ui = $(this).data('ui');
-			if(ui && ui.iLayout){
-				iLayouts.push(ui.iLayout);
+			if(ui&&ui.iLayout){
+				ui.iLayout[options]();
 			}else{
-				throw new Error('UI does not init...');
+				throw new Error('UI:window does not init...');
+				return false;
 			}
 		});
-		return iLayouts;
+		return true;
 	}
 	options = $.extend(true, {
 		panel: {

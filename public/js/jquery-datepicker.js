@@ -1,4 +1,4 @@
-(function($) {
+(function($, undefined){
     "use strict";
     var strtotime = function( str ){
         return Date.parse( str.replace(/-/g, '/') )/1000;

@@ -1,18 +1,23 @@
-(function($){
+(function($, undefined){
 "use strict";
-$.fn.menu=function(options){
-	if(!options){
-		var iMenus = [];
+$.fn.menu = function(method, op){
+	var type = $.type(method);
+	if(type==='string'){
 		this.each(function(){
-			if(this.ui && this.ui.iMenu) iMenus.push(this.ui.iMenu);
-			else throw new Error('UI does not init...');
+			var ui = $(this).data('ui');
+			if(ui&&ui.iMenu){
+				ui.iMenu[method](op);
+			}else{
+				throw new Error('UI:window does not init...');
+				return false;
+			}
 		});
-		return iMenus;
+		return true;
 	}
-	options = $.extend(true, {
+	var options = $.extend(true, {
 		animate: {time:0},
 		data: []
-	}, options);
+	}, method);
 	var handler = function(box, options){ return new handler.prototype.init(box, options); };
 	handler.prototype = {
 		init: function(box, options){
@@ -141,6 +146,7 @@ $.fn.menu=function(options){
 					}, 300);
 				}
 			});
+			console.log(options);
 			options.onCreate.bind(this)();
 		},
 		show: function(e){
@@ -225,9 +231,9 @@ $.fn.menu=function(options){
 	};
 	handler.prototype.init.prototype = handler.prototype;
 	return this.each(function(){
-		this.ui = {
-			iMenu: handler(this, $.extend({}, options))
-		}
+		$(this).data('ui', {
+			iMenu: handler(this, $.extend(true, {}, options))
+		});
 	});
 };
 })(jQuery);
