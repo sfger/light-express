@@ -6,7 +6,7 @@ $.fn.window = function(options){
 		this.each(function(){
 			var ui = $(this).data('ui');
 			if(ui&&ui.iWindow){
-				$(this).data('ui').iWindow[options]();
+				ui.iWindow[options]();
 			}else{
 				throw new Error('UI:window does not init...');
 				return false;
@@ -32,13 +32,13 @@ $.fn.window = function(options){
 	<div class="window-wrapper imge cf">\
 		<div class="window-bar window-header cf">\
 			<span class="window-title">' + (options.title||'') + '</span>\
-			<a href="javascript:;" class="window-closer">×</a>\
+			<a href="javascript:;" class="window-closer">&times;</a>\
 		</div>\
 		<div class="window-contents"></div>' + footer + '\
 	</div>\
 	<!--[if lt IE 8]><i class="iecp"></i><![endif]-->\
 </div>';
-			var w = $(ctn.replace(/>\s+</g, '><')).appendTo(document.body);
+			var w = $(ctn.replace(/(\/?>)\s+|\s+(?=<)/g, '$1')).appendTo(document.body);
 			this.userOptions = options;
 			this.container   = w.get(0);
 			this.render		 = box;
@@ -63,8 +63,6 @@ $.fn.window = function(options){
 
 			$(this.closer).on('click', function(e){
 				that.close();
-				e.preventDefault();
-				e.stopPropagation();
 				return false;
 			});
 			if(options.show) this.show();

@@ -82,9 +82,8 @@
 <script type="text/javascript" src="<%-___%>/js/ecmaShim.js"></script>
 <script type="text/javascript" src="<%-___%>/js/jquery-tabs.js"></script>
 <script type="text/javascript">
-//<![CDATA[
 $(function(){
-	var my_tabs = $('.tab-container').tabs({
+	$('.tab-container').tabs({
 		width:1200,
 		height:60,
 		tabWidth:150,
@@ -92,8 +91,7 @@ $(function(){
 		border:true,
 		selected:1,
 		position:'north'
-	}).tabs();
-	my_tabs[0].add({
+	}).tabs('add', {
 		title:'new Add',
 		content:'new Add<br />test',
 		closable:true,
@@ -101,7 +99,6 @@ $(function(){
 		select:true
 	}, 2);
 });
-//]]>
 </script>
 </body>
 </html>

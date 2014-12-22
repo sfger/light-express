@@ -6,7 +6,7 @@ $.fn.datagrid = function(options){
 		this.each(function(){
 			var ui = $(this).data('ui');
 			if(ui&&ui.iDatagrid){
-				$(this).data('ui').iDatagrid[options]();
+				ui.iDatagrid[options]();
 			}else{
 				throw new Error('UI:window does not init...');
 				return false;

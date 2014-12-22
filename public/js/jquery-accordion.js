@@ -6,7 +6,7 @@ $.fn.accordion = function(options){
 		this.each(function(){
 			var ui = $(this).data('ui');
 			if(ui&&ui.iAccordion){
-				$(this).data('ui').iAccordion[options]();
+				ui.iAccordion[options]();
 			}else{
 				throw new Error('UI:window does not init...');
 				return false;

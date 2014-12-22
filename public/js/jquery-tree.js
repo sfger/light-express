@@ -6,7 +6,7 @@ $.fn.tree = function(options){
 		this.each(function(){
 			var ui = $(this).data('ui');
 			if(ui&&ui.iTree){
-				$(this).data('ui').iTree[options]();
+				ui.iTree[options]();
 			}else{
 				throw new Error('UI:window does not init...');
 				return false;

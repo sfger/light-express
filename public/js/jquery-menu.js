@@ -6,7 +6,7 @@ $.fn.menu = function(method, op){
 		this.each(function(){
 			var ui = $(this).data('ui');
 			if(ui&&ui.iMenu){
-				$(this).data('ui').iMenu[method](op);
+				ui.iMenu[method](op);
 			}else{
 				throw new Error('UI:window does not init...');
 				return false;
@@ -14,7 +14,7 @@ $.fn.menu = function(method, op){
 		});
 		return true;
 	}
-	options = $.extend(true, {
+	var options = $.extend(true, {
 		animate: {time:0},
 		data: []
 	}, method);

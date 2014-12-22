@@ -6,7 +6,7 @@ $.fn.layout = function(options){
 		this.each(function(){
 			var ui = $(this).data('ui');
 			if(ui&&ui.iLayout){
-				$(this).data('ui').iLayout[options]();
+				ui.iLayout[options]();
 			}else{
 				throw new Error('UI:window does not init...');
 				return false;

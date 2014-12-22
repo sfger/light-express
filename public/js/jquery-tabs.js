@@ -1,13 +1,19 @@
 (function($, undefined){
 "use strict";
 $.fn.tabs = function(options){
-	if(!options){
-		var iTabs = [];
+	var type = $.type(options);
+	if(type==='string'){
+		var args = Array.prototype.slice.call(arguments).slice(1);
 		this.each(function(){
-			if(this.ui && this.ui.iTab) iTabs.push(this.ui.iTab);
-			else throw new Error('UI does not init...');
+			var ui = $(this).data('ui');
+			if(ui&&ui.iTab){
+				ui.iTab[options].apply(ui.iTab, args);
+			}else{
+				throw new Error('UI:window does not init...');
+				return false;
+			}
 		});
-		return iTabs;
+		return true;
 	}
 	options = $.extend(true, {
 		width:900,
@@ -133,9 +139,9 @@ $.fn.tabs = function(options){
 	};
 	handler.prototype.init.prototype = handler.prototype;
 	return this.each(function(){
-		this.ui = {
+		$(this).data('ui', {
 			iTab: handler(this, $.extend({}, options))
-		}
+		});
 	});
 };
 })(jQuery);
