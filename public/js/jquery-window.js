@@ -131,7 +131,7 @@ $.fn.window = function(options){
 	handler.prototype.init.prototype = handler.prototype;
 	return this.each(function(){
 		$(this).data('ui', {
-			iWindow: handler(this, $.extend({}, options))
+			iWindow: handler(this, $.extend(true, {}, options))
 		});
 	});
 };

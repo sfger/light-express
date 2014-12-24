@@ -8,7 +8,7 @@ $.fn.accordion = function(options){
 			if(ui&&ui.iAccordion){
 				ui.iAccordion[options]();
 			}else{
-				throw new Error('UI:window does not init...');
+				throw new Error('UI:accordion does not init...');
 				return false;
 			}
 		});
@@ -88,7 +88,7 @@ $.fn.accordion = function(options){
 	handler.prototype.init.prototype = handler.prototype;
 	return this.each(function(){
 		$(this).data('ui', {
-			iAccordion: handler(this, $.extend({}, options))
+			iAccordion: handler(this, $.extend(true, {}, options))
 		});
 	});
 };

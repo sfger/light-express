@@ -8,7 +8,7 @@ $.fn.menu = function(method, op){
 			if(ui&&ui.iMenu){
 				ui.iMenu[method](op);
 			}else{
-				throw new Error('UI:window does not init...');
+				throw new Error('UI:menu does not init...');
 				return false;
 			}
 		});

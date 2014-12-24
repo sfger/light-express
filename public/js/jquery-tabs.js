@@ -9,7 +9,7 @@ $.fn.tabs = function(options){
 			if(ui&&ui.iTab){
 				ui.iTab[options].apply(ui.iTab, args);
 			}else{
-				throw new Error('UI:window does not init...');
+				throw new Error('UI:tabs does not init...');
 				return false;
 			}
 		});
@@ -140,7 +140,7 @@ $.fn.tabs = function(options){
 	handler.prototype.init.prototype = handler.prototype;
 	return this.each(function(){
 		$(this).data('ui', {
-			iTab: handler(this, $.extend({}, options))
+			iTab: handler(this, $.extend(true, {}, options))
 		});
 	});
 };

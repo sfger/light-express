@@ -30,16 +30,7 @@
 <script type="text/javascript" src="<%-___%>/js/jquery-window.js"></script>
 <script type="text/javascript">
 var payWindow = $('.b5m-pay');
-payWindow.window({
-	/* show: true, */
-	/* title: '', */
-	/* onBeforeClose: function(){ */
-	/* 	return confirm('确定关闭窗口？'); */
-	/* }, */
-	/* onClose: function(){ */
-	/* 	alert('窗口已经关闭'); */
-	/* }, */
-});
+payWindow.window();
 $('#btn').on('click', function(){
 	payWindow.window('show');
 });

@@ -12,6 +12,7 @@ router.get(['/demos/index', '/demos/', '/demos'], function(req, res) {
 		if(exists){
 			res.render(view, {
 				dir:dir,
+				dist:req.query.dist,
 				___: req.query.dist == 1 ? view.replace(/[^\/]+/g, '..') : ''
 			}, express.UserConfig.dist.bind({req:req, res:res, distPath:view}));
 		}else{

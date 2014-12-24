@@ -4,14 +4,13 @@ input.btn, button.btn{*line-height:0.8;}
 .btn-success{background-color:green;color:white;}
 .btn-success:active{background-image:none;color:#cacaca;}
 input{*filter:chroma(color=black);}
-.my-window{width:400px;height:250px;}
-.my-window2{width:800px;height:450px;}</style></head><body><div id="page"><a id="btn" class="btn" href="javascript:;">打开窗口</a><a id="btn2" class="btn" href="javascript:;">打开窗口2</a><div class="my-pop my-window" style="display:none;">content<br />content<br />content<br />content<br /></div><div class="my-pop my-window2" style="display:none;">content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br /></div></div><script type="text/javascript" src="../lib/jquery-min.js"></script><script type="text/javascript" src="../js/jquery-window.js"></script><script type="text/javascript">//<![CDATA[
-"use strict";
+.my-window{width:400px;height:200px;}
+.my-window2{width:550px;height:320px;}</style></head><body><div id="page"><a id="btn" class="btn" href="javascript:;">打开窗口</a><a id="btn2" class="btn" href="javascript:;">打开窗口2</a><div class="my-pop my-window" style="display:none;">content<br />content<br />content<br />content<br /></div><div class="my-pop my-window2" style="display:none;">content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br /></div></div><script type="text/javascript" src="../lib/jquery-min.js"></script><script type="text/javascript" src="../js/jquery-window.js"></script><script type="text/javascript">"use strict";
 var $myWindow = $('.my-window');
 var $myWindow2 = $('.my-window2');
 $('.my-pop').window({
 	show: false,
-	title: '点我干啥？',
+	title: '<span style="color:red;">点我干啥？</span>',
 	onBeforeOpen: function(){
 		/* alert('窗口马上打开！'); */
 		//return false;时阻止窗口显示
@@ -30,10 +29,8 @@ $('.my-pop').window({
 	},
 	footer:{
 		formatter: function(){
-			return '<input type="button" class="btn btn-sl btn-success" value="确定">' +
-				'<input type="button" class="btn btn-sl btn-success" value="取消">';
-				// '<a href="javascript:;" class="btn">确定</a>' +
-				// '<a href="javascript:;" class="btn">取消</a>';
+			return '<a href="javascript:;" class="btn btn-success">取消</a>' +
+				 '<a href="javascript:;" class="btn btn-success">确定</a>';
 		}
 	}
 });
@@ -42,5 +39,4 @@ $('#btn').on('click', function(){
 });
 $('#btn2').on('click', function(){
 	$myWindow2.window('show');
-});
-//]]></script></body></html>
+});</script></body></html>
