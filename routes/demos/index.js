@@ -10,9 +10,11 @@ router.get(['/demos/index', '/demos/', '/demos'], function(req, res) {
 	var view_path = path.normalize(process.cwd() + '/views/' + view + '.ejs');
 	fs.exists(view_path, function(exists){
 		if(exists){
+			console.log(view, view.replace(/\\/g, '/').replace(/[^\/]+/g, '..'));
 			res.render(view, {
 				dir:dir,
-				___: req.query.dist == 1 ? view.replace(/[^\/]+/g, '..') : ''
+				dist:req.query.dist,
+				___: req.query.dist == 1 ? view.replace(/\\/g, '/').replace(/[^\/]+/g, '..') : ''
 			}, express.UserConfig.dist.bind({req:req, res:res, distPath:view}));
 		}else{
 			res.writeHead(404, {"Content-Type": 'Not Found'});

@@ -8,7 +8,7 @@ $.fn.tree = function(options){
 			if(ui&&ui.iTree){
 				ui.iTree[options]();
 			}else{
-				throw new Error('UI:window does not init...');
+				throw new Error('UI:tree does not init...');
 				return false;
 			}
 		});
@@ -348,9 +348,11 @@ $.fn.tree = function(options){
 	};
 	handler.prototype.init.prototype = handler.prototype;
 	return this.each(function(){
-		$(this).data('ui', {
-			iTree: handler(this, $.extend({}, options))
-		});
+		var $this = $(this);
+		var instance = handler(this, $.extend(true, {}, options));
+		var ui = $this.data('ui');
+		if(ui) ui.iTree = instance;
+		else $this.data('ui', {iTree:instance});
 	});
 };
 })(jQuery);

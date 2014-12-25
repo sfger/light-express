@@ -24,9 +24,15 @@
 	<div class="resize-bar bar-north"><span></span></div>
 	<div class="layout-middle-container cf">
 		<div class="layout-west">west</div>
-		<div class="resize-bar bar-west"><span></span></div>
+		<div class="resize-bar bar-west imgc">
+			<span class="imge"></span>
+			<!--[if lt IE 8]><i class="iecp"></i><![endif]-->
+		</div>
 		<div class="layout-east">east</div>
-		<div class="resize-bar bar-east"><span></span></div>
+		<div class="resize-bar bar-east imgc">
+			<span class="imge"></span>
+			<!--[if lt IE 8]><i class="iecp"></i><![endif]-->
+		</div>
 		<div class="layout-center">
 			center<br /> center<br /> center<br /> center<br /> center<br /> center<br /> center<br />
 			center<br /> center<br /> center<br /> center<br /> center<br /> center<br /> center<br />
@@ -52,8 +58,6 @@
 <script type="text/javascript" src="<%-___%>/lib/jquery-min.js"></script>
 <script type="text/javascript" src="<%-___%>/js/jquery-layout.js"></script>
 <script type="text/javascript">
-//<![CDATA[
-"use strict";
 $('#page').layout({
 	panel: {
 		toggle: true,

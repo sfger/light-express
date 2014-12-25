@@ -13,7 +13,7 @@
 	}
 	.head td:hover,.body tr:hover{background:#e6e6e6;}
 	.cell{padding:1px 3px;overflow:hidden;line-height:20px;text-align:center;white-space:nowrap;color:#333;}
-	.sort-mark{@extend %ib;font-family:"宋体";color:#9e9e9e;}
+	.sort-mark{@extend %ib;font-family:"宋体";color:#b90;font-weight:bold;}
 	.field{cursor:pointer;}
 	.autoRowHeight .cell{height:auto;}
 	.head .cell{font-family:"MicroSoft Yahei";color:#000;}

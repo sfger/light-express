@@ -9,6 +9,12 @@
 //webkit多行溢出省略
 %mln{overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;}
 
+@mixin user-select($val){
+	-moz-user-select:none;
+	-webkit-user-select:none;
+	-ms-user-select:none;
+	user-select:none;
+}
 @mixin opacity($val:0.5){
 	opacity:$val;
 	filter:alpha(opacity=$val*100);
