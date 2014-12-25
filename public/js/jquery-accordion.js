@@ -87,9 +87,11 @@ $.fn.accordion = function(options){
 	};
 	handler.prototype.init.prototype = handler.prototype;
 	return this.each(function(){
-		$(this).data('ui', {
-			iAccordion: handler(this, $.extend(true, {}, options))
-		});
+		var $this = $(this);
+		var instance = handler(this, $.extend(true, {}, options));
+		var ui = $this.data('ui');
+		if(ui) ui.iAccordion = instance;
+		else $this.data('ui', {iAccordion:instance});
 	});
 };
 })(jQuery);

@@ -231,9 +231,11 @@ $.fn.menu = function(method, op){
 	};
 	handler.prototype.init.prototype = handler.prototype;
 	return this.each(function(){
-		$(this).data('ui', {
-			iMenu: handler(this, $.extend(true, {}, options))
-		});
+		var $this = $(this);
+		var instance = handler(this, $.extend(true, {}, options));
+		var ui = $this.data('ui');
+		if(ui) ui.iMenu = instance;
+		else $this.data('ui', {iMenu:instance});
 	});
 };
 })(jQuery);

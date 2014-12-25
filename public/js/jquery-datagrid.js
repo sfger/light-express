@@ -355,9 +355,11 @@ $.fn.datagrid = function(options){
 	};
 	handler.prototype.init.prototype = handler.prototype;
 	return this.each(function(){
-		$(this).data('ui', {
-			iDatagrid: handler(this, $.extend(true, {}, options))
-		});
+		var $this = $(this);
+		var instance = handler(this, $.extend(true, {}, options));
+		var ui = $this.data('ui');
+		if(ui) ui.iDatagrid = instance;
+		else $this.data('ui', {iDatagrid:instance});
 	});
 };
 })(jQuery);
