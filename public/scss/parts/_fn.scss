@@ -10,10 +10,10 @@
 %mln{overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;}
 
 @mixin user-select($val){
-	-moz-user-select:none;
-	-webkit-user-select:none;
-	-ms-user-select:none;
-	user-select:none;
+	-moz-user-select:$val;
+	-webkit-user-select:$val;
+	-ms-user-select:$val;
+	user-select:$val;
 }
 @mixin opacity($val:0.5){
 	opacity:$val;
