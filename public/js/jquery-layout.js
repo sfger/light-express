@@ -85,7 +85,7 @@ $.fn.layout = function(options){
 				that = this;
 			$('.resize-bar').on({
 				'mousedown': function(e){
-					if(e.target.nodeName=="SPAN") return false;
+					if($(e.target).hasClass('imge')) return false;
 					var pops = that.userOptions.panel.each;
 					var bar = this,
 						$bar = $(bar);
@@ -156,7 +156,7 @@ $.fn.layout = function(options){
 		},
 		panelToggle: function(){
 			var that = this;
-			$('.resize-bar span', this.box).click(function(e){
+			$('.resize-bar .imge', this.box).click(function(e){
 				var $bar = $(this).parent(),
 					$toggle_box = $bar.hasClass('bar-south') ? $bar.next() : $bar.prev(),
 					pops = that.userOptions.panel.each;
@@ -205,7 +205,7 @@ $.fn.layout = function(options){
 									- getElementWidth(panels.east)
 									- getElementWidth(panelBars.west)
 									- getElementWidth(panelBars.east);
-				$('.layout-center', this.box).css({'float':'left', 'width':center_width, 'height':md_container_height});
+				// $('.layout-center', this.box).css({'width':center_width, 'height':md_container_height});
 				$('.layout-middle-container>div', this.box).height(md_container_height);
 			}
 		}

@@ -15,7 +15,7 @@
 <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
 <link rel="stylesheet" type="text/css" href="<%-___%>/css/base.css" />
 <style type="text/css" media="all">
-.item{width:200px;height:200px;overflow:hidden;border:1px solid #666;background:#ddd;margin-left:5px;position:relative;text-decoration:none;cursor:pointer;vertical-align:middle;}
+.item{width:200px;height:200px;border:1px solid #666;background:#ddd;margin-left:5px;position:relative;text-decoration:none;cursor:pointer;vertical-align:middle;}
 .list{margin-bottom:5px;}
 .list .img-cover,.list .img-intro{transition:all 0.25s ease-out 0s;transform:scale(0);opacity:0;filter:alpha(opacity=0);}
 .item:hover .img-intro,.item:hover .img-cover{transform:scale(1);opacity:1;filter:alpha(opacity=100);}
@@ -33,18 +33,18 @@
 	<%
 	var img_list = [
 		"http://placehold.it/100x100/000/fff",
-		"http://placehold.it/200x300/000/fff",
-		"http://placehold.it/300x200/000/fff",
-		"http://placehold.it/500x500/000/fff",
-		"http://placehold.it/800x300/000/fff"
+		"http://placehold.it/200x200/000/fff",
+		"http://placehold.it/200x200/000/fff",
+		"http://placehold.it/200x200/000/fff",
+		"http://placehold.it/200x200/000/fff"
 	];
 	var len = img_list.length;
 	%>
-	<div class="grid list">
+	<div class="imgc list">
 		<% for(var i=0; i<len; i++){ %>
-		<a href="http://www.baidu.com" target="_blank" class="col imgc item">
-			<img class="imge" src="<%-img_list[i]%>" alt="image" />
-			<!--[if lt IE 8]><span class="iecp"></span><![endif]--> 
+		<a href="http://www.baidu.com" target="_blank" class="imge imgc item">
+			<div class="imge"><img src="<%-img_list[i]%>" alt="image" /></div>
+			<!--[if lt IE 8]><p class="iecp"></p><![endif]--> 
 			<div class="imge img-intro">
 				<div class="tit">标题标题</div>
 				<div class="desc">
@@ -55,11 +55,11 @@
 		</a>
 		<% } %>
 	</div>
-	<div class="grid list">
+	<div class="imgc list">
 		<% for(var i=0; i<len; i++){ %>
-		<a href="http://www.baidu.com" target="_blank" class="col imgc item">
-			<img class="imge" src="<%-img_list[i]%>" alt="image" />
-			<!--[if lt IE 8]><span class="iecp"></span><![endif]--> 
+		<a href="http://www.baidu.com" target="_blank" class="imge imgc item">
+			<div class="imge"><img src="<%-img_list[i]%>" alt="image" /></div>
+			<!--[if lt IE 8]><p class="iecp"></p><![endif]--> 
 			<div class="imge img-cover">
 				<div class="img-mask"></div>
 				<div class="img-intro">
@@ -73,11 +73,11 @@
 		</a>
 		<% } %>
 	</div>
-	<div class="grid list">
+	<div class="imgc list">
 		<% for(var i=0; i<len; i++){ %>
-		<div class="col imgc item">
-			<img class="imge" src="<%-img_list[i]%>" alt="image" />
-			<!--[if lt IE 8]><span class="iecp"></span><![endif]--> 
+		<div class="imge imgc item">
+			<div class="imge"><img src="<%-img_list[i]%>" alt="image" /></div>
+			<!--[if lt IE 8]><p class="iecp"></p><![endif]--> 
 			<div class="imge img-intro">
 				<div class="tit">标题标题</div>
 				<div class="desc">
@@ -88,11 +88,11 @@
 		</div>
 		<% } %>
 	</div>
-	<div class="grid list">
+	<div class="imgc list">
 		<% for(var i=0; i<len; i++){ %>
-		<div class="col imgc item">
-			<img class="imge" src="<%-img_list[i]%>" alt="image" />
-			<!--[if lt IE 8]><span class="iecp"></span><![endif]--> 
+		<div class="imge imgc item">
+			<div class="imge"><img src="<%-img_list[i]%>" alt="image" /></div>
+			<!--[if lt IE 8]><p class="iecp"></p><![endif]--> 
 			<div class="imge img-cover">
 				<div class="img-mask"></div>
 				<div class="img-intro">

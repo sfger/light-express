@@ -1,8 +1,8 @@
 @charset "utf-8";
 .datagrid-container{
-	@extend .grid;overflow:hidden;
+	font-size:0;line-height:0;overflow:hidden;
 	.view-wrapper{position:relative;}
-	.view{@extend .col;vertical-align:top;}
+	.view{@extend %ib;vertical-align:top;font-size:14px;font-size:1rem;line-height:normal;}
 	.head-wrapper{overflow:hidden;}
 	.body-wrapper{/*height:320px;*height:250px;*/overflow:auto;}
 	table,td{border:1px solid #ccc;}

@@ -1,18 +1,21 @@
 (function($, undefined){
-"use strict";
+// "use strict";
 $.fn.tree = function(options){
 	var type = $.type(options);
 	if(type==='string'){
+		var args = Array.prototype.slice.call(arguments).slice(1);
+		var ret = [];
 		this.each(function(){
 			var ui = $(this).data('ui');
 			if(ui&&ui.iTree){
-				ui.iTree[options]();
+				ret.push(ui.iTree[options].apply(ui.iTree, args));
 			}else{
 				throw new Error('UI:tree does not init...');
 				return false;
 			}
 		});
-		return true;
+		if(options=="isLeaf") return ret[0];
+		else return this;
 	}
 	options = $.extend(true, {
 		animate: {time:0},
