@@ -23,7 +23,6 @@ $(function(){
 		animate:{time:115},
 		onClick:function(e){
 			var option = this.option;
-			console.log(leftMenu.tree('isLeaf', this, 'test'));
 			if(!leftMenu.tree('isLeaf', this, 'test')){
 				return false;
 			}

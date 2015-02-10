@@ -205,7 +205,7 @@ $.fn.layout = function(options){
 									- getElementWidth(panels.east)
 									- getElementWidth(panelBars.west)
 									- getElementWidth(panelBars.east);
-				$('.layout-center', this.box).css({'float':'left', 'width':center_width, 'height':md_container_height});
+				// $('.layout-center', this.box).css({'width':center_width, 'height':md_container_height});
 				$('.layout-middle-container>div', this.box).height(md_container_height);
 			}
 		}
