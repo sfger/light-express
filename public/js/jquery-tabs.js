@@ -16,7 +16,6 @@ $.fn.tabs = function(options){
 		return true;
 	}
 	options = $.extend(true, {
-		width:900,
 		height:80,
 		tabWidth:160,
 		border:true,
