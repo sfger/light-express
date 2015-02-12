@@ -30,9 +30,10 @@ $.fn.window = function(options){
 <div class="window-ctn imgc">\
 	<div class="window-mask"></div>\
 	<div class="window-wrapper imge cf">\
-		<div class="window-bar window-header cf">\
-			<span class="window-title">' + (options.title||'') + '</span>\
-			<a href="javascript:;" class="window-closer">&times;</a>\
+		<div class="window-bar window-header imgc">\
+			<span class="window-title imge">' + (options.title||'') + '</span>\
+			<a href="javascript:;" class="window-closer imge">&times;</a>\
+			<!--[if lt IE 8]><p class="iecp"></p><![endif]-->\
 		</div>\
 		<div class="window-contents"></div>' + footer + '\
 	</div>\
@@ -46,7 +47,7 @@ $.fn.window = function(options){
 			this.closer      = $('.window-closer', w).get(0);
 			this.contents    = $('.window-contents', w).get(0);
 			this.title		 = $('.window-title', w).html(options.title).get(0);
-			$box.show().appendTo(this.contents);
+			$box.addClass('window-view').show().appendTo(this.contents);
 			var that = this;
 			$(['Height', 'Width']).each(function(i, one){
 				that['getView'+one] = (function () {
@@ -69,6 +70,7 @@ $.fn.window = function(options){
 			var isIE6      = /MSIE 6.0/.exec(navigator.userAgent);
 			var css1compat = document.compatMode === "CSS1Compat";
 			if(isIE6 || !css1compat) $(window).resize(function(){that.resize();});
+			if(options.onCreate && typeof options.onCreate==='function') options.onCreate();
 		},
 		resize: function(){
 			var $container = $(this.container);
@@ -79,6 +81,7 @@ $.fn.window = function(options){
 				});
 			}
 		},
+		open: function(){ this.show(); }, // alias for show
 		show: function(){
 			var html = document.documentElement;
 			var body = document.body;
@@ -95,11 +98,10 @@ $.fn.window = function(options){
 				}
 			}
 
-			$([html, body]).css({overflow:'hidden'});
+			// $([html, body]).css({overflow:'hidden'});
 			$container.show();
 			var contentWidth = this.render.offsetWidth;
 			$container.find('.window-bar').css({width:contentWidth});
-			// $(wraper).css({width:contentWidth});
 			var css1compat = document.compatMode === "CSS1Compat";
 			var isIE6      = /MSIE 6.0/.exec(navigator.userAgent);
 			if(isIE6 || !css1compat){
@@ -112,9 +114,14 @@ $.fn.window = function(options){
 				});
 				$container.hide();
 				$container.show();
+				$(window).on('scroll', {el: this.container}, this.scrollIE6);
 			}
 			if(options.onOpen) options.onOpen();
 			return this;
+		},
+		scrollIE6: function(e){
+			var scrollTop = document.documentElement.scrollTop || window.pageYOffset || document.body.scrollTop;
+			$(e.data.el).css({ 'top': scrollTop });
 		},
 		close: function(){
 			var options = this.userOptions;
@@ -123,7 +130,8 @@ $.fn.window = function(options){
 				&& !options.onBeforeClose() ) return false;
 			document.body.style.width = '';
 			this.container.style.display = 'none';
-			$([document.documentElement, document.body]).css({overflow:''});
+			// $([document.documentElement, document.body]).css({overflow:''});
+			$(window).off('scroll', this.scrollIE6);
 			if(options.onClose && typeof options.onClose==='function') options.onClose();
 			return this;
 		}
