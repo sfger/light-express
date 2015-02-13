@@ -7,6 +7,6 @@
 .imge,.imgc:before,.iecp{@extend %ib;}
 .imge{
 	font-size:12px;font-size:1rem;line-height:normal;
-	&,img{max-width:100%;max-height:100%;}
+	@at-root img#{&},& img{max-width:100%;max-height:100%;}
 }
 .imgc:before,.iecp{content:"";height:100%;font-size:0;line-height:0;width:0;}
