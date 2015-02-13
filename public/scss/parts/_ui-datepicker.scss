@@ -1,86 +1,31 @@
 @charset "utf-8";
 .ui-datetimepicker{
-    display:none;
-    background:white;
-    z-index:100;
-    border:1px solid #ddd;
-    float:left;
-    padding:1px;
-	li{
-		list-style:none;
-	}
+    display:none;background:white;z-index:100;border:1px solid #ddd;float:left;padding:1px;
+	li{list-style:none;}
     .l-head{
-        background:#004fb8;
-        position:relative;
-        height:17px;
-        padding:3px;
-        line-height:17px;
-        li{
-            float:left;
-            width:194px;
-            text-align:center;
-            color:white;
-            font-weight:bold;
-        }
+		position:relative;height:17px;padding:3px;line-height:17px;background:#004fb8;
+        li{float:left;width:194px;text-align:center;color:white;font-weight:bold;}
     }
     .l-switcher{
-        position:absolute;
-        height:17px;
-        width:17px;
-        font:bold 12px/17px MicroSoft YaHei;
-        // font-weight:bold;
-        text-decoration:none;
-        color:white;
-        top:3px;
-        text-align:center;
-        background:#4385e0;
+		position:absolute;top:3px;height:17px;width:17px;font:bold 12px/17px "MicroSoft YaHei";
+        text-decoration:none;color:white;text-align:center;background:#4385e0;
     }
-    .l-prev{
-        left:3px;
-    }
-    .l-next{
-        right:3px;
-    }
+    .l-prev{left:3px;}
+    .l-next{right:3px;}
     .l-list{
         .l-item{
-            float:left;
-            width:192px;
-            padding:2px;
-            border-left:1px solid #ddd;
-            &.first{
-                border:none;
-            }
+            float:left;width:192px;padding:2px;border-left:1px solid #ddd;
+            &.first{border:none;}
         }
-        ul{
-            padding:0 9px;
-            margin:auto;
-        }
-        .wh{
-            background:#ececec;
-        }
+        ul{padding:0 9px;margin:auto;}
+        .wh{background:#ececec;}
         li{
-            float:left;
-            width:20px;
-            height:20px;
-            cursor:pointer;
-            line-height:20px;
-            text-align:center;
-            margin:2px;
-            color:#4385e0;
-            &.day{
-                font-weight:bold;
-                color:#666;
-            }
-            &.weekend{
-                color:#f18100;
-            }
-            &.disabled{
-                color:#ccc;
-            }
-            &.selected{
-                background:#4385e0;
-                color:white;
-            }
+            float:left;width:20px;height:20px;line-height:20px;margin:2px;border-radius:3px;
+			cursor:pointer;text-align:center;color:#4385e0;background:#eef;
+            &.day{font-weight:bold;color:#666;}
+            &.weekend{color:#f18100;}
+            &.disabled{color:#ccc;}
+            &.selected{background:#4385e0;color:white;}
         }
     }
 }

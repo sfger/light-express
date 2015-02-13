@@ -193,11 +193,6 @@ $.fn.layout = function(options){
 									- getElementHeight(panelBars.south);
 
 			$('.layout-middle-container', this.box).height(md_container_height);
-				// .find('.resize-bar').css({lineHeight:md_container_height+'px'});
-			// if(doc_mode<=8 || /MSIE 7/.test(navigator.userAgent) || /MSIE 6/.test(navigator.userAgent)){
-				// $('.layout-middle-container .resize-bar', this.box).css({position:'relative'})
-				// 	.find('span').css({position:'absolute', top:md_container_height/2-10, left:0});
-			// }
 			if(doc_mode===5 || ie6.test(navigator.userAgent)){
 				var getElementWidth = this.getElementWidth,
 					center_width    = this.getViewWidth()
@@ -205,7 +200,7 @@ $.fn.layout = function(options){
 									- getElementWidth(panels.east)
 									- getElementWidth(panelBars.west)
 									- getElementWidth(panelBars.east);
-				// $('.layout-center', this.box).css({'width':center_width, 'height':md_container_height});
+				$('.layout-center', this.box).css({'width':center_width, 'height':md_container_height});
 				$('.layout-middle-container>div', this.box).height(md_container_height);
 			}
 		}

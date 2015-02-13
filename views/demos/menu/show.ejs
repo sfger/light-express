@@ -15,7 +15,7 @@
 <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
 <link rel="stylesheet" type="text/css" href="<%-___%>/css/menu.css" />
 <style type="text/css" media="all">
-*{font-size:12px;line-height:1;}
+html{font-size:12px;}
 </style>
 </head>
 <body>
@@ -44,7 +44,7 @@ $('#my_menu').menu({
 				{name:'takein2', icon:'money', text:'收入2', sub:{
 					data:[
 						{name:'chart3', icon:'chart', text:'流量'},
-						{name:'takein3', icon:'money', text:'收入3'},
+						{name:'takein3', icon:'money', text:'收入'},
 						{name:'user3', icon:'user', text:'用户3'},
 						{name:'test3', text:'测试3', disabled:true},
 						{'class':'separate'},
@@ -89,7 +89,7 @@ $('#my_menu').menu({
 });
 $(document).on({
 	contextmenu: function(e){
-		$myMenu.menu('show', e);
+		$myMenu.menu('open', e);
 		return false;
 	}
 });

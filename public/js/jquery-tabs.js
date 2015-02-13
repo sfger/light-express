@@ -37,7 +37,7 @@ $.fn.tabs = function(options){
 			var that = this;
 			var $box = $(box);
 			$(box.children[0]).addClass('cf');
-			$box.addClass('tab-container');
+			$box.addClass('tab-ctn');
 			if(this.headers.length){
 				$(this.headers[options.selected]).addClass('current');
 				$(this.panels).parent().show().end().hide().eq(options.selected).show();
@@ -107,6 +107,9 @@ $.fn.tabs = function(options){
 			var box = this.render;
 			box.children[1].style.height = (box.parentNode.offsetHeight - box.children[0].offsetHeight - 1) + 'px';
 			return this;
+		},
+		remove: function(index){ // alias for close
+			this.close(index);
 		},
 		close: function(index){
 			var header = this.headers.splice(index, 1)[0];
