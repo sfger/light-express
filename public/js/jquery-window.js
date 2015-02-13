@@ -100,10 +100,13 @@ $.fn.window = function(options){
 
 			// $([html, body]).css({overflow:'hidden'});
 			$container.show();
-			var contentWidth = this.render.offsetWidth;
-			$container.find('.window-bar').css({width:contentWidth});
 			var css1compat = document.compatMode === "CSS1Compat";
 			var isIE6      = /MSIE 6.0/.exec(navigator.userAgent);
+			var isIE7      = /MSIE 7.0/.exec(navigator.userAgent);
+			if(isIE6 || isIE7 || document.documentMode<8){
+				var contentWidth = this.render.offsetWidth;
+				$(wraper).css({width:contentWidth});
+			}
 			if(isIE6 || !css1compat){
 				var scrollTop = html.scrollTop || window.pageYOffset || body.scrollTop;
 				$container.css({
@@ -112,8 +115,7 @@ $.fn.window = function(options){
 					'position' : 'absolute',
 					'top'      : scrollTop
 				});
-				$container.hide();
-				$container.show();
+				$container.hide().show();
 				$(window).on('scroll', {el: this.container}, this.scrollIE6);
 			}
 			if(options.onOpen) options.onOpen();
