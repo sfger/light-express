@@ -10,7 +10,7 @@ html,body{height:100%;overflow:hidden;}
 .boxc{
 	position:relative;
 	.mask{
-		@include borderRadius(8px);//@include opacity(0.3);background:black;
+		@include border-radius(8px);//@include opacity(0.3);background:black;
 		background:rgba(0,0,0,0.3);
 		filter:alpha(opacity=30)\9;background:rgb(0,0,0)\9;
 		position:absolute;top:0;left:0;z-index:1;
@@ -24,7 +24,7 @@ html,body{height:100%;overflow:hidden;}
 		h3{font-size:14px;}
 		.linkc{width:470px;}
 		a{
-			@extend %ib;@extend %sln;@include size(auto,133px);@include borderRadius(4px);
+			@extend %ib;@extend %sln;@include size(auto,133px);@include border-radius(4px);
 			font-size:14px;padding:2px 5px;margin:5px 10px 5px 0;border:1px solid #fff;line-height:25px;
 			text-align:center;color:white;text-decoration:none;
 			// transition:all 0.3s ease-in 0s;

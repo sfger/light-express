@@ -1,12 +1,15 @@
 @charset "utf-8";
-.cf:before,.cf:after{content:"";display:table;}
-.cf:after{clear:both;overflow:hidden;}
-.cf{*zoom:1;}
+@import "fn";
+.cf{@extend %cf;}
+.imge{@extend %imge;}
+.imgc{@extend %imgc;}
 
-.imgc{font-size:0;_line-height:0;text-align:center;overflow:hidden;}
+/*
 .imge,.imgc:before,.iecp{@extend %ib;}
 .imge{
 	font-size:12px;font-size:1rem;line-height:normal;
 	@at-root img#{&},& img{max-width:100%;max-height:100%;}
 }
+.imgc{font-size:0;_line-height:0;text-align:center;overflow:hidden;}
 .imgc:before,.iecp{content:"";height:100%;font-size:0;line-height:0;width:0;}
+*/
