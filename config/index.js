@@ -36,14 +36,15 @@ var config = {
 	},
 	minifyHTML: function(str){
 		// console.log(str);
-		str = str.replace(/(\/?>)\s+|\s+(?=<)/g, '$1');
-		return str;
+		return str.replace(/(\/?>)\s+|\s+(?=<)/g, '$1')
+				  .replace(/\s*([\r\n]+)\s*/g, '$1');
 	},
 	writeStaticCache: function(url, ret){
 		// console.log(url);
 		if(typeof url == 'object' && url.length) url = url[0];
 		var url_path = url.replace(/^\/|\/$/g, '');
 		url_path = process.cwd() + '/' + config.staticDir + '/html/' + (url_path || 'index') + '.html';
+		url_path = path.normalize(url_path);
 		config.mkdirRecursive(path.dirname(url_path), 777, function(){
 			fs.writeFile(url_path, ret, function(err){
 				if(err) throw err;

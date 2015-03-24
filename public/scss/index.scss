@@ -1,7 +1,6 @@
 // @import "compass/css3";
 @import "base.scss";
-html,body{font:normal 16px/normal "Helvetica Neue",Helvetica,Arial,"Hiragino Sans GB",sans-serif;}
-html,body{height:100%;overflow:hidden;}
+html,body{height:100%;overflow:hidden;font:normal 16px/normal "Helvetica Neue",Helvetica,Arial,"Hiragino Sans GB",sans-serif;}
 .ctnc{
 	@extend body;
 	filter:progid:DXImageTransform.Microsoft.Gradient(gradientType=0, startColorStr=#ade8aa, endColorStr=#3b9739);

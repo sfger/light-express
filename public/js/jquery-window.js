@@ -26,20 +26,22 @@ $.fn.window = function(options){
 			var footer = options.footer.formatter ?
 				'<div class="window-bar window-footer cf">' + options.footer.formatter() + '</div>'
 				: '';
-			var ctn = '\
-<div class="window-ctn imgc">\
-	<div class="window-mask"></div>\
-	<div class="window-wrapper imge cf">\
-		<div class="window-bar window-header imgc">\
-			<span class="window-title imge">' + (options.title||'') + '</span>\
-			<a href="javascript:;" class="window-closer imge">&times;</a>\
-			<!--[if lt IE 8]><p class="iecp"></p><![endif]-->\
-		</div>\
-		<div class="window-contents"></div>' + footer + '\
-	</div>\
-	<!--[if lt IE 8]><i class="iecp"></i><![endif]-->\
-</div>';
+			var ctn = 
+'<div class="window-ctn">' +
+	'<div class="window-mask"></div>' +
+	'<div class="window-wrapper cf">' +
+		'<div class="window-bar window-header">' +
+			'<span class="window-title">' + (options.title||'') + '</span>' +
+			'<a href="javascript:;" class="window-closer">&times;</a>' +
+			'<!--[if lt IE 8]><p class="iecp"></p><![endif]-->' +
+		'</div>' +
+		'<div class="window-contents"></div>' + footer +
+	'</div>' +
+	'<!--[if lt IE 8]><p class="iecp"></p><![endif]-->' +
+'</div>';
 			var w = $(ctn.replace(/(\/?>)\s+|\s+(?=<)/g, '$1')).appendTo(document.body);
+			if(options.class) w.addClass(options.class);
+			if(options.id) w.attr('id', options.id);
 			this.userOptions = options;
 			this.container   = w.get(0);
 			this.render		 = box;
@@ -85,7 +87,7 @@ $.fn.window = function(options){
 		show: function(){
 			var html = document.documentElement;
 			var body = document.body;
-			body.style.width = body.offsetWidth + 'px';
+			// body.style.width = body.offsetWidth + 'px';
 			var $container = $(this.container),
 				$contents  = $(this.contents),
 				wraper     = this.wraper;
@@ -130,7 +132,7 @@ $.fn.window = function(options){
 			if( options.onBeforeClose
 				&& typeof options.onClose==='function'
 				&& !options.onBeforeClose() ) return false;
-			document.body.style.width = '';
+			// document.body.style.width = '';
 			this.container.style.display = 'none';
 			// $([document.documentElement, document.body]).css({overflow:''});
 			$(window).off('scroll', this.scrollIE6);
