@@ -282,8 +282,8 @@
                 var sdate = dh.get_first_date_of_month(); // First date
                 var sday = sdate.php_date('w'); // First date's day
                 var total = sdate.php_date('t'); // Total days
-                var ii = 1;
-                var dl = ''; // li element
+                var ii = 1; // 第几天
+                var dl = ''; // li elements string
                 for(var i =0; i<42; i++){
                     var sc = ''; // element class
                     var fd = sdate.php_date('Y-m-'+pad(ii, 2));
@@ -293,7 +293,7 @@
 					var show = i<sday||ii>total ? date('j', sdate.current_timestamp+(-sday+i)*86400) : ii++; // 显示日期
                     dl += '<li' + sc + '>' + show + '</li>';
                 }
-                $('.l-head li', ret).eq(n).html(sdate.php_date('Y年n月'));
+                $('.l-head li', ret).eq(n).html('<a href="javascript:;">'+sdate.php_date('Y')+'</a>'+'年'+'<a href="javascript:;">'+sdate.php_date('n')+'</a>'+'月');
                 $('.wd', ret).eq(n).append(dl);
                 $('.l-item', ret).eq(0).css({borderColor:'white'});
                 if(render && render.ui && render.ui.renderTo) render.ui.renderTo.innerHTML = ret.html();

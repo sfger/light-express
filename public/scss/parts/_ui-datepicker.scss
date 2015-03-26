@@ -4,7 +4,10 @@
 	li{list-style:none;}
     .l-head{
 		position:relative;height:17px;padding:3px;line-height:17px;background:#004fb8;
-        li{float:left;width:194px;text-align:center;color:white;font-weight:bold;}
+        li{
+			float:left;width:194px;text-align:center;color:white;font-weight:bold;
+			a{color:white;text-decoration:none;@extend %ib;vertical-align:top;padding:0 2px;}
+		}
     }
     .l-switcher{
 		position:absolute;top:3px;height:17px;width:17px;font:bold 12px/17px "MicroSoft YaHei";
