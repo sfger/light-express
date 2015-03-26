@@ -9,7 +9,8 @@ input{*filter:chroma(color=black);}
 var $myWindow = $('.my-window');
 var $myWindow2 = $('.my-window2');
 $('.my-pop').window({
-	show: false,
+	// show: false,
+	'class': 'page-window list-window',
 	title: '<span style="color:red;">点我干啥？</span>',
 	onBeforeOpen: function(){
 		/* alert('窗口马上打开！'); */
