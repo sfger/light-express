@@ -15,7 +15,6 @@
 <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
 <link rel="stylesheet" type="text/css" href="<%-___%>/css/tabs.css" />
 <style type="text/css" media="all">
-.icon{width:16px;height:16px;vertical-align:top;*vertical-align:baseline;}
 .icon-chart{background:url("../img/chart.png") no-repeat;}
 .icon-user{background:url("../img/user.png") no-repeat;}
 .icon-money{background:url("../img/money.png") no-repeat;}
@@ -31,21 +30,21 @@
 				<a href="javascript:;">
 					<span class="icon icon-money"></span>
 					<span class="title">tab0</span>
-					<span class="closer">×</span>
+					<span class="closer">&times;</span>
 				</a>
-				</li>
+			</li>
 			<li>
 				<a href="javascript:;">
 					<span class="icon icon-chart"></span>
 					<span class="title">tab1</span>
-					<span class="closer">×</span>
+					<span class="closer">&times;</span>
 				</a>
 			</li>
 			<li>
 				<a href="javascript:;">
 					<span class="icon icon-user"></span>
 					<span class="title">tab2</span>
-					<span class="closer">×</span>
+					<span class="closer">&times;</span>
 				</a>
 			</li>
 		</ul>
@@ -59,20 +58,10 @@
 				content0<br /> content0<br /> content0<br /> content0<br /> content0<br /> content0<br />
 			</div>
 			<div>
-				content1<br />
-				content1<br />
-				content1<br />
-				content1<br />
-				content1<br />
-				content1<br />
-				content1<br />
+				content1<br /> content1<br /> content1<br /> content1<br /> content1<br /> content1<br />
 			</div>
 			<div>
-				content2<br />
-				content2<br />
-				content2<br />
-				content2<br />
-				content2<br />
+				content2<br /> content2<br /> content2<br /> content2<br /> content2<br />
 			</div>
 		</div>
 	</div>
@@ -84,10 +73,9 @@
 <script type="text/javascript">
 $(function(){
 	$('.tab-container').tabs({
-		width:1200,
 		height:60,
 		tabWidth:150,
-		contentFit:true,
+		contentFit:false,
 		border:true,
 		selected:1,
 		position:'north'
@@ -98,6 +86,8 @@ $(function(){
 		icon:'money',
 		select:true
 	}, 2);
+	/* $('.tab-container').tabs('select', 1); */
+	/* $('.tab-container').tabs('remove', 0); */
 });
 </script>
 </body>

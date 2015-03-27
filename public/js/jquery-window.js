@@ -9,7 +9,6 @@ $.fn.window = function(options){
 				ui.iWindow[options]();
 			}else{
 				throw new Error('UI:window does not init...');
-				return false;
 			}
 		});
 		return true;
@@ -26,19 +25,22 @@ $.fn.window = function(options){
 			var footer = options.footer.formatter ?
 				'<div class="window-bar window-footer cf">' + options.footer.formatter() + '</div>'
 				: '';
-			var ctn = '\
-<div class="window-ctn imgc">\
-	<div class="window-mask"></div>\
-	<div class="window-wrapper imge cf">\
-		<div class="window-bar window-header cf">\
-			<span class="window-title">' + (options.title||'') + '</span>\
-			<a href="javascript:;" class="window-closer">&times;</a>\
-		</div>\
-		<div class="window-contents"></div>' + footer + '\
-	</div>\
-	<!--[if lt IE 8]><i class="iecp"></i><![endif]-->\
-</div>';
+			var ctn = 
+'<div class="window-ctn">' +
+	'<div class="window-mask"></div>' +
+	'<div class="window-wrapper cf">' +
+		'<div class="window-bar window-header">' +
+			'<span class="window-title">' + (options.title||'') + '</span>' +
+			'<a href="javascript:;" class="window-closer">&times;</a>' +
+			'<!--[if lt IE 8]><p class="iecp"></p><![endif]-->' +
+		'</div>' +
+		'<div class="window-contents"></div>' + footer +
+	'</div>' +
+	'<!--[if lt IE 8]><p class="iecp"></p><![endif]-->' +
+'</div>';
 			var w = $(ctn.replace(/(\/?>)\s+|\s+(?=<)/g, '$1')).appendTo(document.body);
+			if(options.class) w.addClass(options.class);
+			if(options.id) w.attr('id', options.id);
 			this.userOptions = options;
 			this.container   = w.get(0);
 			this.render		 = box;
@@ -46,7 +48,7 @@ $.fn.window = function(options){
 			this.closer      = $('.window-closer', w).get(0);
 			this.contents    = $('.window-contents', w).get(0);
 			this.title		 = $('.window-title', w).html(options.title).get(0);
-			$box.show().appendTo(this.contents);
+			$box.addClass('window-view').show().appendTo(this.contents);
 			var that = this;
 			$(['Height', 'Width']).each(function(i, one){
 				that['getView'+one] = (function () {
@@ -69,6 +71,7 @@ $.fn.window = function(options){
 			var isIE6      = /MSIE 6.0/.exec(navigator.userAgent);
 			var css1compat = document.compatMode === "CSS1Compat";
 			if(isIE6 || !css1compat) $(window).resize(function(){that.resize();});
+			if(options.onCreate && typeof options.onCreate==='function') options.onCreate();
 		},
 		resize: function(){
 			var $container = $(this.container);
@@ -79,10 +82,11 @@ $.fn.window = function(options){
 				});
 			}
 		},
+		open: function(){ this.show(); }, // alias for show
 		show: function(){
 			var html = document.documentElement;
 			var body = document.body;
-			body.style.width = body.offsetWidth + 'px';
+			// body.style.width = body.offsetWidth + 'px';
 			var $container = $(this.container),
 				$contents  = $(this.contents),
 				wraper     = this.wraper;
@@ -95,13 +99,15 @@ $.fn.window = function(options){
 				}
 			}
 
-			$([html, body]).css({overflow:'hidden'});
+			// $([html, body]).css({overflow:'hidden'});
 			$container.show();
-			var contentWidth = this.render.offsetWidth;
-			$container.find('.window-bar').css({width:contentWidth});
-			// $(wraper).css({width:contentWidth});
 			var css1compat = document.compatMode === "CSS1Compat";
 			var isIE6      = /MSIE 6.0/.exec(navigator.userAgent);
+			var isIE7      = /MSIE 7.0/.exec(navigator.userAgent);
+			if(isIE6 || isIE7 || document.documentMode<8){
+				var contentWidth = this.render.offsetWidth;
+				$(wraper).css({width:contentWidth});
+			}
 			if(isIE6 || !css1compat){
 				var scrollTop = html.scrollTop || window.pageYOffset || body.scrollTop;
 				$container.css({
@@ -110,20 +116,25 @@ $.fn.window = function(options){
 					'position' : 'absolute',
 					'top'      : scrollTop
 				});
-				$container.hide();
-				$container.show();
+				$container.hide().show();
+				$(window).on('scroll', {el: this.container}, this.scrollIE6);
 			}
 			if(options.onOpen) options.onOpen();
 			return this;
+		},
+		scrollIE6: function(e){
+			var scrollTop = document.documentElement.scrollTop || window.pageYOffset || document.body.scrollTop;
+			$(e.data.el).css({ 'top': scrollTop });
 		},
 		close: function(){
 			var options = this.userOptions;
 			if( options.onBeforeClose
 				&& typeof options.onClose==='function'
 				&& !options.onBeforeClose() ) return false;
-			document.body.style.width = '';
+			// document.body.style.width = '';
 			this.container.style.display = 'none';
-			$([document.documentElement, document.body]).css({overflow:''});
+			// $([document.documentElement, document.body]).css({overflow:''});
+			$(window).off('scroll', this.scrollIE6);
 			if(options.onClose && typeof options.onClose==='function') options.onClose();
 			return this;
 		}

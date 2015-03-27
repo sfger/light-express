@@ -9,7 +9,6 @@ $.fn.accordion = function(options){
 				ui.iAccordion[options]();
 			}else{
 				throw new Error('UI:accordion does not init...');
-				return false;
 			}
 		});
 		return true;

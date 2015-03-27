@@ -9,7 +9,6 @@ $.fn.menu = function(method, op){
 				ui.iMenu[method](op);
 			}else{
 				throw new Error('UI:menu does not init...');
-				return false;
 			}
 		});
 		return true;
@@ -26,7 +25,7 @@ $.fn.menu = function(method, op){
 			var document = window.document;
 			var getType = function(obj){ return toString.call(obj).slice(8, -1); };
 			var $box = $(box);
-			$box.addClass('menu-container cf').hide();
+			$box.addClass('menu-ctn cf').hide();
 			this.container = box;
 			this.menuitems = {};
 			var createMenu = function(option){
@@ -83,7 +82,7 @@ $.fn.menu = function(method, op){
 						}
 						sub_container.style.left = option.width - 2 + 'px';
 						sub_container.appendChild(createMenu(data[i].sub));
-						sub_container.className = 'menu-container cf';
+						sub_container.className = 'menu-ctn cf';
 						li.appendChild(sub_container);
 					}
 					ul.appendChild(li);
@@ -131,7 +130,7 @@ $.fn.menu = function(method, op){
 						}, 300);
 					}
 				}
-			}).delegate('.menu-container', {
+			}).delegate('.menu-ctn', {
 				mouseover: function(){
 					if(this.showMenuTimer) clearTimeout(this.showMenuTimer);
 					this.showMenu = true;
@@ -146,8 +145,10 @@ $.fn.menu = function(method, op){
 					}, 300);
 				}
 			});
-			console.log(options);
 			options.onCreate.bind(this)();
+		},
+		open: function(e){
+			this.show(e);
 		},
 		show: function(e){
 			$(this.container).css({left:e.pageX, top:e.pageY}).show();

@@ -11,7 +11,6 @@ $.fn.tree = function(options){
 				ret.push(ui.iTree[options].apply(ui.iTree, args));
 			}else{
 				throw new Error('UI:tree does not init...');
-				return false;
 			}
 		});
 		if(options=="isLeaf") return ret[0];

@@ -3,15 +3,15 @@
     var strtotime = function( str ){
         return Date.parse( str.replace(/-/g, '/') )/1000;
     };
+	var pad = function(n, c){
+		if((n = n + "").length < c){
+			return new Array(++c - n.length).join("0") + n;
+		} else {
+			return n;
+		}
+	};
     var date = function(format, timestamp){
         var a, jsdate=((timestamp) ? new Date(timestamp*1000) : new Date());
-        var pad = function(n, c){
-            if((n = n + "").length < c){
-                return new Array(++c - n.length).join("0") + n;
-            } else {
-                return n;
-            }
-        };
         var txt_weekdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
         var txt_ordin = {1:"st", 2:"nd", 3:"rd", 21:"st", 22:"nd", 23:"rd", 31:"st"};
         var txt_months = ["", "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
@@ -253,17 +253,18 @@
         var draw_ui = function(val, selected, render){
             selected = selected!==undefined ? selected : true;
             var ret = $(tpl);
+			var n;
             if(op.monthNum>1){
                 var ul = ret.find('.l-head ul');
                 var list = ret.find('.l-list');
-                for(var n=0; n<op.monthNum-1; n++){
+                for(n=0; n<op.monthNum-1; n++){
                     ul.append(ul.find('li').eq(0).clone());
                     list.append(list.find('.l-item').eq(0).clone());
                 }
             }
             var dh = date_helper();
             dh.set_date(val);
-            for(var n=0; n<op.monthNum; n++){
+            for(n=0; n<op.monthNum; n++){
                 var dd = dh.current_date;
                 var abd;
                 if(op.minDate){
@@ -274,24 +275,27 @@
                         case 'function':
                             abd = op.minDate();
                             break;
+						default:
+							break;
                     }
                 }
-                var sdate = dh.get_first_date_of_month();
-                var sday = sdate.php_date('w');
-                var total = sdate.php_date('t');
-                var ii = 1;
-                var dl = '';
+                var sdate = dh.get_first_date_of_month(); // First date
+                var sday = sdate.php_date('w'); // First date's day
+                var total = sdate.php_date('t'); // Total days
+                var ii = 1; // 第几天
+                var dl = ''; // li elements string
                 for(var i =0; i<42; i++){
-                    var sc = '';
-                    var fd = sdate.php_date('Y-m-'+(ii<10 ? ('0'+ii) : String(ii)));
+                    var sc = ''; // element class
+                    var fd = sdate.php_date('Y-m-'+pad(ii, 2));
                     if(fd<abd) sc = ' class="disabled"';
                     else if(i<sday||ii>total) sc = ' class="disabled"';
-                    else if(fd==dd && selected || render&&fd==render.value) sc = ' class="selected"';
-                    dl += '<li' + sc + '>' + (i<sday||ii>total ? '' : ii++) + '</li>';
+                    else if(fd==dd && selected || render && fd==render.value) sc = ' class="selected"';
+					var show = i<sday||ii>total ? date('j', sdate.current_timestamp+(-sday+i)*86400) : ii++; // 显示日期
+                    dl += '<li' + sc + '>' + show + '</li>';
                 }
-                ret.find('.l-head li').eq(n).html(sdate.php_date('Y年n月'));
-                ret.find('.wd').eq(n).append(dl);
-                ret.find('.l-item').eq(0).css({borderColor:'white'});
+                $('.l-head li', ret).eq(n).html('<a href="javascript:;">'+sdate.php_date('Y')+'</a>'+'年'+'<a href="javascript:;">'+sdate.php_date('n')+'</a>'+'月');
+                $('.wd', ret).eq(n).append(dl);
+                $('.l-item', ret).eq(0).css({borderColor:'white'});
                 if(render && render.ui && render.ui.renderTo) render.ui.renderTo.innerHTML = ret.html();
                 else ret.appendTo('body');
                 dh.get_offset_date(1, 'm');
@@ -329,14 +333,11 @@
 					op.onComplete && op.onComplete.call(that, that.value);
                 }
             }, '.wd li:not(".disabled")').on({
-                mouseenter: function(){
+                'mouseenter click': function(){
                     that.ui.hovered = true;
                 },
                 mouseleave: function(){
                     that.ui.hovered = false;
-                },
-                click: function(){
-                    that.ui.hovered = true;
                 }
             });
             $(this).on({

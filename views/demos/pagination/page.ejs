@@ -13,27 +13,32 @@
 <meta name="description" content="" />
 <link rel="icon" href="/favicon.ico" type="image/x-icon" />
 <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
-<link rel="stylesheet" type="text/css" href="<%-___%>/css/demos/window/pay.css" />
+<link rel="stylesheet" type="text/css" href="<%-___%>/css/pagination.css" />
+<style type="text/css" media="all">
+</style>
+</head>
 <body>
 <div id="page">
-    <a id="btn" class="btn" href="javascript:;">打开窗口</a>
-	<div class="pay" style="display:none;">
-		<h3 class="title">登录网上银行支付</h3>
-		<p class="tip">请您在新打开的网上银行页面进行支付，支付完成前请不要关闭该窗口</p>
-		<div class="buttons grid">
-			<a href="" class="imge done">已完成支付</a>
-			<a href="" class="imge choose">选择其他支付方式</a>
-		</div>
-	</div>
+    <div class="navi"></div>
+    <div class="navi"></div>
+    <div class="navi"></div>
 </div>
 <script type="text/javascript" src="<%-___%>/lib/jquery-min.js"></script>
-<script type="text/javascript" src="<%-___%>/js/jquery-window.js"></script>
+<script type="text/javascript" src="<%-___%>/js/jquery-pagination.js"></script>
 <script type="text/javascript">
-var payWindow = $('.pay');
-payWindow.window({id:'pay-window'});
-$('#btn').on('click', function(){
-	payWindow.window('show');
+$('#page .navi').pagination({
+	useAjax:true,
+	/* pageNumberQueryName:'page', */
+	pageNumber:20,
+	prePageAlias:'<',
+	nextPageAlias:'>',
+	show:11,
+	dataSize:501,
+	onChangePage:function(pageNumber, pageCount){
+		/* alert('' + pageNumber + ', ' + pageCount); */
+	}
 });
+$('#page .navi').eq(0).pagination('update', 3, 1003);
 </script>
 </body>
 </html>

@@ -5,11 +5,12 @@ input.btn, button.btn{*line-height:0.8;}
 .btn-success:active{background-image:none;color:#cacaca;}
 input{*filter:chroma(color=black);}
 .my-window{width:400px;height:200px;}
-.my-window2{width:550px;height:320px;}</style></head><body><div id="page"><a id="btn" class="btn" href="javascript:;">打开窗口</a><a id="btn2" class="btn" href="javascript:;">打开窗口2</a><div class="my-pop my-window" style="display:none;">content<br />content<br />content<br />content<br /></div><div class="my-pop my-window2" style="display:none;">content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br /></div></div><script type="text/javascript" src="../../../lib/jquery-min.js"></script><script type="text/javascript" src="../../../js/jquery-window.js"></script><script type="text/javascript">"use strict";
+.my-window2{width:550px;height:320px;}</style></head><body><div id="page"><a id="btn" class="btn" href="javascript:;">打开窗口</a><a id="btn2" class="btn" href="javascript:;">打开窗口2</a><div class="my-pop my-window" style="display:none;">content<br />content<br />content<br />content<br /></div><div class="my-pop my-window2" style="display:none;">content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br /></div></div><script type="text/javascript" src="../../../lib/jquery-min.js"></script><script type="text/javascript" src="../../../js/jquery-window.js"></script><script type="text/javascript">"use strict";
 var $myWindow = $('.my-window');
 var $myWindow2 = $('.my-window2');
 $('.my-pop').window({
-	show: false,
+	// show: false,
+	'class': 'page-window list-window',
 	title: '<span style="color:red;">点我干啥？</span>',
 	onBeforeOpen: function(){
 		/* alert('窗口马上打开！'); */
@@ -35,8 +36,8 @@ $('.my-pop').window({
 	}
 });
 $('#btn').on('click', function(){
-	$myWindow.window('show');
+	$myWindow.window('open');
 });
 $('#btn2').on('click', function(){
-	$myWindow2.window('show');
+	$myWindow2.window('open');
 });</script></body></html>
