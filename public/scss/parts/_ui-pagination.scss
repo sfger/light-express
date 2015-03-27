@@ -7,6 +7,7 @@
 	.current{color:red;cursor:default;}
 	.pn:hover{background:#e3e3e3;}
 	.form{@extend %ib;vertical-align:middle;}
+	.disabled{color:#aaa;}
 	.form form{@extend %ib;}
 	.form .goto{float:none;border:none;padding:0;margin:0;}
 	.form input{width:20px;height:12px;line-height:11px;_height:14px;}

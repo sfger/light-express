@@ -9,7 +9,6 @@ $.fn.window = function(options){
 				ui.iWindow[options]();
 			}else{
 				throw new Error('UI:window does not init...');
-				return false;
 			}
 		});
 		return true;

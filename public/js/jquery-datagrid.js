@@ -9,7 +9,6 @@ $.fn.datagrid = function(options){
 				ui.iDatagrid[options]();
 			}else{
 				throw new Error('UI:datagrid does not init...');
-				return false;
 			}
 		});
 		return true;

@@ -10,7 +10,6 @@ $.fn.tabs = function(options){
 				ui.iTab[options].apply(ui.iTab, args);
 			}else{
 				throw new Error('UI:tabs does not init...');
-				return false;
 			}
 		});
 		return true;

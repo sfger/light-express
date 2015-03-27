@@ -9,7 +9,6 @@ $.fn.layout = function(options){
 				ui.iLayout[options]();
 			}else{
 				throw new Error('UI:layout does not init...');
-				return false;
 			}
 		});
 		return true;

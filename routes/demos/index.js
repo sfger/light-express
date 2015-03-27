@@ -10,7 +10,6 @@ router.get(['/demos/index', '/demos/', '/demos'], function(req, res) {
 	var view_path = path.normalize(process.cwd() + '/views/' + view + '.ejs');
 	fs.exists(view_path, function(exists){
 		if(exists){
-			console.log(view, view.replace(/\\/g, '/').replace(/[^\/]+/g, '..'));
 			res.render(view, {
 				dir:dir,
 				dist:req.query.dist,

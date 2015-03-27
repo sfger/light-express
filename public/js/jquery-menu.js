@@ -9,7 +9,6 @@ $.fn.menu = function(method, op){
 				ui.iMenu[method](op);
 			}else{
 				throw new Error('UI:menu does not init...');
-				return false;
 			}
 		});
 		return true;
