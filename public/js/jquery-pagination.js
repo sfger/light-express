@@ -67,7 +67,7 @@ $.fn.pagination = function(options){
 				options.dataSize = dataSize;
 				this.pageCount = Math.ceil(options.dataSize/options.pageSize);
 			}
-			$(options.render).html( this.navishow(pageNumber,this.pageCount,this.url,options.show) + '&nbsp;<div class="form">第<input name="'+options.pageNumberQueryName+'" class="page" type="text" value="" /><a href="javascript:;" class="goto">页</a></div>&nbsp;<div class="desc">共<span class="dataSize">'+options.dataSize+'</span>条数据</div>' );
+			$(options.render).html( this.navishow(pageNumber,this.pageCount,this.url,options.show) + '&nbsp;<div class="form"><span>第</span><input name="'+options.pageNumberQueryName+'" class="page" type="text" value="" /><a href="javascript:;" class="go">GO</a><span>页</span></div>&nbsp;<div class="desc">共<span class="dataSize">'+options.dataSize+'</span>条记录</div>' );
 		},
 		initEvent:function(){
 			var that = this;

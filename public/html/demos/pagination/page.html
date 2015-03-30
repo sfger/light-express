@@ -1,0 +1,13 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8" /><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" /><title>Title</title><meta name="apple-mobile-web-app-capable" content="yes" /><meta name="apple-mobile-web-app-status-bar-style" content="black" /><meta name="format-detection" content="telephone=no" /><meta name="author" content="" /><meta name="revisit-after" content="1 days" /><meta name="keywords" content="" /><meta name="description" content="" /><link rel="icon" href="/favicon.ico" type="image/x-icon" /><link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" /><link rel="stylesheet" type="text/css" href="../../../css/pagination.css" /><style type="text/css" media="all"></style></head><body><div id="page"><div class="navi"></div><div class="navi"></div><div class="navi"></div></div><script type="text/javascript" src="../../../lib/jquery-min.js"></script><script type="text/javascript" src="../../../js/jquery-pagination.js"></script><script type="text/javascript">$('#page .navi').pagination({
+useAjax:true,
+/* pageNumberQueryName:'page', */
+pageNumber:20,
+prePageAlias:'<',
+nextPageAlias:'>',
+show:11,
+dataSize:501,
+onChangePage:function(pageNumber, pageCount){
+/* alert('' + pageNumber + ', ' + pageCount); */
+}
+});
+$('#page .navi').eq(0).pagination('update', 3, 1003);</script></body></html>
