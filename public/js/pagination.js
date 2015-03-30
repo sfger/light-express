@@ -19,8 +19,8 @@
 					render.innerHTML = '';
 					this.pageCount = Math.ceil(options.dataSize/options.pageSize);
 					this.pageCount = this.pageCount<1 ? 1 : this.pageCount;
-					if(!/(^|\s)pagination-container(\s|$)/.test(render.className)){
-						render.className += (render.className ? ' ' : '') + 'pagination-container';
+					if(!/(^|\s)pagination-ctn(\s|$)/.test(render.className)){
+						render.className += (render.className ? ' ' : '') + 'pagination-ctn';
 					}
 					var pageNumber, url;
 					pageNumber = options.pageNumber;

@@ -20,11 +20,10 @@ html{font-size:12px;}
 </head>
 <body>
 <div id="page">
-	<h1>页面点击右键查看菜单</h3>
+	<h2>页面点击右键查看菜单</h2>
 	<div id="my_menu"></div>
 </div><!-- #page end! -->
 <script type="text/javascript" src="<%-___%>/lib/jquery-min.js"></script>
-<script type="text/javascript" src="<%-___%>/js/ecmaShim.js"></script>
 <script type="text/javascript" src="<%-___%>/js/jquery-menu.js"></script>
 <script type="text/javascript">
 try {
@@ -33,6 +32,7 @@ try {
 var $myMenu = $('#my_menu');
 $('#my_menu').menu({
 	width: 100,
+	autoHide: false,
 	data: [
 		{name:'chart', icon:'chart', text:'流量'},
 		{name:'takein', icon:'money', text:'收入'},

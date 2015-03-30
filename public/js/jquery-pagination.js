@@ -34,8 +34,8 @@ $.fn.pagination = function(options){
 			var render = options.render;
 			this.pageCount = Math.ceil(options.dataSize/options.pageSize);
 			this.pageCount = this.pageCount<1 ? 1 : this.pageCount;
-			if(!/(^|\s)pagination-container(\s|$)/.test(render.className)){
-				render.className += (render.className ? ' ' : '') + 'pagination-container';
+			if(!/(^|\s)pagination-ctn(\s|$)/.test(render.className)){
+				render.className += (render.className ? ' ' : '') + 'pagination-ctn';
 			}
 			var pageNumber, url;
 			pageNumber = options.pageNumber;
@@ -73,7 +73,7 @@ $.fn.pagination = function(options){
 			var that = this;
 			var options = this.userOptions;
 			var render = options.render;
-			$(render).on('click', '.goto', function(){
+			$(render).on('click', '.go', function(){
 				var a = $(".page",render).val();
 				if(!a || isNaN(a)) return false;
 				a = a>that.pageCount ? that.pageCount :

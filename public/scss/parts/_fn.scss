@@ -54,3 +54,31 @@
 	-o-border-radius:$n;
 	border-radius:$n;
 }
+@mixin border-top-left-radius($n:0){
+	-webkit-border-top-left-radius:$n;
+	-moz-border-top-left-radius:$n;
+	-ms-border-top-left-radius:$n;
+	-o-border-top-left-radius:$n;
+	border-top-left-radius:$n;
+}
+@mixin border-top-right-radius($n:0){
+	-webkit-border-top-right-radius:$n;
+	-moz-border-top-right-radius:$n;
+	-ms-border-top-right-radius:$n;
+	-o-border-top-right-radius:$n;
+	border-top-right-radius:$n;
+}
+@mixin border-bottom-left-radius($n:0){
+	-webkit-border-bottom-left-radius:$n;
+	-moz-border-bottom-left-radius:$n;
+	-ms-border-bottom-left-radius:$n;
+	-o-border-bottom-left-radius:$n;
+	border-bottom-left-radius:$n;
+}
+@mixin border-bottom-right-radius($n:0){
+	-webkit-border-bottom-right-radius:$n;
+	-moz-border-bottom-right-radius:$n;
+	-ms-border-bottom-right-radius:$n;
+	-o-border-bottom-right-radius:$n;
+	border-bottom-right-radius:$n;
+}

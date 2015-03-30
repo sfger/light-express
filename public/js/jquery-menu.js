@@ -15,6 +15,7 @@ $.fn.menu = function(method, op){
 	}
 	var options = $.extend(true, {
 		animate: {time:0},
+		autoHide: true,
 		data: []
 	}, method);
 	var handler = function(box, options){ return new handler.prototype.init(box, options); };
@@ -104,7 +105,7 @@ $.fn.menu = function(method, op){
 						that.hide();
 					}, 300);
 				}
-			}).delegate('a', {
+			}).on({
 				click: function(){
 					if(this.option.disabled) return false;
 					box.style.display = 'none';
@@ -130,7 +131,7 @@ $.fn.menu = function(method, op){
 						}, 300);
 					}
 				}
-			}).delegate('.menu-ctn', {
+			}, 'a').on({
 				mouseover: function(){
 					if(this.showMenuTimer) clearTimeout(this.showMenuTimer);
 					this.showMenu = true;
@@ -144,7 +145,7 @@ $.fn.menu = function(method, op){
 						that.showMenuTimer = null;
 					}, 300);
 				}
-			});
+			}, '.menu-ctn');
 			options.onCreate.bind(this)();
 		},
 		open: function(e){
@@ -173,7 +174,8 @@ $.fn.menu = function(method, op){
 			this.menuitems[name].style.display = '';
 			return this;
 		},
-		/* option: [Object] just options.data object item
+		/**
+		 * option: [Object] just options.data object item
 		 * position: [String] before, after
 		 * refName: menu item name
 		 * */
