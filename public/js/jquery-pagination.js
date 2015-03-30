@@ -109,7 +109,7 @@ $.fn.pagination = function(options){
 			if(page<1||page>this.pageCount){
 				c += ' disabled';
 			}
-			url='<a href="'+(page>0&&page<this.pageCount?url:'javascript:;')+'" pageNumber="'+page+'" class="pn'+c+'">'+show+'</a>';
+			url='<a href="'+(page>0&&page<=this.pageCount?url:'javascript:;')+'" pageNumber="'+page+'" class="pn'+c+'">'+show+'</a>';
 			return url;
 		},
 		getPlainChild:function(text){
