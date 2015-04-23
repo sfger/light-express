@@ -135,6 +135,7 @@ $.fn.tabs = function(options){
 			$(this.panels[prevSelected]).hide();
 			$(this.panels[index]).show();
 			this.userOptions.selected = index;
+			this.userOptions.onSelect && this.userOptions.onSelect(this.panels[index], index);
 			return this;
 		}
 	};

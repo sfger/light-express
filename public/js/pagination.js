@@ -19,8 +19,8 @@
 					render.innerHTML = '';
 					this.pageCount = Math.ceil(options.dataSize/options.pageSize);
 					this.pageCount = this.pageCount<1 ? 1 : this.pageCount;
-					if(!/(^|\s)pagination-container(\s|$)/.test(render.className)){
-						render.className += (render.className ? ' ' : '') + 'pagination-container';
+					if(!/(^|\s)pagination-ctn(\s|$)/.test(render.className)){
+						render.className += (render.className ? ' ' : '') + 'pagination-ctn';
 					}
 					var pageNumber, url;
 					pageNumber = options.pageNumber;
@@ -43,7 +43,7 @@
 					pageNumber = pageNumber>this.pageCount ? this.pageCount : pageNumber;
 					options.pageNumber = pageNumber;
 					this.navishow(pageNumber,this.pageCount,url,5);
-					render.innerHTML += '&nbsp;<div class="form">第<form action="" method="get"><input name="'+options.pageNumberQueryName+'" class="page" type="text" value="" /></form><a href="javascript:;" class="goto">页</a></div>&nbsp;<div class="desc">共<span class="dataSize">'+options.dataSize+'</span>条数据</div>';
+					render.innerHTML += '&nbsp;<div class="form"><span>第</span><input name="'+options.pageNumberQueryName+'" class="page" type="text" value="" /><a href="javascript:;" class="go">GO</a><span>页</span></div>&nbsp;<div class="desc">共<span class="dataSize">'+options.dataSize+'</span>条数据</div>';
 					this.initEvent();
 				},
 				initEvent:function(){

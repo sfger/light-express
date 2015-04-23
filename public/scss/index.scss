@@ -1,5 +1,5 @@
-// @import "compass/css3";
-@import "base.scss";
+@charset "UTF-8";
+@import "base";
 html,body{height:100%;overflow:hidden;font:normal 16px/normal "Helvetica Neue",Helvetica,Arial,"Hiragino Sans GB",sans-serif;}
 .ctnc{
 	@extend body;
@@ -23,7 +23,7 @@ html,body{height:100%;overflow:hidden;font:normal 16px/normal "Helvetica Neue",H
 		h3{font-size:14px;}
 		.linkc{width:470px;}
 		a{
-			@extend %ib;@extend %sln;@include size(auto,133px);@include border-radius(4px);
+			@extend %ib;@extend %sln;@include size(133px, auto);@include border-radius(4px);
 			font-size:14px;padding:2px 5px;margin:5px 10px 5px 0;border:1px solid #fff;line-height:25px;
 			text-align:center;color:white;text-decoration:none;
 			// transition:all 0.3s ease-in 0s;

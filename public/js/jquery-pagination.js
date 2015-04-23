@@ -34,8 +34,8 @@ $.fn.pagination = function(options){
 			var render = options.render;
 			this.pageCount = Math.ceil(options.dataSize/options.pageSize);
 			this.pageCount = this.pageCount<1 ? 1 : this.pageCount;
-			if(!/(^|\s)pagination-container(\s|$)/.test(render.className)){
-				render.className += (render.className ? ' ' : '') + 'pagination-container';
+			if(!/(^|\s)pagination-ctn(\s|$)/.test(render.className)){
+				render.className += (render.className ? ' ' : '') + 'pagination-ctn';
 			}
 			var pageNumber, url;
 			pageNumber = options.pageNumber;
@@ -67,13 +67,13 @@ $.fn.pagination = function(options){
 				options.dataSize = dataSize;
 				this.pageCount = Math.ceil(options.dataSize/options.pageSize);
 			}
-			$(options.render).html( this.navishow(pageNumber,this.pageCount,this.url,options.show) + '&nbsp;<div class="form">第<input name="'+options.pageNumberQueryName+'" class="page" type="text" value="" /><a href="javascript:;" class="goto">页</a></div>&nbsp;<div class="desc">共<span class="dataSize">'+options.dataSize+'</span>条数据</div>' );
+			$(options.render).html( this.navishow(pageNumber,this.pageCount,this.url,options.show) + '&nbsp;<div class="form"><span>第</span><input name="'+options.pageNumberQueryName+'" class="page" type="text" value="" /><a href="javascript:;" class="go">GO</a><span>页</span></div>&nbsp;<div class="desc">共<span class="dataSize">'+options.dataSize+'</span>条记录</div>' );
 		},
 		initEvent:function(){
 			var that = this;
 			var options = this.userOptions;
 			var render = options.render;
-			$(render).on('click', '.goto', function(){
+			$(render).on('click', '.go', function(){
 				var a = $(".page",render).val();
 				if(!a || isNaN(a)) return false;
 				a = a>that.pageCount ? that.pageCount :
@@ -109,7 +109,7 @@ $.fn.pagination = function(options){
 			if(page<1||page>this.pageCount){
 				c += ' disabled';
 			}
-			url='<a href="'+(page>0&&page<this.pageCount?url:'javascript:;')+'" pageNumber="'+page+'" class="pn'+c+'">'+show+'</a>';
+			url='<a href="'+(page>0&&page<=this.pageCount?url:'javascript:;')+'" pageNumber="'+page+'" class="pn'+c+'">'+show+'</a>';
 			return url;
 		},
 		getPlainChild:function(text){
