@@ -23,6 +23,8 @@ $.fn.pagination = function(options){
 		pageNumberQueryName:'pageNumber',
 		showPreNext:true,
 		showPreNextOnEdge:true,
+		prePageAlias:'上一页',
+		nextPageAlias:'下一页',
 		pageSizeList:[10, 25, 50, 100]
 	}, options);
 	var handler = function(box, options){ return new handler.prototype.init(box, options); };
@@ -102,8 +104,8 @@ $.fn.pagination = function(options){
 				url = url.replace(this.pageNumberRegExp, "$1"+page);
 			}
 			var c = (function(){
-				if(show==='上一页') return ' prev';
-				else if(show==='下一页') return ' next';
+				if(show===options.prePageAlias) return ' prev';
+				else if(show===options.nextPageAlias) return ' next';
 				else return '';
 			})();
 			if(page<1||page>this.pageCount){

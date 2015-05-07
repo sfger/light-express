@@ -132,7 +132,7 @@
 // }
 
 @mixin button($width, $height, $bgcolor:transparent){
-	@include size($width, $height);background:$bgcolor;
+	@include size($width, $height);@include user-select(none);background:$bgcolor;
 	&:hover{background-color:lighten($bgcolor, 5%);}
 	&:active{background-color:darken($bgcolor, 5%);outline:thin dotted;outline-offset:-2px;}
 }
