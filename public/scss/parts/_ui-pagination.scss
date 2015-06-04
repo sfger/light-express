@@ -1,24 +1,36 @@
 @charset "utf-8";
+$Eheight:28px;
+$Epadding:10px;
 .pagination-ctn{
-	padding:1px;vertical-align:middle;
+	padding:1px;text-align:center;
+	.pn,.current{font-family:SumSin,微软雅黑,Microsoft YaHei;}
 	.pc,a,.form,.desc{@extend %ib;}
-	.pn,.current{padding:2px 8px;border:1px solid #d3d3d3;@include border-radius(3px);margin:0 2px;}
-	.pn:hover{background:#e3e3e3;}
-	a{color:black;text-decoration:none;line-height:normal;cursor:pointer;}
-	.plain{border:none;cursor:default;padding:2px;}
-	.current{color:red;cursor:default;}
-	.disabled{color:#aaa;}
+	.pn,.current{padding:0 $Epadding;background-color:#fff;color:#666;border:1px solid #d3d3d3;@include border-radius(3px);margin:0 2px;}
+	.current{border-color:#ff9c0f;background:#ff9c0f;color:white;cursor:default;}
+	.pn{@include button(auto, $Eheight, #fff);}
+	.pn:hover{background:#ff9c0f;color:white;}
+	.pn:active{background:darken(#ff9c0f,5%);color:white;}
+	a{
+		color:#fff;text-decoration:none;cursor:pointer;height:$Eheight;line-height:$Eheight;
+	}
+	.plain{border:none;color:#666;cursor:default;padding:0 8px;}
+	.plain,.current{
+		cursor:default;
+		&:focus{outline:none;}
+	}
+	.disabled{
+		color:#ddd;
+		&:hover{background:white;color:#ddd;cursor:default;cursor:not-allowed;}
+	}
 	.form{
-		@extend %cf;height:18px;line-height:18px;
-		span,input,.go{float:left;height:16px;}
-		input{
-			@include border-top-left-radius(2px);@include border-bottom-left-radius(2px);
-			width:31px;text-align:center;border:1px solid #999;
-		}
+		// margin-top:-1px;
+		span,input,.go{@extend %ib;height:$Eheight - 2px;line-height:$Eheight - 2px;}
+		input{width:45px;text-align:center;border:1px solid #eb8226;border-right:none;@include border-radius(3px 0 0 3px);}
 		.go{
-			@include border-bottom-right-radius(2px);@include border-top-right-radius(2px);
-			padding:0 4px;margin:0;margin-right:2px;line-height:16px;border:1px solid #e98900;background:#e98900;color:white;margin-top:20px;
+			padding:0 10px;margin:0;margin-right:2px;line-height:$Eheight - 2px;border:1px solid #ff9c0f;
+			@include button(auto, auto, #ff9c0f);
+			@include border-radius(0 3px 3px 0);background:#ff9c0f;color:white;
 		}
 	}
-	.desc{cursor:default;margin-top:1px;}
+	.desc{}
 }

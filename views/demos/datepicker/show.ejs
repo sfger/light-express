@@ -27,7 +27,9 @@ $('.sdate').datePicker({
 	monthNum:1,
 	proxy:$(document),
 	minDate:'2014-09-01',
-	onComplete:function(pdate){}
+	onComplete:function(pdate){
+		console.log(pdate);
+	}
 });
 </script>
 </body>

@@ -14,16 +14,19 @@ $.fn.pagination = function(options){
 		});
 		return true;
 	}
+
 	options = $.extend(true, {
-		useAjax:false,
-		dataSize:0,
-		show:5,
-		pageSize:25,
-		pageNumber:null,
-		pageNumberQueryName:'pageNumber',
-		showPreNext:true,
-		showPreNextOnEdge:true,
-		pageSizeList:[10, 25, 50, 100]
+		useAjax             : false,            // 是否使用ajax方式请求数据，否则生成页面跳转链接
+		dataSize            : 0,                // 数据条数
+		show                : 5,                // 当前页一边显示的页面
+		pageSize            : 25,               // 每页数据数
+		pageNumber          : null,             // 页码
+		pageNumberQueryName : 'pageNumber',     // 页码参数名
+		showPreNext         : true,             // 是否页面下面一页按钮
+		showPreNextOnEdge   : true,             // 最后一页是否显示不能点击的下一页
+		prePageAlias        : '上一页',         // 上一页文字
+		nextPageAlias       : '下一页',         // 下一页文字
+		pageSizeList        : [10, 25, 50, 100] // 保留功能，选择每页数据数
 	}, options);
 	var handler = function(box, options){ return new handler.prototype.init(box, options); };
 	handler.prototype = {
@@ -63,10 +66,11 @@ $.fn.pagination = function(options){
 		},
 		update: function(pageNumber, dataSize){
 			var options = this.userOptions;
-			if(dataSize){
+			if(!isNaN(dataSize) && Number(dataSize)>=0){
 				options.dataSize = dataSize;
-				this.pageCount = Math.ceil(options.dataSize/options.pageSize);
+				this.pageCount = Math.ceil(options.dataSize/options.pageSize) || 1;
 			}
+			console.log(pageNumber,dataSize);
 			$(options.render).html( this.navishow(pageNumber,this.pageCount,this.url,options.show) + '&nbsp;<div class="form"><span>第</span><input name="'+options.pageNumberQueryName+'" class="page" type="text" value="" /><a href="javascript:;" class="go">GO</a><span>页</span></div>&nbsp;<div class="desc">共<span class="dataSize">'+options.dataSize+'</span>条记录</div>' );
 		},
 		initEvent:function(){
@@ -102,8 +106,8 @@ $.fn.pagination = function(options){
 				url = url.replace(this.pageNumberRegExp, "$1"+page);
 			}
 			var c = (function(){
-				if(show==='上一页') return ' prev';
-				else if(show==='下一页') return ' next';
+				if(show===options.prePageAlias) return ' prev';
+				else if(show===options.nextPageAlias) return ' next';
 				else return '';
 			})();
 			if(page<1||page>this.pageCount){
@@ -124,35 +128,51 @@ $.fn.pagination = function(options){
 			if(options.showPreNextOnEdge || options.showPreNext&&cur>1)
 				str += this.getNaviNode(url, cur-1, options.prePageAlias||"上一页");
 			if(page<=show){
-				for(i=1;i<=page;i++)
-				if(i==cur) str += this.getPlainChild(i);
-				else str += this.getNaviNode(url, i, i);
+				for(i=1; i<=page; i++){
+					if(i == cur)
+						str += this.getPlainChild(i);
+					else
+						str += this.getNaviNode(url, i, i);
+				}
 			}else{
-				if( (cur-2)<(hf+2) ){
-					for(i=1;i<=cur;i++)
-					if(i==cur) str += this.getPlainChild(i);
-					else str += this.getNaviNode(url, i, i);
+				if((cur-2) < (hf+2)){
+					for(i=1; i<=cur; i++){
+						if(i == cur)
+							str += this.getPlainChild(i);
+						else
+							str += this.getNaviNode(url, i, i);
+					}
 				}else{
 					str += this.getNaviNode(url, 1, 1);
-					if(page!=show+1) str += this.getPlainChild('...');
-					for(i=cur-hf+((page-cur-hf>0)?0:(page-cur-hf));i<=cur;i++)
-					if(i==cur) str += this.getPlainChild(i);
-					else str += this.getNaviNode(url, i, i);
+					if(page != show+1) str += this.getPlainChild('...');
+					for(i=cur-hf+((page-cur-hf>0)?0:(page-cur-hf)); i<=cur; i++){
+						if(i == cur)
+							str += this.getPlainChild(i);
+						else
+							str += this.getNaviNode(url, i, i);
+					}
 				}
 				if(page-cur<hf+3){
-					for(i=cur+1;i<=page;i++)
-					if(i==cur) str += this.getPlainChild(i);
-					else str += this.getNaviNode(url, i, i);
+					for(i=cur+1; i<=page; i++){
+						if(i == cur)
+							str += this.getPlainChild(i);
+						else
+							str += this.getNaviNode(url, i, i);
+					}
 				}else{
 					cur = parseInt(cur);
-					for(i=cur+1;i<=(cur+hf-((cur-hf>1)?0:(cur-hf-1)));i++)
-					if(i==cur) str += this.getPlainChild(i);
-					else str += this.getNaviNode(url, i, i);
-					if(page!=show+1)str +=  this.getPlainChild('...');
+					for(i=cur+1; i<=(cur+hf-((cur-hf>1)?0:(cur-hf-1))); i++){
+						if(i == cur)
+							str += this.getPlainChild(i);
+						else
+							str += this.getNaviNode(url, i, i);
+					}
+					if(page != show+1)
+						str +=  this.getPlainChild('...');
 					str += this.getNaviNode(url, page, page);
 				}
 			}
-			if(options.showPreNextOnEdge || options.showPreNext&&cur!=page)
+			if(options.showPreNextOnEdge || options.showPreNext && cur!=page)
 				str += this.getNaviNode(url, cur+1, options.nextPageAlias||"下一页");
 			return str + '</div>';
 		}
@@ -162,8 +182,10 @@ $.fn.pagination = function(options){
 		var $this = $(this);
 		var instance = handler(this, $.extend(true, {render:this}, options));
 		var ui = $this.data('ui');
-		if(ui) ui.iPagination = instance;
-		else $this.data('ui', {iPagination:instance});
+		if(ui)
+			ui.iPagination = instance;
+		else
+			$this.data('ui', {iPagination:instance});
 	});
 };
 })(jQuery);

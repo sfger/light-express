@@ -318,12 +318,12 @@
             });
             $(this.ui.renderTo).on({
                 click: function(){
-                    that.ui.skipdate = date_helper(that.ui.skipdate).get_offset_date(-2, 'm').current_date;
+                    that.ui.skipdate = date_helper(that.ui.skipdate).get_offset_date(-Number(op.monthNum), 'm').current_date;
                     draw_ui(that.ui.skipdate, false, that);
                 }
             }, '.l-prev').on({
                 click: function(){
-                    that.ui.skipdate = date_helper(that.ui.skipdate).get_offset_date(2, 'm').current_date;
+                    that.ui.skipdate = date_helper(that.ui.skipdate).get_offset_date(Number(op.monthNum), 'm').current_date;
                     draw_ui(that.ui.skipdate, false, that);
                 }
             }, '.l-next').on({
