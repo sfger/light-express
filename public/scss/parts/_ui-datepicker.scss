@@ -5,7 +5,7 @@
     .l-head{
 		position:relative;height:17px;padding:3px;line-height:17px;background:#004fb8;
         li{
-			float:left;width:194px;text-align:center;color:white;font-weight:bold;
+			float:left;width:230px;text-align:center;color:white;font-weight:bold;
 			a{color:white;text-decoration:none;@extend %ib;vertical-align:top;padding:0 2px;}
 		}
     }
@@ -17,13 +17,13 @@
     .l-next{right:3px;}
     .l-list{
         .l-item{
-            float:left;width:192px;padding:2px;border-left:1px solid #ddd;
+            float:left;width:226px;padding:2px;border-left:1px solid #ddd;
             &.first{border:none;}
         }
         ul{padding:0 9px;margin:auto;}
         .wh{background:#ececec;}
         li{
-            float:left;width:20px;height:20px;line-height:20px;margin:2px;border-radius:3px;
+            float:left;width:25px;height:25px;line-height:25px;margin:2px;border-radius:3px;
 			cursor:pointer;text-align:center;color:#4385e0;background:#eef;
             &.day{font-weight:bold;color:#666;}
             &.weekend{color:#f18100;}
