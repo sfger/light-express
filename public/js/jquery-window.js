@@ -39,7 +39,7 @@ $.fn.window = function(options){
 	'<!--[if lt IE 8]><p class="iecp"></p><![endif]-->' +
 '</div>';
 			var w = $(ctn.replace(/(\/?>)\s+|\s+(?=<)/g, '$1')).appendTo(document.body);
-			if(options.class) w.addClass(options.class);
+			if(options['class']) w.addClass(options['class']);
 			if(options.id) w.attr('id', options.id);
 			this.userOptions = options;
 			this.container   = w.get(0);
