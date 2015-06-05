@@ -5,11 +5,11 @@
 	@each $prop, $value in $map{
 		@if $vendors {
 			@each $vendor in $vendors {
-				#{'-' + $vendor + '-' + $prop}: #{$value};
+				#{'-' + $vendor + '-' + $prop}:#{$value};
 			}
-			// Dump regular property anyway
-			#{$prop}: #{$value};
 		}
+		// Dump regular property anyway
+		#{$prop}:#{$value};
 	}
 }
 // sass:
@@ -62,6 +62,19 @@
 @mixin opacity($val:0.5){
 	opacity:$val;
 	filter:alpha(opacity=$val*100);
+}
+
+// @param
+// $color - 普通的十六进制颜色值 #123456
+// $alpha - 透明度0 ~ 1
+@mixin background-color-rgba($color, $alpha){
+	$rgba:rgba($color,$alpha);
+	$ie-hex-str:ie-hex-str($rgba);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#{$ie-hex-str},endColorstr=#{$ie-hex-str});
+	background-color:$rgba;
+	@media screen and (min-width:0px){
+		filter:progid:DXImageTransform.Microsoft.gradient(enabled=false);
+	}
 }
 
 @mixin size($width:auto, $height:$width){
@@ -132,7 +145,8 @@
 // }
 
 @mixin button($width, $height, $bgcolor:transparent){
-	@include size($width, $height);@include user-select(none);background:$bgcolor;
+	@include size($width, $height);@include user-select(none);
+	line-height:$height;text-align:center;background:$bgcolor;
 	&:hover{background-color:lighten($bgcolor, 5%);}
 	&:active{background-color:darken($bgcolor, 5%);outline:thin dotted;outline-offset:-2px;}
 }
