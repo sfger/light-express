@@ -5,11 +5,11 @@
 	@each $prop, $value in $map{
 		@if $vendors {
 			@each $vendor in $vendors {
-				#{'-' + $vendor + '-' + $prop}: #{$value};
+				#{'-' + $vendor + '-' + $prop}:#{$value};
 			}
-			// Dump regular property anyway
-			#{$prop}: #{$value};
 		}
+		// Dump regular property anyway
+		#{$prop}:#{$value};
 	}
 }
 // sass:
@@ -65,13 +65,16 @@
 }
 
 // @param
-//  $color - 普通的十六进制颜色值 #123456
-//  $alpha - 透明度0 ~ 1
-@mixin background-color-rgba( $color, $alpha ) {
-	$rgba: rgba($color, $alpha);
-  	$ie-hex-str: ie-hex-str($rgba);
-	background-color: $rgba;
+// $color - 普通的十六进制颜色值 #123456
+// $alpha - 透明度0 ~ 1
+@mixin background-color-rgba($color, $alpha){
+	$rgba:rgba($color,$alpha);
+	$ie-hex-str:ie-hex-str($rgba);
 	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#{$ie-hex-str},endColorstr=#{$ie-hex-str});
+	background-color:$rgba;
+	@media screen and (min-width:0px){
+		filter:progid:DXImageTransform.Microsoft.gradient(enabled=false);
+	}
 }
 
 @mixin size($width:auto, $height:$width){
