@@ -9,35 +9,35 @@ input{*filter:chroma(color=black);}
 var $myWindow = $('.my-window');
 var $myWindow2 = $('.my-window2');
 $('.my-pop').window({
-	// show: false,
-	'class': 'page-window list-window',
-	title: '<span style="color:red;">点我干啥？</span>',
-	onBeforeOpen: function(){
-		/* alert('窗口马上打开！'); */
-		//return false;时阻止窗口显示
-		return true;
-	},
-	onOpen: function(){
-		/* alert('刚打开窗口！'); */
-	},
-	onBeforeClose: function(){
-		/* return confirm('确定关闭窗口？'); */
-		return true; // 允许窗口隐藏
-		// return false; // 阻止窗口隐藏
-	},
-	onClose: function(){
-		/* alert('窗口已经关闭'); */
-	},
-	footer:{
-		formatter: function(){
-			return '<a href="javascript:;" class="btn btn-success">取消</a>' +
-				 '<a href="javascript:;" class="btn btn-success">确定</a>';
-		}
-	}
+// show: false,
+'class': 'page-window list-window',
+title: '<span style="color:red;">点我干啥？</span>',
+onBeforeOpen: function(){
+/* alert('窗口马上打开！'); */
+//return false;时阻止窗口显示
+return true;
+},
+onOpen: function(){
+/* alert('刚打开窗口！'); */
+},
+onBeforeClose: function(){
+/* return confirm('确定关闭窗口？'); */
+return true; // 允许窗口隐藏
+// return false; // 阻止窗口隐藏
+},
+onClose: function(){
+/* alert('窗口已经关闭'); */
+},
+footer:{
+formatter: function(){
+return '<a href="javascript:;" class="btn btn-success">取消</a>' +
+'<a href="javascript:;" class="btn btn-success">确定</a>';
+}
+}
 });
 $('#btn').on('click', function(){
-	$myWindow.window('open');
+$myWindow.window('open');
 });
 $('#btn2').on('click', function(){
-	$myWindow2.window('open');
+$myWindow2.window('open');
 });</script></body></html>
