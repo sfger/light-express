@@ -27,7 +27,7 @@ $.fn.window = function(options){
 				: '';
 			var ctn = 
 '<div class="window-ctn">' +
-	'<div class="window-mask"></div>' +
+	// '<div class="window-mask"></div>' +
 	'<div class="window-wrapper cf">' +
 		'<div class="window-bar window-header">' +
 			'<span class="window-title">' + (options.title||'') + '</span>' +
