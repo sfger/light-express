@@ -21,13 +21,13 @@ $.fn.window = function(options){
 	var handler = function(box, options){ return new handler.prototype.init(box, options); };
 	handler.prototype = {
 		init: function(box, options){
+			var that = this;
 			var $box = $(box);
 			var footer = options.footer.formatter ?
 				'<div class="window-bar window-footer cf">' + options.footer.formatter() + '</div>'
 				: '';
 			var ctn = 
 '<div class="window-ctn">' +
-	'<div class="window-mask"></div>' +
 	'<div class="window-wrapper cf">' +
 		'<div class="window-bar window-header">' +
 			'<span class="window-title">' + (options.title||'') + '</span>' +
@@ -48,8 +48,7 @@ $.fn.window = function(options){
 			this.closer      = $('.window-closer', w).get(0);
 			this.contents    = $('.window-contents', w).get(0);
 			this.title		 = $('.window-title', w).html(options.title).get(0);
-			$box.addClass('window-view').show().appendTo(this.contents);
-			var that = this;
+			$box.addClass('window-view').appendTo(this.contents).show();
 			$(['Height', 'Width']).each(function(i, one){
 				that['getView'+one] = (function () {
 					var container = "BackCompat" === document.compatMode ? document.body : document.documentElement;
