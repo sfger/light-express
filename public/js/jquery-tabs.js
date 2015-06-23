@@ -15,24 +15,89 @@ $.fn.tabs = function(options){
 		return true;
 	}
 	options = $.extend(true, {
-		height:80,
-		tabWidth:160,
-		border:true,
-		icon:null,
-		selected:0,
-		position:'north'
+		height     : 80,
+		tabWidth   : 160,
+		contentFit : false,
+		border     : true,
+		icon       : null,
+		selected   : 0,
+		position   : 'north'
 	}, options);
-	var slice = light.util.slice;
-	var createElement = light.util.createElement;
+
+	var slice = Array.prototype.slice;
+	var toString = Object.prototype.toString;
+	var getType = function(obj){ return toString.call(obj).slice(8, -1); };
+	var createElement = function(node){
+		var cd = '',
+			at=[],
+			attr = null,
+			children = null,
+			fn = createElement,
+			node_type = getType(node);
+		if(node_type === 'Array'){
+			for(var j in node) cd += fn(node[j]);
+		}else{
+			if(node_type==="String" || node_type=="Number"){
+				cd = node;
+			}else if(node_type==='Object' && node.name){
+				attr = node.attr, children = node.children, at = [];
+				if(attr){
+					for(var key in attr){
+						if(key=='className'){
+							at.push('class="' + attr[key] + '"');
+							continue;
+						}else if(key=='style'){
+							var style = attr[key];
+							var ot = getType(style);
+							attr[key] = '';
+							if(ot=='Object'){
+								for(var sk in style){
+									attr[key] += sk + ':' + style[sk] + ';';
+								}
+							}else if(ot=='String'){
+								attr[key] = style;
+							}
+						}
+						at.push('' + key + '="' + attr[key] + '"');
+					}
+				}
+				if(at.length) at.unshift('');
+				if(children && getType(children) !== 'Array') children = [children];
+				cd = '<' + node.name + at.join(' ') + '>' + (children ? fn(children) : '') + '</' + node.name + '>';
+			} else cd = '';
+		}
+		return cd;
+	};
+	var list2Array = function(list){
+		var ret = [];
+		try{
+			ret = slice.call(list);
+		}catch(e){
+			for(var i=0,ii=list.length-1; i<=ii; i++)
+				ret.push(list[i]);
+		}
+		return ret;
+	};
+	Array.prototype.indexOf = Array.prototype.indexOf || function(searchElement, fromIndex){
+		var index = -1;
+		fromIndex = fromIndex*1 || 0;
+		for(var k=0, length=this.length; k<length; k++) {
+			if(k>=fromIndex && this[k]===searchElement){
+				index = k;
+				break;
+			}
+		}
+		return index;
+	};
 	options.renders = slice.call(this);
 	var handler = function(box, options){ return new handler.prototype.init(box, options); };
-	var list2Array = light.util.list2Array;
 	handler.prototype = {
 		init: function(box, options){
 			this.render = box;
 			this.userOptions = options;
 			this.headers = list2Array(box.children[0].children);
 			this.panels = list2Array(box.children[1].children);
+			$(this.panels).addClass('tab-content');
 			var that = this;
 			var $box = $(box);
 			$(box.children[0]).addClass('cf');
@@ -46,21 +111,21 @@ $.fn.tabs = function(options){
 					box.children[1].style.height = (box.parentNode.offsetHeight - box.children[0].offsetHeight - 1) + 'px';
 				}).resize();
 			}
-			$(box.children[0]).delegate('li', {
+			$(box.children[0]).on({
 				click:function(e){
 					that.select(that.headers.indexOf(this));
 				}
-			}).delegate('.closer', {
+			}, 'li').on({
 				click:function(e){
 					that.close(that.headers.indexOf(this.parentNode.parentNode));
 					return false;
 				}
-			});
+			}, '.closer');
 		},
 		add:function(op, index){
 			var render = this.render;
 			var len = this.headers.length;
-			var position = 'beforeBegin';
+			var position = 'before';
 			if(index===undefined) index = len;
 			if(index<0) index = 0;
 			if(!len){
@@ -68,7 +133,7 @@ $.fn.tabs = function(options){
 				$(render.children[1]).show();
 			}else if(index>=len){
 				index = len;
-				position = 'afterEnd';
+				position = 'after';
 			}
 			var header = createElement({
 				name:'li', children:{
@@ -82,29 +147,34 @@ $.fn.tabs = function(options){
 							}
 							if(op.closable){
 								ret.push(createElement({
-									name:'span', attr:{className:'closer'}, children:
-										light.ui.markChars.close
+									name:'span', attr:{className:'closer'}, children:'&times;'
 								}));
 							}
 							return ret;
 						})()
 				}
 			});
-			var panel = createElement({name:'div', attr:{className:'tab-content', style:{display:'none'}}, children:op.content});
+			var $panel = $(createElement({
+				name:'div',
+				attr:{
+					className:'tab-content',
+					style:{display:'none'}
+				}
+			}));
 			if(this.headers.length){
-				var i = position==='afterEnd' ? index -1 : index;
-				this.headers[i].insertAdjacentHTML(position, header);
-				this.panels[i].insertAdjacentHTML(position, panel);
+				var i = position==='after' ? index -1 : index;
+				$(this.headers[i])[position](header);
+				$(this.panels[i])[position]($panel.append(op.content));
 			}else{
-				render.children[0].innerHTML = header;
-				render.children[1].innerHTML = panel;
+				$(render.children[0]).html(header);
+				$(render.children[1]).html($panel.append(op.content));
 			}
 			this.headers = list2Array(render.children[0].children);
 			this.panels = list2Array(render.children[1].children);
 			if(index<=this.userOptions.selected) this.userOptions.selected++;
 			if(op.select) this.select(index);
 			var box = this.render;
-			box.children[1].style.height = (box.parentNode.offsetHeight - box.children[0].offsetHeight - 1) + 'px';
+			if(options.contentFit) box.children[1].style.height = (box.parentNode.offsetHeight - box.children[0].offsetHeight - 1) + 'px';
 			return this;
 		},
 		remove: function(index){ // alias for close

@@ -49,7 +49,7 @@ $(function(){
 			}
 		}
 	});
-	var mainTab = $('.tab-container')
+	var mainTab = $('.tab-ctn')
 	mainTab.tabs({
 		width:1200,
 		height:60,
