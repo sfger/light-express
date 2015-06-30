@@ -22,6 +22,20 @@
 //  -ms-transform: translate(-50%, -50%);
 //  transform: translate(-50%, -50%);
 // }
+@mixin keyframes($name){
+	@keyframes #{$name}{@content}
+	@-webkit-keyframes #{$name}{@content}
+	@-moz-keyframes #{$name}{@content}
+	@-o-keyframes #{$name}{@content}
+	@-ms-keyframes #{$name}{@content}
+}
+// @include keyframes(donghua){
+// 	0%{margin-top:0;}
+// 	25%{margin-top:-10px;}
+// 	50%{margin-top:-20px;}
+// 	75%{margin-top:-10px;}
+// 	100%{margin-top:0;}
+// }
 
 @mixin cf(){
 	*zoom:1;
