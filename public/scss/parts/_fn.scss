@@ -223,19 +223,17 @@
 
 @mixin tip-box($direction, $position, $arrSize){
 	$dirMap : ('top':'bottom', 'right':'left', 'bottom':'top', 'left':'right');
-	$od     : map-get($dirMap, $direction);
+	$od     : map-get($dirMap, $direction);// 反方向
 	$n      : 1;
 	@if index(right bottom, $direction){
 		$n:2;
 	}
-	padding-#{$direction}:nth($arrSize, $n);
+	padding-#{$direction}:nth($arrSize, $n);// padding使用相应宽/高的值，使可以hover到tip上显示
 	.tip-content{
 		position:relative;background:white;border-radius:8px;border:1px solid #ff8144;
 		:before,:after,.before,.after{
-			@include absolute($position);
-			@include size(0);content:'';
-			border-style:solid;
-			border-color:transparent;
+			@include absolute($position);@include size(0);content:'';
+			border-style:solid;border-color:transparent;
 			border-#{$od}:10px solid #ff8144;
 			@if index(top bottom, $direction){
 				border-left-width  : nth($arrSize, 1);
