@@ -13,19 +13,21 @@
 <meta name="description" content="" />
 <link rel="icon" href="/favicon.ico" type="image/x-icon" />
 <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
-<link rel="stylesheet" type="text/css" href="FF.css" />
+<link rel="stylesheet" type="text/css" href="<%-___%>/css/tip.css" />
 <style type="text/css" media="all">
 </style>
 </head>
 <body>
 <div id="page">
-	<div class="tip-ctn">
-		<div class="tip-content">
-			aaaa<br />
-			<a href="">test</a>
-		</div>
+<% for(var i=0; i<4; i++){ %>
+<div class="tip tip<%-i%>">
+	<div class="tip-content">
+		aaaaaaaaaaaaaaaaaaaaaaaaaaaa<br />
+		<a href="">test</a>
 		<!--[if lt IE 8]><p class="before"></p><p class="after"></p><![endif]-->
 	</div>
+</div>
+<% } %>
 </div>
 </body>
 </html>
