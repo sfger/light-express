@@ -164,3 +164,110 @@
 	&:hover{background-color:lighten($bgcolor, 5%);}
 	&:active{background-color:darken($bgcolor, 5%);outline:thin dotted;outline-offset:-2px;}
 }
+
+
+// Returns the opposite direction of each direction in a list
+// @author Hugo Giraudel
+// @param {List} $directions - List of initial directions
+// @return {List} - List of opposite directions
+@function opposite-direction($directions) {
+	$opposite-directions:();
+	$direction-map:(
+		'top'    : 'bottom',
+		'right'  : 'left',
+		'bottom' : 'top',
+		'left'   : 'right',
+		'center' : 'center',
+		'ltr'    : 'rtl',
+		'rtl'    : 'ltr'
+	);
+	@each $direction in $directions {
+		$direction: to-lower-case($direction);
+		@if map-has-key($direction-map, $direction) {
+			$opposite-directions: append($opposite-directions, unquote(map-get($direction-map, $direction)));
+		} @else {
+			@warn "No opposite direction can be found for `#{$direction}`. Direction omitted.";
+		}
+	}
+	@return $opposite-directions;
+}
+// 例：scss
+// .selector {
+//   background-position: opposite-direction(top right);
+// }
+// css
+// .selector {
+//   background-position: bottom left;
+// }
+
+//生成 三角
+@mixin triangle($direction, $position, $color:currentcolor, $size:1em) {
+	$direction: if(function-exists("to-lower-case") == true, to-lower-case($direction), $direction);
+	@if not index(top right bottom left, $direction) {
+		@warn "Direction must be one of `top`, `right`, `bottom` or `left`; currently `#{$direction}`.";
+	} @else {
+		// Core stuff
+		@include absolute($position);
+		@include size(0);
+		border-#{opposite-direction($direction)}: $size solid $color;
+		$perpendicular-border: $size solid transparent;
+		@if $direction == top or $direction == bottom {
+			border-left:   $perpendicular-border;
+			border-right:  $perpendicular-border;
+		} @else if $direction == right or $direction == left {
+			border-bottom: $perpendicular-border;
+			border-top:    $perpendicular-border;
+		}
+	}
+}
+
+// 列：scss
+// .selector{@include triangle(right,top 5px right -5px,#EA3434,5px);}
+// css
+// .selector {
+// 	top: 5px;
+// 	right: -5px;
+// 	position: absolute;
+// 	width: 0;
+// 	height: 0;
+// 	border-left: 5px solid #EA3434;
+// 	border-bottom: 5px solid transparent;
+// 	border-top: 5px solid transparent
+// }
+
+@mixin tip-box($direction, $position, $arrSize){
+	$dirMap : ('top':'bottom', 'right':'left', 'bottom':'top', 'left':'right');
+	$od     : map-get($dirMap, $direction);// 反方向
+	$n      : 1;
+	@if index(right bottom, $direction){
+		$n:2;
+	}
+	padding-#{$direction}:nth($arrSize, $n);// padding使用相应宽/高的值，使可以hover到tip上显示
+	.tip-content{
+		position:relative;background:white;border-radius:8px;border:1px solid #ff8144;
+		:before,:after,.before,.after{
+			@include absolute($position);@include size(0);content:'';
+			border-style:solid;border-color:transparent;
+			border-#{$od}:10px solid #ff8144;
+			@if index(top bottom, $direction){
+				border-left-width  : nth($arrSize, 1);
+				border-right-width : nth($arrSize, 2);
+			}@else if index(left right, $direction){
+				border-top-width    : nth($arrSize, 1);
+				border-bottom-width : nth($arrSize, 2);
+			}
+		}
+		:after,.after{
+			@include absolute($direction nth($position, index($position, $direction)+1)+1);
+			border-#{$od}-color:white;
+		}
+	}
+}
+// .tip{
+// 	@include ib;width:100px;margin-top:15px;margin-right:15px;
+// 	word-break:break-line;word-wrap:break-word;
+// 	@include relative(top 10px left 14px);
+// 	line-height:16px;color:#ff8144;
+// 	.tip-content{padding:15px;}
+// 	@include tip-box(top, left 13px top -13px, 10px 10px);
+// }
