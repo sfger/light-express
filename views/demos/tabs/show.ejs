@@ -19,13 +19,13 @@
 .icon-user{background:url("../img/user.png") no-repeat;}
 .icon-money{background:url("../img/money.png") no-repeat;}
 #page{height:300px;/*overflow:auto;*/}
-.tab-container{border:1px solid #ccc;}
+.tab-ctn{border:1px solid #ccc;}
 </style>
 </head>
 <body>
 <div id="page">
-	<div class="tab-container">
-		<ul class="header">
+	<div class="tab-ctn">
+		<ul class="tab-header">
 			<li>
 				<a href="javascript:;">
 					<span class="icon icon-money"></span>
@@ -48,7 +48,7 @@
 				</a>
 			</li>
 		</ul>
-		<div class="panel">
+		<div class="tab-panel">
 			<div>
 				content0<br /> content0<br /> content0<br /> content0<br /> content0<br /> content0<br />
 				content0<br /> content0<br /> content0<br /> content0<br /> content0<br /> content0<br />
@@ -72,10 +72,10 @@
 <script type="text/javascript" src="<%-___%>/js/jquery-tabs.js"></script>
 <script type="text/javascript">
 $(function(){
-	$('.tab-container').tabs({
+	$('.tab-ctn').tabs({
 		height:60,
 		tabWidth:150,
-		contentFit:false,
+		contentFit:true,
 		border:true,
 		selected:1,
 		/* onSelect:function(el, i){ */

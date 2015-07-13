@@ -1,5 +1,6 @@
 (function($, undefined){
     "use strict";
+	//date time fns{{{
     var strtotime = function( str ){
         return Date.parse( str.replace(/-/g, '/') )/1000;
     };
@@ -96,9 +97,7 @@
             return ret;
         });
     };
-    var date_helper = function($t){
-        return new date_helper.prototype.init($t);
-    };
+    var date_helper = function($t){ return new date_helper.prototype.init($t); };
     date_helper.prototype = {
         date         : '',
         current_date : '',
@@ -220,6 +219,7 @@
 
     };
     date_helper.prototype.init.prototype = date_helper.prototype;
+	//}}}
     $.fn.datePicker = function(o){
         var op = $.extend(true, {
             monthNum:1,
@@ -369,3 +369,4 @@
         });
     };
 })(jQuery);
+// vim: fdm=marker
