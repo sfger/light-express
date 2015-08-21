@@ -19,7 +19,8 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
 app.use(cookieParser());
-if(isDev) app.use(require('node-compass')({mode:'compressed', css:'css', sass:'scss', img:'img'}));
+// if(isDev) app.use(require('node-compass')({mode:'compressed', css:'css', sass:'scss', img:'img'}));
+if(isDev) app.use(express.UserConfig.compileSCSS);
 app.use(express.static(path.join(__dirname, express.UserConfig.staticDir)));
 app.use(session({name:'_SSID_', keys:['skey1', 'skey2']}));
 
