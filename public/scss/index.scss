@@ -3,6 +3,7 @@
 html,body{
 	height:100%;overflow:hidden;
 	font:normal 16px/normal "Helvetica Neue",Helvetica,Arial,"Hiragino Sans GB",sans-serif;
+	@include user-select(none);
 }
 .ctnc{
 	height:100%;
