@@ -18,7 +18,10 @@ require([
 	'jquery-tree',
 	'jquery-tabs'
 ], function($, data){
-	$('#page').layout({
+	var $leftMenu = $('.left-menu'),
+		$mainTab = $('.tab-ctn'),
+		$page = $('#page');
+	$page.layout({
 		panel:{
 			toggle:true,
 			resize:true,
@@ -33,10 +36,7 @@ require([
 			size: 1,
 			each:{west:{width:4}}
 		}
-	});
-	$('#page').show();
-	var $leftMenu = $('.left-menu');
-	var $mainTab = $('.tab-ctn');
+	}).show();
 	$leftMenu.tree({
 		data:data,
 		animate:{time:115},
@@ -78,7 +78,7 @@ require([
 	});
 	$mainTab.tabs('add', {
 		title    : '主页',
-		content  : '欢迎来到sfger做客！',
+		content  : '欢迎来到朴水做客！',
 		closable : false,
 		select   : true
 	});
