@@ -1,8 +1,9 @@
 var fs     = require('fs');
+var exec   = require('child_process').exec;
 var path   = require('path');
 var isDev  = false;
 var config = {
-	staticDir: 'public',
+	staticDir: '/public',
 	routes: function(app, dirPath, routePath){
 		var routeFiles = fs.readdirSync(dirPath);
 		routeFiles.forEach(function(file){
@@ -69,7 +70,7 @@ var config = {
 	},
 	compileSCSS: function(req, res, next){
 		if(/.*\.css$/.test(req.path)){
-			var static_public = process.cwd() + '/../../public';
+			var static_public = process.cwd() + config.staticDir;
 			static_public = path.normalize(static_public);
 			var css_path = static_public +  req.path.replace(/\.css/, '');
 			css_path = path.normalize(css_path);
