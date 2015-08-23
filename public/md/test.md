@@ -47,3 +47,7 @@ Content Cell  | Content Cell
 | col 3 is      | some wordy text   | $1600         |
 | col 2 is      | centered          | $12           |
 | zebra stripes | are neat          | $1            |
+
+[1]: http://google.com/ "Google"
+[2]: http://search.yahoo.com/ "Yahoo Search"
+[3]: http://search.msn.com/ "MSN Search"
