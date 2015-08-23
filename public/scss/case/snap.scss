@@ -1,0 +1,10 @@
+@charset "utf-8";
+html{margin:0;padding:0;}
+body{
+	// max-width:960px;min-width:640px;_width:960px;
+	// margin:0 auto;padding:0;
+}
+// #page{border:3px double #ccc;padding:8px;}
+table{margin:8px 0;table-layout:fixed;border-collapse:collapse;border:1px black #666;}
+th,td{padding:2px 4px;border:1px #666 solid;word-break:break-all;word-wrap:break-word;}
+sub,sup{font-size:10px;}
