@@ -29,7 +29,7 @@ puts markdown.to_html
 
 <div style="color:red;">test</div>
 
-水的化学符号：H~2~O
+水的化学符号：H<sub>2</sub>O
 2<sup>3</sup>=8
 
 First Header  | Second Header
