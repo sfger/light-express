@@ -97,9 +97,13 @@ var config = {
 			return next();
 		}
 	},
+	/*
+	 * 每次请求模块文件时，动态编译相应的模块文件
+	 * 具有合并多个模块文件为一个的功能
+	 * */
 	compileTemplate: function(req, res, next){
-		if(/^\/[^\/]*\/tpl\/.*\.js/.test(req.path)){
-			var static_public = process.cwd() + '/../../public';
+		if(/\/tpl\/.*\.js/.test(req.path)){
+			var static_public = process.cwd() + config.staticDir;
 			static_public = path.normalize(static_public);
 			var js_path = static_public + req.path.replace(/\.js/, '');
 			js_path = path.normalize(js_path);
@@ -109,34 +113,117 @@ var config = {
 				s = s.replace(/\s*([\r\n]+)\s*/g, '$1');
 				// s = s.replace(/([^\\])(')/g, "$1\\$2"); // '
 				return s;
-			}
+			};
 			config.mkdirRecursive(path.dirname(js_path), 777, function(){
 				var out_file = js_path + '.js';
-				var data;
+				var data = {};
 				var in_file;
-				if(req.query.stpl){
-					var stpl = req.query.stpl.split(',');
-					data = {};
+				in_file = js_path.replace(/([\\\/])tpl([\\\/])/, "$1htpl$2") + '.tpl';
+				var map = config.readJSONFile(path.dirname(in_file)+'/map.json');
+				var stpl = map[req.path.split('.')[0].slice(1)];
+				if(stpl){ // 有作映射读配置合并模板
+					stpl = stpl.split(',');
 					stpl.forEach(function(one, i){
 						in_file = String(path.dirname(js_path) + '/').replace(/([\\\/])tpl([\\\/])/, "$1htpl$2") + one + '.tpl';
 						var s = fs.readFileSync(in_file, {encoding:'utf8', flag: 'r'});
 						s = minify_code(s);
 						data[one] = s;
 					});
-					data = "define('" + path.basename(req.path, ".js") + "'," + JSON.stringify(data) + ");";
-				}else{
-					in_file = js_path.replace(/([\\\/])tpl([\\\/])/, "$1htpl$2") + '.tpl';
-					data = fs.readFileSync(in_file, {encoding:'utf8', flag: 'r'});
-					data = minify_code(data);
-					data = "define('" + path.basename(in_file, ".tpl") + "'," + JSON.stringify(data) + ");";
+
+					data = "define(" + JSON.stringify(data) + ");";
+					fs.writeFile(out_file, data, {mode:'777'}, function(){
+						return next();
+					});
+				}else{ // 找单个文件
+					fs.exists(in_file, function(exists){
+						if(exists){
+							var s = fs.readFileSync(in_file, {encoding:'utf8', flag: 'r'});
+							data[path.basename(in_file).split('.')[0]] = minify_code(s);
+							data = "define(" + JSON.stringify(data) + ");";
+							fs.writeFile(out_file, data, {mode:'777'}, function(){
+								return next();
+							});
+						}else{ // 文件不存在
+							config.httpNotFound(res);
+						}
+					});
 				}
-				fs.writeFile(out_file, data, {mode:'777'}, function(){
-					return next();
-				});
 			});
 		}else{
 			return next();
 		}
+	},
+
+	httpNotFound: function(res){
+		res.writeHead(404, {"Content-Type":"text/html"} );
+		res.end("<h1>404 Not Found</h1>");
+		return false;
+	},
+
+	/*
+	 * 简单的http2.0 combo处理，未做304等状态处理，只供开发使用
+	 * */
+	combo: function(req, res, next){
+		if(/\?\?/.test(req.originalUrl)){
+			var i = req.originalUrl.indexOf('??');
+			var file_list = req.originalUrl.slice(i+2).split('?')[0].split(',');
+			var static_public = path.normalize(process.cwd() + config.staticDir);
+			var ret = '';
+			var type = file_list[file_list.length-1].split('.').reverse()[0];
+			var types = {
+				"js": "application/x-javascript",
+				"css": "text/css"
+			};
+			if(type==='js' || type==='css'){
+				// 跳转，如：http://localhost/public/js??jquery-min.js,jquery-window.js?_a=1&v=201502110322
+				//        => http://localhost/public/js/??jquery-min.js,jquery-window.js?_a=1&v=201502110322
+				if(req.path[req.path.length-1]!=='/'){
+					res.redirect(req.originalUrl.replace(/\?\?/, '/??'));
+					res.writeHead(302);
+					res.end('');
+					return false;
+				}
+			}else{ //暂时支付css和js，其它暂时没必要处理
+				return next();
+			}
+
+			Promise.all(file_list.map(function(one){
+				// return new Promise(function(resolve, reject){
+				// 	fs.exists(path.normalize(static_public + req.path + one), function(exist){
+				// 		if(exist){
+				// 			resolve(fs.readFileSync(path.normalize(static_public + req.path + one), {
+				// 				encoding:'utf8',
+				// 				flag: 'r'
+				// 			}));
+				// 		}else{
+				// 			reject();
+				// 		}
+				// 	});
+				// });
+				return Promise.resolve().then(function(){
+					return fs.readFileSync(path.normalize(static_public + req.path + one), {
+						encoding:'utf8',
+						flag: 'r'
+					});
+				});
+			})).then(function(ret){
+				res.writeHead(200, {"Content-Type":types[type]});
+				return res.end(ret.join(''));
+			})['catch'](function(err){
+				return config.httpNotFound(res);
+			});
+		}else{
+			return next();
+		}
+	},
+
+	readJSONFile: function(p){
+		var json = {};
+		try{
+			var ret = fs.readFileSync(path.normalize(p), {encoding:'utf8', flag: 'r'});
+			json = JSON.parse(ret);
+		}catch(e){}
+		return json;
 	}
 };
 module.exports = config;
