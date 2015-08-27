@@ -1,20 +1,36 @@
 {
-	"name": "LightExpress",
-	"version": "0.0.1",
-	"private": true,
-	"scripts": {
-		"start": "node ./bin/www"
-	},
-	"dependencies": {
-		"express": "~4.2.0",
-		"static-favicon": "~1.0.0",
-		"morgan": "~1.0.0",
-		"cookie-parser": "~1.0.1",
-		"body-parser": "~1.0.0",
-		"debug": "~0.7.4",
-		"ejs": "~0.8.5",
-		"async": "~0.9.0",
-		"node-compass": "~0.2.3",
-		"cookie-session": "~1.0.2"
-	}
+  "name": "LightExpress",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www"
+  },
+  "dependencies": {
+    "express": "~4.2.0",
+    "static-favicon": "~1.0.0",
+    "morgan": "~1.0.0",
+    "cookie-parser": "~1.0.1",
+    "body-parser": "~1.0.0",
+    "debug": "~0.7.4",
+    "ejs": "~0.8.5",
+    "async": "~0.9.0",
+    "node-compass": "~0.2.3",
+    "cookie-session": "~1.0.2"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.0",
+    "gulp-autoprefixer": "^2.3.1",
+    "gulp-cache": "^0.2.10",
+    "gulp-concat": "^2.6.0",
+    "gulp-css-spriter": "^0.3.3",
+    "gulp-imagemin": "^2.3.0",
+    "gulp-jshint": "^1.11.2",
+    "gulp-livereload": "^3.8.0",
+    "gulp-minify-css": "^1.2.1",
+    "gulp-notify": "^2.2.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-replace": "^0.5.4",
+    "gulp-sass": "^2.0.4",
+    "gulp-uglify": "^1.3.0"
+  }
 }
