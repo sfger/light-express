@@ -9,7 +9,7 @@ var gulp = require('gulp'),
 	replace = require('gulp-replace'),
 	notify = require('gulp-notify'),
 	cache = require('gulp-cache'),
-	spriter = require('gulp-css-spriter'),
+	// spriter = require('gulp-css-spriter'),
 	livereload = require('gulp-livereload');
 
 gulp.task('css', function() {
@@ -18,13 +18,13 @@ gulp.task('css', function() {
 	// .pipe(gulp.dest('css2'))
 	// .pipe(rename({suffix: '.min'}))
 	// .pipe(replace(/__version__/gi, date("YmdHis")))
-	.pipe(spriter({
-		// 生成的spriter的位置
-		'spriteSheet': 'dist/img/sprite_aa.png',
-		// 生成样式文件图片引用地址的路径
-		// 如下将生产：backgound:url(../images/sprite20324232.png)
-		'pathToSpriteSheetFromCSS': '../img/sprite_aa.png'
-	}))
+	// .pipe(spriter({
+	// 	// 生成的spriter的位置
+	// 	'spriteSheet': 'dist/img/sprite_aa.png',
+	// 	// 生成样式文件图片引用地址的路径
+	// 	// 如下将生产：backgound:url(../images/sprite20324232.png)
+	// 	'pathToSpriteSheetFromCSS': '../img/sprite_aa.png'
+	// }))
 	.pipe(minifycss())
 	.pipe(gulp.dest('dist/css'))
 	// .pipe(notify({ message: 'Styles task complete' }));
