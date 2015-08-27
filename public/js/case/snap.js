@@ -1,5 +1,5 @@
 require.config({
-	baseUrl:'/js/',
+	baseUrl:'../js/',
 	urlArgs:"v=" + document.getElementById("requirejs").getAttribute("data-version"),
 	map:{"*":{css:"require-css.js"}},
 	paths:{},
@@ -17,6 +17,7 @@ require([
 	if(!document.querySelectorAll) document.querySelectorAll = $;
 	var md = new markdown().set({ html: true, breaks: true });
 	var show_markdown = function(data){
+		console.log(data);
 		$('.md-ctn').html(md.render(data));
 		$('pre code').each(function(i, block) {
 			hljs.highlightBlock(block);
@@ -30,8 +31,15 @@ require([
 	// 		}
 	// 	});
 	// }).then(show_markdown);
+	try{
 	$.ajax({
-		url: '/md/test.md',
-		success: show_markdown
+		url: '../md/test.md',
+		success: show_markdown,
+		error: function(a,b,c){
+			console.log(a,b,c);
+		}
 	});
+	}catch(e){
+		console.log(e);
+	}
 });
