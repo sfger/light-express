@@ -24,11 +24,11 @@ $.fn.window = function(options){
 			var that = this;
 			var $box = $(box);
 			var footer = options.footer.formatter ?
-				'<div class="window-bar window-footer cf">' + options.footer.formatter() + '</div>'
+				'<div class="window-bar window-footer">' + options.footer.formatter() + '</div>'
 				: '';
 			var ctn = 
 '<div class="window-ctn">' +
-	'<div class="window-wrapper cf">' +
+	'<div class="window-wrapper">' +
 		'<div class="window-bar window-header">' +
 			'<span class="window-title">' + (options.title||'') + '</span>' +
 			'<a href="javascript:;" class="window-closer">&times;</a>' +
@@ -102,11 +102,11 @@ $.fn.window = function(options){
 			$container.show();
 			var css1compat = document.compatMode === "CSS1Compat";
 			var isIE6      = /MSIE 6.0/.exec(navigator.userAgent);
-			var isIE7      = /MSIE 7.0/.exec(navigator.userAgent);
-			if(isIE6 || isIE7 || document.documentMode<8){
-				var contentWidth = this.render.offsetWidth;
-				$(wraper).css({width:contentWidth});
-			}
+			// var isIE7      = /MSIE 7.0/.exec(navigator.userAgent);
+			// if(isIE6 || isIE7 || document.documentMode<8){
+			// 	var contentWidth = this.render.offsetWidth;
+			// 	$(wraper).css({width:contentWidth});
+			// }
 			if(isIE6 || !css1compat){
 				var scrollTop = html.scrollTop || window.pageYOffset || body.scrollTop;
 				$container.css({
@@ -115,7 +115,7 @@ $.fn.window = function(options){
 					'position' : 'absolute',
 					'top'      : scrollTop
 				});
-				$container.hide().show();
+				// $container.hide().show();
 				$(window).on('scroll', {el: this.container}, this.scrollIE6);
 			}
 			if(options.onOpen) options.onOpen();
