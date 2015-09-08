@@ -108,15 +108,14 @@ $.fn.window = function(options){
 			// 	$(wraper).css({width:contentWidth});
 			// }
 			if(isIE6 || !css1compat){
-				var scrollTop = html.scrollTop || window.pageYOffset || body.scrollTop;
 				$container.css({
-					width      : this.getViewWidth(),
-					height     : this.getViewHeight(),
-					'position' : 'absolute',
-					'top'      : scrollTop
+					width    : this.getViewWidth(),
+					height   : this.getViewHeight(),
+					position : 'absolute'
 				});
 				// $container.hide().show();
 				$(window).on('scroll', {el: this.container}, this.scrollIE6);
+				$(window).trigger('scroll');
 			}
 			if(options.onOpen) options.onOpen();
 			return this;
