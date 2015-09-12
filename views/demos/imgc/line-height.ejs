@@ -16,30 +16,29 @@
 <link rel="stylesheet" type="text/css" href="<%-___%>/css/base.css" />
 <style type="text/css" media="all">
 .test{background:#ccc;margin-bottom:5px;}
-.test1 .imge{line-height:0;vertical-align:middle;}
-.test2.imgc:before{height:auto;}
-.test2 .imge{line-height:0;vertical-align:middle;}
-.test2,.test3{height:50px;}
+.test2.imgc:before,.test2.imgc.iecp{height:auto;}
+.test2,.test3{height:150px;}
 </style>
 </head>
 <body>
 <div id="page">
 	<div class="imgc test test1">
-		<img class="imge" src="http://placehold.it/18x18/000/fff" alt="">
-		<img class="imge" src="http://placehold.it/19x20/000/fff" alt="">
-		<img class="imge" src="http://placehold.it/19x18/000/fff" alt="">
+		<img class="imge" src="<%-node.get_img(38,38,'000','fff')%>" alt="">
+		<img class="imge" src="<%-node.get_img(39,39,'000','fff')%>" alt="">
+		<img class="imge" src="<%-node.get_img(39,38,'000','fff')%>" alt="">
 		<span class="imge">测试文字</span>
 	</div>
 	<div class="imgc test test2">
-		<img class="imge" src="http://placehold.it/18x18/000/fff" alt="">
-		<img class="imge" src="http://placehold.it/19x20/000/fff" alt="">
-		<img class="imge" src="http://placehold.it/19x18/000/fff" alt="">
+		<img class="imge" src="<%-node.get_img(38,38,'000','fff')%>" alt="">
+		<img class="imge" src="<%-node.get_img(39,39,'000','fff')%>" alt="">
+		<img class="imge" src="<%-node.get_img(39,38,'000','fff')%>" alt="">
 		<span class="imge">测试文字</span>
+		<!--[if lt IE 8]><p class="iecp"></p><![endif]-->
 	</div>
 	<div class="imgc test test3">
-		<img class="imge" src="http://placehold.it/18x18/000/fff" alt="">
-		<img class="imge" src="http://placehold.it/19x20/000/fff" alt="">
-		<img class="imge" src="http://placehold.it/19x18/000/fff" alt="">
+		<img class="imge" src="<%-node.get_img(38,38,'000','fff')%>" alt="">
+		<img class="imge" src="<%-node.get_img(39,39,'000','fff')%>" alt="">
+		<img class="imge" src="<%-node.get_img(39,38,'000','fff')%>" alt="">
 		<span class="imge">测试文字</span>
 		<!--[if lt IE 8]><p class="iecp"></p><![endif]-->
 	</div>

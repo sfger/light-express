@@ -13,7 +13,18 @@ router.get(['/demos/index', '/demos/', '/demos'], function(req, res) {
 			res.render(view, {
 				dir:dir,
 				dist:req.query.dist,
-				___: req.query.dist == 1 ? view.replace(/\\/g, '/').replace(/[^\/]+/g, '..') : ''
+				___: req.query.dist == 1 ? view.replace(/\\/g, '/').replace(/[^\/]+/g, '..') : '',
+				node: {
+					placeholder:{
+					},
+					get_img: function(width, height, bg, color, text){
+						height = height || width;
+						bg = bg || 'ccc';
+						color = color || '000';
+						text =  text || (width + 'X' + height);
+						return 'http://dummyimage.com/'+width+'x'+height+'/'+bg+'/'+color+'.png&text=' + text;
+					}
+				}
 			}, express.UserConfig.dist.bind({req:req, res:res, distPath:view}));
 		}else{
 			res.writeHead(404, {"Content-Type": 'Not Found'});

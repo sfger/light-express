@@ -30,7 +30,7 @@ var config = {
 		var req = this.req;
 		// console.log(config);
 		ret = config.minifyHTML(ret);
-		if(req.query.dist=='1'){
+		if(req.query.dist!=='0'){
 			config.writeStaticCache(this.distPath || req.route.path, ret);
 		}
 		this.res.send(ret);
@@ -144,7 +144,7 @@ var config = {
 								return next();
 							});
 						}else{ // 文件不存在
-							config.httpNotFound(res);
+							return next();
 						}
 					});
 				}
@@ -152,12 +152,6 @@ var config = {
 		}else{
 			return next();
 		}
-	},
-
-	httpNotFound: function(res){
-		res.writeHead(404, {"Content-Type":"text/html"} );
-		res.end("<h1>404 Not Found</h1>");
-		return false;
 	},
 
 	/*
@@ -210,7 +204,7 @@ var config = {
 				res.writeHead(200, {"Content-Type":types[type]});
 				return res.end(ret.join(''));
 			})['catch'](function(err){
-				return config.httpNotFound(res);
+				return next();
 			});
 		}else{
 			return next();

@@ -9,7 +9,7 @@
 	}
 	.window-bar{background:#b6b6b6;padding:2px 0;}
 	.window-header{@include imgc;overflow:visible;text-align:left;@include user-select(none);*zoom:0;}
-	.window-title{@include imge;margin:5px 0;text-indent:5px;}
+	.window-title{@include imge;margin:5px 0;text-indent:7px;}
 	.window-closer{
 		@include absolute(right 7px top 7px);@include size(16px);
 		border:none;color:black;text-decoration:none;

@@ -52,11 +52,11 @@
 // 通用居中样式
 // 使用见_layout.scss
 @mixin imge(){
-	@extend %ib;font-size:12px;font-size:1rem;line-height:normal;
+	@include ib;font-size:12px;font-size:1rem;line-height:normal;
 }
 @mixin imgc(){
-	font-size:0;_line-height:0;text-align:center;overflow:hidden;
-	&:before,.iecp{@extend %ib;}
+	font-size:0;text-align:center;_overflow:hidden;_line-height:0;
+	&:before,.iecp{@include ib;}
 	&:before,.iecp{content:"";height:100%;font-size:0;line-height:0;width:0;}
 	img{max-width:100%;max-height:100%;} //大图片等比缩小至父元素大小
 }
@@ -87,13 +87,12 @@
 	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#{$ie-hex-str},endColorstr=#{$ie-hex-str});
 	background-color:$rgba;
 	@media screen and (min-width:0px){
-		filter:progid:DXImageTransform.Microsoft.gradient(enabled=false);
+		filter:none;
 	}
 }
 
 @mixin size($width:auto, $height:$width){
-	width:$width;
-	height:$height;
+	width:$width;height:$height;
 }
 
 @mixin user-select($val){
@@ -207,8 +206,7 @@
 		@warn "Direction must be one of `top`, `right`, `bottom` or `left`; currently `#{$direction}`.";
 	} @else {
 		// Core stuff
-		@include absolute($position);
-		@include size(0);
+		@include absolute($position);@include size(0);
 		border-#{opposite-direction($direction)}: $size solid $color;
 		$perpendicular-border: $size solid transparent;
 		@if $direction == top or $direction == bottom {
@@ -250,11 +248,11 @@
 			border-style:solid;border-color:transparent;
 			border-#{$od}:10px solid #ff8144;
 			@if index(top bottom, $direction){
-				border-left-width  : nth($arrSize, 1);
-				border-right-width : nth($arrSize, 2);
+				border-left-width  : nth($arrSize,1);
+				border-right-width : nth($arrSize,2);
 			}@else if index(left right, $direction){
-				border-top-width    : nth($arrSize, 1);
-				border-bottom-width : nth($arrSize, 2);
+				border-top-width    : nth($arrSize,1);
+				border-bottom-width : nth($arrSize,2);
 			}
 		}
 		:after,.after{
