@@ -152,7 +152,7 @@
         get_offset_date: function($offset, $type){
             if(!$type) $type = 'd';
             var $year, $timestamp;
-            $offset = parseInt($offset);
+            $offset = Number($offset);
             switch($type){
             case 'Y':
                 $year = parseInt(this.php_date('Y')) + $offset;
