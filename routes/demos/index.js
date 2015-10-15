@@ -18,11 +18,22 @@ router.get(['/demos/index', '/demos/', '/demos'], function(req, res) {
 					placeholder:{
 					},
 					get_img: function(width, height, bg, color, text){
+						var colorTrans = function(c){
+							return c.replace(/./g, function(s){return s+s;});
+						};
 						height = height || width;
-						bg = bg || 'ccc';
-						color = color || '000';
-						text =  text || (width + 'X' + height);
-						return 'http://dummyimage.com/'+width+'x'+height+'/'+bg+'/'+color+'.png&text=' + text;
+						bg     = bg     || 'ccc';
+						color  = color  || '000';
+						text   = text   || (width + 'X' + height);
+
+						// return 'http://dummyimage.com/'+width+'x'+height+'/'+bg+'/'+color+'.png&text=' + text;
+						// return 'http://fakeimg.pl/'+width+'x'+height+'/'+bg+'/'+color+'/?text=' + text;
+
+						// 不支持三位颜色的，变换成六位
+						if(bg.length==3) bg = colorTrans(bg);
+						if(color.length==3) color = colorTrans(color);
+
+						return 'http://fpoimg.com/'+width+'x'+height+'?bg_color='+bg+'&text_color='+color+'&text=' + text;
 					}
 				}
 			}, express.UserConfig.dist.bind({req:req, res:res, distPath:view}));
