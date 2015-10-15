@@ -1,9 +1,90 @@
 var fs     = require('fs');
 var exec   = require('child_process').exec;
 var path   = require('path');
+var sass   = require('node-sass');
 var isDev  = false;
 var config = {
 	staticDir: '/public',
+	map_combo_file: {
+		'/js/case/seaShell/_test_.js' : 'main.js,data.js'
+	},
+	file_combo: function(file){
+		var files = config.map_combo_file[file].split(',');
+		var static_public = process.cwd() + '/' + config.staticDir;
+		return files.map(function(one){
+			return fs.readFileSync(path.normalize(static_public + path.dirname(file) + '/' + one), {
+				encoding:'utf8',
+				flag: 'r'
+			});
+		}).join('');
+	},
+
+	/*
+	 * 简单的http2.0 combo处理，未做304等状态处理，只供开发使用
+	 * */
+	combo: function(req, res, next){
+		var static_public = path.normalize(process.cwd() + '/' + config.staticDir);
+
+		if(req.path in config.map_combo_file){
+			res.end(config.file_combo(req.path));
+			return false;
+		}
+		if(/\?\?/.test(req.originalUrl)){
+			var i = req.originalUrl.indexOf('??');
+			var file_list = req.originalUrl.slice(i+2).split('?')[0].split(',');
+			var ret = '';
+			var type = file_list[file_list.length-1].split('.').reverse()[0];
+			var types = {
+				"js": "application/x-javascript",
+				"css": "text/css"
+			};
+			if(type==='js' || type==='css'){
+				// 跳转，如：http://localhost/public/js??jquery-min.js,jquery-window.js?_a=1&v=201502110322
+				//        => http://localhost/public/js/??jquery-min.js,jquery-window.js?_a=1&v=201502110322
+				if(req.path[req.path.length-1]!=='/'){
+					res.redirect(req.originalUrl.replace(/\?\?/, '/??'));
+					// res.writeHead(302);
+					return res.end('');
+				}
+			}else{ //暂时支付css和js，其它暂时没必要处理
+				return next();
+			}
+
+			Promise.all(file_list.map(function(one){
+				// return new Promise(function(resolve, reject){
+				// 	fs.exists(path.normalize(static_public + req.path + one), function(exist){
+				// 		if(exist){
+				// 			resolve(fs.readFileSync(path.normalize(static_public + req.path + one), {
+				// 				encoding:'utf8',
+				// 				flag: 'r'
+				// 			}));
+				// 		}else{
+				// 			reject();
+				// 		}
+				// 	});
+				// });
+				return Promise.resolve().then(function(){
+					var file = req.path + one;
+					if(config.map_combo_file[file]){
+						return config.file_combo(file);
+					}else{
+						return fs.readFileSync(path.normalize(static_public + file), {
+							encoding:'utf8',
+							flag: 'r'
+						});
+					}
+				});
+			})).then(function(ret){
+				res.writeHead(200, {"Content-Type":types[type]});
+				return res.end(ret.join(''));
+			})['catch'](function(err){
+				return next();
+			});
+		}else{
+			return next();
+		}
+	},
+
 	routes: function(app, dirPath, routePath){
 		var routeFiles = fs.readdirSync(dirPath);
 		routeFiles.forEach(function(file){
@@ -68,6 +149,50 @@ var config = {
 			}
 		});
 	},
+	sass: {
+		ruby: function(in_file, out_file, lib, next){
+			var sh = [
+				'scss',
+				'--sourcemap=none',
+				'-t compressed',
+				'-I ' + lib,
+				in_file,
+				out_file
+			];
+			// console.log(sh.join(' '));
+			exec(sh.join(' '), function(error, stdout, stderr){
+				// console.log(error);
+				// console.log(stdout);
+				// console.log(stderr);
+				return next();
+			});
+		},
+		node: function(in_file, out_file, lib, next){
+			sass.render({
+				file: in_file,
+				// data: 'body{background:blue; a{color:black;}}',
+				indentType: 'tab',
+				indentWidth: 1,
+				linefeed: 'lf',
+				includePaths: lib,
+				outputStyle: 'compact',
+			}, function(error, result) {
+				if (error) {
+					console.log(error);
+					console.log(error.status);
+					console.log(error.column);
+					console.log(error.message);
+					console.log(error.line);
+				}
+				else {
+					fs.writeFile(out_file, result.css, {mode:'777'}, function(){
+						console.log(`Compile ${out_file} success`);
+						return next();
+					});
+				}
+			});
+		}
+	},
 	compileSCSS: function(req, res, next){
 		if(/.*\.css$/.test(req.path)){
 			var static_public = process.cwd() + config.staticDir;
@@ -77,21 +202,7 @@ var config = {
 			config.mkdirRecursive(path.dirname(css_path), 777, function(){
 				var out_file = css_path + '.css';
 				var in_file = css_path.replace(/([\\\/])css([\\\/])/, "$1scss$2") + '.scss';
-				var sh = [
-					'scss',
-					'--sourcemap=none',
-					'-t compressed',
-					'-I ' + static_public + '/public/scss',
-					in_file,
-					out_file
-				];
-				// console.log(sh.join(' '));
-				exec(sh.join(' '), function(error, stdout, stderr){
-					 // console.log(error);
-					 // console.log(stdout);
-					 // console.log(stderr);
-					return next();
-				});
+				config.sass.node(in_file, out_file, '', next);
 			});
 		}else{
 			return next();
@@ -148,63 +259,6 @@ var config = {
 						}
 					});
 				}
-			});
-		}else{
-			return next();
-		}
-	},
-
-	/*
-	 * 简单的http2.0 combo处理，未做304等状态处理，只供开发使用
-	 * */
-	combo: function(req, res, next){
-		if(/\?\?/.test(req.originalUrl)){
-			var i = req.originalUrl.indexOf('??');
-			var file_list = req.originalUrl.slice(i+2).split('?')[0].split(',');
-			var static_public = path.normalize(process.cwd() + config.staticDir);
-			var ret = '';
-			var type = file_list[file_list.length-1].split('.').reverse()[0];
-			var types = {
-				"js": "application/x-javascript",
-				"css": "text/css"
-			};
-			if(type==='js' || type==='css'){
-				// 跳转，如：http://localhost/public/js??jquery-min.js,jquery-window.js?_a=1&v=201502110322
-				//        => http://localhost/public/js/??jquery-min.js,jquery-window.js?_a=1&v=201502110322
-				if(req.path[req.path.length-1]!=='/'){
-					res.redirect(req.originalUrl.replace(/\?\?/, '/??'));
-					res.writeHead(302);
-					res.end('');
-					return false;
-				}
-			}else{ //暂时支付css和js，其它暂时没必要处理
-				return next();
-			}
-
-			Promise.all(file_list.map(function(one){
-				// return new Promise(function(resolve, reject){
-				// 	fs.exists(path.normalize(static_public + req.path + one), function(exist){
-				// 		if(exist){
-				// 			resolve(fs.readFileSync(path.normalize(static_public + req.path + one), {
-				// 				encoding:'utf8',
-				// 				flag: 'r'
-				// 			}));
-				// 		}else{
-				// 			reject();
-				// 		}
-				// 	});
-				// });
-				return Promise.resolve().then(function(){
-					return fs.readFileSync(path.normalize(static_public + req.path + one), {
-						encoding:'utf8',
-						flag: 'r'
-					});
-				});
-			})).then(function(ret){
-				res.writeHead(200, {"Content-Type":types[type]});
-				return res.end(ret.join(''));
-			})['catch'](function(err){
-				return next();
 			});
 		}else{
 			return next();
