@@ -49,9 +49,6 @@ $is_modern:0 !default; // 兼容低版本ie
 }
 
 // inline-block
-@mixin ib($valign:middle){
-	@include inline-block($valign);
-}
 @mixin inline-block($vertical-align:middle){
 	display:inline-block;
 	@if($is_modern==0){
@@ -59,13 +56,16 @@ $is_modern:0 !default; // 兼容低版本ie
 	}
 	vertical-align:#{$vertical-align};//*vertical-align:auto;
 }
+@mixin ib($valign:middle){
+	@include inline-block($valign);
+}
 
 // 通用居中样式
 // 使用见_layout.scss
 @mixin imge(){
-	@include ib;font-size:12px;font-size:1rem;line-height:normal;
+	@include inline-block;font-size:12px;font-size:1rem;line-height:normal;
 }
-@mixin imgc(){
+@mixin imgc($is_image:1, $selecor:img){
 	font-size:0;text-align:center;
 	@if($is_modern==0){
 		_overflow:hidden;_line-height:0;
@@ -75,10 +75,16 @@ $is_modern:0 !default; // 兼容低版本ie
 		&:before,{@include ib;}
 		&:before,{content:"";height:100%;font-size:0;line-height:0;width:0;}
 	}
-	img{max-width:100%;max-height:100%;} //大图片等比缩小至父元素大小
+	#{$selecor}{
+		@if($is_image==1){
+			@include inline-block;max-width:100%;max-height:100%; //大图片等比缩小至父元素大小
+		}@elseif($selecor!=img){
+			@include inline-block;font-size:12px;font-size:1rem;line-height:normal;
+		}
+	}
 }
 // $is_modern:1;
-// .test{@include imgc();}
+// .test{@include imgc;}
 
 // 单行溢出省略
 @mixin sln(){overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}

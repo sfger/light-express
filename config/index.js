@@ -1,7 +1,7 @@
 var fs     = require('fs');
 var exec   = require('child_process').exec;
 var path   = require('path');
-var sass   = require('node-sass');
+// var sass   = require('node-sass');
 var isDev  = false;
 var config = {
 	staticDir: '/public',
@@ -155,15 +155,15 @@ var config = {
 				'scss',
 				'--sourcemap=none',
 				'-t compressed',
-				'-I ' + lib,
+				// '-I ' + lib,
 				in_file,
 				out_file
 			];
-			// console.log(sh.join(' '));
+			console.log(sh.join(' '));
 			exec(sh.join(' '), function(error, stdout, stderr){
-				// console.log(error);
-				// console.log(stdout);
-				// console.log(stderr);
+				console.log(error);
+				console.log(stdout);
+				console.log(stderr);
 				return next();
 			});
 		},
@@ -202,7 +202,7 @@ var config = {
 			config.mkdirRecursive(path.dirname(css_path), 777, function(){
 				var out_file = css_path + '.css';
 				var in_file = css_path.replace(/([\\\/])css([\\\/])/, "$1scss$2") + '.scss';
-				config.sass.node(in_file, out_file, '', next);
+				config.sass.ruby(in_file, out_file, '', next);
 			});
 		}else{
 			return next();
