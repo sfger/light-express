@@ -139,7 +139,10 @@ $.fn.tabs = function(options){
 				name:'li', children:{
 					name:'a', attr:{href:'javascript:;'}, children:
 						(function(){
-							var ret = ['<span class="title">'+op.title+'</span>'];
+							var ret = [
+								'<!--[if lt IE 8]><p class="iecp"></p><![endif]-->',
+								'<span class="title">'+op.title+'</span>'
+							];
 							if(op.icon){
 								ret.unshift(createElement({
 									name:'span', attr:{className:'icon icon-'+op.icon}

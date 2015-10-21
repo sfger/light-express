@@ -1,21 +1,21 @@
 @charset "utf-8";
 .tab-ctn{
 	.tab-header{
-		@extend %cf;
-		li{list-style:none;float:left;border:1px solid #ccc;margin:1px 1px 0;border-bottom:none;}
+		li{list-style:none;@include ib;border:1px solid #ccc;margin:1px 1px 0;border-bottom:none;}
 		a{
-			@include user-select(none);
-			padding:0 5px;display:block;height:20px;_height:24px;//line-height:20px;
+			@include user-select(none);@include imgc(0,span);
+			padding:0 5px;display:block;//height:20px;_height:auto;
+			line-height:20px;
 			position:relative;margin-bottom:-1px;border-bottom:1px solid #ccc;overflow:hidden;
 			background:#e6e6e6;color:black;text-align:center;text-decoration:none;cursor:pointer;
 			&:hover{background:#f3f3f3;}
 		}
 		.current a{background:white;border-bottom-color:white;}
-		span{@include ib;}
+		// span{background:red;}
 		.icon{width:16px;height:16px;margin-top:-1px;}
 		.title{margin:0 3px;@include sln;}
 		.closer{
-			font:bold 12px/12px sans-serif;padding:3px;margin-top:1px;border-radius:2px;
+			padding:3px;font:bold 16px/1 "Microsoft YaHei";border-radius:2px;*line-height:1.354;
 			&:hover{background:#ccc;}
 		}
 	}
