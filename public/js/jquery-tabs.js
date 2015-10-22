@@ -18,6 +18,7 @@ $.fn.tabs = function(options){
 		height     : 80,
 		tabWidth   : 160,
 		contentFit : false,
+		eventType  : 'click',
 		border     : true,
 		icon       : null,
 		selected   : 0,
@@ -95,14 +96,11 @@ $.fn.tabs = function(options){
 		init: function(box, options){
 			this.render = box;
 			this.userOptions = options;
-			// this.headers = list2Array(box.children[0].children);
-			// this.panels = list2Array(box.children[1].children);
 			this.headers = $(box.children[0].children).toArray();
 			this.panels  = $(box.children[1].children).toArray();
 			$(this.panels).addClass('tab-content');
 			var that = this;
 			var $box = $(box);
-			// $(box.children[0]).addClass('cf');
 			$box.addClass('tab-ctn');
 			if(this.headers.length){
 				$(this.headers[options.selected]).addClass('current');
