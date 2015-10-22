@@ -27,21 +27,24 @@
 	<div class="tab-ctn">
 		<ul class="tab-header">
 			<li>
-				<a href="javascript:;">
+				<a href="javascript:">
+					<!--[if lt IE 8]><p class="iecp"></p><![endif]-->
 					<span class="icon icon-money"></span>
 					<span class="title">tab0</span>
 					<span class="closer">&times;</span>
 				</a>
 			</li>
 			<li>
-				<a href="javascript:;">
+				<a href="javascript:">
+					<!--[if lt IE 8]><p class="iecp"></p><![endif]-->
 					<span class="icon icon-chart"></span>
 					<span class="title">tab1</span>
 					<span class="closer">&times;</span>
 				</a>
 			</li>
 			<li>
-				<a href="javascript:;">
+				<a href="javascript:">
+					<!--[if lt IE 8]><p class="iecp"></p><![endif]-->
 					<span class="icon icon-user"></span>
 					<span class="title">tab2</span>
 					<span class="closer">&times;</span>
@@ -82,15 +85,16 @@ $(function(){
 		/* 	console.log(el, i); */
 		/* }, */
 		position:'north'
-	}).tabs('add', {
+		})
+	.tabs('add', {
 		title:'new Add',
 		content:'new Add<br />test',
 		closable:true,
 		icon:'money',
 		select:true
 	}, 2);
-	/* $('.tab-container').tabs('select', 1); */
-	/* $('.tab-container').tabs('remove', 0); */
+	$('.tab-ctn').tabs('select', 1);
+	$('.tab-ctn').tabs('remove', 2);
 });
 </script>
 </body>

@@ -155,15 +155,15 @@ var config = {
 				'scss',
 				'--sourcemap=none',
 				'-t compressed',
-				'-I ' + lib,
+				// '-I ' + lib,
 				in_file,
 				out_file
 			];
-			// console.log(sh.join(' '));
+			console.log(sh.join(' '));
 			exec(sh.join(' '), function(error, stdout, stderr){
-				// console.log(error);
-				// console.log(stdout);
-				// console.log(stderr);
+				console.log(error);
+				console.log(stdout);
+				console.log(stderr);
 				return next();
 			});
 		},
