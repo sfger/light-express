@@ -85,15 +85,16 @@ $(function(){
 		/* 	console.log(el, i); */
 		/* }, */
 		position:'north'
-	}).tabs('add', {
+		})
+	.tabs('add', {
 		title:'new Add',
 		content:'new Add<br />test',
 		closable:true,
 		icon:'money',
 		select:true
 	}, 2);
-	/* $('.tab-container').tabs('select', 1); */
-	/* $('.tab-container').tabs('remove', 0); */
+	$('.tab-ctn').tabs('select', 1);
+	$('.tab-ctn').tabs('remove', 2);
 });
 </script>
 </body>

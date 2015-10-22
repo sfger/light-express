@@ -95,12 +95,14 @@ $.fn.tabs = function(options){
 		init: function(box, options){
 			this.render = box;
 			this.userOptions = options;
-			this.headers = list2Array(box.children[0].children);
-			this.panels = list2Array(box.children[1].children);
+			// this.headers = list2Array(box.children[0].children);
+			// this.panels = list2Array(box.children[1].children);
+			this.headers = $(box.children[0].children).toArray();
+			this.panels  = $(box.children[1].children).toArray();
 			$(this.panels).addClass('tab-content');
 			var that = this;
 			var $box = $(box);
-			$(box.children[0]).addClass('cf');
+			// $(box.children[0]).addClass('cf');
 			$box.addClass('tab-ctn');
 			if(this.headers.length){
 				$(this.headers[options.selected]).addClass('current');
@@ -108,7 +110,9 @@ $.fn.tabs = function(options){
 			}
 			if(options.contentFit){
 				$(window).resize(function(){
-					box.children[1].style.height = (box.parentNode.offsetHeight - box.children[0].offsetHeight - 1) + 'px';
+					$(box.children[1]).css({
+						height: ($(box).parent().outerHeight() - $(box.children[0]).outerHeight - 1) + 'px'
+					});
 				}).resize();
 			}
 			$(box.children[0]).on({
@@ -137,24 +141,25 @@ $.fn.tabs = function(options){
 			}
 			var header = createElement({
 				name:'li', children:{
-					name:'a', attr:{href:'javascript:;'}, children:
-						(function(){
-							var ret = [
-								'<!--[if lt IE 8]><p class="iecp"></p><![endif]-->',
-								'<span class="title">'+op.title+'</span>'
-							];
-							if(op.icon){
-								ret.unshift(createElement({
-									name:'span', attr:{className:'icon icon-'+op.icon}
-								}));
-							}
-							if(op.closable){
-								ret.push(createElement({
-									name:'span', attr:{className:'closer'}, children:'&times;'
-								}));
-							}
-							return ret;
-						})()
+					name:'a',
+					attr:{href:'javascript:;'},
+					children:(function(){
+						var ret = [
+							'<!--[if lt IE 8]><p class="iecp"></p><![endif]-->',
+							'<span class="title">'+op.title+'</span>'
+						];
+						if(op.icon){
+							ret.unshift(createElement({
+								name:'span', attr:{className:'icon icon-'+op.icon}
+							}));
+						}
+						if(op.closable){
+							ret.push(createElement({
+								name:'span', attr:{className:'closer'}, children:'&times;'
+							}));
+						}
+						return ret;
+					})()
 				}
 			});
 			var $panel = $(createElement({

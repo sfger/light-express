@@ -48,7 +48,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, nav, 
 
 .tab-ctn .tab-header .title { margin: 0 3px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 
-.tab-ctn .tab-header .closer { padding: 3px; font: bold 16px/1 "Microsoft YaHei"; border-radius: 2px; *line-height: 1.354; }
+.tab-ctn .tab-header .closer { padding: 3px; font: bold 16px/1 "Microsoft YaHei"; border-radius: 2px; }
 
 .tab-ctn .tab-header .closer:hover { background: #ccc; }
 
