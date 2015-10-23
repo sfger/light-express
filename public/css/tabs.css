@@ -8,7 +8,7 @@ audio, canvas, video { display: inline-block; *display: inline; *zoom: 1; vertic
 
 .imge { display: inline-block; *display: inline; *zoom: 1; vertical-align: middle; font-size: 12px; font-size: 1rem; line-height: normal; }
 
-.imgc { font-size: 0; text-align: center; _overflow: hidden; _line-height: 0; }
+.imgc { font-size: 0; text-align: center; }
 
 .imgc:before, .imgc .iecp { display: inline-block; *display: inline; *zoom: 1; vertical-align: middle; }
 
@@ -32,7 +32,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, nav, 
 
 .tab-ctn .tab-header li { list-style: none; display: inline-block; *display: inline; *zoom: 1; vertical-align: middle; border: 1px solid #ccc; margin: 1px 1px 0; border-bottom: none; }
 
-.tab-ctn .tab-header a { -webkit-user-select: none; -moz-user-select: none; user-select: none; font-size: 0; text-align: center; _overflow: hidden; _line-height: 0; padding: 0 5px; display: block; line-height: 20px; position: relative; margin-bottom: -1px; border-bottom: 1px solid #ccc; overflow: hidden; background: #e6e6e6; color: black; text-align: center; text-decoration: none; cursor: pointer; }
+.tab-ctn .tab-header a { -webkit-user-select: none; -moz-user-select: none; user-select: none; font-size: 0; text-align: center; padding: 0 5px; display: block; line-height: 20px; position: relative; margin-bottom: -1px; border-bottom: 1px solid #ccc; overflow: hidden; background: #e6e6e6; color: black; text-align: center; text-decoration: none; cursor: pointer; }
 
 .tab-ctn .tab-header a:before, .tab-ctn .tab-header a .iecp { display: inline-block; *display: inline; *zoom: 1; vertical-align: middle; }
 

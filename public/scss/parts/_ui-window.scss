@@ -1,4 +1,5 @@
 @charset "utf-8";
+// *{@include box-sizing(border-box);}
 .window-ctn{
 	@include imgc;@include fixed(top 0 left 0);_position:absolute;z-index:50;
 	@include background-color-rgba(#565656, 0.72);
@@ -13,16 +14,17 @@
 		*zoom:0;*position:relative;
 	}
 	.window-title{
-		@include imge;line-height:30px;text-indent:5px;//width:100%;_width:auto;
+		@include imge;line-height:30px;text-indent:5px;
+		width:100%;_width:auto;
 		// background:red;white-space:nowrap;
 	}
 	.window-closer{
 		// @include absolute(right 7px top 7px);
-		// *position:absolute;*top:7px;*right:7px;
-		@include imge;@include size(20px);margin-left:-25px;
-		border:none;color:black;text-decoration:none;font:bold 20px/1 SimSun;
+		*position:absolute;*top:7px;*right:7px;
+		@include imge;@include size(20px);margin-left:-25px;border:none;
+		color:black;text-decoration:none;font:normal 20px/1 SimSun;color:#555;
 		@include prefix((transition:all 0.5s ease-out 0s));
-		&:hover{@include prefix((transform:rotate(360deg)));}
+		&:hover{@include prefix((transform:rotate(360deg)));color:black;font-weight:bold;}
 	}
 	// .window-contents{}
 	.window-view{overflow:auto;overflow-x:hidden;}
