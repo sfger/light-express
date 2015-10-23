@@ -80,15 +80,7 @@ $.fn.tabs = function(options){
 		return ret;
 	};
 	Array.prototype.indexOf = Array.prototype.indexOf || function(searchElement, fromIndex){
-		var index = -1;
-		fromIndex = fromIndex*1 || 0;
-		for(var k=0, length=this.length; k<length; k++) {
-			if(k>=fromIndex && this[k]===searchElement){
-				index = k;
-				break;
-			}
-		}
-		return index;
+		return $.inArray(searchElement, this, fromIndex);
 	};
 	options.renders = slice.call(this);
 	var handler = function(box, options){ return new handler.prototype.init(box, options); };
