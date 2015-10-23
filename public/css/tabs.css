@@ -30,9 +30,19 @@ fieldset, img { border: none; }
 
 article, aside, details, figcaption, figure, footer, header, hgroup, main, nav, section, summary { display: block; }
 
-.tab-ctn .tab-header li { list-style: none; display: inline-block; *display: inline; *zoom: 1; vertical-align: middle; border: 1px solid #ccc; margin: 1px 1px 0; border-bottom: none; }
+.tab-ctn .tab-header { font-size: 0; text-align: center; _overflow: hidden; _line-height: 0; text-align: left; }
 
-.tab-ctn .tab-header a { -webkit-user-select: none; -moz-user-select: none; user-select: none; font-size: 0; text-align: center; _overflow: hidden; _line-height: 0; padding: 0 5px; display: block; line-height: 20px; position: relative; margin-bottom: -1px; border-bottom: 1px solid #ccc; overflow: hidden; background: #e6e6e6; color: black; text-align: center; text-decoration: none; cursor: pointer; }
+.tab-ctn .tab-header:before, .tab-ctn .tab-header .iecp { display: inline-block; *display: inline; *zoom: 1; vertical-align: middle; }
+
+.tab-ctn .tab-header:before, .tab-ctn .tab-header .iecp { content: ""; height: 100%; font-size: 0; line-height: 0; width: 0; }
+
+.tab-ctn .tab-header li { display: inline-block; *display: inline; *zoom: 1; vertical-align: middle; font-size: 12px; font-size: 1rem; line-height: normal; }
+
+.tab-ctn .tab-header li { bottom: -1px; position: relative; margin: -1px 1px 0 1px; border: 1px solid #ccc; border-bottom: none; list-style: none; vertical-align: baseline; }
+
+.tab-ctn .tab-header li.current a { background: white; border-bottom-color: white; }
+
+.tab-ctn .tab-header a { -webkit-user-select: none; -moz-user-select: none; user-select: none; font-size: 0; text-align: center; _overflow: hidden; _line-height: 0; padding: 1px 5px; display: block; border-bottom: 1px solid #ccc; line-height: 20px; background: #e6e6e6; color: black; text-decoration: none; cursor: pointer; }
 
 .tab-ctn .tab-header a:before, .tab-ctn .tab-header a .iecp { display: inline-block; *display: inline; *zoom: 1; vertical-align: middle; }
 
@@ -42,13 +52,11 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, nav, 
 
 .tab-ctn .tab-header a:hover { background: #f3f3f3; }
 
-.tab-ctn .tab-header .current a { background: white; border-bottom-color: white; }
-
-.tab-ctn .tab-header .icon { width: 16px; height: 16px; margin-top: -1px; }
+.tab-ctn .tab-header .icon { width: 16px; height: 16px; }
 
 .tab-ctn .tab-header .title { margin: 0 3px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 
-.tab-ctn .tab-header .closer { padding: 3px; font: bold 16px/1 "Microsoft YaHei"; border-radius: 2px; }
+.tab-ctn .tab-header .closer { width: 16px; height: 16px; font: bold 16px/1.234 SimSun; border-radius: 2px; }
 
 .tab-ctn .tab-header .closer:hover { background: #ccc; }
 
@@ -56,6 +64,6 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, nav, 
 
 .tab-ctn .tab-panel { overflow: auto; border-top: 1px solid #ccc; }
 
-.tab-ctn .tab-panel .itab { display: none; position: absolute; position: relative; top: 0; left: 0; }
+.tab-ctn .tab-panel .itab { display: none; top: 0; left: 0; position: relative; }
 
 .tab-ctn .tab-panel .show { display: block; }
