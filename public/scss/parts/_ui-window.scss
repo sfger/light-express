@@ -4,16 +4,23 @@
 	@include background-color-rgba(#565656, 0.72);
 	@include size(100%);display:none;text-align:center;
 	.window-wrapper{
-		@include imge;position:relative;z-index:52;margin-bottom:5%;
+		@include imge;margin-bottom:5%;
 		overflow:visible;background:white;text-align:left;
 	}
 	.window-bar{background:#b6b6b6;padding:2px 0;}
-	.window-header{@include imgc;overflow:visible;text-align:left;@include user-select(none);*zoom:0;}
-	.window-title{@include imge;margin:5px 0;text-indent:7px;}
+	.window-header{
+		@include imgc;@include user-select(none);overflow:visible;text-align:left;
+		*zoom:0;*position:relative;
+	}
+	.window-title{
+		@include imge;line-height:30px;text-indent:5px;//width:100%;_width:auto;
+		// background:red;white-space:nowrap;
+	}
 	.window-closer{
-		@include absolute(right 7px top 7px);@include size(16px);
-		border:none;color:black;text-decoration:none;
-		font:bold 16px/normal "宋体","Microsoft YaHei";
+		// @include absolute(right 7px top 7px);
+		// *position:absolute;*top:7px;*right:7px;
+		@include imge;@include size(20px);margin-left:-25px;
+		border:none;color:black;text-decoration:none;font:bold 20px/1 SimSun;
 		@include prefix((transition:all 0.5s ease-out 0s));
 		&:hover{@include prefix((transform:rotate(360deg)));}
 	}
