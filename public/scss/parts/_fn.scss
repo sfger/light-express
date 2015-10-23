@@ -68,7 +68,6 @@ $is_modern:0 !default; // 兼容低版本ie
 @mixin imgc($is_image:1, $selecor:img){
 	font-size:0;text-align:center;
 	@if($is_modern==0){
-		_overflow:hidden;_line-height:0;
 		&:before,.iecp{@include ib;}
 		&:before,.iecp{content:"";height:100%;font-size:0;line-height:0;width:0;}
 	}@else{

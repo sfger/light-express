@@ -30,7 +30,7 @@ $.fn.window = function(options){
 '<div class="window-ctn">' +
 	'<div class="window-wrapper">' +
 		'<div class="window-bar window-header">' +
-			'<span class="window-title">' + (options.title||'') + '</span>' +
+			'<div class="window-title">' + (options.title||'') + '</div>' +
 			'<a href="javascript:;" class="window-closer">&times;</a>' +
 			'<!--[if lt IE 8]><p class="iecp"></p><![endif]-->' +
 		'</div>' +
