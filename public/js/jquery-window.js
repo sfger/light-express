@@ -69,7 +69,7 @@ $.fn.window = function(options){
 			if(options.show) this.show();
 			var isIE6      = /MSIE 6.0/.exec(navigator.userAgent);
 			var css1compat = document.compatMode === "CSS1Compat";
-			if(isIE6 || !css1compat) $(window).resize(function(){that.resize();});
+			// if(isIE6 || !css1compat) $(window).resize(function(){that.resize();});
 			if(options.onCreate && typeof options.onCreate==='function') options.onCreate();
 		},
 		resize: function(){
@@ -109,13 +109,13 @@ $.fn.window = function(options){
 			// }
 			if(isIE6 || !css1compat){
 				$container.css({
-					width    : this.getViewWidth(),
+					// width    : this.getViewWidth(),
 					height   : this.getViewHeight(),
 					position : 'absolute'
 				});
 				// $container.hide().show();
-				$(window).on('scroll', {el: this.container}, this.scrollIE6);
-				$(window).trigger('scroll');
+				$(window).on('scroll.windowIE6', {el: this.container}, this.scrollIE6);
+				$(window).trigger('scroll.windowIE6');
 			}
 			if(options.onOpen) options.onOpen();
 			return this;
@@ -132,7 +132,7 @@ $.fn.window = function(options){
 			// document.body.style.width = '';
 			this.container.style.display = 'none';
 			// $([document.documentElement, document.body]).css({overflow:''});
-			$(window).off('scroll', this.scrollIE6);
+			$(window).off('scroll.windowIE6', this.scrollIE6);
 			if(options.onClose && typeof options.onClose==='function') options.onClose();
 			return this;
 		}
