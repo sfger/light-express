@@ -3,7 +3,7 @@
 
 ;(function(root, factory) {
 	'use strict';
-	/* global define, exports, module */
+	// global define, exports, module
 	if (typeof define === 'function' && define.amd) {
 		// AMD. Register as an anonymous module.
 		define(factory);
@@ -22,16 +22,17 @@ var strtotime = function(str){//{{{
 	return Date.parse( str.replace(/-/g, '/') )/1000;
 };//}}}
 
+var pad = function(n, c){//{{{
+	if((n = n + "").length < c){
+		return new Array(++c - n.length).join("0") + n;
+	} else {
+		return n;
+	}
+};//}}}
+
 var date = function(format, timestamp){//{{{
 	//doc http://php.net/manual/zh/function.date.php
 	var a, jsdate=((timestamp) ? new Date(timestamp*1000) : new Date());
-	var pad = function(n, c){
-		if((n = n + "").length < c){
-			return new Array(++c - n.length).join("0") + n;
-		} else {
-			return n;
-		}
-	};
 	var txt_weekdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 	var txt_ordin = {1:"st", 2:"nd", 3:"rd", 21:"st", 22:"nd", 23:"rd", 31:"st"};
 	var txt_months = ["", "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
@@ -147,6 +148,7 @@ var date_helper = function($t){
     return new date_helper.prototype.init($t);
 };
 date_helper.date = date;
+date_helper.pad = pad;
 date_helper.strtotime = strtotime;
 date_helper.prototype = {
 	constructor  : date_helper,
