@@ -1,33 +1,36 @@
 @charset "utf-8";
-.ui-datetimepicker{
-    display:none;background:white;z-index:100;border:1px solid #ddd;float:left;padding:1px;
+.dtp-ctn{
+	@include relative;z-index:100;float:left;padding:1px;display:none;
+	border:1px solid #ddd;background:white;
 	li{list-style:none;}
-    .l-head{
-		position:relative;height:17px;padding:3px;line-height:17px;background:#004fb8;
+    .dtp-header{
+		height:18px;padding:3px;line-height:18px;background:#888;
         li{
-			float:left;width:230px;text-align:center;color:white;font-weight:bold;
-			a{color:white;text-decoration:none;@extend %ib;vertical-align:top;padding:0 2px;}
+			float:left;width:203px;text-align:center;color:white;font-weight:bold;
+			a{color:white;text-decoration:none;@include ib(top);padding:0 2px;}
 		}
     }
-    .l-switcher{
-		position:absolute;top:3px;height:17px;width:17px;font:bold 12px/17px "MicroSoft YaHei";
-        text-decoration:none;color:white;text-align:center;background:#4385e0;
+    .dtp-switcher{
+		@include absolute(top 3px);@include button(20px, 20px, #ccc);
+        text-decoration:none;color:black;font-size:20px;font-family:SimSun;
     }
-    .l-prev{left:3px;}
-    .l-next{right:3px;}
-    .l-list{
-        .l-item{
-            float:left;width:226px;padding:2px;border-left:1px solid #ddd;
+    .dtp-prev{left:3px;}
+    .dtp-next{right:3px;}
+    .dtp-list{
+        .dtp-item{
+            float:left;width:203px;padding:2px;border-left:1px solid #ddd;
             &.first{border:none;}
         }
-        ul{padding:0 9px;margin:auto;}
-        .wh{background:#ececec;}
+        ul{padding:0;margin:auto;}
+        .dtp-wh{background:#ececec;}
         li{
-            float:left;width:25px;height:25px;line-height:25px;margin:2px;border-radius:3px;
-			cursor:pointer;text-align:center;color:#4385e0;background:#eef;
+			@include button(25px,25px,#ddd);margin:2px;float:left;color:#31e;
             &.day{font-weight:bold;color:#666;}
             &.weekend{color:#f18100;}
-            &.disabled{color:#ccc;}
+            &.disabled{
+				color:#999;
+				&:hover{background:#ddd;}
+			}
             &.selected{background:#4385e0;color:white;}
         }
     }

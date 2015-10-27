@@ -187,10 +187,10 @@ $is_modern:0 !default; // 兼容低版本ie
 // }
 
 @mixin button($width, $height, $bgcolor:transparent){
-	@include size($width, $height);@include user-select(none);
-	line-height:$height;text-align:center;background:$bgcolor;
-	&:hover{background-color:lighten($bgcolor, 5%);}
-	&:active{background-color:darken($bgcolor, 5%);outline:thin dotted;outline-offset:-2px;}
+	@include size($width, $height);@include user-select(none);line-height:$height;
+	text-align:center;background:$bgcolor;border-radius:3px;cursor:pointer;
+	&:hover{background-color:lighten($bgcolor,5%);}
+	&:active{background-color:darken($bgcolor,5%);outline:thin dotted;outline-offset:-2px;}
 }
 
 @mixin placeholder{
