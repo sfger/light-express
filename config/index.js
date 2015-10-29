@@ -268,8 +268,11 @@ var config = {
 	readJSONFile: function(p){
 		var json = {};
 		try{
-			var ret = fs.readFileSync(path.normalize(p), {encoding:'utf8', flag: 'r'});
-			json = JSON.parse(ret);
+			p = path.normalize(p);
+			// var ret = fs.readFileSync(p, {encoding:'utf8', flag: 'r'});
+			// json = JSON.parse(ret);
+			delete require.cache[require.resolve(p)];
+			json = require(p);
 		}catch(e){}
 		return json;
 	}
