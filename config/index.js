@@ -175,7 +175,7 @@ var config = {
 				indentWidth: 1,
 				linefeed: 'lf',
 				includePaths: lib,
-				outputStyle: 'compact',
+				outputStyle: 'compact'
 			}, function(error, result) {
 				if (error) {
 					console.log(error);
