@@ -19,17 +19,28 @@
 <div id="page">
 	<input type="text" class="sdate" value="2014-09-01" />
 </div><!-- #page end! -->
-<script type="text/javascript" src="<%-___%>/lib/jquery-min.js"></script>
-<script type="text/javascript" src="<%-___%>/js/date-helper.js"></script>
-<script type="text/javascript" src="<%-___%>/js/jquery-datepicker.js"></script>
+<script id="requirejs" data-version="<%-__version__%>" src="/js/require.js?v=<%-__version__%>"></script>
 <script type="text/javascript">
-$('.sdate').datePicker({
-	monthNum:4,
-	proxy:$(document),
-	minDate:'2014-09-01',
-	onComplete:function(pdate){
-		console.log(pdate);
+require.config({
+	baseUrl:'/js/',
+	urlArgs:"v=" + document.getElementById("requirejs").getAttribute("data-version"),
+	map:{"*":{css:"require-css.js"}},
+	paths:{},
+	shim:{
+		'jquery-layout': {deps:["jquery"]},
+		'jquery-tree':   {deps:["jquery"]},
+		'jquery-tabs':   {deps:["jquery"]}
 	}
+});
+require(['jquery-datepicker'], function(){
+	$('.sdate').datePicker({
+		monthNum:4,
+		proxy:$(document),
+		minDate:'2014-09-01',
+		onComplete:function(pdate){
+			console.log(pdate);
+		}
+	});
 });
 </script>
 </body>

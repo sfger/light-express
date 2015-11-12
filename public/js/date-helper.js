@@ -1,22 +1,16 @@
 // https://github.com/sfger
 // vim: fdm=marker
 
-;(function(root, factory) {
+;(function(root, factory){
 	'use strict';
-	// global define, exports, module
-	if (typeof define === 'function' && define.amd) {
-		// AMD. Register as an anonymous module.
+	if(typeof define === 'function' && define.amd){
 		define(factory);
-	} else if (typeof exports === 'object') {
-		// Node. Does not work with strict CommonJS, but
-		// only CommonJS-like enviroments that support module.exports,
-		// like Node.
+	}else if(typeof exports === 'object'){
 		module.exports = factory();
-	} else {
-		// Browser globals (root is window)
+	}else{
 		root.date_helper = factory();
 	}
-} (this, function() {
+}(this, function(){
 var strtotime = function(str){//{{{
 	//if(!str || (typeof str.replace != 'function')) return false;
 	return Date.parse( str.replace(/-/g, '/') )/1000;
@@ -268,8 +262,8 @@ date_helper.prototype = {
 
 };
 date_helper.prototype.init.prototype = date_helper.prototype;
-return date_helper;
 // }}}
+return date_helper;
 }));
 
 // var a = module.exports();

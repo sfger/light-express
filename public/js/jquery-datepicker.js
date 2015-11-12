@@ -1,9 +1,21 @@
+// vim: fdm=marker
+;(function(root, factory){
+	'use strict';
+	if(typeof define === 'function' && define.amd){
+		define(['jquery', 'date-helper'], factory);
+	}else if(typeof exports === 'object'){
+		module.exports = factory();
+	}else{
+		factory(jQuery);
+	}
+}(this, function($, date_helper){
 $.fn.datePicker = function(o){
 	var op = $.extend(true, {
 		monthNum:1,
 		proxy:$('body'),
-		onComplete: function(){}
+		onComplete:function(){}
 	}, o);
+	//tpl{{{
 	var tpl =
 		'<div class="dtp-ctn">' +
 				'<a href="javascript:" class="dtp-switcher dtp-prev">&lt;</a>' +
@@ -29,7 +41,8 @@ $.fn.datePicker = function(o){
 				'</div>' +
 			'</div>' +
 		'</div>';
-	var draw_ui = function(val, selected, render){
+	//}}}
+	var draw_ui = function(val, selected, render){//{{{
 		selected = selected!==undefined ? selected : true;
 		var ret = $(tpl);
 		var n;
@@ -81,7 +94,7 @@ $.fn.datePicker = function(o){
 			dh.get_offset_date(1, 'm');
 		}
 		return ret.get(0);
-	};
+	};//}}}
 	return this.each(function(){
 		var that = this;
 		var $this = $(this);
@@ -148,4 +161,4 @@ $.fn.datePicker = function(o){
 		});
 	});
 };
-// vim: fdm=marker
+}));
