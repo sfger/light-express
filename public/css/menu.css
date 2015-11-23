@@ -8,7 +8,7 @@ audio, canvas, video, .menu-ctn span { display: inline-block; *display: inline; 
 
 .imge { display: inline-block; *display: inline; *zoom: 1; vertical-align: middle; font-size: 12px; font-size: 1rem; line-height: normal; }
 
-.imgc { font-size: 0; text-align: center; _overflow: hidden; _line-height: 0; }
+.imgc { font-size: 0; text-align: center; }
 
 .imgc:before, .imgc .iecp { display: inline-block; *display: inline; *zoom: 1; vertical-align: middle; }
 
@@ -30,11 +30,11 @@ fieldset, img { border: none; }
 
 article, aside, details, figcaption, figure, footer, header, hgroup, main, nav, section, summary { display: block; }
 
-.icon-chart { background-image: url(../img/chart.png); }
+.icon-chart { background-image: url(../img/chart.png?__version__); }
 
-.icon-user { background-image: url(../img/user.png); }
+.icon-user { background-image: url(../img/user.png?__version__); }
 
-.icon-money { background-image: url(../img/money.png); }
+.icon-money { background-image: url(../img/money.png?__version__); }
 
 .menu-ctn { position: absolute; }
 
