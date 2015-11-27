@@ -3,7 +3,7 @@ $Eheight:28px;
 $Epadding:10px;
 .pagination-ctn{
 	padding:1px;text-align:center;
-	.pn,.current{font-family:SumSin,微软雅黑,Microsoft YaHei;}
+	.pn,.current{font-family:SimSun,微软雅黑,Microsoft YaHei;}
 	.pc,a,.form,.desc{@extend %ib;}
 	.pn,.current{padding:0 $Epadding;background-color:#fff;color:#666;border:1px solid #d3d3d3;@include border-radius(3px);margin:0 2px;}
 	.current{border-color:#ff9c0f;background:#ff9c0f;color:white;cursor:default;}

@@ -9,7 +9,7 @@ audio, canvas, video, .pagination-ctn .pc, .pagination-ctn a, .pagination-ctn .f
 
 .imge { display: inline-block; *display: inline; *zoom: 1; vertical-align: middle; font-size: 12px; font-size: 1rem; line-height: normal; }
 
-.imgc { font-size: 0; text-align: center; _overflow: hidden; _line-height: 0; }
+.imgc { font-size: 0; text-align: center; }
 
 .imgc:before, .imgc .iecp { display: inline-block; *display: inline; *zoom: 1; vertical-align: middle; }
 
@@ -33,13 +33,13 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, nav, 
 
 .pagination-ctn { padding: 1px; text-align: center; }
 
-.pagination-ctn .pn, .pagination-ctn .current { font-family: SumSin,微软雅黑,Microsoft YaHei; }
+.pagination-ctn .pn, .pagination-ctn .current { font-family: SimSun,微软雅黑,Microsoft YaHei; }
 
 .pagination-ctn .pn, .pagination-ctn .current { padding: 0 10px; background-color: #fff; color: #666; border: 1px solid #d3d3d3; -webkit-border-radius: 3px; -mox-border-radius: 3px; -ms-border-radius: 3px; -o-border-radius: 3px; border-radius: 3px; margin: 0 2px; }
 
 .pagination-ctn .current { border-color: #ff9c0f; background: #ff9c0f; color: white; cursor: default; }
 
-.pagination-ctn .pn { width: auto; height: 28px; -webkit-user-select: none; -moz-user-select: none; user-select: none; line-height: 28px; text-align: center; background: #fff; }
+.pagination-ctn .pn { width: auto; height: 28px; -webkit-user-select: none; -moz-user-select: none; user-select: none; line-height: 28px; text-align: center; background: #fff; border-radius: 3px; cursor: pointer; }
 
 .pagination-ctn .pn:hover { background-color: white; }
 
@@ -65,7 +65,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, nav, 
 
 .pagination-ctn .form input { width: 45px; text-align: center; border: 1px solid #eb8226; border-right: none; -webkit-border-radius: 3px 0 0 3px; -mox-border-radius: 3px 0 0 3px; -ms-border-radius: 3px 0 0 3px; -o-border-radius: 3px 0 0 3px; border-radius: 3px 0 0 3px; }
 
-.pagination-ctn .form .go { padding: 0 10px; margin: 0; margin-right: 2px; line-height: 26px; border: 1px solid #ff9c0f; width: auto; height: auto; -webkit-user-select: none; -moz-user-select: none; user-select: none; line-height: auto; text-align: center; background: #ff9c0f; -webkit-border-radius: 0 3px 3px 0; -mox-border-radius: 0 3px 3px 0; -ms-border-radius: 0 3px 3px 0; -o-border-radius: 0 3px 3px 0; border-radius: 0 3px 3px 0; background: #ff9c0f; color: white; }
+.pagination-ctn .form .go { padding: 0 10px; margin: 0; margin-right: 2px; line-height: 26px; border: 1px solid #ff9c0f; width: auto; height: auto; -webkit-user-select: none; -moz-user-select: none; user-select: none; line-height: auto; text-align: center; background: #ff9c0f; border-radius: 3px; cursor: pointer; -webkit-border-radius: 0 3px 3px 0; -mox-border-radius: 0 3px 3px 0; -ms-border-radius: 0 3px 3px 0; -o-border-radius: 0 3px 3px 0; border-radius: 0 3px 3px 0; background: #ff9c0f; color: white; }
 
 .pagination-ctn .form .go:hover { background-color: #ffa729; }
 

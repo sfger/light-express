@@ -1,7 +1,7 @@
 @charset "utf-8";
 @each $one in chart, user, money{
 	.icon-#{$one} {
-		background-image: url(#{$basePath}/img/#{$one}.png);
+		background-image: url(#{$basePath}/img/#{$one}.png?__version__);
 	}
 }
 .menu-ctn{

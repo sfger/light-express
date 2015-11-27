@@ -8,7 +8,7 @@ audio, canvas, video { display: inline-block; *display: inline; *zoom: 1; vertic
 
 .imge { display: inline-block; *display: inline; *zoom: 1; vertical-align: middle; font-size: 12px; font-size: 1rem; line-height: normal; }
 
-.imgc { font-size: 0; text-align: center; _overflow: hidden; _line-height: 0; }
+.imgc { font-size: 0; text-align: center; }
 
 .imgc:before, .imgc .iecp { display: inline-block; *display: inline; *zoom: 1; vertical-align: middle; }
 
@@ -30,7 +30,7 @@ fieldset, img { border: none; }
 
 article, aside, details, figcaption, figure, footer, header, hgroup, main, nav, section, summary { display: block; }
 
-html, body { height: 100%; overflow: hidden; font: normal 16px/normal "Helvetica Neue", Helvetica, Arial, "Hiragino Sans GB", sans-serif; -webkit-user-select: none; -moz-user-select: none; user-select: none; }
+html, body { height: 100%; overflow: hidden; font: normal 16px/normal "Helvetica Neue",Helvetica,Arial,"Hiragino Sans GB",sans-serif; -webkit-user-select: none; -moz-user-select: none; user-select: none; }
 
 .ctnc { height: 100%; filter: progid:DXImageTransform.Microsoft.Gradient(gradientType=0, startColorStr=#ade8aa, endColorStr=#3b9739); background: linear-gradient(0deg, #3b9739, #ade8aa); }
 
@@ -81,7 +81,7 @@ html, body { height: 100%; overflow: hidden; font: normal 16px/normal "Helvetica
 
 .boxc .contents .linkc { width: 470px; }
 
-.boxc .contents a { display: inline-block; *display: inline; *zoom: 1; vertical-align: middle; width: 133px; height: auto; -webkit-user-select: none; -moz-user-select: none; user-select: none; line-height: auto; text-align: center; background: transparent; -webkit-border-radius: 4px; -mox-border-radius: 4px; -ms-border-radius: 4px; -o-border-radius: 4px; border-radius: 4px; padding: 2px 5px; margin: 5px 10px 5px 0; transition: all 0.3s ease-in 0s; font-size: 14px; border: 1px solid #fff; line-height: 25px; text-decoration: none; color: white; }
+.boxc .contents a { display: inline-block; *display: inline; *zoom: 1; vertical-align: middle; width: 133px; height: auto; -webkit-user-select: none; -moz-user-select: none; user-select: none; line-height: auto; text-align: center; background: transparent; border-radius: 3px; cursor: pointer; -webkit-border-radius: 4px; -mox-border-radius: 4px; -ms-border-radius: 4px; -o-border-radius: 4px; border-radius: 4px; padding: 2px 5px; margin: 5px 10px 5px 0; transition: all 0.3s ease-in 0s; font-size: 14px; border: 1px solid #fff; line-height: 25px; text-decoration: none; color: white; }
 
 .boxc .contents a:hover { background-color: rgba(13, 13, 13, 0); }
 
