@@ -1,4 +1,4 @@
-require.config({
+__non_webpack_require__.config({
 	baseUrl:'/js/',
 	urlArgs:"v=" + document.getElementById("requirejs").getAttribute("data-version"),
 	map:{"*":{css:"require-css.js"}},
@@ -9,15 +9,16 @@ require.config({
 		'jquery-tabs':   {deps:["jquery"]}
 	}
 });
-require([
+__non_webpack_require__([
 	'jquery',
-	'case/seaShell/data',
+	// 'case/seaShell/data',
 	'base',
 	'ecmaShim',
 	'jquery-layout',
 	'jquery-tree',
 	'jquery-tabs'
-], function($, data){
+], function($){
+	var data = require('./data');
 	var $leftMenu = $('.left-menu'),
 		$mainTab = $('.tab-ctn'),
 		$page = $('#page');

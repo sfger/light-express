@@ -11,6 +11,13 @@ var async        = require('async');
 var app          = express();
 var isDev        = "development" == app.get('env');
 
+var webpackDevMiddleware = require("webpack-dev-middleware");
+var webpack = require("webpack");
+var compiler = webpack(require('./webpack.config.js'));
+app.use(webpackDevMiddleware(compiler, {
+    stats:{colors:true}
+}));
+
 express.UserConfig = require('./config');
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');

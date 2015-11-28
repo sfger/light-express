@@ -1,14 +1,14 @@
-.cf, .tab-ctn .tab-header { *zoom: 1; }
+.cf { *zoom: 1; }
 
-.cf:before, .tab-ctn .tab-header:before, .cf:after, .tab-ctn .tab-header:after { content: ""; display: table; }
+.cf:before, .cf:after { content: ""; display: table; }
 
-.cf:after, .tab-ctn .tab-header:after { clear: both; overflow: hidden; }
+.cf:after { clear: both; overflow: hidden; }
 
 audio, canvas, video, .tree-container .indent, .tree-container .join, .tree-container .hit, .tree-container .file, .tree-container .folder, .tree-container .checkbox, .tree-container .title { display: inline-block; *display: inline; *zoom: 1; vertical-align: middle; }
 
 .imge { display: inline-block; *display: inline; *zoom: 1; vertical-align: middle; font-size: 12px; font-size: 1rem; line-height: normal; }
 
-.imgc { font-size: 0; text-align: center; _overflow: hidden; _line-height: 0; }
+.imgc { font-size: 0; text-align: center; }
 
 .imgc:before, .imgc .iecp { display: inline-block; *display: inline; *zoom: 1; vertical-align: middle; }
 
@@ -90,21 +90,33 @@ html, body { overflow: hidden; }
 
 .tree-draging-proxy { display: none; position: absolute; padding: 2px 8px; border: 1px solid #ccc; background: #eee; border-radius: 3px; }
 
-.tab-ctn .tab-header li { list-style: none; float: left; border: 1px solid #ccc; margin: 1px 1px 0; border-bottom: none; }
+.tab-ctn .tab-header { font-size: 0; text-align: center; text-align: left; }
 
-.tab-ctn .tab-header a { -webkit-user-select: none; -moz-user-select: none; user-select: none; padding: 0 5px; display: block; height: 20px; _height: 24px; position: relative; margin-bottom: -1px; border-bottom: 1px solid #ccc; overflow: hidden; background: #e6e6e6; color: black; text-align: center; text-decoration: none; cursor: pointer; }
+.tab-ctn .tab-header:before, .tab-ctn .tab-header .iecp { display: inline-block; *display: inline; *zoom: 1; vertical-align: middle; }
+
+.tab-ctn .tab-header:before, .tab-ctn .tab-header .iecp { content: ""; height: 100%; font-size: 0; line-height: 0; width: 0; }
+
+.tab-ctn .tab-header li { display: inline-block; *display: inline; *zoom: 1; vertical-align: middle; font-size: 12px; font-size: 1rem; line-height: normal; }
+
+.tab-ctn .tab-header li { bottom: -1px; position: relative; margin: -1px 1px 0 1px; border: 1px solid #ccc; border-bottom: none; list-style: none; vertical-align: baseline; }
+
+.tab-ctn .tab-header li.current a { background: white; border-bottom-color: white; }
+
+.tab-ctn .tab-header a { -webkit-user-select: none; -moz-user-select: none; user-select: none; font-size: 0; text-align: center; padding: 1px 5px; display: block; border-bottom: 1px solid #ccc; line-height: 20px; background: #e6e6e6; color: black; text-decoration: none; cursor: pointer; }
+
+.tab-ctn .tab-header a:before, .tab-ctn .tab-header a .iecp { display: inline-block; *display: inline; *zoom: 1; vertical-align: middle; }
+
+.tab-ctn .tab-header a:before, .tab-ctn .tab-header a .iecp { content: ""; height: 100%; font-size: 0; line-height: 0; width: 0; }
+
+.tab-ctn .tab-header a span { display: inline-block; *display: inline; *zoom: 1; vertical-align: middle; font-size: 12px; font-size: 1rem; line-height: normal; }
 
 .tab-ctn .tab-header a:hover { background: #f3f3f3; }
 
-.tab-ctn .tab-header .current a { background: white; border-bottom-color: white; }
-
-.tab-ctn .tab-header span { display: inline-block; *display: inline; *zoom: 1; vertical-align: middle; }
-
-.tab-ctn .tab-header .icon { width: 16px; height: 16px; margin-top: -1px; }
+.tab-ctn .tab-header .icon { width: 16px; height: 16px; }
 
 .tab-ctn .tab-header .title { margin: 0 3px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 
-.tab-ctn .tab-header .closer { font: bold 12px/12px sans-serif; padding: 3px; margin-top: 1px; border-radius: 2px; }
+.tab-ctn .tab-header .closer { width: 16px; height: 16px; font: bold 16px/1.234 SimSun; border-radius: 2px; }
 
 .tab-ctn .tab-header .closer:hover { background: #ccc; }
 
@@ -112,7 +124,7 @@ html, body { overflow: hidden; }
 
 .tab-ctn .tab-panel { overflow: auto; border-top: 1px solid #ccc; }
 
-.tab-ctn .tab-panel .itab { display: none; position: absolute; position: relative; top: 0; left: 0; }
+.tab-ctn .tab-panel .itab { display: none; top: 0; left: 0; position: relative; }
 
 .tab-ctn .tab-panel .show { display: block; }
 
