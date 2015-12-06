@@ -30,7 +30,7 @@ $.fn.tabs = function(options){
 	var getType = function(obj){ return toString.call(obj).slice(8, -1); };
 	var createElement = function(node){
 		var cd = '',
-			at=[],
+			at = [],
 			attr = null,
 			children = null,
 			fn = createElement,
@@ -99,9 +99,11 @@ $.fn.tabs = function(options){
 				$(this.panels).parent().show().end().hide().eq(options.selected).show();
 			}
 			if(options.contentFit){
-				$(window).resize(function(){
+				var gap = box.children[1].offsetHeight - box.children[1].clientHeight;
+				var outer_container = box.parentNode;
+				$(window).on('resize.tab-content-fit', function(){
 					$(box.children[1]).css({
-						height: ($(box).parent().outerHeight() - $(box.children[0]).outerHeight - 1) + 'px'
+						height:(outer_container.clientHeight-gap - box.children[0].offsetHeight) + 'px'
 					});
 				}).resize();
 			}
@@ -132,7 +134,7 @@ $.fn.tabs = function(options){
 			var header = createElement({
 				name:'li', children:{
 					name:'a',
-					attr:{href:'javascript:;'},
+					attr:{href:'javascript:'},
 					children:(function(){
 						var ret = [
 							'<!--[if lt IE 8]><p class="iecp"></p><![endif]-->',

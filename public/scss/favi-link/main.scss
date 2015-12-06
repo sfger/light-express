@@ -3,10 +3,13 @@ $basePath: '../../';
 @import "../parts/ui-layout.scss";
 @import "../parts/ui-tree.scss";
 @import "../parts/ui-tabs.scss";
-html, body{overflow:hidden;}
+html,body{overflow:hidden;font-size:16px;}
 .tab-container .tab-content{height:100%;overflow:hidden;}
 .resize-bar{cursor:default;}
 .bar-west{cursor:e-resize;}
 .top{height:100%;font-size:16px;color:purple;}
 .left-menu{height:100%;}
-.bottom{text-align:center;}
+.bottom{
+	text-align:center;
+	span{@include ib;}
+}

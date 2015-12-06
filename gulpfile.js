@@ -27,7 +27,7 @@ var gulp = require('gulp'),
 	notify = require('gulp-notify'),
 	cache = require('gulp-cache'),
 	// spriter = require('gulp-css-spriter'),
-	amdOptimize = require('amd-optimize'),
+	// amdOptimize = require('amd-optimize'),
 	livereload = require('gulp-livereload');
 
 gulp.task('css', function() {

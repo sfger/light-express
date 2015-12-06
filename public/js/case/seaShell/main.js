@@ -1,7 +1,7 @@
 __non_webpack_require__.config({
 	baseUrl:'/js/',
 	urlArgs:"v=" + document.getElementById("requirejs").getAttribute("data-version"),
-	map:{"*":{css:"require-css.js"}},
+	map:{"*":{css:"require-css"}},
 	paths:{},
 	shim:{
 		'jquery-layout': {deps:["jquery"]},
@@ -10,15 +10,16 @@ __non_webpack_require__.config({
 	}
 });
 __non_webpack_require__([
-	'jquery',
-	// 'case/seaShell/data',
-	'base',
-	'ecmaShim',
-	'jquery-layout',
-	'jquery-tree',
-	'jquery-tabs'
+	'jquery'
+	// 'ecmaShim',
+	// 'jquery-layout',
+	// 'jquery-tree',
+	// 'jquery-tabs'
 ], function($){
-	var data = require('./data');
+	require('../../ecmaShim');
+	require('../../jquery-layout');
+	require('../../jquery-tree');
+	require('../../jquery-tabs');
 	var $leftMenu = $('.left-menu'),
 		$mainTab = $('.tab-ctn'),
 		$page = $('#page');
@@ -38,6 +39,7 @@ __non_webpack_require__([
 			each:{west:{width:4}}
 		}
 	}).show();
+	var data = require('./data');
 	$leftMenu.tree({
 		data:data,
 		animate:{time:115},
@@ -79,7 +81,7 @@ __non_webpack_require__([
 	});
 	$mainTab.tabs('add', {
 		title    : '主页',
-		content  : '欢迎来到朴水做客！',
+		content  : '<div class="imgc" style="height:100%;"><div class="imge">欢迎来朴水做客！</div><!--[if lt IE 8]><p class="iecp"></p><![endif]--></div>',
 		closable : false,
 		select   : true
 	});

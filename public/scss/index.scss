@@ -6,9 +6,8 @@ html,body{
 	@include user-select(none);
 }
 .ctnc{
-	height:100%;
-	filter:progid:DXImageTransform.Microsoft.Gradient(gradientType=0, startColorStr=#ade8aa, endColorStr=#3b9739);
-	background:linear-gradient(0deg, #3b9739, #ade8aa);
+	height:100%;background:linear-gradient(0deg, #3b9739, #ade8aa);
+	filter:progid:DXImageTransform.Microsoft.Gradient(gradientType=0,startColorStr=#ade8aa,endColorStr=#3b9739);
 }
 
 @include keyframes(dropDown){
@@ -19,10 +18,10 @@ html,body{
 	95%{margin-top:3%;}
 	100%{margin-top:0;}
 }
-.boxc{animation:dropDown 1.1s;}
 .boxc{
+	animation:dropDown 1.1s;
 	.contents{
-		@include border-radius(8px);@include background-color-rgba(#000, 0.3);
+		@include border-radius(8px);@include background-color-rgba(#000,0.3);
 		position:relative;z-index:2;max-width:455px;*width:455px;
 		overflow:hidden;padding:20px;text-align:left;color:white;
 		h1,h3{font-size:25px;margin-bottom:10px;text-align:center;font-weight:normal;}

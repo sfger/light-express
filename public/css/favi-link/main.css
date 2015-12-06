@@ -128,7 +128,7 @@ html, body { overflow: hidden; }
 
 .tab-ctn .tab-panel .show { display: block; }
 
-html, body { overflow: hidden; }
+html, body { overflow: hidden; font-size: 16px; }
 
 .tab-container .tab-content { height: 100%; overflow: hidden; }
 
@@ -141,3 +141,5 @@ html, body { overflow: hidden; }
 .left-menu { height: 100%; }
 
 .bottom { text-align: center; }
+
+.bottom span { display: inline-block; *display: inline; *zoom: 1; vertical-align: middle; }

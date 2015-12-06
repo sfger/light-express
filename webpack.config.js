@@ -6,16 +6,16 @@ module.exports = {
         path: __dirname+'/public/',
         filename: '[name].js',
         chunkFilename: '[name].js',
-        libraryTarget: "amd"
+        libraryTarget: "amd",
         // library:'test',
-        // publicPath: './dist/',
+        publicPath: '../dist/',
     },
     resolve: {
     },
     module: {
         loaders: [
             {
-                exclude: /(node_modules|bower_components)/,
+                exclude:/(node_modules|bower_components)/,
                 test:/\.js$/,
                 loader:'babel-loader'
             },
