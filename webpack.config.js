@@ -1,6 +1,8 @@
+var path = require('path');
 module.exports = {
+	context: path.normalize(__dirname + '/public'),
     entry: {
-        'js/case/seaShell/main':'./public/js/case/seaShell/main.js',
+        'js/case/seaShell/main':'./js/case/seaShell/main.js',
     },
     output: {
         path: __dirname+'/public/',
