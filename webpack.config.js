@@ -1,21 +1,21 @@
 var path = require('path');
 module.exports = {
 	context: path.normalize(__dirname + '/public'),
-    entry: {
-        'js/case/seaShell/main':'./js/case/seaShell/main.js',
+    entry:{
+        'js/case/seaShell/main':'./js/case/seaShell/main.js'
     },
-    output: {
-        path: __dirname+'/public/',
-        filename: '[name].js',
-        chunkFilename: '[name].js',
-        libraryTarget: "amd",
+    output:{
+        path:__dirname+'/public/',
+        filename:'[name].js',
+        chunkFilename:'[name].js',
+        libraryTarget:"amd",
         // library:'test',
-        publicPath: '../dist/',
+        publicPath:'../dist/'
     },
-    resolve: {
+    resolve:{
     },
-    module: {
-        loaders: [
+    module:{
+        loaders:[
             {
                 exclude:/(node_modules|bower_components)/,
                 test:/\.js$/,
@@ -23,8 +23,8 @@ module.exports = {
             },
             {test:/\.scss/, loader:'style-loader!css-loader!sass-loader'},
             {test:/\.css$/, loader:'style-loader!css-loader'},
-            {test:/\.(png|jpg)$/, loader: 'url-loader?limit=8192'}
+            {test:/\.(png|jpg)$/, loader:'url-loader?limit=8192'}
         ]
     },
-    plugins: []
+    plugins:[]
 };

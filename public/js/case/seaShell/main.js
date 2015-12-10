@@ -4,9 +4,9 @@ __non_webpack_require__.config({
 	map:{"*":{css:"require-css"}},
 	paths:{},
 	shim:{
-		'jquery-layout': {deps:["jquery"]},
-		'jquery-tree':   {deps:["jquery"]},
-		'jquery-tabs':   {deps:["jquery"]}
+		// 'jquery-layout':{deps:["jquery"]},
+		// 'jquery-tree':  {deps:["jquery"]},
+		// 'jquery-tabs':  {deps:["jquery"]}
 	}
 });
 __non_webpack_require__([
@@ -45,7 +45,7 @@ __non_webpack_require__([
 		animate:{time:115},
 		onClick:function(e){
 			var option = this.option;
-			if(!$leftMenu.tree('isLeaf', this, 'test')){
+			if(!$leftMenu.tree('isLeaf', this)){
 				return false;
 			}
 			if(option.url.slice(0, 8)==='https://'){

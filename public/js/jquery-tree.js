@@ -330,7 +330,7 @@ $.fn.tree = function(options){
 			return !node.option.children;
 		},
 		toggle: function(folder){
-			this[$(folder.nextSibling).css('display')==='none' ? 'expand' : 'collapse'](folder);
+			this[$(folder.nextSibling).is(':visible')?'collapse':'expand'](folder);
 			return this;
 		},
 		expand: function(folder){
