@@ -2,6 +2,7 @@ var fs     = require('fs');
 var exec   = require('child_process').exec;
 var path   = require('path');
 var sass   = require('node-sass');
+var postcss = require('postcss');
 var isDev  = false;
 var config = {
 	staticDir: '/public',
@@ -177,17 +178,24 @@ var config = {
 				includePaths: lib,
 				outputStyle: 'compact'
 			}, function(error, result) {
-				if (error) {
+				if(error){
 					console.log(error);
 					console.log(error.status);
 					console.log(error.column);
 					console.log(error.message);
 					console.log(error.line);
-				}
-				else {
-					fs.writeFile(out_file, result.css, {mode:'777'}, function(){
-						console.log(`Compile ${out_file} success`);
-						return next();
+				}else{
+					postcss([
+						// require('autoprefixer'),
+						require('postcss-image-inliner')({assetPaths:[path.dirname(out_file)],maxFileSize:20480}),
+						require('precss')({ /* options */ })
+					]).process(result.css, {
+					}).then(function(result){
+						// console.log(result.css);
+						fs.writeFile(out_file, result.css, {mode:'777'}, function(){
+							console.log(`Compile ${out_file} success`);
+							return next();
+						});
 					});
 				}
 			});
