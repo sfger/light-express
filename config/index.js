@@ -187,9 +187,17 @@ var config = {
 				}else{
 					postcss([
 						// require('autoprefixer'),
-						require('postcss-image-inliner')({assetPaths:[path.dirname(out_file)],maxFileSize:20480}),
+						// require('postcss-sprites')({
+						// 	stylesheetPath:path.dirname(out_file),
+						// 	spritePath:out_file+'.sprite.png'
+						// }),
+						require('postcss-image-inliner')({
+							assetPaths:[path.dirname(out_file)],
+							maxFileSize:20480
+						}),
 						require('precss')({ /* options */ })
 					]).process(result.css, {
+						from:in_file, to:out_file
 					}).then(function(result){
 						// console.log(result.css);
 						fs.writeFile(out_file, result.css, {mode:'777'}, function(){
