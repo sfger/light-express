@@ -1,16 +1,18 @@
 var path = require('path');
 var glob = require('glob');
-var entrysArray = glob.sync("@(js|css)/**/*.entry.@(js|css)", {
+var entrysArray = glob.sync("js/**/*.@(entry).js", {
 	cwd:'./public/',
 	nobrace:true
 });
-console.log(entrysArray);
+// console.log(entrysArray);
 var entryMap = {};
 entrysArray.forEach((one, i)=>{
 	entryMap[one.replace(/\.entry\.js$/, '')] = './' + one;
 });
+console.log(entryMap);
+
 module.exports = {
-	context:path.normalize(__dirname + '/public'),
+	context: path.normalize(__dirname + '/public'),
     entry:entryMap,
     output:{
         path:__dirname+'/../dist/',
