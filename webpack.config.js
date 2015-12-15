@@ -1,11 +1,19 @@
 var path = require('path');
+var glob = require('glob');
+var entrysArray = glob.sync("@(js|css)/**/*.entry.@(js|css)", {
+	cwd:'./public/',
+	nobrace:true
+});
+console.log(entrysArray);
+var entryMap = {};
+entrysArray.forEach((one, i)=>{
+	entryMap[one.replace(/\.entry\.js$/, '')] = './' + one;
+});
 module.exports = {
-	context: path.normalize(__dirname + '/public'),
-    entry:{
-        'js/case/seaShell/main':'./js/case/seaShell/main.js'
-    },
+	context:path.normalize(__dirname + '/public'),
+    entry:entryMap,
     output:{
-        path:__dirname+'/public/',
+        path:__dirname+'/../dist/',
         filename:'[name].js',
         chunkFilename:'[name].js',
         libraryTarget:"amd",
