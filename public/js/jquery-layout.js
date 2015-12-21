@@ -42,17 +42,20 @@ $.fn.layout = function(options){
 			this.box = box;
 			this.userOptions = options;
 			this.panels = {
-				north  : $('.layout-north', box).get(0),
-				south  : $('.layout-south', box).get(0),
-				west   : $('.layout-west', box).get(0),
-				east   : $('.layout-east', box).get(0),
+				north  : $('.layout-north' , box).get(0),
+				south  : $('.layout-south' , box).get(0),
+				west   : $('.layout-west'  , box).get(0),
+				east   : $('.layout-east'  , box).get(0),
 				center : $('.layout-center', box).get(0)
 			};
+			var panelBar = options.panelBar;
+			var bars = panelBar.each;
+			var size = panelBar.size;
 			this.panelBars = {
-				north : $('.bar-north', box).css({height : options.panelBar.each.north.height||options.panelBar.size}).get(0),
-				south : $('.bar-south', box).css({height : options.panelBar.each.south.height||options.panelBar.size}).get(0),
-				west  : $('.bar-west', box).css({width   : options.panelBar.each.west.width||options.panelBar.size}).get(0),
-				east  : $('.bar-east', box).css({width   : options.panelBar.each.east.width||options.panelBar.size}).get(0)
+				north : $('.bar-north', box).css({height : bars.north.height||size}).get(0),
+				south : $('.bar-south', box).css({height : bars.south.height||size}).get(0),
+				west  : $('.bar-west' , box).css({width  : bars.west.width  ||size}).get(0),
+				east  : $('.bar-east' , box).css({width  : bars.east.width  ||size}).get(0)
 			};
 			var that = this;
 			$(['Height', 'Width']).each(function(i, one){
