@@ -195,7 +195,8 @@ var config = {
 							assetPaths:[path.dirname(out_file)],
 							maxFileSize:20480
 						}),
-						require('precss')({ /* options */ })
+						require('precss')({}),
+						require('postcss-urlrev')({})
 					]).process(result.css, {
 						from:in_file, to:out_file
 					}).then(function(result){
