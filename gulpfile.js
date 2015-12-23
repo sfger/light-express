@@ -80,7 +80,13 @@ gulp.task('md', function() {
 	.pipe(gulp.dest('../dist/md'))
 });
 gulp.task('default', function() {
-	gulp.start('css', 'js', 'img', 'html', 'lib', 'tpl', 'md');
+	gulp.start('css', /*'js', */'img', 'html', 'lib', 'tpl', 'md');
+});
+var webpack = require("webpack");
+var compiler = webpack(require('./webpack.config.js'));
+
+compiler.run(function(err, stats){
+	if(err) console.log(err);
 });
 // gulp.task('watch', function() {
 // 	gulp.watch('css/*.css', ['css']);
