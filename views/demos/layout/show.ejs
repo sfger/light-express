@@ -28,12 +28,12 @@
 	<div class="layout-middle-container cf">
 		<div class="layout-west">west</div>
 		<div class="resize-bar bar-west imgc">
-			<div class="imge"></div>
+			<a href="javascript:" class="imge"></a>
 			<!--[if lt IE 8]><p class="iecp"></p><![endif]-->
 		</div>
 		<div class="layout-east">east</div>
 		<div class="resize-bar bar-east imgc">
-			<div class="imge"></div>
+			<a href="javascript:" class="imge"></a>
 			<!--[if lt IE 8]><p class="iecp"></p><![endif]-->
 		</div>
 		<div class="layout-center">
@@ -65,22 +65,22 @@
 <script type="text/javascript" src="<%-___%>/js/jquery-layout.js"></script>
 <script type="text/javascript">
 $('#page').layout({
-	panel: {
-		toggle: true,
-		resize: true,
-		each:{
-			north:{ toggle: true, resize: true },
-			south:{ toggle: true, resize: true },
-			west:{ toggle: true, resize: true },
-			east:{ toggle: true, resize: true }
+	panel:{
+		toggle:true,
+		resize:true,
+		each  :{
+			north:{toggle:true, resize:true},
+			south:{toggle:true, resize:true},
+			west :{toggle:true, resize:true},
+			east :{toggle:true, resize:true}
 		}
 	}/*,
 	panelBar:{
-		size: 4,
+		size:4,
 		each:{
-			north: {height:2},
-			south: {height:2},
-			west: {width:8}
+			north:{height:2},
+			south:{height:2},
+			west :{width :8}
 		}
 	}*/
 });

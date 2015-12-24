@@ -7,12 +7,15 @@ html,body{overflow:hidden;}
 }
 .layout-west,.layout-east,.layout-center{overflow:auto;_float:left;}
 .resize-bar{
-	background:#cecece;overflow:hidden;cursor:n-resize;text-align:center;
-	.imge{background:#333;height:100%;width:20px;overflow:hidden;margin:auto;cursor:pointer;}
+	background:#cecece;cursor:n-resize;text-align:center;
+	.imge{
+		background:#333;@include size(20px,100%);
+		&:hover{background:darken(#333,50%);}
+	}
 }
 .bar-west,.bar-east{
 	cursor:e-resize;
-	.imge{width:100%;height:20px;}
+	.imge{@include size(100%,20px);}
 }
 .layout-south,.layout-north{height:25px;}
 .layout-west,.layout-east{width:180px;}
