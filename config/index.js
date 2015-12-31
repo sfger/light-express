@@ -168,7 +168,7 @@ var config  = {
 				return next();
 			});
 		},
-		node: function(in_file, out_file, lib, next){
+		node: function(in_file, out_file, lib, res){
 			sass.render({
 				// data      : 'body{background:blue; a{color:black;}}',
 				includePaths : lib,
@@ -206,12 +206,12 @@ var config  = {
 					]).process(result.css, {
 						from:in_file, to:out_file
 					}).then(function(result){
-						// res.end(result.css);
 						// console.log(result.css);
 						fs.writeFile(out_file, result.css, {mode:'777'}, function(){
 							console.log(`Compile ${out_file} success`);
-							return next();
+							// return next();
 						});
+						res.end(result.css);
 					});
 				}
 			});
@@ -226,7 +226,7 @@ var config  = {
 			config.mkdirRecursive(path.dirname(css_path), 777, function(){
 				var out_file = css_path + '.css';
 				var in_file = css_path.replace(/([\\\/])css([\\\/])/, "$1scss$2") + '.scss';
-				config.sass.node(in_file, out_file, '', next);
+				config.sass.node(in_file, out_file, '', res);
 			});
 		}else{
 			return next();
