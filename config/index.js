@@ -1,10 +1,10 @@
-var fs     = require('fs');
-var exec   = require('child_process').exec;
-var path   = require('path');
-var sass   = require('node-sass');
+var fs      = require('fs');
+var exec    = require('child_process').exec;
+var path    = require('path');
+var sass    = require('node-sass');
+var isDev   = false;
 var postcss = require('postcss');
-var isDev  = false;
-var config = {
+var config  = {
 	staticDir: '/public',
 	map_combo_file: {
 		'/js/case/seaShell/_test_.js' : 'main.js,data.js'
@@ -170,14 +170,14 @@ var config = {
 		},
 		node: function(in_file, out_file, lib, next){
 			sass.render({
-				file: in_file,
-				// data: 'body{background:blue; a{color:black;}}',
-				indentType: 'tab',
-				indentWidth: 1,
-				linefeed: 'lf',
-				includePaths: lib,
-				outputStyle: 'compact'
-			}, function(error, result) {
+				// data      : 'body{background:blue; a{color:black;}}',
+				includePaths : lib,
+				linefeed     : 'lf',
+				file         : in_file,
+				indentWidth  : 1,
+				indentType   : 'tab',
+				outputStyle  : 'compact'
+			}, function(error, result){
 				if(error){
 					console.log(error);
 					console.log(error.status);
@@ -191,6 +191,12 @@ var config = {
 						// 	stylesheetPath:path.dirname(out_file),
 						// 	spritePath:out_file+'.sprite.png'
 						// }),
+						// require('postcss-easysprites')({
+						// 	padding        : 1,
+						// 	imagePath      : path.dirname(out_file) + '/../img',
+						// 	stylesheetPath : path.dirname(out_file) + '/../css',
+						// 	spritePath     : path.dirname(out_file) + '/../sprite'
+						// }),
 						require('postcss-image-inliner')({
 							assetPaths:[path.dirname(out_file)],
 							maxFileSize:20480
@@ -200,6 +206,7 @@ var config = {
 					]).process(result.css, {
 						from:in_file, to:out_file
 					}).then(function(result){
+						// res.end(result.css);
 						// console.log(result.css);
 						fs.writeFile(out_file, result.css, {mode:'777'}, function(){
 							console.log(`Compile ${out_file} success`);
