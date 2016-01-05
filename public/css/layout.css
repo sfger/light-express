@@ -30,7 +30,7 @@ fieldset, img { border: none; }
 
 article, aside, details, figcaption, figure, footer, header, hgroup, main, nav, section, summary { display: block; }
 
-html, body { overflow: hidden; }
+.layout-container { height: 100%; }
 
 .layout-middle-container .resize-bar, .layout-middle-container .layout-west, .layout-middle-container .layout-center, .layout-middle-container .layout-east { height: 100%; }
 
@@ -40,9 +40,11 @@ html, body { overflow: hidden; }
 
 .layout-west, .layout-east, .layout-center { overflow: auto; _float: left; }
 
-.resize-bar { background: #cecece; overflow: hidden; cursor: n-resize; text-align: center; }
+.resize-bar { background: #cecece; cursor: n-resize; text-align: center; }
 
-.resize-bar .imge { background: #333; height: 100%; width: 20px; overflow: hidden; margin: auto; cursor: pointer; }
+.resize-bar .imge { background: #333; width: 20px; height: 100%; }
+
+.resize-bar .imge:hover { background: black; }
 
 .bar-west, .bar-east { cursor: e-resize; }
 

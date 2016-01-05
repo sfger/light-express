@@ -9,7 +9,7 @@ var entryMap = {};
 entrysArray.forEach((one, i)=>{
 	entryMap[one.replace(/\.entry\.js$/, '')] = './' + one;
 });
-console.log(entryMap);
+// console.log(entryMap);
 
 module.exports = {
 	context: path.normalize(__dirname + '/public'),

@@ -15,11 +15,12 @@
 <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
 <link rel="stylesheet" type="text/css" href="<%-___%>/css/layout.css" />
 <style type="text/css" media="all">
-*{font-size:12px;margin:0;padding:0;}
+*{font-size:12px;}
+html,body{height:100%;overflow:hidden;}
 </style>
 </head>
 <body>
-<div id="page">
+<div id="page" class="sss">
 	<div class="layout-north imgc">
 		<span class="imge">north</span>
 		<!--[if lt IE 8]><p class="iecp"></p><![endif]-->
@@ -28,12 +29,30 @@
 	<div class="layout-middle-container cf">
 		<div class="layout-west">west</div>
 		<div class="resize-bar bar-west imgc">
-			<div class="imge"></div>
+			<a href="javascript:" class="imge"></a>
 			<!--[if lt IE 8]><p class="iecp"></p><![endif]-->
 		</div>
 		<div class="layout-east">east</div>
 		<div class="resize-bar bar-east imgc">
-			<div class="imge"></div>
+			<a href="javascript:" class="imge"></a>
+			<!--[if lt IE 8]><p class="iecp"></p><![endif]-->
+		</div>
+		<div class="layout-center">
+<div id="page2" class="sss">
+	<div class="layout-north imgc">
+		<span class="imge">north</span>
+		<!--[if lt IE 8]><p class="iecp"></p><![endif]-->
+	</div>
+	<div class="resize-bar bar-north"><span></span></div>
+	<div class="layout-middle-container cf">
+		<div class="layout-west">west</div>
+		<div class="resize-bar bar-west imgc">
+			<a href="javascript:" class="imge"></a>
+			<!--[if lt IE 8]><p class="iecp"></p><![endif]-->
+		</div>
+		<div class="layout-east">east</div>
+		<div class="resize-bar bar-east imgc">
+			<a href="javascript:" class="imge"></a>
 			<!--[if lt IE 8]><p class="iecp"></p><![endif]-->
 		</div>
 		<div class="layout-center">
@@ -61,26 +80,34 @@
 		<!--[if lt IE 8]><p class="iecp"></p><![endif]-->
 	</div>
 </div>
+		</div>
+	</div>
+	<div class="resize-bar bar-south"><span></span></div>
+	<div class="layout-south imgc">
+		<span class="imge">south</span>
+		<!--[if lt IE 8]><p class="iecp"></p><![endif]-->
+	</div>
+</div>
 <script type="text/javascript" src="<%-___%>/lib/jquery-min.js"></script>
 <script type="text/javascript" src="<%-___%>/js/jquery-layout.js"></script>
 <script type="text/javascript">
-$('#page').layout({
-	panel: {
-		toggle: true,
-		resize: true,
-		each:{
-			north:{ toggle: true, resize: true },
-			south:{ toggle: true, resize: true },
-			west:{ toggle: true, resize: true },
-			east:{ toggle: true, resize: true }
+$('.sss').layout({
+	panel:{
+		toggle:true,
+		resize:true,
+		each  :{
+			north:{toggle:true, resize:true},
+			south:{toggle:true, resize:true},
+			west :{toggle:true, resize:true},
+			east :{toggle:true, resize:true}
 		}
 	}/*,
 	panelBar:{
-		size: 4,
+		size:4,
 		each:{
-			north: {height:2},
-			south: {height:2},
-			west: {width:8}
+			north:{height:2},
+			south:{height:2},
+			west :{width :8}
 		}
 	}*/
 });

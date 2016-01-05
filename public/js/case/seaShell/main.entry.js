@@ -11,10 +11,6 @@ __non_webpack_require__.config({
 });
 __non_webpack_require__([
 	'jquery'
-	// 'ecmaShim',
-	// 'jquery-layout',
-	// 'jquery-tree',
-	// 'jquery-tabs'
 ], function($){
 	require('../../ecmaShim');
 	require('../../jquery-layout');
