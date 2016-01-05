@@ -1,5 +1,5 @@
 @charset "utf-8";
-html,body{overflow:hidden;}
+.layout-container{height:100%;}
 .layout-middle-container{
 	.resize-bar,.layout-west,.layout-center,.layout-east{height:100%;}
 	.layout-west,.bar-west{float:left;}

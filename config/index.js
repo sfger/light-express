@@ -211,6 +211,7 @@ var config  = {
 							console.log(`Compile ${out_file} success`);
 							// return next();
 						});
+						res.writeHead(200, {"Content-Type":"text/css"});
 						res.end(result.css);
 					});
 				}

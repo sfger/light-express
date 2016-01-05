@@ -30,7 +30,7 @@ fieldset, img { border: none; }
 
 article, aside, details, figcaption, figure, footer, header, hgroup, main, nav, section, summary { display: block; }
 
-html, body { overflow: hidden; }
+.layout-container { height: 100%; }
 
 .layout-middle-container .resize-bar, .layout-middle-container .layout-west, .layout-middle-container .layout-center, .layout-middle-container .layout-east { height: 100%; }
 
