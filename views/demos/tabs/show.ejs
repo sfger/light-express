@@ -20,6 +20,7 @@
 .icon-money{background:url("../img/money.png") no-repeat;}
 #page{height:300px;/*overflow:auto;*/}
 .tab-ctn{border:1px solid #ccc;}
+.closer{font-family:SimSun;}
 </style>
 </head>
 <body>
@@ -69,12 +70,18 @@
 		</div>
 	</div>
 </div><!-- #page end! -->
-<script type="text/javascript" src="<%-___%>/lib/jquery-min.js"></script>
-<script type="text/javascript" src="<%-___%>/js/base.js"></script>
-<script type="text/javascript" src="<%-___%>/js/ecmaShim.js"></script>
-<script type="text/javascript" src="<%-___%>/js/jquery-tabs.js"></script>
+<script id="requirejs" data-version="<%-__version__%>" src="/js/require.js?v=<%-__version__%>"></script>
 <script type="text/javascript">
-$(function(){
+require.config({
+	baseUrl:'/js/',
+	urlArgs:"v=" + document.getElementById("requirejs").getAttribute("data-version"),
+	map:{"*":{css:"require-css"}},
+	paths:{},
+	shim:{
+		'jquery-tabs':['jquery', 'base', 'ecmaShim']
+	}
+});
+require(['jquery', 'jquery-tabs'], function($){
 	$('.tab-ctn').tabs({
 		height:60,
 		tabWidth:150,
