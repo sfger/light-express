@@ -3,7 +3,12 @@ $basePath: '../../';
 @import "../parts/ui-layout.scss";
 @import "../parts/ui-tree.scss";
 @import "../parts/ui-tabs.scss";
-html,body{overflow:hidden;font-size:16px;}
+html,body{height:100%;overflow:hidden;font-size:16px;}
+@media screen and (min-width:300px){
+}
+@supports (-moz-user-select:none){
+	html,body{overflow:visible;}
+}
 .tab-container .tab-content{height:100%;overflow:hidden;}
 .resize-bar{cursor:default;}
 .bar-west{cursor:e-resize;}
