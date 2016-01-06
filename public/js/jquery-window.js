@@ -99,7 +99,8 @@ $.fn.window = function(options){
 			}
 
 			// $([html, body]).css({overflow:'hidden'});
-			$container.show();
+			// $container.show();
+			$container.fadeIn(150);
 			var css1compat = document.compatMode === "CSS1Compat";
 			var isIE6      = /MSIE 6.0/.exec(navigator.userAgent);
 			// var isIE7      = /MSIE 7.0/.exec(navigator.userAgent);
@@ -130,7 +131,8 @@ $.fn.window = function(options){
 				&& typeof options.onClose==='function'
 				&& !options.onBeforeClose() ) return false;
 			// document.body.style.width = '';
-			this.container.style.display = 'none';
+			// this.container.style.display = 'none';
+			$(this.container).fadeOut(150);
 			// $([document.documentElement, document.body]).css({overflow:''});
 			$(window).off('scroll.windowIE6', this.scrollIE6);
 			if(options.onClose && typeof options.onClose==='function') options.onClose();
