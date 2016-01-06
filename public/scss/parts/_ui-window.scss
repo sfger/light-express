@@ -7,10 +7,12 @@
 	.window-wrapper{
 		@include imge;margin-bottom:5%;
 		overflow:visible;background:white;text-align:left;
+		@include border-radius(5px);
 	}
 	.window-bar{background:#b6b6b6;padding:2px 0;}
 	.window-header{
 		@include imgc;@include user-select(none);overflow:visible;text-align:left;
+		@include border-top-left-radius(5px);@include border-top-right-radius(5px);
 		*zoom:0;*position:relative;
 	}
 	.window-title{
@@ -28,5 +30,8 @@
 	}
 	// .window-contents{}
 	.window-view{overflow:auto;overflow-x:hidden;}
-	.window-footer{text-align:right;overflow:visible;*zoom:0;}
+	.window-footer{
+		@include border-bottom-left-radius(5px);@include border-bottom-right-radius(5px);
+		overflow:visible;*zoom:0;text-align:right;
+	}
 }

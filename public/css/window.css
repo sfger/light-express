@@ -40,11 +40,11 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, nav, 
 
 @media screen and (min-width: 0px) { .window-ctn { filter: none; } }
 
-.window-ctn .window-wrapper { display: inline-block; *display: inline; *zoom: 1; vertical-align: middle; font-size: 12px; font-size: 1rem; line-height: normal; margin-bottom: 5%; overflow: visible; background: white; text-align: left; }
+.window-ctn .window-wrapper { display: inline-block; *display: inline; *zoom: 1; vertical-align: middle; font-size: 12px; font-size: 1rem; line-height: normal; margin-bottom: 5%; overflow: visible; background: white; text-align: left; -webkit-border-radius: 5px; -mox-border-radius: 5px; -ms-border-radius: 5px; -o-border-radius: 5px; border-radius: 5px; }
 
 .window-ctn .window-bar { background: #b6b6b6; padding: 2px 0; }
 
-.window-ctn .window-header { font-size: 0; text-align: center; -webkit-user-select: none; -moz-user-select: none; user-select: none; overflow: visible; text-align: left; *zoom: 0; *position: relative; }
+.window-ctn .window-header { font-size: 0; text-align: center; -webkit-user-select: none; -moz-user-select: none; user-select: none; overflow: visible; text-align: left; -webkit-border-top-left-radius: 5px; -mox-border-top-left-radius: 5px; -ms-border-top-left-radius: 5px; -o-border-top-left-radius: 5px; border-top-left-radius: 5px; -webkit-border-top-right-radius: 5px; -mox-border-top-right-radius: 5px; -ms-border-top-right-radius: 5px; -o-border-top-right-radius: 5px; border-top-right-radius: 5px; *zoom: 0; *position: relative; }
 
 .window-ctn .window-header:before, .window-ctn .window-header .iecp { display: inline-block; *display: inline; *zoom: 1; vertical-align: middle; }
 
@@ -60,4 +60,4 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, nav, 
 
 .window-ctn .window-view { overflow: auto; overflow-x: hidden; }
 
-.window-ctn .window-footer { text-align: right; overflow: visible; *zoom: 0; }
+.window-ctn .window-footer { text-align: right; overflow: visible; *zoom: 0; -webkit-border-bottom-left-radius: 5px; -mox-border-bottom-left-radius: 5px; -ms-border-bottom-left-radius: 5px; -o-border-bottom-left-radius: 5px; border-bottom-left-radius: 5px; -webkit-border-bottom-right-radius: 5px; -mox-border-bottom-right-radius: 5px; -ms-border-bottom-right-radius: 5px; -o-border-bottom-right-radius: 5px; border-bottom-right-radius: 5px; }
