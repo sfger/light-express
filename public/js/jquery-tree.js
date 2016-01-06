@@ -88,8 +88,8 @@ $.fn.tree = function(options){
 			var $box = $(box);
 			$box.addClass('tree-container');
 			this.userOptions = options;
-			this.container  = $box.get(0);
-			this.contents   = w.get(0);
+			this.container   = $box.get(0);
+			this.contents    = w.get(0);
 			$(this.contents).delegate('a', {
 				contextmenu: function(e){
 					if(that.userOptions.onContextmenu)
@@ -194,7 +194,7 @@ $.fn.tree = function(options){
 						}else if($(pointElement.parentNode).hasClass('line')){
 							line = pointElement.parentNode;
 						}
-						if(drag.prevLine) $(drag.prevLine).css({border:'none'});
+						if(drag.prevLine) $(drag.prevLine).css({border:'',boxSizing:''});
 						if( line &&
 							line!=that.dragingElement &&
 							!$.contains(that.dragingElement.parentNode, line) ){
@@ -204,14 +204,14 @@ $.fn.tree = function(options){
 							drag.prevLine = line;
 							$line.css({border:'none'});
 							if(e.pageY-pos.top<5){
-								$line.css({borderTop:'1px dotted red'});
+								$line.css({borderTop:'1px dotted red',boxSizing:'border-box'});
 								drag.dropPosition = 'top';
 							}else if(ht+pos.top-e.pageY<5){
-								$line.css({borderBottom:'1px dotted red'});
+								$line.css({borderBottom:'1px dotted red',boxSizing:'border-box'});
 								drag.dropPosition = 'bottom';
 							}else{
 								if(that.isLeaf(line)) return;
-								$line.css({border:'1px dotted red'});
+								$line.css({border:'1px dotted red',boxSizing:'border-box'});
 								drag.dropPosition = 'append';
 							}
 						}
@@ -270,11 +270,17 @@ $.fn.tree = function(options){
 								tli = drag.prevLine.parentNode;
 							var sul = sli.parentNode;
 							var gap = tli.parentNode.getAttribute('deep')-sli.parentNode.getAttribute('deep');
+							var soption = sli.parentNode.parentNode.children[0].option.children.splice($(sli).index(), 1)[0];
+							console.log(soption);
 							if(drag.dropPosition==='append'){
 								if(that.isLeaf(drag.prevLine)) return;
 								drag.prevLine.nextSibling.appendChild(sli);
+								drag.prevLine.option.children.push(soption);
 							}else{
-								tli.parentNode.insertBefore(sli, (drag.dropPosition!='top' ? tli.nextSibling : tli));
+								console.log($((drag.dropPosition==='bottom' ? tli.nextSibling : tli)).index());
+								tli.parentNode.parentNode.children[0].option.children.splice($((drag.dropPosition==='bottom' ? tli.nextSibling : tli)).index(), 0, soption);
+								tli.parentNode.insertBefore(sli, (drag.dropPosition==='bottom' ? tli.nextSibling : tli));
+								console.log(tli.parentNode.parentNode.children[0].option);
 							}
 							drag.updateChildrenIndext({children:[sli]}, gap);
 							drag.dropPosition = null;
