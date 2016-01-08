@@ -205,10 +205,10 @@ $.fn.tree = function(options){
 							$line.css({border:'none'});
 							if(e.pageY-pos.top<5){
 								$line.css({borderTop:'1px dotted red',boxSizing:'border-box'});
-								drag.dropPosition = 'top';
+								drag.dropPosition = 'before';
 							}else if(ht+pos.top-e.pageY<5){
 								$line.css({borderBottom:'1px dotted red',boxSizing:'border-box'});
-								drag.dropPosition = 'bottom';
+								drag.dropPosition = 'after';
 							}else{
 								if(that.isLeaf(line)) return;
 								$line.css({border:'1px dotted red',boxSizing:'border-box'});
@@ -270,17 +270,19 @@ $.fn.tree = function(options){
 								tli = drag.prevLine.parentNode;
 							var sul = sli.parentNode;
 							var gap = tli.parentNode.getAttribute('deep')-sli.parentNode.getAttribute('deep');
-							var soption = sli.parentNode.parentNode.children[0].option.children.splice($(sli).index(), 1)[0];
-							console.log(soption);
+							var sindex = $(sli).index();
+							var spoption = sli.parentNode.parentNode.children[0].option.children;
+							var soption = spoption[sindex];
 							if(drag.dropPosition==='append'){
 								if(that.isLeaf(drag.prevLine)) return;
 								drag.prevLine.nextSibling.appendChild(sli);
 								drag.prevLine.option.children.push(soption);
+								spoption.splice(sindex, 1)
 							}else{
-								console.log($((drag.dropPosition==='bottom' ? tli.nextSibling : tli)).index());
-								tli.parentNode.parentNode.children[0].option.children.splice($((drag.dropPosition==='bottom' ? tli.nextSibling : tli)).index(), 0, soption);
-								tli.parentNode.insertBefore(sli, (drag.dropPosition==='bottom' ? tli.nextSibling : tli));
-								console.log(tli.parentNode.parentNode.children[0].option);
+								$(tli)[drag.dropPosition](sli);
+								console.log($(tli).index(), (drag.dropPosition==='after'), 0, soption);
+								tli.parentNode.parentNode.children[0].option.children.splice($(tli).index()-1+(drag.dropPosition==='after'), 0, soption);
+								console.log(sli.parentNode.parentNode.children[0].option);
 							}
 							drag.updateChildrenIndext({children:[sli]}, gap);
 							drag.dropPosition = null;
