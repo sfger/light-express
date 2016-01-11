@@ -24,7 +24,7 @@ $.fn.tree = function(options){
 	var createTree = function(data, deep, container, deepest_ul, interal_init){
 		if(!deep) deep = 1;
 		if(!interal_init){
-			container.innerHTML = '<ul deep="0"><li><a href="javascript:" style="display:none;">__ROOT__</a></li></ul>'
+			container.innerHTML = '<ul deep="0"><li><a href="javascript:" style="display:none;">__ROOT__</a></li></ul>';
 			container = container.children[0].children[0];
 			container.children[0].option = {name:'__ROOT__',children:data};
 		}
@@ -278,20 +278,23 @@ $.fn.tree = function(options){
 							var sindex = $(sli).index();
 							var spoption = that.getParentNode(sli).option.children;
 							var soption = spoption[sindex];
-							spoption.splice(sindex, 1)
+							spoption.splice(sindex, 1);
 							if(drag.dropPosition==='append'){
 								if(that.isLeaf(drag.prevLine)) return;
 								drag.prevLine.nextSibling.appendChild(sli);
 								drag.prevLine.option.children.push(soption);
-								// console.log(tli.children[0].option);
+								console.log(tli.children[0].option);
 							}else{
+								var to_index;
 								if(tli.parentNode===sli.parentNode){
-									that.getParentNode(tli).option.children.splice($(tli).index()-($(tli).index()>sindex)+(drag.dropPosition==='after'), 0, soption);
+									to_index = $(tli).index()-($(tli).index()>sindex)+(drag.dropPosition==='after');
+									that.getParentNode(tli).option.children.splice(to_index, 0, soption);
 								}else{
-									spoption.splice(sindex, 1)
+									to_index = $(tli).index()+(drag.dropPosition==='after');
+									that.getParentNode(tli).option.children.splice(to_index, 0, soption);
 								}
 								$(tli)[drag.dropPosition](sli);
-								// console.log(that.getParentNode(tli).option);
+								console.log(that.getParentNode(tli).option);
 							}
 							drag.updateChildrenIndext({children:[sli]}, gap);
 							drag.dropPosition = null;
@@ -339,7 +342,7 @@ $.fn.tree = function(options){
 		getParentNode: function(node){
 			var parentNode = null;
 			try{
-				var parentNode = node.parentNode.parentNode.children[0];
+				parentNode = node.parentNode.parentNode.children[0];
 			}catch(e){}
 			return parentNode;
 		},
