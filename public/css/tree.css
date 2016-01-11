@@ -32,17 +32,17 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, nav, 
 
 .tree-container { width: auto; overflow: auto; background: white; }
 
-.tree-container ul { width: auto; height: auto; _line-height: 0; _font-size: 0; }
+.tree-container ul li ul { width: auto; height: auto; _line-height: 0; _font-size: 0; }
 
-.tree-container ul ul { display: none; }
+.tree-container ul li ul ul { display: none; }
 
-.tree-container ul, .tree-container li { width: auto; vertical-align: middle; list-style: none; }
+.tree-container ul li ul, .tree-container ul li li { width: auto; vertical-align: middle; list-style: none; }
 
-.tree-container li a { color: black; _font-size: 16px; line-height: normal; text-decoration: none; background: transparent; display: block; white-space: nowrap; }
+.tree-container ul li li a { color: black; _font-size: 16px; height: 19px; line-height: normal; text-decoration: none; background: transparent; display: block; white-space: nowrap; }
 
-.tree-container li a:hover, .tree-container li a.hover { background: #e1e1e1; }
+.tree-container ul li li a:hover, .tree-container ul li li a.hover { background: #e1e1e1; }
 
-.tree-container li a.current { background: #d1d1d1; }
+.tree-container ul li li a.current { background: #d1d1d1; }
 
 .tree-container .indent, .tree-container .join, .tree-container .hit, .tree-container .file, .tree-container .folder, .tree-container .checkbox, .tree-container .title { cursor: pointer; width: 16px; height: 18px; }
 

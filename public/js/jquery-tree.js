@@ -21,10 +21,14 @@ $.fn.tree = function(options){
 		data: []
 	}, options);
 	var handler = function(box, options){ return new handler.prototype.init(box, options); };
-	var createTree = function(data, deep, container, deepest_ul){
+	var createTree = function(data, deep, container, deepest_ul, interal_init){
 		if(!deep) deep = 1;
+		if(!interal_init){
+			container.innerHTML = '<ul deep="0"><li><a href="javascript:" style="display:none;">__ROOT__</a></li></ul>';
+			container = container.children[0].children[0];
+			container.children[0].option = {name:'__ROOT__',children:data};
+		}
 		var ul = document.createElement('ul');
-		container.appendChild(ul);
 		ul.setAttribute('deep', deep);
 		for(var i=0,ii=data.length-1; i<=ii; i++){
 			var name = document.createElement('span'),
@@ -52,7 +56,7 @@ $.fn.tree = function(options){
 			line.appendChild(icon);
 			if(data[i].children){
 				icon.className = 'folder';
-				createTree(data[i].children, deep+1, li, deepest_ul);
+				createTree(data[i].children, deep+1, li, deepest_ul, true);
 			}else{
 				deepest_ul.push(ul);
 			}
@@ -65,6 +69,7 @@ $.fn.tree = function(options){
 			name.appendChild(document.createTextNode(data[i].name));
 			name.className = 'title';
 		}
+		container.appendChild(ul);
 	};
 	handler.prototype = {
 		init: function(box, options){
@@ -88,8 +93,8 @@ $.fn.tree = function(options){
 			var $box = $(box);
 			$box.addClass('tree-container');
 			this.userOptions = options;
-			this.container  = $box.get(0);
-			this.contents   = w.get(0);
+			this.container   = $box.get(0);
+			this.contents    = w.get(0);
 			$(this.contents).delegate('a', {
 				contextmenu: function(e){
 					if(that.userOptions.onContextmenu)
@@ -194,7 +199,7 @@ $.fn.tree = function(options){
 						}else if($(pointElement.parentNode).hasClass('line')){
 							line = pointElement.parentNode;
 						}
-						if(drag.prevLine) $(drag.prevLine).css({border:'none'});
+						if(drag.prevLine) $(drag.prevLine).css({border:'',boxSizing:''});
 						if( line &&
 							line!=that.dragingElement &&
 							!$.contains(that.dragingElement.parentNode, line) ){
@@ -204,14 +209,14 @@ $.fn.tree = function(options){
 							drag.prevLine = line;
 							$line.css({border:'none'});
 							if(e.pageY-pos.top<5){
-								$line.css({borderTop:'1px dotted red'});
-								drag.dropPosition = 'top';
+								$line.css({borderTop:'1px dotted red',boxSizing:'border-box'});
+								drag.dropPosition = 'before';
 							}else if(ht+pos.top-e.pageY<5){
-								$line.css({borderBottom:'1px dotted red'});
-								drag.dropPosition = 'bottom';
+								$line.css({borderBottom:'1px dotted red',boxSizing:'border-box'});
+								drag.dropPosition = 'after';
 							}else{
 								if(that.isLeaf(line)) return;
-								$line.css({border:'1px dotted red'});
+								$line.css({border:'1px dotted red',boxSizing:'border-box'});
 								drag.dropPosition = 'append';
 							}
 						}
@@ -270,11 +275,26 @@ $.fn.tree = function(options){
 								tli = drag.prevLine.parentNode;
 							var sul = sli.parentNode;
 							var gap = tli.parentNode.getAttribute('deep')-sli.parentNode.getAttribute('deep');
+							var sindex = $(sli).index();
+							var spoption = that.getParentNode(sli).option.children;
+							var soption = spoption[sindex];
+							spoption.splice(sindex, 1);
 							if(drag.dropPosition==='append'){
 								if(that.isLeaf(drag.prevLine)) return;
 								drag.prevLine.nextSibling.appendChild(sli);
+								drag.prevLine.option.children.push(soption);
+								// console.log(tli.children[0].option);
 							}else{
-								tli.parentNode.insertBefore(sli, (drag.dropPosition!='top' ? tli.nextSibling : tli));
+								var to_index;
+								if(tli.parentNode===sli.parentNode){
+									to_index = $(tli).index()-($(tli).index()>sindex)+(drag.dropPosition==='after');
+									that.getParentNode(tli).option.children.splice(to_index, 0, soption);
+								}else{
+									to_index = $(tli).index()+(drag.dropPosition==='after');
+									that.getParentNode(tli).option.children.splice(to_index, 0, soption);
+								}
+								$(tli)[drag.dropPosition](sli);
+								// console.log(that.getParentNode(tli).option);
 							}
 							drag.updateChildrenIndext({children:[sli]}, gap);
 							drag.dropPosition = null;
@@ -318,6 +338,13 @@ $.fn.tree = function(options){
 				});
 			}
 			// }}}
+		},
+		getParentNode: function(node){
+			var parentNode = null;
+			try{
+				parentNode = node.parentNode.parentNode.children[0];
+			}catch(e){}
+			return parentNode;
 		},
 		disableSelection: function(){
 			if(window.getSelection){
