@@ -21,10 +21,14 @@ $.fn.tree = function(options){
 		data: []
 	}, options);
 	var handler = function(box, options){ return new handler.prototype.init(box, options); };
-	var createTree = function(data, deep, container, deepest_ul){
+	var createTree = function(data, deep, container, deepest_ul, interal_init){
 		if(!deep) deep = 1;
+		if(!interal_init){
+			container.innerHTML = '<ul deep="0"><li><a href="javascript:" style="display:none;">__ROOT__</a></li></ul>'
+			container = container.children[0].children[0];
+			container.children[0].option = {name:'__ROOT__',children:data};
+		}
 		var ul = document.createElement('ul');
-		container.appendChild(ul);
 		ul.setAttribute('deep', deep);
 		for(var i=0,ii=data.length-1; i<=ii; i++){
 			var name = document.createElement('span'),
@@ -52,7 +56,7 @@ $.fn.tree = function(options){
 			line.appendChild(icon);
 			if(data[i].children){
 				icon.className = 'folder';
-				createTree(data[i].children, deep+1, li, deepest_ul);
+				createTree(data[i].children, deep+1, li, deepest_ul, true);
 			}else{
 				deepest_ul.push(ul);
 			}
@@ -65,6 +69,7 @@ $.fn.tree = function(options){
 			name.appendChild(document.createTextNode(data[i].name));
 			name.className = 'title';
 		}
+		container.appendChild(ul);
 	};
 	handler.prototype = {
 		init: function(box, options){
@@ -271,18 +276,22 @@ $.fn.tree = function(options){
 							var sul = sli.parentNode;
 							var gap = tli.parentNode.getAttribute('deep')-sli.parentNode.getAttribute('deep');
 							var sindex = $(sli).index();
-							var spoption = sli.parentNode.parentNode.children[0].option.children;
+							var spoption = that.getParentNode(sli).option.children;
 							var soption = spoption[sindex];
+							spoption.splice(sindex, 1)
 							if(drag.dropPosition==='append'){
 								if(that.isLeaf(drag.prevLine)) return;
 								drag.prevLine.nextSibling.appendChild(sli);
 								drag.prevLine.option.children.push(soption);
-								spoption.splice(sindex, 1)
+								// console.log(tli.children[0].option);
 							}else{
+								if(tli.parentNode===sli.parentNode){
+									that.getParentNode(tli).option.children.splice($(tli).index()-($(tli).index()>sindex)+(drag.dropPosition==='after'), 0, soption);
+								}else{
+									spoption.splice(sindex, 1)
+								}
 								$(tli)[drag.dropPosition](sli);
-								console.log($(tli).index(), (drag.dropPosition==='after'), 0, soption);
-								tli.parentNode.parentNode.children[0].option.children.splice($(tli).index()-1+(drag.dropPosition==='after'), 0, soption);
-								console.log(sli.parentNode.parentNode.children[0].option);
+								// console.log(that.getParentNode(tli).option);
 							}
 							drag.updateChildrenIndext({children:[sli]}, gap);
 							drag.dropPosition = null;
@@ -326,6 +335,13 @@ $.fn.tree = function(options){
 				});
 			}
 			// }}}
+		},
+		getParentNode: function(node){
+			var parentNode = null;
+			try{
+				var parentNode = node.parentNode.parentNode.children[0];
+			}catch(e){}
+			return parentNode;
 		},
 		disableSelection: function(){
 			if(window.getSelection){

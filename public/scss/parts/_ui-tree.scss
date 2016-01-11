@@ -2,14 +2,18 @@
 .tree-container{
 	width:auto;overflow:auto;background:white;
 	ul{
-		width:auto;height:auto;_line-height:0;_font-size:0;
-		ul{display:none;}
-	}
-	ul,li{width:auto;vertical-align:middle;list-style:none;}
-	li a{
-		color:black;_font-size:16px;height:19px;line-height:normal;text-decoration:none;background:transparent;display:block;white-space:nowrap;
-		&:hover,&.hover{background:#e1e1e1;}
-		&.current{background:#d1d1d1;}
+		li{
+			ul{
+				width:auto;height:auto;_line-height:0;_font-size:0;
+				ul{display:none;}
+			}
+			ul,li{width:auto;vertical-align:middle;list-style:none;}
+			li a{
+				color:black;_font-size:16px;height:19px;line-height:normal;text-decoration:none;background:transparent;display:block;white-space:nowrap;
+				&:hover,&.hover{background:#e1e1e1;}
+				&.current{background:#d1d1d1;}
+			}
+		}
 	}
 	.indent,.join,.hit,.file,.folder,.checkbox,.title{
 		@extend %ib;cursor:pointer;width:16px;height:18px;//line-height:18px;overflow:hidden;
