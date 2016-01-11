@@ -283,7 +283,7 @@ $.fn.tree = function(options){
 								if(that.isLeaf(drag.prevLine)) return;
 								drag.prevLine.nextSibling.appendChild(sli);
 								drag.prevLine.option.children.push(soption);
-								console.log(tli.children[0].option);
+								// console.log(tli.children[0].option);
 							}else{
 								var to_index;
 								if(tli.parentNode===sli.parentNode){
@@ -294,7 +294,7 @@ $.fn.tree = function(options){
 									that.getParentNode(tli).option.children.splice(to_index, 0, soption);
 								}
 								$(tli)[drag.dropPosition](sli);
-								console.log(that.getParentNode(tli).option);
+								// console.log(that.getParentNode(tli).option);
 							}
 							drag.updateChildrenIndext({children:[sli]}, gap);
 							drag.dropPosition = null;
