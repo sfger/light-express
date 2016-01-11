@@ -19,7 +19,7 @@ app.use(webpackDevMiddleware(compiler, {
 }));
 
 express.UserConfig = require('./config');
-app.set('views', path.join(__dirname, 'views'));
+app.set('views', path.join(__dirname, '/public'));
 app.set('view engine', 'ejs');
 app.use(favicon());
 app.use(logger('dev'));

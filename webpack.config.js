@@ -1,6 +1,6 @@
 var path = require('path');
 var glob = require('glob');
-var entrysArray = glob.sync("js/**/*.@(entry).js", {
+var entrysArray = glob.sync("*/js/**/*.@(entry).js", {
 	cwd:'./public/',
 	nobrace:true
 });

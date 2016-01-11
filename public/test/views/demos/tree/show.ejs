@@ -13,7 +13,7 @@
 <meta name="description" content="" />
 <link rel="icon" href="/favicon.ico" type="image/x-icon" />
 <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
-<link rel="stylesheet" type="text/css" href="<%-___%>/css/tree.css" />
+<link rel="stylesheet" type="text/css" href="<%-___%>/test/css/tree.css" />
 <style type="text/css" media="all">
 #my_tree{height:300px;width:210px;overflow:auto;border:1px solid black;}
 </style>
@@ -22,10 +22,10 @@
 <div id="page">
 	<div id="my_tree"></div>
 </div><!-- #page end! -->
-<script id="requirejs" data-version="<%-__version__%>" src="/js/require.js?v=<%-__version__%>"></script>
+<script id="requirejs" data-version="<%-__version__%>" src="/test/js/require.js?v=<%-__version__%>"></script>
 <script type="text/javascript">
 require.config({
-	baseUrl:'/js/',
+	baseUrl:'/test/js/',
 	urlArgs:"v=" + document.getElementById("requirejs").getAttribute("data-version"),
 	map:{"*":{css:"require-css"}},
 	paths:{},

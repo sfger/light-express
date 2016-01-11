@@ -127,7 +127,7 @@ var config  = {
 		// console.log(url);
 		if(typeof url == 'object' && url.length) url = url[0];
 		var url_path = url.replace(/^\/|\/$/g, '');
-		url_path = process.cwd() + '/' + config.staticDir + '/html/' + (url_path || 'index') + '.html';
+		url_path = process.cwd() + '/' + config.staticDir + '/' + (url_path || 'index') + '.html';
 		url_path = path.normalize(url_path);
 		config.mkdirRecursive(path.dirname(url_path), 777, function(){
 			fs.writeFile(url_path, ret, function(err){
