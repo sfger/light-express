@@ -78,6 +78,14 @@ gulp.task('webpack', function(callback){
 		callback();
 	});
 });
-gulp.task('default', function(){
-	gulp.start('css', 'img', 'html', 'tpl', 'webpack', 'js');
+// gulp.task('dist', function(){
+// 	return gulp.start('css', 'img', 'html', 'tpl', 'webpack', 'js');
+// });
+// gulp.task('public', function(){
+// 	return gulp.src('../dist/'+project+'/**/*')
+// 	.pipe(gulp.dest('../dist/list'));
+// });
+gulp.task('default', ['css', 'img', 'html', 'tpl', 'webpack', 'js'], function(){
+	return gulp.src('../dist/'+project+'/**/*')
+	.pipe(gulp.dest('../dist/list'));
 });
