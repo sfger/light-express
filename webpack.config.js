@@ -15,7 +15,7 @@ module.exports = {
 	context: path.normalize(__dirname + '/public'),
     entry:entryMap,
     output:{
-        path:__dirname+'/../dist/',
+        path:__dirname+'/dist/',
         filename:'[name].js',
         chunkFilename:'[name].js',
         libraryTarget:"amd",
