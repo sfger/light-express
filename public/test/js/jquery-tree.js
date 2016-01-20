@@ -24,18 +24,18 @@ $.fn.tree = function(options){
 	var createTree = function(data, deep, container, deepest_ul, interal_init){
 		if(!deep) deep = 1;
 		if(!interal_init){
-			container.innerHTML = '<ul deep="0"><li><a href="javascript:" style="display:none;">__ROOT__</a></li></ul>';
+			container.innerHTML = '<ul data-deep="0"><li class="line"><a href="javascript:;" style="display:none;"><span class="title">__ROOT__</span></a></li></ul>';
 			container = container.children[0].children[0];
 			container.children[0].option = {name:'__ROOT__',children:data};
 		}
 		var ul = document.createElement('ul');
-		ul.setAttribute('deep', deep);
+		ul.setAttribute('data-deep', deep);
 		for(var i=0,ii=data.length-1; i<=ii; i++){
 			var name = document.createElement('span'),
 				li = document.createElement('li'),
 				line = document.createElement('a');
 			ul.appendChild(li);
-			ul.setAttribute('deep', deep);
+			ul.setAttribute('data-deep', deep);
 			li.appendChild(line);
 			line.setAttribute('href', 'javascript:;');
 			line.className = 'line';
@@ -134,7 +134,7 @@ $.fn.tree = function(options){
 					},
 					updateParentCheckState: function(ul){
 						if(!ul) return;
-						if(ul.getAttribute('deep')<2) return;
+						if(ul.getAttribute('data-deep')<2) return;
 						if(ul.nodeName.toLowerCase()!=='ul') return;
 						var outer_li = ul.parentNode;
 						var len = ul.children.length;
@@ -159,7 +159,7 @@ $.fn.tree = function(options){
 						var line = this.parentNode;
 						var li = line.parentNode;
 						check.updateChildCheckState({children:[li]}, !line.option.checked);
-						if(line.parentNode.parentNode.getAttribute('deep')>1){
+						if(line.parentNode.parentNode.getAttribute('data-deep')>1){
 							check.updateParentCheckState(li.parentNode);
 						}
 						return false;
@@ -229,8 +229,8 @@ $.fn.tree = function(options){
 						if(!ul.nodeName || ul.nodeType) real_ul = ul.children[0].parentNode;
 						else real_ul = ul;
 						real_ul.setAttribute(
-							'deep',
-							Number(real_ul.parentNode.parentNode.getAttribute('deep')) + 1
+							'data-deep',
+							Number(real_ul.parentNode.parentNode.getAttribute('data-deep')) + 1
 						);
 						var lis = ul.children,
 							len = ul.children.length,
@@ -274,7 +274,7 @@ $.fn.tree = function(options){
 							var sli = that.dragingElement.parentNode,
 								tli = drag.prevLine.parentNode;
 							var sul = sli.parentNode;
-							var gap = tli.parentNode.getAttribute('deep')-sli.parentNode.getAttribute('deep');
+							var gap = tli.parentNode.getAttribute('data-deep')-sli.parentNode.getAttribute('data-deep');
 							var sindex = $(sli).index();
 							var spoption = that.getParentNode(sli).option.children;
 							var soption = spoption[sindex];

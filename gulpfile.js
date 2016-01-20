@@ -23,7 +23,7 @@ var timeString = tArray.join('');
 
 var gulp         = require('gulp'),
 	sass         = require("gulp-sass"),
-	postcss      = require('gulp-postcss'),
+	// postcss      = require('gulp-postcss'),
 	gutil        = require("gulp-util"),
 	autoprefixer = require('gulp-autoprefixer'),
 	minifycss    = require('gulp-minify-css'),
@@ -33,6 +33,7 @@ var gulp         = require('gulp'),
 	concat       = require('gulp-concat'),
 	replace      = require('gulp-replace'),
 	notify       = require('gulp-notify'),
+	sftp         = require('gulp-sftp'),
 	// imagemin     = require('gulp-imagemin'),
 	// cache        = require('gulp-cache'),
 	livereload   = require('gulp-livereload');
@@ -103,7 +104,15 @@ gulp.task('webpack', function(callback){
 // 	.pipe(gulp.dest('dist/list'));
 // });
 gulp.task('default', ['css', 'img', 'html', 'tpl', 'webpack', 'js'], function(){
-	return Promise.resolve();
+	// return Promise.resolve();
 	// return gulp.src('dist/'+project+'/**/*')
 	// .pipe(gulp.dest('__remote'));
+	if('*'===project) project = '';
+    return gulp.src('dist/'+project+'/**/*')
+    .pipe(sftp({
+        host: '139.196.195.196',
+        user: 'lscm',
+        pass: 'haitao@123.com',
+        remotePath: '/opt/cdn-image/upload/static-web/' + project
+    }));
 });
