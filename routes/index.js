@@ -21,8 +21,7 @@ router.get(['/index', '/'], function(req, res){
 				___: '',
 				node: {
 					placeholder:{
-						white:"http://cdn01.b5mcdn.com/common/img/placeholder.png",
-						loading:"http://cdn01.b5mcdn.com/korea/img/loading.gif"
+						white:"/common/img/placeholder.png"
 					},
 					get_img: function(width, height, bg, color, text){
 						var colorTrans = function(c){
