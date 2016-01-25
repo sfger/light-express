@@ -24,7 +24,7 @@ $.fn.tree = function(options){
 	var createTree = function(data, deep, container, deepest_ul, interal_init){
 		if(!deep) deep = 1;
 		if(!interal_init){
-			container.innerHTML = '<ul data-deep="0"><li class="line"><a href="javascript:;" style="display:none;"><span class="title">__ROOT__</span></a></li></ul>';
+			container.innerHTML = '<ul data-deep="1"><li class="line" style="display:block;"><a href="javascript:;" style="display:none;"><span class="title">__ROOT__</span></a></li></ul>';
 			container = container.children[0].children[0];
 			container.children[0].option = {name:'__ROOT__',children:data};
 		}
@@ -283,7 +283,7 @@ $.fn.tree = function(options){
 								if(that.isLeaf(drag.prevLine)) return;
 								drag.prevLine.nextSibling.appendChild(sli);
 								drag.prevLine.option.children.push(soption);
-								// console.log(tli.children[0].option);
+								console.log(tli.children[0].option);
 							}else{
 								var to_index;
 								if(tli.parentNode===sli.parentNode){
@@ -294,7 +294,7 @@ $.fn.tree = function(options){
 									that.getParentNode(tli).option.children.splice(to_index, 0, soption);
 								}
 								$(tli)[drag.dropPosition](sli);
-								// console.log(that.getParentNode(tli).option);
+								console.log(that.getParentNode(tli).option);
 							}
 							drag.updateChildrenIndext({children:[sli]}, gap);
 							drag.dropPosition = null;

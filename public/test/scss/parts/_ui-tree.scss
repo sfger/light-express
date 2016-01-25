@@ -8,11 +8,12 @@
 				ul{display:none;}
 			}
 			ul,li{width:auto;vertical-align:middle;list-style:none;}
-			li a{
-				color:black;_font-size:16px;height:19px;line-height:normal;text-decoration:none;background:transparent;display:block;white-space:nowrap;
-				&:hover,&.hover{background:#e1e1e1;}
-				&.current{background:#d1d1d1;}
-			}
+		}
+		li a{
+			display:block;white-space:nowrap;line-height:normal;height:19px;
+			color:black;_font-size:16px; text-decoration:none;background:transparent;
+			&:hover,&.hover{background:#e1e1e1;}
+			&.current{background:#d1d1d1;}
 		}
 	}
 	.indent,.join,.hit,.file,.folder,.checkbox,.title{

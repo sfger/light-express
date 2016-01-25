@@ -2,13 +2,13 @@
 @import "base";
 .tip{
 	@include ib;width:100px;margin-top:15px;margin-right:15px;
-	word-break:break-line;word-wrap:break-word;
+	word-break:break-all;word-wrap:break-word;
 	@include relative(top 10px left 14px);
 	line-height:16px;color:#ff8144;
 	.tip-content{padding:15px;}
 }
 .tip0{
-	@include tip-box(top, left 13px top -13px, 10px 10px);
+	@include tip-box(top, left 13px top -13px, 10px 10px, yellow, red);
 }
 .tip1{
 	@include tip-box(right, right -13px top 13px, 10px 10px);

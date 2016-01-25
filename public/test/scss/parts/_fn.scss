@@ -276,7 +276,7 @@ $is_modern:0 !default; // 兼容低版本ie
 // 	border-top: 5px solid transparent
 // }
 
-@mixin tip-box($direction, $position, $arrSize){
+@mixin tip-box($direction, $position, $arrSize, $bgColor:white, $borderColor:black){
 	$dirMap : ('top':'bottom', 'right':'left', 'bottom':'top', 'left':'right');
 	$od     : map-get($dirMap, $direction);// 反方向
 	$n      : 1;
@@ -285,11 +285,11 @@ $is_modern:0 !default; // 兼容低版本ie
 	}
 	padding-#{$direction}:nth($arrSize, $n);// padding使用相应宽/高的值，使可以hover到tip上显示
 	.tip-content{
-		position:relative;background:white;border-radius:8px;border:1px solid #ff8144;
+		position:relative;background:$bgColor;border-radius:8px;border:1px solid $borderColor;
 		:before,:after,.before,.after{
 			@include absolute($position);@include size(0);content:'';
 			border-style:solid;border-color:transparent;
-			border-#{$od}:10px solid #ff8144;
+			border-#{$od}:nth($arrSize,1) solid $borderColor;
 			@if index(top bottom, $direction){
 				border-left-width  : nth($arrSize,1);
 				border-right-width : nth($arrSize,2);
@@ -300,7 +300,7 @@ $is_modern:0 !default; // 兼容低版本ie
 		}
 		:after,.after{
 			@include absolute($direction nth($position, index($position, $direction)+1)+1);
-			border-#{$od}-color:white;
+			border-#{$od}-color:$bgColor;
 		}
 	}
 }
