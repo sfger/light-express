@@ -1,10 +1,10 @@
 @charset "utf-8"; //解决中文报错
 
-$is_modern:0 !default; // 兼容低版本ie
+$is_modern:1 !default; // 兼容低版本ie
 
 // css3 -webkit-,-moz-,-ms-,-o- 的前缀简写
 // 第一个参数为属性和值，第二个参数则是前缀
-@mixin prefix($map, $vendors: webkit mox ms o){
+@mixin prefix($map, $vendors: webkit moz ms o){
 	@each $prop, $value in $map{
 		@if $vendors {
 			@each $vendor in $vendors {
@@ -65,8 +65,11 @@ $is_modern:0 !default; // 兼容低版本ie
 @mixin imge(){
 	@include inline-block;font-size:12px;font-size:1rem;line-height:normal;
 }
-@mixin imgc($is_image:1, $selecor:img){
-	font-size:0;text-align:center;
+@mixin imgc($is_image:1, $selecor:img, $align:center){
+	font-size:0;
+	@if($align!=left){
+		text-align:$align;
+	}
 	@if($is_modern==0){
 		&:before,.iecp{@include ib;}
 		&:before,.iecp{content:"";height:100%;font-size:0;line-height:0;width:0;}
@@ -286,7 +289,7 @@ $is_modern:0 !default; // 兼容低版本ie
 	padding-#{$direction}:nth($arrSize, $n);// padding使用相应宽/高的值，使可以hover到tip上显示
 	.tip-content{
 		position:relative;background:$bgColor;border-radius:8px;border:1px solid $borderColor;
-		:before,:after,.before,.after{
+		&:before,&:after,.before,.after{
 			@include absolute($position);@include size(0);content:'';
 			border-style:solid;border-color:transparent;
 			border-#{$od}:nth($arrSize,1) solid $borderColor;
@@ -298,7 +301,7 @@ $is_modern:0 !default; // 兼容低版本ie
 				border-bottom-width : nth($arrSize,2);
 			}
 		}
-		:after,.after{
+		&:after,.after{
 			@include absolute($direction nth($position, index($position, $direction)+1)+1);
 			border-#{$od}-color:$bgColor;
 		}
