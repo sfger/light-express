@@ -71,17 +71,18 @@ $is_modern:1 !default; // 兼容低版本ie
 		text-align:$align;
 	}
 	@if($is_modern==0){
-		&:before,.iecp{@include ib;}
+		&:before,.iecp{@extend %ib;}
 		&:before,.iecp{content:"";height:100%;font-size:0;line-height:0;width:0;}
 	}@else{
-		&:before,{@include ib;}
+		&:before{@extend %ib;}
 		&:before,{content:"";height:100%;font-size:0;line-height:0;width:0;}
 	}
 	#{$selecor}{
+		@extend %ib;
 		@if($is_image==1){
-			@include inline-block;max-width:100%;max-height:100%; //大图片等比缩小至父元素大小
+			max-width:100%;max-height:100%; //大图片等比缩小至父元素大小
 		}@elseif($selecor!=img){
-			@include inline-block;font-size:12px;font-size:1rem;line-height:normal;
+			font-size:12px;font-size:1rem;line-height:normal;
 		}
 	}
 }
