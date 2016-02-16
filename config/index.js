@@ -7,7 +7,7 @@ var postcss = require('postcss');
 var config  = {
 	staticDir: '/public',
 	map_combo_file: {
-		'/js/case/seaShell/_test_.js' : 'main.js,data.js'
+		'/test/js/case/seaShell/_test_.js' : 'data.js,data.js'
 	},
 	file_combo: function(file){
 		var files = config.map_combo_file[file].split(',');

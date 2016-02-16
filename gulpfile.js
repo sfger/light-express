@@ -1,7 +1,35 @@
-var op = process.argv[2];
-var project = process.argv[3];
-if(op!=='-d' || !project){
+var args = require('args');
+var options = args.Options.parse([{
+	name      : 'dir', // 项目目录
+	shortName : 'd',
+	type      : '',
+	help      : 'project dir name'
+},{
+	name         : 'help', // 帮助信息
+	shortName    : 'h',
+	type         : 'bool',
+	help         : 'help'
+},{
+	name      : 'server', // 目标服务器地址
+	shortName : 's',
+	type      : '',
+	help      : 'server info: ip user-name password remote-path'
+}]);
+
+var parsed_args;
+try{
+	parsed_args = args.parser(process.argv).parse(options);
+}catch(e){
+	console.log(options.getHelp());
+	process.exit();
+}
+var project = parsed_args.dir
+if(!project){
 	console.log('Please set a project to deploy!');
+	process.exit();
+}
+if(parsed_args.help){
+	console.log(options.getHelp());
 	process.exit();
 }
 var pad = function(n, c){
