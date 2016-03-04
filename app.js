@@ -2,7 +2,7 @@ var express      = require('express');
 var fs           = require('fs');
 var path         = require('path');
 var libUrl       = require('url');
-var favicon      = require('static-favicon');
+// var favicon      = require('static-favicon');
 var logger       = require('morgan');
 var cookieParser = require('cookie-parser');
 var session      = require('cookie-session');
@@ -21,7 +21,7 @@ app.use(webpackDevMiddleware(compiler, {
 express.UserConfig = require('./config');
 app.set('views', path.join(__dirname, '/public'));
 app.set('view engine', 'ejs');
-app.use(favicon());
+// app.use(favicon());
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
