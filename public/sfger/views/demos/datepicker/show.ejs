@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<title>Title</title>
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+<meta name="format-detection" content="telephone=no" />
+<meta name="author" content="" />
+<meta name="revisit-after" content="1 days" />
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<link rel="icon" href="/favicon.ico" type="image/x-icon" />
+<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+<link rel="stylesheet" href="<%-___%>/sfger/css/datepicker.css" />
+</head>
+<body>
+<div id="page">
+	<input type="text" class="sdate" value="2014-09-01" />
+</div><!-- #page end! -->
+<script id="requirejs" data-version="<%-__version__%>" src="/sfger/js/require.js?v=<%-__version__%>"></script>
+<script>
+require.config({
+	baseUrl:'/sfger/js/',
+	urlArgs:"v=" + document.getElementById("requirejs").getAttribute("data-version"),
+	map:{"*":{css:"require-css.js"}},
+	paths:{},
+	shim:{
+		'jquery-datepicker': {deps:["jquery"]}
+	}
+});
+require(['jquery-datepicker'], function(){
+	$('.sdate').datePicker({
+		monthNum:4,
+		proxy:$(document),
+		minDate:'2014-09-01',
+		onComplete:function(pdate){
+			console.log(pdate);
+		}
+	});
+});
+</script>
+</body>
+</html>

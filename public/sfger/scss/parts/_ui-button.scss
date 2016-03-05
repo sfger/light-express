@@ -1,0 +1,18 @@
+@charset "UTF-8";
+.btn, .btn-normal{
+	@extend %ib;@include border-radius(3px);
+	width:auto;padding:4px 9px;margin:0 3px;border:1px solid #333;line-height:1.1;overflow:visible;
+	color:#010101;background:none;text-decoration:none;cursor:pointer;
+	&:focus{
+		outline:thin dotted;outline-offset:-2px;
+	}
+}
+input.btn, button.btn{
+	*line-height:0.8;
+	// *filter:chroma(color=black);
+}
+.btn-green{
+	background-color:green;color:white;
+	&:hover{background:lighten(green, 5%);}
+	&:active{background:darken(green, 5%);}
+}

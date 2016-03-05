@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<title>line-height</title>
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+<meta name="format-detection" content="telephone=no" />
+<meta name="author" content="" />
+<meta name="revisit-after" content="1 days" />
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<link rel="icon" href="/favicon.ico" type="image/x-icon" />
+<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+<link rel="stylesheet" type="text/css" href="<%-___%>/sfger/css/base.css" />
+<style type="text/css" media="all">
+.test{background:#ccc;margin-bottom:5px;}
+.test2.imgc:before,.test2.imgc.iecp{height:auto;}
+.test2,.test3{height:150px;}
+</style>
+</head>
+<body>
+<div id="page">
+	<div class="imgc test test1">
+		<img class="imge" src="<%-node.get_img(38,38,'000','fff')%>" alt="">
+		<img class="imge" src="<%-node.get_img(39,39,'000','fff')%>" alt="">
+		<img class="imge" src="<%-node.get_img(39,38,'000','fff')%>" alt="">
+		<span class="imge">测试文字</span>
+	</div>
+	<div class="imgc test test2">
+		<img class="imge" src="<%-node.get_img(38,38,'000','fff')%>" alt="">
+		<img class="imge" src="<%-node.get_img(39,39,'000','fff')%>" alt="">
+		<img class="imge" src="<%-node.get_img(39,38,'000','fff')%>" alt="">
+		<span class="imge">测试文字</span>
+		<!--[if lt IE 8]><p class="iecp"></p><![endif]-->
+	</div>
+	<div class="imgc test test3">
+		<img class="imge" src="<%-node.get_img(38,38,'000','fff')%>" alt="">
+		<img class="imge" src="<%-node.get_img(39,39,'000','fff')%>" alt="">
+		<img class="imge" src="<%-node.get_img(39,38,'000','fff')%>" alt="">
+		<span class="imge">测试文字</span>
+		<!--[if lt IE 8]><p class="iecp"></p><![endif]-->
+	</div>
+</div>
+</body>
+</html>
