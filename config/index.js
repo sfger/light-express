@@ -106,6 +106,8 @@ var config  = {
 							app.use('/', require('..'+module));
 						}
 						resolve();
+					}else{
+						resolve();
 					}
 				});
 			});
