@@ -227,7 +227,7 @@ var config  = {
 			config.mkdirRecursive(path.dirname(css_path), 777, function(){
 				var out_file = css_path + '.css';
 				var in_file = css_path.replace(/([\\\/])css([\\\/])/, "$1scss$2") + '.scss';
-				config.sass.node(in_file, out_file, '', res);
+				config.sass.node(in_file, out_file, [path.normalize(process.cwd()+'/public/sfger/scss')], res);
 			});
 		}else{
 			return next();

@@ -1,19 +1,35 @@
-var args = require('args');
+var servers = {
+	online:{
+		host: '192.168.1.1',
+		user: 'user',
+		pass: 'pwd',
+		remotePath: '/test/'
+	},
+	test:{
+		host: '192.168.1.2',
+		user: 'user',
+		pass: 'pwd',
+		remotePath: '/test/'
+	}
+}; 
+
+var args    = require('args');
 var options = args.Options.parse([{
 	name      : 'dir', // 项目目录
 	shortName : 'd',
 	type      : '',
-	help      : 'project dir name'
+	help      : 'Project directory name'
 },{
 	name         : 'help', // 帮助信息
 	shortName    : 'h',
 	type         : 'bool',
-	help         : 'help'
+	help         : 'Help info'
 },{
-	name      : 'server', // 目标服务器地址
-	shortName : 's',
-	type      : '',
-	help      : 'server info: ip user-name password remote-path'
+	name         : 'server', // 目标服务器地址
+	shortName    : 's',
+	// defaultValue : 'online',
+	type         : '',
+	help         : 'Server info: ip user-name password remote-path'
 }]);
 
 var parsed_args;
@@ -23,19 +39,25 @@ try{
 	console.log(options.getHelp());
 	process.exit();
 }
-var project = parsed_args.dir
+
+var project = parsed_args.dir;
 if(!project){
 	console.log('Please set a project to deploy!');
 	process.exit();
 }
+
 if(parsed_args.help){
 	console.log(options.getHelp());
 	process.exit();
 }
+
+if(!servers[parsed_args.server]){
+	console.log('server does not exist!');
+	process.exit();
+}
 var pad = function(n, c){
 	if((n = n + "").length < c){
-		c++;
-		return new Array(c - n.length).join("0") + n;
+		return new Array(++c - n.length).join("0") + n;
 	}else{
 		return n;
 	}
@@ -63,14 +85,13 @@ var gulp         = require('gulp'),
 	concat       = require('gulp-concat'),
 	replace      = require('gulp-replace'),
 	notify       = require('gulp-notify'),
-	sftp         = require('gulp-sftp'),
 	// imagemin     = require('gulp-imagemin'),
 	// cache        = require('gulp-cache'),
-	livereload   = require('gulp-livereload');
-
+	// livereload   = require('gulp-livereload'),
+	sftp         = require('gulp-sftp');
 gulp.task('del', function(cb){
 	var dir = '*'===project ? '' : project;
-	console.log(dir);
+	// console.log(dir);
 	del(['dist/'+dir+'/**/*']).then(function(paths){
 		console.log('Deleted files and folders:\n', paths.join('\n'));
 		cb();
@@ -86,7 +107,7 @@ gulp.task('css', ['del'], function(){
 gulp.task('js', ['del'], function(){
 	var dir  = project + '/js';
 	var dist = '*'===project ? '' : dir;
-	return gulp.src(['public/'+dir+'/**/*.js', '!./public/'+dir+'/**/*.@(entry).js'])
+	return gulp.src(['public/'+dir+'/**/*.js', '!./public/'+dir+'/**/*.@(entry).js', '!./public/**/parts/*.js'])
 	.pipe(uglify())
 	.pipe(gulp.dest('dist/'+dist));
 });
@@ -141,17 +162,13 @@ gulp.task('webpack', ['del'], function(cb){
 // 	return gulp.src('dist/'+project+'/**/*')
 // 	.pipe(gulp.dest('dist/list'));
 // });
-gulp.task('default', ['css', 'img', 'html', 'tpl', 'webpack', 'js'], function(){
-	return Promise.resolve();
-	// return gulp.src('dist/'+project+'/**/*')
-	// .pipe(gulp.dest('__remote'));
-
-	// if('*'===project) project = '';
-    // return gulp.src('dist/'+project+'/**/*')
-    // .pipe(sftp({
-        // host: '192.168.13.14',
-        // user: 'test',
-        // pass: 'test@test.com',
-        // remotePath: '/path/to/dir/' + project
-    // }));
+var task_list = ['css', 'img', 'tpl', 'webpack', 'js'];
+if('test'===parsed_args.server) task_list.push('html');
+gulp.task('default', task_list, function(){
+	// return Promise.resolve();
+	if('*'===project) project = '';
+	var server = servers[parsed_args.server];
+	server.remotePath += project;
+	return gulp.src('dist/'+project+'/**/*')
+	.pipe(sftp(server));
 });
