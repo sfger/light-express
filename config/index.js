@@ -86,26 +86,31 @@ var config  = {
 		}
 	},
 
-	routes: function(app, dirPath, routePath){
+	routes: function(app, dirPath, routePath, defer){
 		var routeFiles = fs.readdirSync(dirPath);
-		routeFiles.forEach(function(file){
-			fs.stat(dirPath+'/'+file, function(err, stats){
-				if( stats.isDirectory() ){
-					config.routes(app, dirPath+'/'+file, routePath+file+'/');
-				}else if( stats.isFile() ){
-					var list = file.split('.');
-					if(list.length==2 && list[1]==='js'){
-						var name   = list[0],
-							path   = routePath + name,
-							module = '/routes' + path;
-						isDev  = "development" == app.get('env');
-						if(isDev){
-							console.log("Auto add route!\n\tPath: ", path, '\n\tModule: ', module);
+		Promise.all(routeFiles.map(function(file){
+			return new Promise(function(resolve, reject){
+				fs.stat(dirPath+'/'+file, function(err, stats){
+					if( stats.isDirectory() ){
+						config.routes(app, dirPath+'/'+file, routePath+file+'/', {resolve:resolve, reject:reject});
+					}else if( stats.isFile() ){
+						var list = file.split('.');
+						if(list.length==2 && list[1]==='js'){
+							var name   = list[0],
+								path   = routePath + name,
+								module = '/routes' + path;
+							isDev  = "development" == app.get('env');
+							if(isDev){
+								console.log("Auto add route!\n\tPath: ", path, '\n\tModule: ', module);
+							}
+							app.use('/', require('..'+module));
 						}
-						app.use('/', require('..'+module));
+						resolve();
 					}
-				}
+				});
 			});
+		})).then(function(){
+			defer.resolve();
 		});
 	},
 	dist: function(err, ret){
