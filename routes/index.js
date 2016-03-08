@@ -6,17 +6,15 @@ var path    = require('path');
 router.get(['/index', '/'], function(req, res){
 	var app = req.app;
 	var view = req.query.view;
-	view = req.query.view.replace(/\/html\//, '/views/');
+	view = view.replace(/\/html\//, '/views/');
 	var file = path.join(app.get('views'), view) + '.ejs';
 
 	file = path.normalize(file);
-	console.log(file);
 	libFs.exists(file, function(exists){
 		if(!exists){
 			res.writeHead(404, {"Content-Type":"text/html"} );
 			res.end( "<h1>404 Not Found</h1>" );
 		}else{
-			var tmp = view.replace(/[^\/\\]+/g, '..').split(/[\\|\/]/);
 			res.render(view, {
 				___: '',
 				node: {
