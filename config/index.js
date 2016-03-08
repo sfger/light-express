@@ -6,28 +6,70 @@ var isDev   = false;
 var postcss = require('postcss');
 var config  = {
 	staticDir: '/public',
+
 	map_combo_file: {
-		'/test/js/case/seaShell/_test_.js' : 'data.js,data.js'
+		'/sfger/js/case/seaShell/_test_.js' : 'data.js,data.js'
 	},
-	file_combo: function(file){
+
+	readJSONFile: function(p){
+		var json = {};
+		try{
+			p = path.normalize(p);
+			// var ret = fs.readFileSync(p, {encoding:'utf8', flag: 'r'});
+			// json = JSON.parse(ret);
+			delete require.cache[require.resolve(p)];
+			json = require(p);
+		}catch(e){
+			console.log(e);
+		}
+		return json;
+	},
+
+	get_combo_file_list: function(file){
 		var files = config.map_combo_file[file].split(',');
 		var static_public = process.cwd() + '/' + config.staticDir;
 		return files.map(function(one){
-			return fs.readFileSync(path.normalize(static_public + path.dirname(file) + '/' + one), {
-				encoding:'utf8',
-				flag: 'r'
-			});
-		}).join('');
+			return path.normalize(static_public + path.dirname(file) + '/' + one);
+		});
+	},
+
+	pipe_stream_list_to_writer: function(list, writer){
+		var get_read_stream_iterator = function*(){
+			for(var i=0,il=list.length; i<il; i++){
+				yield fs.createReadStream(list[i], {autoClose:false});
+			}
+		};
+		var pipe_data = function(iterator){
+			var item = iterator.next();
+			if(!item.done){
+				item = item.value;
+				try{
+					item.pipe(writer, {end:false});
+					item.on('end', ()=>{
+						pipe_data(iterator);
+					});
+				}catch(e){
+					console.log(e);
+					return next();
+				}
+			}else{
+				writer.end('');
+			}
+		}
+		var iterator = get_read_stream_iterator();
+
+		pipe_data(iterator);
+		return true;
 	},
 
 	/*
 	 * 简单的http2.0 combo处理，未做304等状态处理，只供开发使用
 	 * */
-	combo: function(req, res, next){
+	httpCombo: function(req, res, next){
 		var static_public = path.normalize(process.cwd() + '/' + config.staticDir);
 
 		if(req.path in config.map_combo_file){
-			res.end(config.file_combo(req.path));
+			config.pipe_stream_list_to_writer(config.get_combo_file_list(req.path), res);
 			return false;
 		}
 		if(/\?\?/.test(req.originalUrl)){
@@ -51,48 +93,30 @@ var config  = {
 				return next();
 			}
 
-			Promise.all(file_list.map(function(one){
-				// return new Promise(function(resolve, reject){
-				// 	fs.exists(path.normalize(static_public + req.path + one), function(exist){
-				// 		if(exist){
-				// 			resolve(fs.readFileSync(path.normalize(static_public + req.path + one), {
-				// 				encoding:'utf8',
-				// 				flag: 'r'
-				// 			}));
-				// 		}else{
-				// 			reject();
-				// 		}
-				// 	});
-				// });
-				return Promise.resolve().then(function(){
-					var file = req.path + one;
-					if(config.map_combo_file[file]){
-						return config.file_combo(file);
-					}else{
-						return fs.readFileSync(path.normalize(static_public + file), {
-							encoding:'utf8',
-							flag: 'r'
-						});
-					}
-				});
-			})).then(function(ret){
-				res.writeHead(200, {"Content-Type":types[type]});
-				return res.end(ret.join(''));
-			})['catch'](function(err){
-				return next();
+			var list = [];
+			file_list.forEach(function(one){
+				var file = req.path + one;
+				if(config.map_combo_file[file]){
+					list = list.concat(config.get_combo_file_list(file));
+				}else{
+					list.push(path.normalize(static_public + file));
+				}
 			});
+			res.writeHead(200, {"Content-Type":types[type]});
+			config.pipe_stream_list_to_writer(list, res);
+			return true;
 		}else{
 			return next();
 		}
 	},
 
-	routes: function(app, dirPath, routePath, defer){
+	autoAddRoutes: function(app, dirPath, routePath, defer){
 		var routeFiles = fs.readdirSync(dirPath);
 		Promise.all(routeFiles.map(function(file){
 			return new Promise(function(resolve, reject){
 				fs.stat(dirPath+'/'+file, function(err, stats){
 					if( stats.isDirectory() ){
-						config.routes(app, dirPath+'/'+file, routePath+file+'/', {resolve:resolve, reject:reject});
+						config.autoAddRoutes(app, dirPath+'/'+file, routePath+file+'/', {resolve:resolve, reject:reject});
 					}else if( stats.isFile() ){
 						var list = file.split('.');
 						if(list.length==2 && list[1]==='js'){
@@ -145,7 +169,7 @@ var config  = {
 			});
 		});
 	},
-	mkdirRecursive: function(dirpath, mode, callback) {
+	mkdirRecursive: function(dirpath, mode, callback){
 		var that = this;
 		fs.exists(dirpath, function(exists) {
 			if(exists){
@@ -295,18 +319,6 @@ var config  = {
 		}else{
 			return next();
 		}
-	},
-
-	readJSONFile: function(p){
-		var json = {};
-		try{
-			p = path.normalize(p);
-			// var ret = fs.readFileSync(p, {encoding:'utf8', flag: 'r'});
-			// json = JSON.parse(ret);
-			delete require.cache[require.resolve(p)];
-			json = require(p);
-		}catch(e){}
-		return json;
 	}
 };
 module.exports = config;

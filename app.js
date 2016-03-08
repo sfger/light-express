@@ -1,18 +1,17 @@
-var express      = require('express');
-var fs           = require('fs');
-var path         = require('path');
-var libUrl       = require('url');
-// var favicon      = require('static-favicon');
-var logger       = require('morgan');
-var cookieParser = require('cookie-parser');
-var session      = require('cookie-session');
-var bodyParser   = require('body-parser');
-var app          = express();
-var isDev        = "development" == app.get('env');
-
+var express              = require('express');
+var fs                   = require('fs');
+var path                 = require('path');
+var libUrl               = require('url');
+// var favicon           = require('static-favicon');
+var logger               = require('morgan');
+var cookieParser         = require('cookie-parser');
+var session              = require('cookie-session');
+var bodyParser           = require('body-parser');
+var app                  = express();
+var isDev                = "development"===app.get('env');
 var webpackDevMiddleware = require("webpack-dev-middleware");
-var webpack = require("webpack");
-var compiler = webpack(require('./webpack.config.js'));
+var webpack              = require("webpack");
+var compiler             = webpack(require('./webpack.config.js'));
 app.use(webpackDevMiddleware(compiler, {
     stats:{colors:true}
 }));
@@ -30,13 +29,13 @@ if(isDev){
 	app.use(express.UserConfig.compileSCSS);
 	app.use(express.UserConfig.compileTemplate);
 }
-app.use(express.UserConfig.combo);
+app.use(express.UserConfig.httpCombo);
 app.use(express['static'](path.join(__dirname, express.UserConfig.staticDir)));
 app.locals.__version__ = '20150821017';
 app.use(session({name:'_SSID_', keys:['skey1', 'skey2']}));
 
 Promise.resolve(new Promise(function(resolve, reject){
-	express.UserConfig.routes(app, path.join(__dirname, 'routes'), '/', {resolve:resolve, reject:reject});
+	express.UserConfig.autoAddRoutes(app, path.join(__dirname, 'routes'), '/', {resolve:resolve, reject:reject});
 })).then(function(){
 	/// catch 404 and forward to error handler
 	app.use(function(req, res, next) {

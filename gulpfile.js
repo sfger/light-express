@@ -12,9 +12,7 @@ var servers = {
 		remotePath: '/test/'
 	}
 }; 
-
-var args    = require('args');
-var options = args.Options.parse([{
+var argsOptions = [{
 	name      : 'dir', // 项目目录
 	shortName : 'd',
 	type      : '',
@@ -30,7 +28,10 @@ var options = args.Options.parse([{
 	// defaultValue : 'online',
 	type         : '',
 	help         : 'Server info: ip user-name password remote-path'
-}]);
+}];
+
+var args    = require('args');
+var options = args.Options.parse(argsOptions);
 
 var parsed_args;
 try{
