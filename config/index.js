@@ -61,7 +61,7 @@ var config        = {
 	/*
 	 * 简单的http2.0 combo处理，未做304等状态处理，只供开发使用
 	 * */
-	httpCombo: function(req, res, next){
+	staticHttpCombo: function(req, res, next){
 		if(req.path in config.map_combo_file){
 			config.pipe_stream_list_to_writer(config.get_combo_file_list(req.path), res, next());
 			return false;
@@ -95,11 +95,15 @@ var config        = {
 				}
 			});
 			res.writeHead(200, {"Content-Type":types[type]});
-			config.pipe_stream_list_to_writer(list, res);
-			return true;
+			if('js'===type){
+				config.pipe_stream_list_to_writer(list, res, next);
+			}else{
+				config.compile_list_to_writer(list, res, next);
+			}
 		}else{
-			return next();
+			next();
 		}
+		return true;
 	},
 
 	autoAddRoutes: function(app, dirPath, routePath, defer){
@@ -187,10 +191,10 @@ var config        = {
 				return next();
 			});
 		},
-		node: function(in_file, out_file, lib, res){
+		node: function(in_file, out_file, defer){
 			sass.render({
 				// data      : 'body{background:blue; a{color:black;}}',
-				includePaths : lib,
+				includePaths : [path.normalize(process.cwd()+'/public/sfger/scss')],
 				linefeed     : 'lf',
 				file         : in_file,
 				indentWidth  : 1,
@@ -230,25 +234,37 @@ var config        = {
 							console.log(`Compile ${out_file} success`);
 							// return next();
 						});
-						res.writeHead(200, {"Content-Type":"text/css"});
-						res.end(result.css);
+						defer.resolve(result.css);
 					});
 				}
 			});
 		}
 	},
+	compile_list_to_writer: function(list, res, next){
+		Promise.all(list.map(function(css_path){
+			return new Promise(function(resolve, reject){
+				var css_dir   = path.normalize(path.dirname(css_path) + '/');
+				var scss_dir  = css_dir.replace(/([\\\/])css([\\\/])/, "$1scss$2");
+				var scss_path = scss_dir + path.basename(css_path, '.css') + '.scss';
+				config.mkdirRecursive(css_dir, 777, function(){
+					config.sass.node(scss_path, css_path, {resolve:resolve, reject:reject});
+				});
+			});
+		})).then(function(css_ret){
+			res.end(css_ret.join("\n"));
+		})['catch'](function(e){
+			console.log(e);
+		});
+		return true;
+	},
 	compileSCSS: function(req, res, next){
 		if(/.*\.css$/.test(req.path)){
-			var css_path = config.static_public + req.path.replace(/\.css$/, '');
-			css_path = path.normalize(css_path);
-			config.mkdirRecursive(path.dirname(css_path), 777, function(){
-				var out_file = css_path + '.css';
-				var in_file  = css_path.replace(/([\\\/])css([\\\/])/, "$1scss$2") + '.scss';
-				config.sass.node(in_file, out_file, [path.normalize(process.cwd()+'/public/sfger/scss')], res);
-			});
+			var css_path = path.normalize(config.static_public + req.path);
+			config.compile_list_to_writer([css_path], res);
 		}else{
-			return next();
+			next();
 		}
+		return true;
 	},
 	minify_code: function(s){
 		s = s.replace(/(\/?>)\s+|\s+(?=<)/g, '$1');
