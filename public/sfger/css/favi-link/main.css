@@ -1,0 +1,143 @@
+.cf:before, .cf:after { content: ""; display: table; }
+
+.cf:after { clear: both; overflow: hidden; }
+
+.imgc:before, .imgc img, audio, canvas, video, .tree-container .indent, .tree-container .join, .tree-container .hit, .tree-container .file, .tree-container .folder, .tree-container .checkbox, .tree-container .title, .tab-ctn .tab-header:before, .tab-ctn .tab-header li, .tab-ctn .tab-header a:before, .tab-ctn .tab-header a span { display: inline-block; vertical-align: middle; }
+
+.imge { display: inline-block; vertical-align: middle; font-size: 12px; font-size: 1rem; line-height: normal; }
+
+.imgc { font-size: 0; text-align: center; }
+
+.imgc:before { content: ""; height: 100%; font-size: 0; line-height: 0; width: 0; }
+
+.imgc img { max-width: 100%; max-height: 100%; }
+
+html, body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, form, fieldset, legend, input, button, textarea, hr, pre, code, p, blockquote, th, td { margin: 0; padding: 0; }
+
+html, button, input, select, textarea { font: 14px/normal "\5b8b\4f53","Microsoft YaHei"; color: #000; }
+
+html { -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; }
+
+fieldset, img { border: none; }
+
+[hidden] { display: none; }
+
+:focus { outline: none; }
+
+article, aside, details, figcaption, figure, footer, header, hgroup, main, nav, section, summary { display: block; }
+
+.layout-container { height: 100%; }
+
+.layout-middle-container .resize-bar, .layout-middle-container .layout-west, .layout-middle-container .layout-center, .layout-middle-container .layout-east { height: 100%; }
+
+.layout-middle-container .layout-west, .layout-middle-container .bar-west { float: left; }
+
+.layout-middle-container .layout-east, .layout-middle-container .bar-east { float: right; }
+
+.layout-west, .layout-east, .layout-center { overflow: auto; _float: left; }
+
+.resize-bar { background: #cecece; cursor: n-resize; text-align: center; }
+
+.resize-bar .imge { background: #333; width: 20px; height: 100%; }
+
+.resize-bar .imge:hover { background: black; }
+
+.bar-west, .bar-east { cursor: e-resize; }
+
+.bar-west .imge, .bar-east .imge { width: 100%; height: 20px; }
+
+.layout-south, .layout-north { height: 25px; }
+
+.layout-west, .layout-east { width: 180px; }
+
+.tree-container { width: auto; overflow: auto; background: white; }
+
+.tree-container ul li ul { width: auto; height: auto; _line-height: 0; _font-size: 0; }
+
+.tree-container ul li ul ul { display: none; }
+
+.tree-container ul li ul, .tree-container ul li li { width: auto; vertical-align: middle; list-style: none; }
+
+.tree-container ul li a { display: block; white-space: nowrap; line-height: normal; height: 19px; color: black; _font-size: 16px; text-decoration: none; background: transparent; }
+
+.tree-container ul li a:hover, .tree-container ul li a.hover { background: #e1e1e1; }
+
+.tree-container ul li a.current { background: #d1d1d1; }
+
+.tree-container .indent, .tree-container .join, .tree-container .hit, .tree-container .file, .tree-container .folder, .tree-container .checkbox, .tree-container .title { cursor: pointer; width: 16px; height: 18px; }
+
+.tree-container .title { width: auto; padding: 0 0 0 2px; }
+
+.tree-container .checkbox, .tree-container .checkbox-some, .tree-container .checkbox-all, .tree-container .indent, .tree-container .join, .tree-container .hit, .tree-container .folder, .tree-container .hit-open, .tree-container .file { background-image: url('data:image/png;base64,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'); background-repeat: no-repeat; background-attachment: scroll; }
+
+.tree-container .checkbox { background-position: -208px -18px; }
+
+.tree-container .checkbox-some { background-position: -240px -18px; }
+
+.tree-container .checkbox-all { background-position: -224px -18px; }
+
+.tree-container .indent { background-position: -176px 0; }
+
+.tree-container .join { background-position: -192px 0; }
+
+.tree-container .hit { background-position: -128px 0; }
+
+.tree-container .folder { background-position: -208px 0; }
+
+.tree-container .hit-open { background-position: -144px 0; }
+
+.tree-container .file { background-position: -240px 0; }
+
+.tree-draging-proxy { display: none; position: absolute; padding: 2px 8px; border: 1px solid #ccc; background: #eee; border-radius: 3px; }
+
+.tab-ctn .tab-header { font-size: 0; text-align: center; text-align: left; }
+
+.tab-ctn .tab-header:before { content: ""; height: 100%; font-size: 0; line-height: 0; width: 0; }
+
+.tab-ctn .tab-header li { font-size: 12px; font-size: 1rem; line-height: normal; }
+
+.tab-ctn .tab-header li { bottom: -1px; position: relative; margin: -1px 1px 0 1px; border: 1px solid #ccc; border-bottom: none; list-style: none; vertical-align: baseline; }
+
+.tab-ctn .tab-header li.current a { background: white; border-bottom-color: white; }
+
+.tab-ctn .tab-header a { -webkit-user-select: none; -moz-user-select: none; user-select: none; font-size: 0; text-align: center; padding: 1px 5px; display: block; border-bottom: 1px solid #ccc; line-height: 20px; background: #e6e6e6; color: black; text-decoration: none; cursor: pointer; }
+
+.tab-ctn .tab-header a:before { content: ""; height: 100%; font-size: 0; line-height: 0; width: 0; }
+
+.tab-ctn .tab-header a span { font-size: 12px; font-size: 1rem; line-height: normal; }
+
+.tab-ctn .tab-header a:hover { background: #f3f3f3; }
+
+.tab-ctn .tab-header .icon { width: 16px; height: 16px; }
+
+.tab-ctn .tab-header .title { margin: 0 3px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+.tab-ctn .tab-header .closer { width: 16px; height: 16px; font: bold 16px/1.234 SimSun; border-radius: 2px; }
+
+.tab-ctn .tab-header .closer:hover { background: #ccc; }
+
+.tab-ctn .tab-content { height: 100%; }
+
+.tab-ctn .tab-panel { overflow: auto; border-top: 1px solid #ccc; }
+
+.tab-ctn .tab-panel .itab { display: none; top: 0; left: 0; position: relative; }
+
+.tab-ctn .tab-panel .show { display: block; }
+
+html, body { height: 100%; overflow: hidden; font-size: 16px; }
+
+@supports (-moz-user-select: none) { html, body { overflow: visible; } }
+
+.tab-container .tab-content { height: 100%; overflow: hidden; }
+
+.resize-bar { cursor: default; }
+
+.bar-west { cursor: e-resize; }
+
+.top { height: 100%; font-size: 16px; color: purple; }
+
+.left-menu { height: 100%; }
+
+.bottom { text-align: center; }
+
+.bottom span { display: inline-block; vertical-align: middle; }

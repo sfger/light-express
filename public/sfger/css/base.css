@@ -1,0 +1,27 @@
+.cf:before, .cf:after { content: ""; display: table; }
+
+.cf:after { clear: both; overflow: hidden; }
+
+.imgc:before, .imgc img, audio, canvas, video { display: inline-block; vertical-align: middle; }
+
+.imge { display: inline-block; vertical-align: middle; font-size: 12px; font-size: 1rem; line-height: normal; }
+
+.imgc { font-size: 0; text-align: center; }
+
+.imgc:before { content: ""; height: 100%; font-size: 0; line-height: 0; width: 0; }
+
+.imgc img { max-width: 100%; max-height: 100%; }
+
+html, body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, form, fieldset, legend, input, button, textarea, hr, pre, code, p, blockquote, th, td { margin: 0; padding: 0; }
+
+html, button, input, select, textarea { font: 14px/normal "\5b8b\4f53","Microsoft YaHei"; color: #000; }
+
+html { -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; }
+
+fieldset, img { border: none; }
+
+[hidden] { display: none; }
+
+:focus { outline: none; }
+
+article, aside, details, figcaption, figure, footer, header, hgroup, main, nav, section, summary { display: block; }

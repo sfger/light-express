@@ -1,6 +1,6 @@
 var path = require('path');
 var glob = require('glob');
-var entrysArray = glob.sync("js/**/*.@(entry).js", {
+var entrysArray = glob.sync("*/js/**/*.@(entry).js", {
 	cwd:'./public/',
 	nobrace:true
 });
@@ -15,7 +15,7 @@ module.exports = {
 	context: path.normalize(__dirname + '/public'),
     entry:entryMap,
     output:{
-        path:__dirname+'/../dist/',
+        path:__dirname+'/dist/',
         filename:'[name].js',
         chunkFilename:'[name].js',
         libraryTarget:"amd",
