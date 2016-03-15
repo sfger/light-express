@@ -36,9 +36,10 @@ $.fn.pagination = function(options){
 			var render = options.render;
 			this.pageCount = Math.ceil(options.dataSize/options.pageSize);
 			this.pageCount = this.pageCount<1 ? 1 : this.pageCount;
-			if(!/(^|\s)pagination-ctn(\s|$)/.test(render.className)){
-				render.className += (render.className ? ' ' : '') + 'pagination-ctn';
-			}
+			// if(!/(^|\s)pagination-ctn(\s|$)/.test(render.className)){
+			// 	render.className += (render.className ? ' ' : '') + 'pagination-ctn';
+			// }
+			$(render).addClass('pagination-ctn');
 			var pageNumber, url;
 			pageNumber = options.pageNumber;
 			if(options.useAjax){
@@ -53,7 +54,7 @@ $.fn.pagination = function(options){
 					pageNumber = 1;
 				}else{
 					url = location.href.replace(this.pageNumberRegExp,"$1"+'');
-					pageNumber = parseInt(pageNumber);
+					pageNumber = parseInt(pageNumber, 10);
 					if(isNaN(pageNumber)) pageNumber=1;
 				}
 			}
@@ -81,7 +82,7 @@ $.fn.pagination = function(options){
 					if(-1!=$.inArray(e.keyCode, [8,37,39])){
 						return true;
 					}
-					var n = parseInt(this.value) || 1;
+					var n = parseInt(this.value, 10) || 1;
 					if(n>1 && e.keyCode===40){
 						--n;
 					}
@@ -181,7 +182,7 @@ $.fn.pagination = function(options){
 							str += this.getNaviNode(url, i, i);
 					}
 				}else{
-					cur = parseInt(cur);
+					cur = parseInt(cur, 10);
 					for(i=cur+1; i<=(cur+hf-((cur-hf>1)?0:(cur-hf-1))); i++){
 						if(i == cur)
 							str += this.getPlainChild(i);

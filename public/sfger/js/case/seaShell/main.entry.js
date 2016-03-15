@@ -26,7 +26,7 @@ __non_webpack_require__([
 			each:{
 				north:{toggle:false, resize:false},
 				south:{toggle:false, resize:false},
-				west: {toggle:true,  resize:true},
+				west: {toggle:true,  resize:true },
 				east: {toggle:false, resize:false}
 			}
 		},
@@ -78,7 +78,7 @@ __non_webpack_require__([
 	$mainTab.tabs('add', {
 		title    : '主页',
 		content  : '<div class="imgc" style="height:100%;"><div class="imge">欢迎来朴水做客！</div><!--[if lt IE 8]><p class="iecp"></p><![endif]--></div>',
-		closable : false,
+		closable : true,
 		select   : true
 	});
 });

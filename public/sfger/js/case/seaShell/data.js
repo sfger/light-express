@@ -74,31 +74,30 @@ define(function(){
 					]
 				},
 				//}}}
-				//BlogNewTech{{{
+				//TeamBlog{{{
 				{
 					name: '团队博客',
 					children:[
 						{
 							name: '腾讯',
 							children:[
-								{name:'QQ客户端团队博客', url:'http://impd.tencent.com/'},
+								// {name:'QQ客户端团队博客', url:'http://impd.tencent.com/'},
 								{name:'腾讯Web前端 AlloyTeam', url:'http://www.alloyteam.com/'},
 								{name:'TGideas游戏设计', url:'http://tgideas.qq.com/'},
 								{name:'WSD 用户体验', url:'http://mxd.tencent.com/'},
-								{name:'ECD电商用户体验', url:'http://ecd.tencent.com/'},
-								{name:'CDC用户研究与体验设计中心', url:'http://cdc.tencent.com/'},
-								{name:'ISUX社交用户体验设计部', url:'http://isux.tencent.com/blog'}
+								// {name:'ECD电商用户体验', url:'http://ecd.tencent.com/'},
+								{name:'CDC用户研究与体验设计中心', url:'http://cdc.tencent.com/'}
 							]
 						},
 						{
 							name: '淘宝',
 							children:[
-								{name:'淘宝UED', url:'http://ued.taobao.com/'},
-								{name:'淘宝QA', url:'http://rdc.taobao.com/blog/qa/'},
+								// {name:'淘宝UED', url:'http://ued.taobao.com/'},
+								// {name:'淘宝QA', url:'http://rdc.taobao.com/blog/qa/'},
 								{name:'淘测试', url:'http://www.taobaotest.com/'},
-								{name:'淘宝DBA', url:'http://www.taobaodba.com/'},
-								{name:'淘宝JAVA中间件', url:'http://rdc.taobao.com/team/jm/'},
-								{name:'淘宝核心技术团队', url:'http://rdc.taobao.com/blog/cs/'},
+								// {name:'淘宝DBA', url:'http://www.taobaodba.com/'},
+								// {name:'淘宝JAVA中间件', url:'http://rdc.taobao.com/team/jm/'},
+								// {name:'淘宝核心技术团队', url:'http://rdc.taobao.com/blog/cs/'},
 								{name:'淘宝搜索技术团队', url:'http://www.searchtb.com/'},
 								{name:'一淘UX', url:'http://ux.etao.com/'}
 							]
@@ -107,26 +106,26 @@ define(function(){
 							name: '阿里巴巴',
 							children:[
 								{name:'阿里巴巴国际站UED', url:'http://www.aliued.com/'},
-								{name:'阿里巴巴中文站UED', url:'http://www.aliued.cn/'},
-								{name:'阿里集团数据平台', url:'http://www.alidata.org/'}
+								// {name:'阿里集团数据平台', url:'http://www.alidata.org/'},
+								{name:'阿里巴巴中文站UED', url:'http://www.aliued.cn/'}
 							]
 						},
-						{
-							name: '支付宝',
-							children:[
-								{name:'支付宝PED', url:'http://ped.alipay.com/'},
-								{name:'支付宝UED', url:'http://ued.alipay.com/'},
-								{name:'支付宝用户研究', url:'http://ued.alipay.com/ur'}
-							]
-						},
-						{
-							name: '搜狐',
-							children:[
-								{name:'搜狐MUED', url:'http://mued.sohu.com/'},
-								{name:'搜狐焦点UED', url:'http://ued.focus.cn/wordpress/'},
-								{name:'搜狐UED', url:'http://ued.sohu.com/'}
-							]
-						},
+						// {
+						// 	name: '支付宝',
+						// 	children:[
+						// 		{name:'支付宝PED', url:'http://ped.alipay.com/'},
+						// 		{name:'支付宝UED', url:'http://ued.alipay.com/'},
+						// 		{name:'支付宝用户研究', url:'http://ued.alipay.com/ur'}
+						// 	]
+						// },
+						// {
+						// 	name: '搜狐',
+						// 	children:[
+						// 		{name:'搜狐MUED', url:'http://mued.sohu.com/'},
+						// 		{name:'搜狐焦点UED', url:'http://ued.focus.cn/wordpress/'},
+						// 		{name:'搜狐UED', url:'http://ued.sohu.com/'}
+						// 	]
+						// },
 						{
 							name: '百度',
 							children:[
@@ -146,7 +145,7 @@ define(function(){
 						{name:'人人FED', url:'http://fed.renren.com/'},
 						{name:'网易UEDC', url:'http://uedc.163.com/'},
 						{name:'奇虎75Team', url:'http://www.75team.com/'},
-						{name:'搜狗UED', url:'http://ued.sogou.com/'},
+						// {name:'搜狗UED', url:'http://ued.sogou.com/'},
 						{name:'19楼UED', url:'http://blog.19ued.com/'}
 					]
 				},
@@ -188,7 +187,7 @@ define(function(){
 						{name:'Emmet', url:'http://docs.emmet.io/'},
 						{name:'Less', url:'https://github.com/groenewege/vim-less', target:'_blank'},
 						{name:'Vim Zencoding', url:'https://github.com/mattn/zencoding-vim', target:'_blank'},
-						{name:'Linr', url:'http://hi.baidu.com/vickeychen'},
+						// {name:'Linr', url:'http://hi.baidu.com/vickeychen'},
 						{name:'HTML5轮廓工具', url:'http://gsnedders.html5.org/'},
 						{name:'Trello', url:'https://trello.com'},
 						{name:'有道笔记', url:'https://note.youdao.com'}
@@ -268,7 +267,7 @@ define(function(){
 				{
 					name: 'Share',
 					children: [
-						{name: '一分C++文档', url: 'http://classfoo.cn/foo/c++'}
+						{name: '一分C++文档', url: 'http://classfoo.com/'}
 					]
 				}
 			]

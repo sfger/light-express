@@ -1,6 +1,6 @@
 @charset "utf-8"; //解决中文报错
 
-$is_modern:1 !default; // 兼容低版本ie
+$is_modern:0 !default; // 兼容低版本ie
 
 // css3 -webkit-,-moz-,-ms-,-o- 的前缀简写
 // 第一个参数为属性和值，第二个参数则是前缀

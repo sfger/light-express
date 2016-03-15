@@ -181,7 +181,7 @@ var config        = {
 				in_file,
 				out_file
 			];
-			console.log(sh.join(' '));
+			// console.log(sh.join(' '));
 			exec(sh.join(' '), function(error, stdout, stderr){
 				if(error){
 					console.log(error);
@@ -260,6 +260,7 @@ var config        = {
 	compileSCSS: function(req, res, next){
 		if(/.*\.css$/.test(req.path)){
 			var css_path = path.normalize(config.static_public + req.path);
+			res.writeHead(200, {"Content-Type":'text/css'});
 			config.compile_list_to_writer([css_path], res);
 		}else{
 			next();

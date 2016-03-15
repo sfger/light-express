@@ -15,7 +15,7 @@ require([
 	'ecmaShim'
 ], function($, markdown, hljs){
 	if(!document.querySelectorAll) document.querySelectorAll = $;
-	var md = new markdown().set({ html: true, breaks: true });
+	var md = new markdown().set({html:true, breaks:true});
 	var show_markdown = function(data){
 		console.log(data);
 		$('.md-ctn').html(md.render(data));
