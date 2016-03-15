@@ -14,7 +14,6 @@ $.fn.pagination = function(options){
 		});
 		return true;
 	}
-
 	options = $.extend(true, {
 		useAjax             : false,            // 是否使用ajax方式请求数据，否则生成页面跳转链接
 		dataSize            : 0,                // 数据条数
@@ -30,9 +29,9 @@ $.fn.pagination = function(options){
 	}, options);
 	var handler = function(box, options){ return new handler.prototype.init(box, options); };
 	handler.prototype = {
-		render:null,
-		pageCount:1,
-		init:function(box, options){
+		render: null,
+		pageCount: 1,
+		init: function(box, options){
 			this.userOptions = options;
 			var render = options.render;
 			this.pageCount = Math.ceil(options.dataSize/options.pageSize);
@@ -73,10 +72,22 @@ $.fn.pagination = function(options){
 			// console.log(pageNumber,dataSize);
 			$(options.render).html( this.navishow(pageNumber,this.pageCount,this.url,options.show) + '&nbsp;<div class="form"><span>第</span><input name="'+options.pageNumberQueryName+'" class="page" type="text" value="" /><a href="javascript:;" class="go">GO</a><span>页</span></div>&nbsp;<div class="desc">共<span class="dataSize">'+options.dataSize+'</span>条记录</div>' );
 		},
-		initEvent:function(){
+		initEvent: function(){
 			var that = this;
 			var options = this.userOptions;
 			var render = options.render;
+			$(render).on({
+				'keyup': function(e){
+					if(-1!=$.inArray(e.keyCode, [8,37,39])){
+						return true;
+					}
+					var n = parseInt(this.value) || 1;
+					if(n<1) n = 1;
+					if(n>that.pageCount) n = that.pageCount;
+					this.value = n;
+					return false;
+				}
+			}, '.page');
 			$(render).on('click', '.go', function(){
 				var a = $(".page",render).val();
 				if(!a || isNaN(a)) return false;
@@ -88,7 +99,11 @@ $.fn.pagination = function(options){
 						options.onChangePage.call(that, options.pageNumber, that.pageCount);
 					that.update(options.pageNumber);
 				}else{
-					location.href = location.href.replace(that.pageNumberRegExp,"$1"+a);
+					if(that.pageNumberRegExp.test(location.href)){
+						location.href = location.href.replace(that.pageNumberRegExp,"$1"+a);
+					}else{
+						location.href += (/\?/.test(location.href)?'&':'?') + options.pageNumberQueryName + '=' + a;
+					}
 				}
 				return false;
 			});
@@ -100,7 +115,7 @@ $.fn.pagination = function(options){
 					that.update(options.pageNumber);
 				});
 		},
-		getNaviNode:function(url,page,show){
+		getNaviNode: function(url, page, show){
 			var options = this.userOptions;
 			if(!options.useAjax){
 				url = url.replace(this.pageNumberRegExp, "$1"+page);
@@ -110,16 +125,16 @@ $.fn.pagination = function(options){
 				else if(show===options.nextPageAlias) return ' next';
 				else return '';
 			})();
-			if(page<1||page>this.pageCount){
+			if(page<1 || page>this.pageCount){
 				c += ' disabled';
 			}
-			url='<a href="'+(page>0&&page<=this.pageCount?url:'javascript:;')+'" pageNumber="'+page+'" class="pn'+c+'">'+show+'</a>';
+			url = '<a href="'+(page>0&&page<=this.pageCount?url:'javascript:;')+'" pageNumber="'+page+'" class="pn'+c+'">'+show+'</a>';
 			return url;
 		},
-		getPlainChild:function(text){
+		getPlainChild: function(text){
 			return '<a href="javascript:;" class="'+(text==='...' ? 'plain' : 'current')+'">'+text+'</a>';
 		},
-		navishow:function(cur,page,url,show){
+		navishow: function(cur, page, url, show){
 			show = show==undefined ? 11 : show;
 			var hf = Math.floor(show/2),
 				i = 0,

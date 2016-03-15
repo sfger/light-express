@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8" /><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" /><title>Title</title><meta name="apple-mobile-web-app-capable" content="yes" /><meta name="apple-mobile-web-app-status-bar-style" content="black" /><meta name="format-detection" content="telephone=no" /><meta name="author" content="" /><meta name="revisit-after" content="1 days" /><meta name="keywords" content="" /><meta name="description" content="" /><link rel="icon" href="/favicon.ico" type="image/x-icon" /><link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" /><link rel="stylesheet" type="text/css" href="/sfger/css/pagination.css" /><style type="text/css" media="all"></style></head><body><div id="page"><div class="navi"></div><div class="navi"></div><div class="navi"></div></div><script id="requirejs" data-version="20150821017" src="/sfger/js/require.js?v=20150821017"></script><script type="text/javascript">require.config({
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8" /><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" /><title>Title</title><meta name="apple-mobile-web-app-capable" content="yes" /><meta name="apple-mobile-web-app-status-bar-style" content="black" /><meta name="format-detection" content="telephone=no" /><meta name="author" content="" /><meta name="revisit-after" content="1 days" /><meta name="keywords" content="" /><meta name="description" content="" /><link rel="icon" href="/favicon.ico" type="image/x-icon" /><link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" /><link rel="stylesheet" type="text/css" href="/sfger/css/pagination.css" /><style type="text/css" media="all"></style></head><body><div id="page"><div class="navi"></div><div class="navi"></div><div class="navi"></div></div><script id="requirejs" data-version="20150821017" src="/sfger/js/require.js?v=20150821017"></script><script>require.config({
 baseUrl:'/sfger/js/',
 urlArgs:"v=" + document.getElementById("requirejs").getAttribute("data-version"),
 map:{"*":{css:"require-css"}},
@@ -9,8 +9,8 @@ shim:{
 });
 require(['jquery', 'jquery-pagination'], function($){
 $('#page .navi').pagination({
-useAjax:true,
-/* pageNumberQueryName:'page', */
+/* useAjax:true, */
+pageNumberQueryName:'page',
 pageNumber:20,
 prePageAlias:'&lt;',
 nextPageAlias:'&gt;',

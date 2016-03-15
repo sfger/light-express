@@ -36,8 +36,8 @@ require.config({
 });
 require(['jquery', 'jquery-pagination'], function($){
 	$('#page .navi').pagination({
-		useAjax:true,
-		/* pageNumberQueryName:'page', */
+		/* useAjax:true, */
+		pageNumberQueryName:'page',
 		pageNumber:20,
 		prePageAlias:'&lt;',
 		nextPageAlias:'&gt;',
