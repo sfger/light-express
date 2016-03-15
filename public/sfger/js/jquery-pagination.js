@@ -82,6 +82,12 @@ $.fn.pagination = function(options){
 						return true;
 					}
 					var n = parseInt(this.value) || 1;
+					if(n>1 && e.keyCode===40){
+						--n;
+					}
+					if(n<that.pageCount && 38===e.keyCode){
+						++n;
+					}
 					if(n<1) n = 1;
 					if(n>that.pageCount) n = that.pageCount;
 					this.value = n;
