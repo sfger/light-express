@@ -3,11 +3,11 @@ var libFs	= require('fs');
 var router  = express.Router();
 var path    = require('path');
 
-router.get(['/index', '/'], function(req, res){
-	var app = req.app;
-	var view = req.query.view;
-	view = view.replace(/\/html\//, '/views/');
-	var file = path.join(app.get('views'), view) + '.ejs';
+router.get(['/*'], function(req, res){
+	var app      = req.app;
+	var url_path = req.path.slice(1);
+	var view     = url_path.replace(/\/html\//, '/views/');
+	var file     = path.join(app.get('views'), view) + '.ejs';
 
 	file = path.normalize(file);
 	libFs.exists(file, function(exists){
@@ -40,7 +40,7 @@ router.get(['/index', '/'], function(req, res){
 						return 'http://fpoimg.com/'+width+'x'+height+'?bg_color='+bg+'&text_color='+color+'&text=' + text;
 					}
 				}
-			}, express.UserConfig.dist.bind({req:req, res:res, distPath:req.query.view}));
+			}, express.UserConfig.dist.bind({req:req, res:res, distPath:url_path}));
 		}
 	});
 });
