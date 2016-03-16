@@ -30,7 +30,7 @@ if(isDev){
 	app.use(express.UserConfig.compileTemplate);
 }
 app.use(express.UserConfig.staticHttpCombo);
-app.use(express['static'](path.join(__dirname, express.UserConfig.staticDir)));
+app.use(express['static'](path.join(__dirname, express.UserConfig.staticDir), {index:'______.html'}));
 app.locals.__version__ = '20150821017';
 app.use(session({name:'_SSID_', keys:['skey1', 'skey2']}));
 
