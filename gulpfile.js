@@ -120,8 +120,8 @@ gulp.task('tpl', ['del'], function(){
 });
 gulp.task('html', ['del'], function(){
 	var dir  = project + '/html';
-	var dist = '*'===project ? '' : dir;
-	return gulp.src('public/'+dir+'/**/*')
+	var dist = '*'===project ? dir='' : dir;
+	return gulp.src(['public/'+dir+'/**/*.html', 'public/'+dir+'**/*.ico'])
 	.pipe(replace(/__version__/gi, timeString))
 	.pipe(gulp.dest('dist/'+dist));
 });
