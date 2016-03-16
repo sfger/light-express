@@ -3,17 +3,19 @@ var libFs	= require('fs');
 var router  = express.Router();
 var path    = require('path');
 
-router.get(['/*'], function(req, res){
+router.get(['/*'], function(req, res, next){
 	var app      = req.app;
 	var url_path = req.path.slice(1);
+	if(!url_path) url_path = 'index';
 	var view     = url_path.replace(/\/html\//, '/views/');
 	var file     = path.join(app.get('views'), view) + '.ejs';
 
 	file = path.normalize(file);
 	libFs.exists(file, function(exists){
 		if(!exists){
-			res.writeHead(404, {"Content-Type":"text/html"} );
-			res.end( "<h1>404 Not Found</h1>" );
+			next();
+			// res.writeHead(404, {"Content-Type":"text/html"} );
+			// res.end( "<h1>404 Not Found</h1>" );
 		}else{
 			res.render(view, {
 				___: '',
