@@ -1,6 +1,6 @@
 require.config({
-	baseUrl:'/sfger/js/',
-	urlArgs:"v=" + document.getElementById("requirejs").getAttribute("data-version"),
+	baseUrl:'../js/',
+	// urlArgs:"v=" + document.getElementById("requirejs").getAttribute("data-version"),
 	map:{"*":{css:"require-css.js"}},
 	paths:{},
 	shim:{
@@ -33,7 +33,7 @@ require([
 	// }).then(show_markdown);
 	try{
 	$.ajax({
-		url: '/sfger/md/test.md',
+		url: '../md/test.md',
 		success: show_markdown,
 		error: function(a,b,c){
 			console.log(a,b,c);

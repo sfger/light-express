@@ -6,12 +6,12 @@ var light = {
 	},
 	// }}}
 	// util {{{
-	util:{
-		slice:Array.prototype.slice,
-		push:Array.prototype.push,
-		toString:Object.prototype.toString,
-		hasOwnProperty:Object.prototype.hasOwnProperty,
-		list2Array:function(list){
+	util: {
+		slice          : Array.prototype.slice,
+		push           : Array.prototype.push,
+		toString       : Object.prototype.toString,
+		hasOwnProperty : Object.prototype.hasOwnProperty,
+		list2Array     : function(list){
 			var ret = [], slice = light.util.slice;
 			try{
 				ret = slice.call(list);
@@ -21,9 +21,9 @@ var light = {
 			}
 			return ret;
 		},
-		getType:function(obj){ return light.ui.toString.call(obj).slice(8, -1); },
-		isWindow:function(obj){ return obj!=null && obj==obj.window; },
-		isPlainObject:function(obj){
+		getType       : function(obj){ return light.ui.toString.call(obj).slice(8, -1); },
+		isWindow      : function(obj){ return obj!=null && obj==obj.window; },
+		isPlainObject : function(obj){
 			if(light.util.getType(obj)!=="object" || obj.nodeType || light.util.isWindow(obj)) return false;
 			try{
 				if(obj.constructor && !light.util.call(obj.constructor.prototype, "isPrototypeOf")) return false;
