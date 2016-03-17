@@ -161,10 +161,8 @@ $.fn.datagrid = function(options){
 			var field = fieldElements[i];
 			var t1  = getHW(this, type),
 				t2  = getHW(field, type);
-			if(t1<t2) $(this)[type](t2);
-			else $(field)[type](t1);
-			// var t = t1<t2 ? t2 : t1;
-			// $([this, field])[type](t);
+			var t = t1<t2 ? t2 : t1;
+			$([this, field])[type](t+5);
 		});
 	};
 	var adjust_table = function(tables, that){
@@ -203,14 +201,14 @@ $.fn.datagrid = function(options){
 	handler.prototype = {
 		defaultOrder:false, //true:desc, false:asc
 		init: function(box, options){
-			var document = window.document;
-			var that = this;
-			this.columns = [];
-			this.frozenColumns = [];
-			this.userOptions = options;
-			this.render = box;
 			var $box = $(box);
 			$box.addClass('datagrid-container cf');
+
+			var that           = this;
+			this.columns       = [];
+			this.frozenColumns = [];
+			this.userOptions   = options;
+			this.render        = box;
 			if(options.pagination && options.localData){
 				box.innerHTML = '<div class="datagrid-pagination"></div>';
 				var pbox = $('.datagrid-pagination', box).get(0);
@@ -230,11 +228,6 @@ $.fn.datagrid = function(options){
 
 				// css selector fix
 				$('.body-wrapper table, .body-wrapper table tr:first-child td', box).css({borderTop:'none'});
-				var hover_binds = {// css tr:hover fix
-					mouseenter: function(){ this.style.backgroundColor = '#e6e6e6'; },
-					mouseleave: function(){ this.style.backgroundColor = 'transparent'; }
-				};
-				$box.delegate('.head td', hover_binds).delegate('.body tr', hover_binds);
 			}
 			(function(){// css selector fix
 				var fie = navigator.userAgent.match(/MSIE (\d*)/);
@@ -242,11 +235,6 @@ $.fn.datagrid = function(options){
 					$('.view', box).eq(1).find('table, table td:first-child').css({borderLeft:'none'});
 				}
 			})();
-			options.onCreate.bind(this)();
-			$(window).on('resize', function(){ that.resize(); });
-			$(window).resize();
-			setTimeout(function(){ $(window).resize(); }, 0);
-
 			var allColumns = [];
 			push.apply(allColumns, this.frozenColumns);
 			push.apply(allColumns, this.columns);
@@ -259,15 +247,6 @@ $.fn.datagrid = function(options){
 					rowData.tr = that.dataTbodys[1].rows[rowNum];
 				});
 			}
-			$box.delegate('.field', {
-				click: function(e){
-					var fieldIndex = that.fieldElements.index(this.children[0]) - (options.rowNum ? 1 : 0);
-					if(that.userOptions.rowNum && fieldIndex===-1) return false;
-					var field = that.allColumns[fieldIndex].field;
-					that.sortBy(field, that.sort!==field ? that.defaultOrder : !that.order);
-				}
-			});
-
 			if(options.remoteSort || options.sort){
 				if(options.remoteSort){
 					var fieldIndex = (function(){
@@ -282,23 +261,46 @@ $.fn.datagrid = function(options){
 					this.sortBy(options.sort.field, options.sort.order==='desc');
 				}
 			}
+			this.init_event();
+
+			that.resize(); //修改样式
+			setTimeout(function(){ that.resize(); }, 0); // 再次计算样式，消除滚动条的影响
+
+			options.onCreate.bind(this)();
+		},
+		init_event: function(){
+			var that    = this;
+			var options = this.userOptions;
+			var $box    = $(this.render);
+			$box.on({
+				click: function(e){
+					var fieldIndex = that.fieldElements.index(this.children[0]) - (options.rowNum ? 1 : 0);
+					if(options.rowNum && fieldIndex===-1) return false;
+					var field = that.allColumns[fieldIndex].field;
+					that.sortBy(field, that.sort!==field ? that.defaultOrder : !that.order);
+				}
+			}, '.field');
+
+			$(window).on('resize', function(){ that.resize(); });
+			if(document.documentMode===5 || /MSIE 6/.test(navigator.userAgent)){
+				var hover_binds = {// css tr:hover fix
+					mouseenter: function(){ this.style.backgroundColor = '#e6e6e6'; },
+					mouseleave: function(){ this.style.backgroundColor = 'transparent'; }
+				};
+				$box.on(hover_binds, '.head td').on(hover_binds, '.body tr');
+			}
 		},
 		sortBy: function(field, order){ //order: (true||'desc')->desc, (false||not 'desc')->asc
-			order = (function(){
-				if(order === 'desc') return true;
-				if(order === 'asc') return false;
-				if(order === true) return true;
-				return false;
-			})();
+			order = (-1===[true,'desc'].indexOf(order)) ? false : true;
 			var options = this.userOptions;
 			var fieldIndex;
 			var fieldOption = this.allColumns.filter(function(option, i){
 				if(option.field===field){
 					fieldIndex = i + 1;
-					return option;
+					return true;
 				}
-			});
-			fieldOption = fieldOption[0];
+				return false;
+			})[0];
 			var fieldElement = this.fieldElements[fieldIndex].parentNode;
 			if(this.sort) $('.sort-mark', this.sort.parentNode).html(markChars.empty);
 			$('.sort-mark', fieldElement).html(order?markChars.down:markChars.up)
