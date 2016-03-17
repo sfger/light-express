@@ -210,16 +210,9 @@ var config        = {
 					console.log(error.line);
 				}else{
 					postcss([
-						// require('autoprefixer'),
 						// require('postcss-sprites')({
 						// 	stylesheetPath:path.dirname(out_file),
 						// 	spritePath:out_file+'.sprite.png'
-						// }),
-						// require('postcss-easysprites')({
-						// 	padding        : 1,
-						// 	imagePath      : path.dirname(out_file) + '/../img',
-						// 	stylesheetPath : path.dirname(out_file) + '/../css',
-						// 	spritePath     : path.dirname(out_file) + '/../sprite'
 						// }),
 						require('postcss-image-inliner')({
 							assetPaths:[path.dirname(out_file)],

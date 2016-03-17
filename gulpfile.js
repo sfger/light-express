@@ -75,20 +75,13 @@ var timeString = tArray.join('');
 
 var gulp         = require('gulp'),
 	del          = require('del'),
-	// sass         = require("gulp-sass"),
-	// postcss      = require('gulp-postcss'),
 	gutil        = require("gulp-util"),
-	// autoprefixer = require('gulp-autoprefixer'),
 	minifycss    = require('gulp-minify-css'),
 	// jshint       = require('gulp-jshint'),
 	uglify       = require('gulp-uglify'),
 	// rename       = require('gulp-rename'),
 	// concat       = require('gulp-concat'),
 	replace      = require('gulp-replace'),
-	// notify       = require('gulp-notify'),
-	// imagemin     = require('gulp-imagemin'),
-	// cache        = require('gulp-cache'),
-	// livereload   = require('gulp-livereload'),
 	sftp         = require('gulp-sftp');
 gulp.task('del', function(cb){
 	var dir = '*'===project ? '' : project;
@@ -129,7 +122,6 @@ gulp.task('img', ['del'], function(){
 	var dir  = project + '/img';
 	var dist = '*'===project ? '' : dir;
 	return gulp.src('public/'+dir+'/**/*')
-	// .pipe(cache(imagemin({optimizationLevel:3, progressive:true, interlaced:true})))
 	.pipe(gulp.dest('dist/'+dist));
 });
 gulp.task('sprite', ['del'], function(){
