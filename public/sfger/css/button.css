@@ -1,14 +1,16 @@
+.cf { *zoom: 1; }
+
 .cf:before, .cf:after { content: ""; display: table; }
 
 .cf:after { clear: both; overflow: hidden; }
 
-.imgc:before, .imgc img, audio, canvas, video, .btn, .btn-normal { display: inline-block; vertical-align: middle; }
+.imgc:before, .imgc .iecp, .imgc img, audio, canvas, video, .btn, .btn-normal { display: inline-block; *display: inline; *zoom: 1; vertical-align: middle; }
 
-.imge { display: inline-block; vertical-align: middle; font-size: 12px; font-size: 1rem; line-height: normal; }
+.imge { display: inline-block; *display: inline; *zoom: 1; vertical-align: middle; font-size: 12px; font-size: 1rem; line-height: normal; }
 
 .imgc { font-size: 0; text-align: center; }
 
-.imgc:before { content: ""; height: 100%; font-size: 0; line-height: 0; width: 0; }
+.imgc:before, .imgc .iecp { content: ""; height: 100%; font-size: 0; line-height: 0; width: 0; }
 
 .imgc img { max-width: 100%; max-height: 100%; }
 

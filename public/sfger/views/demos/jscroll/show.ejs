@@ -22,10 +22,11 @@
 <div id="page">
 	test<br /> test<br /> test<br />
 </div>
-<script type="text/javascript" src="/sfger/js/require.js"></script>
+<script id="requirejs" type="text/javascript" data-version="<%-__version__%>" src="/sfger/js/require.js?<%-__version__%>"></script>
 <script type="text/javascript">
 require.config({
 	baseUrl: '/sfger/js/',
+	urlArgs:"v=" + document.getElementById("requirejs").getAttribute("data-version"),
 	shim:{
 		'jquery-jscroll':['jquery'],
 		'browser':['jquery']

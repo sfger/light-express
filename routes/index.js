@@ -3,7 +3,7 @@ var libFs	= require('fs');
 var router  = express.Router();
 var path    = require('path');
 
-router.get(['/*.html'], function(req, res, next){
+router.get(['/', '/*.html'], function(req, res, next){
 	var app      = req.app;
 	var url_path = req.path.slice(1, -5);
 	if(!url_path) url_path = 'index';
@@ -14,9 +14,10 @@ router.get(['/*.html'], function(req, res, next){
 	libFs.exists(file, function(exists){
 		if(!exists) return next();
 		res.render(view, {
-			___: '',
-			node: {
-				placeholder:{
+			___         : '',
+			__version__ : '__version__',
+			node        : {
+				placeholder: {
 					white:"/common/img/placeholder.png"
 				},
 				get_img: function(width, height, bg, color, text){
