@@ -268,12 +268,15 @@ var config        = {
 		// s = s.replace(/([^\\])(')/g, "$1\\$2"); // '
 		return s;
 	},
-	merge_tpl_list: function(list, next){
+	merge_tpl_list: function(list, out_file, next){
 		var data = {};
 		try{
 			list.forEach(function(one){
 				var s = fs.readFileSync(one, {encoding:'utf8', flag:'r'});
-				data[path.basename(one,'.tpl')] = config.minify_code(s);
+				if(-1!==['tpl', 'ejs', 'html', 'htm'].indexOf(path.extname(one).slice(1))){
+					s = config.minify_code(s);
+				}
+				data[path.basename(one)] = s;
 			});
 			fs.writeFile(out_file, "define("+JSON.stringify(data)+");", {mode:'777'}, function(){
 				return next();
@@ -290,22 +293,23 @@ var config        = {
 	 * */
 	compileTemplate: function(req, res, next){
 		if(!/\/tpl\/.*\.js$/.test(req.path)) return next();
-		var out_file = path.normalize(config.static_public + req.path);
-		var out_path = path.normalize(path.dirname(out_file) + '/');
-		var in_path  = path.normalize(out_path.replace(/([\\\/])tpl([\\\/])/, "$1htpl$2"));
-		var in_file  = in_path + path.basename(out_file, '.js') + '.tpl';
+		var out_file   = path.normalize(config.static_public + req.path);
+		var out_path   = path.normalize(path.dirname(out_file) + '/');
+		var in_path    = path.normalize(out_path.replace(/([\\\/])tpl([\\\/])/, "$1htpl$2"));
+		var in_file    = in_path + path.basename(out_file, '.js');
+		var path_patch = in_file.split(/([\\\/])(htpl)([\\\/])/).slice(0, 4)
+		path_patch.push('map.json');
 		config.mkdirRecursive(out_path, 777, function(){
-			var map  = config.readJSONFile(path.dirname(in_file)+'/map.json');
-			var stpl = map[req.path.replace(/\.js$/,'').slice(1)];
-			var list = [];
-			if(stpl){ // 多模块合并
+			var map  = config.readJSONFile(path_patch.join(''));
+			var list = [], stpl;
+			if(stpl = map[req.path.replace(/\.js$/,'').slice(1)]){ // 多模块合并
 				stpl.split(',').forEach(function(one){
 					list.push(out_path.replace(/([\\\/])tpl([\\\/])/, "$1htpl$2") + one + '.tpl');
 				});
 			}else{
 				list.push(in_file);
 			}
-			config.merge_tpl_list(list, next);
+			config.merge_tpl_list(list, out_file, next);
 		});
 		return true;
 	}
