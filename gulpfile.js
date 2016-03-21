@@ -118,7 +118,6 @@ gulp.task('html', ['del'], function(){
 gulp.task('img', ['del'], function(){
 	var dir  = project;
 	var dist = '*'===project ? '' : dir;
-	console.log(dir);
 	return gulp.src([
 		'public/'+dir+'/**/*.jpg',
 		'public/'+dir+'/**/*.ico',

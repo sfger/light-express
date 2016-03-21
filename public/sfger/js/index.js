@@ -2,12 +2,14 @@ define(function(require, exports, module){
 	var page = {
 		create: function(option){
 			document.title = 'Share From Water';
-			new EJS({
-				text: require('sfger/tpl/index.tpl')['index.tpl']
-			}).update(option.app.root, {
-				data:{}
+			require(['sfger/tpl/index.tpl'], function(data){
+				new EJS({
+					text: data['index.tpl']
+				}).update(option.app.root, {
+					data:{}
+				});
+				option.next();
 			});
-			option.next();
 		},
 		destroy: function(){
 		}
