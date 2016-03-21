@@ -122,7 +122,8 @@ gulp.task('img', ['del'], function(){
 		'public/'+dir+'/**/*.jpg',
 		'public/'+dir+'/**/*.ico',
 		'public/'+dir+'/**/*.gif',
-		'public/'+dir+'/**/*.png'
+		'public/'+dir+'/**/*.png',
+		'public/favicon.ico'
 	]).pipe(gulp.dest('dist/'+dist));
 });
 gulp.task('sprite', ['del'], function(){
