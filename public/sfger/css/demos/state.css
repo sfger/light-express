@@ -28,13 +28,13 @@ fieldset, img { border: none; }
 
 article, aside, details, figcaption, figure, footer, header, hgroup, main, nav, section, summary { display: block; }
 
-.state-list li { left: 26px; position: relative; height: 30px; line-height: 30px; list-style: none; }
+.state-list li { position: relative; margin-left: 50px; height: 60px; line-height: 60px; list-style: none; }
 
-.state-list li:before { top: -15px; left: -20px; position: absolute; content: ''; height: 30px; border-left: 2px solid #999; }
-
-.state-list li:after { top: 12px; left: -22px; position: absolute; -webkit-border-radius: 50%; -moz-border-radius: 50%; -ms-border-radius: 50%; -o-border-radius: 50%; border-radius: 50%; box-shadow: 0 0 5px currentcolor; z-index: 1; content: ''; border: 3px solid #999; }
+.state-list li:before { top: -30px; left: -30px; position: absolute; content: ''; height: 60px; border-left: 2px solid #999; }
 
 .state-list li:first-child:before { display: none; }
+
+.state-list li:after { top: 20px; left: -39px; position: absolute; -webkit-border-radius: 50%; -moz-border-radius: 50%; -ms-border-radius: 50%; -o-border-radius: 50%; border-radius: 50%; box-shadow: 0 0 5px currentcolor; z-index: 1; content: ''; border: 10px solid #999; }
 
 .state-list li.state-active, .state-list li:hover { color: red; }
 
@@ -42,4 +42,4 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, nav, 
 
 .state-list li.state-active:after, .state-list li:hover:after { border-color: red; box-shadow: 0 0 5px red; }
 
-.state-list li.state-active, .state-list li:hover { color: red; }
+.state-list li.state-active, .state-list li:hover { cursor: pointer; }
