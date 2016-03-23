@@ -316,3 +316,44 @@ $is_modern:0 !default; // 兼容低版本ie
 // 	.tip-content{padding:15px;}
 // 	@include tip-box(top, left 13px top -13px, 10px 10px);
 // }
+
+@mixin stateList($height           : 30px,
+                 $radius           : 3px,
+                 $width            : 2px,
+				 $left             : $height/2,
+                 $style            : solid,
+                 $color            : #999,
+                 $stateActiveClass : 'state-active',
+                 $activeColor      : red,
+                 $growing          : 1,
+				 $hoverActive      : 0,
+                 $shadow           : 5px,
+                 $shadowColor      : currentcolor){
+	li{
+		@include relative(left ($left+$radius*2));height:$height;
+		line-height:$height;list-style:none;
+		&:before{
+			@include absolute(left (-$left) top (-$height/2));
+			content:'';height:$height;border-left:$width $style $color;
+		}
+		&:after{
+			@include absolute(left (-$left - $radius + $width/2) top ($height/2)-$radius);
+			@include border-radius(50%);box-shadow:0 0 $shadow $shadowColor;
+			z-index:1;content:'';border:$radius $style $color;
+		}
+		&:first-child:before{display:none;}
+		&.#{$stateActiveClass}{
+			color:$activeColor;
+			$borderColor:$color;
+			@if(1==$growing){
+				$borderColor:$activeColor
+			}
+			&:before{border-color:$borderColor;}
+			&:after{border-color:$activeColor;box-shadow:0 0 $shadow $activeColor;}
+		}
+		@if(1==$hoverActive){
+			&:hover{@extend .#{$stateActiveClass}}
+		}
+	}
+}
+

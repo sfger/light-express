@@ -1,0 +1,7 @@
+@charset "UTF-8";
+@import "base";
+
+.state-list{
+	@include stateList($growing:0,$left:20px,$hoverActive:1);
+	li.state-active{color:red;}
+}

@@ -1,0 +1,45 @@
+.cf { *zoom: 1; }
+
+.cf:before, .cf:after { content: ""; display: table; }
+
+.cf:after { clear: both; overflow: hidden; }
+
+.imgc:before, .imgc .iecp, .imgc img, audio, canvas, video { display: inline-block; *display: inline; *zoom: 1; vertical-align: middle; }
+
+.imge { display: inline-block; *display: inline; *zoom: 1; vertical-align: middle; font-size: 12px; font-size: 1rem; line-height: normal; }
+
+.imgc { font-size: 0; text-align: center; }
+
+.imgc:before, .imgc .iecp { content: ""; height: 100%; font-size: 0; line-height: 0; width: 0; }
+
+.imgc img { max-width: 100%; max-height: 100%; }
+
+html, body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, form, fieldset, legend, input, button, textarea, hr, pre, code, p, blockquote, th, td { margin: 0; padding: 0; }
+
+html, button, input, select, textarea { font: 14px/normal "\5b8b\4f53","Microsoft YaHei"; color: #000; }
+
+html { -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; }
+
+fieldset, img { border: none; }
+
+[hidden] { display: none; }
+
+:focus { outline: none; }
+
+article, aside, details, figcaption, figure, footer, header, hgroup, main, nav, section, summary { display: block; }
+
+.state-list li { left: 26px; position: relative; height: 30px; line-height: 30px; list-style: none; }
+
+.state-list li:before { top: -15px; left: -20px; position: absolute; content: ''; height: 30px; border-left: 2px solid #999; }
+
+.state-list li:after { top: 12px; left: -22px; position: absolute; -webkit-border-radius: 50%; -moz-border-radius: 50%; -ms-border-radius: 50%; -o-border-radius: 50%; border-radius: 50%; box-shadow: 0 0 5px currentcolor; z-index: 1; content: ''; border: 3px solid #999; }
+
+.state-list li:first-child:before { display: none; }
+
+.state-list li.state-active, .state-list li:hover { color: red; }
+
+.state-list li.state-active:before, .state-list li:hover:before { border-color: #999; }
+
+.state-list li.state-active:after, .state-list li:hover:after { border-color: red; box-shadow: 0 0 5px red; }
+
+.state-list li.state-active, .state-list li:hover { color: red; }
