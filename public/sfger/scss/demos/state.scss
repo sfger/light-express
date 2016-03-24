@@ -5,3 +5,7 @@
 	@include stateList($height:60px,$radius:10px,$hoverActive:1);
 	li.state-active{cursor:pointer;}
 }
+
+.state-step{
+	@include stateStep($width:70%);
+}

@@ -357,3 +357,30 @@ $is_modern:0 !default; // 兼容低版本ie
 	}
 }
 
+@mixin stateStep($width:100%, $color:#ccc, $colorDone:#0dffaf){
+    width:$width;padding:50px 150px 80px;margin:auto;
+    .step-progress{position:relative;height:8px;background:$color;}
+    .step-progress-done{@include absolute(left 0 top 0);height:8px;background:$colorDone;}
+    .step-position{
+        @include size(28px);@include absolute(top -10px);
+        margin-left:-7px;font:18px/28px "Microsoft YaHei";text-align:center;color:white;
+        @media screen and (min-width:0px){
+            @include border-radius(50%);background-color:$color;
+        }
+        .step-arrow{
+            display:block;@include size(0);margin-top:-22px;margin-left:-12px;
+            border:12px solid $color;border-top:8px solid white;border-bottom:8px solid white;border-right:0px solid white;
+            &.arrow-done{border-left-color:$colorDone;}
+        }
+        &.position-done{
+            @media screen and (min-width:0px){
+                background-color:$colorDone;
+            }
+            .step-arrow{border-left-color:$colorDone;}
+        }
+        &.first-position{
+            .step-arrow{border-color:transparent;}
+        }
+        .step-label{font:12px/normal NSimSun;color:#999;margin-top:20px;width:500%;margin-left:-200%;}
+    }
+}
