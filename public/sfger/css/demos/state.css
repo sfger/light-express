@@ -28,21 +28,65 @@ fieldset, img { border: none; }
 
 article, aside, details, figcaption, figure, footer, header, hgroup, main, nav, section, summary { display: block; }
 
-.state-list li { position: relative; margin-left: 50px; height: 60px; line-height: 60px; list-style: none; }
+.state-list { width: 200px; display: inline-block; *display: inline; *zoom: 1; vertical-align: middle; }
 
-.state-list li:before { top: -30px; left: -30px; position: absolute; content: ''; height: 60px; border-left: 2px solid #999; }
+.state-list li { cursor: pointer; }
 
-.state-list li:first-child:before { display: none; }
+.list1 li { position: relative; margin-left: 50px; height: 60px; line-height: 60px; list-style: none; }
 
-.state-list li:after { top: 20px; left: -39px; position: absolute; -webkit-border-radius: 50%; -moz-border-radius: 50%; -ms-border-radius: 50%; -o-border-radius: 50%; border-radius: 50%; box-shadow: 0 0 5px currentcolor; z-index: 1; content: ''; border: 10px solid #999; }
+.list1 li:before { top: -30px; left: -30px; position: absolute; content: ''; height: 60px; border-left: 2px solid #999; }
 
-.state-list li.state-active, .state-list li:hover { color: red; }
+.list1 li:first-child:before { display: none; }
 
-.state-list li.state-active:before, .state-list li:hover:before { border-color: #999; }
+.list1 li:after { top: 20px; left: -39px; position: absolute; -webkit-border-radius: 50%; -moz-border-radius: 50%; -ms-border-radius: 50%; -o-border-radius: 50%; border-radius: 50%; box-shadow: 0 0 5px currentcolor; z-index: 1; content: ''; border: 10px solid #999; }
 
-.state-list li.state-active:after, .state-list li:hover:after { border-color: red; box-shadow: 0 0 5px red; }
+.list1 li.state-active, .list1 li:hover { color: red; }
 
-.state-list li.state-active, .state-list li:hover { cursor: pointer; }
+.list1 li.state-active:before, .list1 li:hover:before { border-color: #999; }
+
+.list1 li.state-active:after, .list1 li:hover:after { border-color: red; box-shadow: 0 0 5px red; }
+
+.list2 li { position: relative; margin-left: 50px; height: 60px; line-height: 60px; list-style: none; }
+
+.list2 li:before { top: -30px; left: -30px; position: absolute; content: ''; height: 60px; border-left: 4px solid #999; }
+
+.list2 li:first-child:before { display: none; }
+
+.list2 li:after { top: 20px; left: -38px; position: absolute; -webkit-border-radius: 50%; -moz-border-radius: 50%; -ms-border-radius: 50%; -o-border-radius: 50%; border-radius: 50%; box-shadow: 0 0 5px currentcolor; z-index: 1; content: ''; border: 10px solid #999; }
+
+.list2 li.state-active, .list2 .list1 li:hover, .list1 .list2 li:hover { color: red; }
+
+.list2 li.state-active:before, .list2 .list1 li:hover:before, .list1 .list2 li:hover:before { border-color: red; }
+
+.list2 li.state-active:after, .list2 .list1 li:hover:after, .list1 .list2 li:hover:after { border-color: red; box-shadow: 0 0 5px red; }
+
+.list3 li { position: relative; margin-left: 90px; height: 60px; line-height: 60px; list-style: none; }
+
+.list3 li:before { top: -30px; left: -80px; position: absolute; content: ''; height: 60px; border-left: 2px solid #999; }
+
+.list3 li:first-child:before { display: none; }
+
+.list3 li:after { top: 25px; left: -84px; position: absolute; -webkit-border-radius: 50%; -moz-border-radius: 50%; -ms-border-radius: 50%; -o-border-radius: 50%; border-radius: 50%; box-shadow: 0 0 5px currentcolor; z-index: 1; content: ''; border: 5px solid #999; }
+
+.list3 li.state-active, .list3 .list1 li:hover, .list1 .list3 li:hover { color: red; }
+
+.list3 li.state-active:before, .list3 .list1 li:hover:before, .list1 .list3 li:hover:before { border-color: #999; }
+
+.list3 li.state-active:after, .list3 .list1 li:hover:after, .list1 .list3 li:hover:after { border-color: red; box-shadow: 0 0 5px red; }
+
+.list4 li { position: relative; margin-left: 50px; height: 60px; line-height: 60px; list-style: none; }
+
+.list4 li:before { top: -30px; left: -30px; position: absolute; content: ''; height: 60px; border-left: 2px solid #999; }
+
+.list4 li:first-child:before { display: none; }
+
+.list4 li:after { top: 20px; left: -39px; position: absolute; -webkit-border-radius: 50%; -moz-border-radius: 50%; -ms-border-radius: 50%; -o-border-radius: 50%; border-radius: 50%; box-shadow: 0 0 5px currentcolor; z-index: 1; content: ''; border: 10px solid #999; }
+
+.list4 li.state-active, .list4 .list1 li:hover, .list1 .list4 li:hover { color: red; }
+
+.list4 li.state-active:before, .list4 .list1 li:hover:before, .list1 .list4 li:hover:before { border-color: #999; }
+
+.list4 li.state-active:after, .list4 .list1 li:hover:after, .list1 .list4 li:hover:after { border-color: red; box-shadow: 0 0 5px red; }
 
 .state-step { width: 70%; padding: 50px 150px 80px; margin: auto; }
 

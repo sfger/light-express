@@ -2,8 +2,20 @@
 @import "base";
 
 .state-list{
+	width:200px;@include ib;
+	li{cursor:pointer;}
+}
+.list1{
 	@include stateList($height:60px,$radius:10px,$hoverActive:1);
-	li.state-active{cursor:pointer;}
+}
+.list2{
+	@include stateList($height:60px,$radius:10px,$growing:1,$width:4px);
+}
+.list3{
+	@include stateList($height:60px,$radius:5px,$left:80px);
+}
+.list4{
+	@include stateList($height:60px,$radius:10px);
 }
 
 .state-step{
