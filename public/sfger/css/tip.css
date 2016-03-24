@@ -4,7 +4,7 @@
 
 .cf:after { clear: both; overflow: hidden; }
 
-.imgc:before, .imgc .iecp, .imgc img, audio, canvas, video { display: inline-block; *display: inline; *zoom: 1; vertical-align: middle; }
+.imgc:before, .imgc .iecp, .imgc img, audio, canvas, video, .tip { display: inline-block; *display: inline; *zoom: 1; vertical-align: middle; }
 
 .imge { display: inline-block; *display: inline; *zoom: 1; vertical-align: middle; font-size: 12px; font-size: 1rem; line-height: normal; }
 
@@ -28,38 +28,36 @@ fieldset, img { border: none; }
 
 article, aside, details, figcaption, figure, footer, header, hgroup, main, nav, section, summary { display: block; }
 
-.tip { display: inline-block; *display: inline; *zoom: 1; vertical-align: middle; width: 100px; margin-top: 15px; margin-right: 15px; word-break: break-all; word-wrap: break-word; top: 10px; left: 14px; position: relative; line-height: 16px; color: #ff8144; }
-
-.tip .tip-content { padding: 15px; }
+.tip { width: 100px; margin-top: 15px; margin-right: 15px; word-break: break-all; word-wrap: break-word; top: 10px; left: 14px; position: relative; line-height: 16px; color: #ff8144; }
 
 .tip0 { padding-top: 10px; }
 
-.tip0 .tip-content { position: relative; background: yellow; border-radius: 8px; border: 1px solid red; }
+.tip0 .tool-tip-inner { position: relative; padding: 5px; background: yellow; border-radius: 8px; border: 1px solid red; }
 
-.tip0 .tip-content:before, .tip0 .tip-content:after, .tip0 .tip-content .before, .tip0 .tip-content .after { top: -13px; left: 13px; position: absolute; width: 0; height: 0; content: ''; border-style: solid; border-color: transparent; border-bottom: 10px solid red; border-left-width: 10px; border-right-width: 10px; }
+.tip0 .tool-tip-inner:before, .tip0 .tool-tip-inner:after, .tip0 .tool-tip-inner .before, .tip0 .tool-tip-inner .after { top: -13px; left: 13px; position: absolute; width: 0; height: 0; content: ''; border-style: solid; border-color: transparent; border-bottom: 10px solid red; border-left-width: 10px; border-right-width: 10px; }
 
-.tip0 .tip-content:after, .tip0 .tip-content .after { top: -12px; position: absolute; border-bottom-color: yellow; }
+.tip0 .tool-tip-inner:after, .tip0 .tool-tip-inner .after { top: -12px; position: absolute; border-bottom-color: yellow; }
 
 .tip1 { padding-right: 10px; }
 
-.tip1 .tip-content { position: relative; background: white; border-radius: 8px; border: 1px solid black; }
+.tip1 .tool-tip-inner { position: relative; padding: 5px; background: white; border-radius: 8px; border: 1px solid black; }
 
-.tip1 .tip-content:before, .tip1 .tip-content:after, .tip1 .tip-content .before, .tip1 .tip-content .after { top: 13px; right: -13px; position: absolute; width: 0; height: 0; content: ''; border-style: solid; border-color: transparent; border-left: 10px solid black; border-top-width: 10px; border-bottom-width: 10px; }
+.tip1 .tool-tip-inner:before, .tip1 .tool-tip-inner:after, .tip1 .tool-tip-inner .before, .tip1 .tool-tip-inner .after { top: 13px; right: -13px; position: absolute; width: 0; height: 0; content: ''; border-style: solid; border-color: transparent; border-left: 10px solid black; border-top-width: 10px; border-bottom-width: 10px; }
 
-.tip1 .tip-content:after, .tip1 .tip-content .after { right: -12px; position: absolute; border-left-color: white; }
+.tip1 .tool-tip-inner:after, .tip1 .tool-tip-inner .after { right: -12px; position: absolute; border-left-color: white; }
 
 .tip2 { padding-bottom: 10px; }
 
-.tip2 .tip-content { position: relative; background: white; border-radius: 8px; border: 1px solid black; }
+.tip2 .tool-tip-inner { position: relative; padding: 5px; background: white; border-radius: 8px; border: 1px solid black; }
 
-.tip2 .tip-content:before, .tip2 .tip-content:after, .tip2 .tip-content .before, .tip2 .tip-content .after { bottom: -13px; left: 13px; position: absolute; width: 0; height: 0; content: ''; border-style: solid; border-color: transparent; border-top: 10px solid black; border-left-width: 10px; border-right-width: 10px; }
+.tip2 .tool-tip-inner:before, .tip2 .tool-tip-inner:after, .tip2 .tool-tip-inner .before, .tip2 .tool-tip-inner .after { bottom: -13px; left: 13px; position: absolute; width: 0; height: 0; content: ''; border-style: solid; border-color: transparent; border-top: 10px solid black; border-left-width: 10px; border-right-width: 10px; }
 
-.tip2 .tip-content:after, .tip2 .tip-content .after { bottom: -12px; position: absolute; border-top-color: white; }
+.tip2 .tool-tip-inner:after, .tip2 .tool-tip-inner .after { bottom: -12px; position: absolute; border-top-color: white; }
 
 .tip3 { padding-left: 10px; }
 
-.tip3 .tip-content { position: relative; background: white; border-radius: 8px; border: 1px solid black; }
+.tip3 .tool-tip-inner { position: relative; padding: 5px; background: white; border-radius: 8px; border: 1px solid black; }
 
-.tip3 .tip-content:before, .tip3 .tip-content:after, .tip3 .tip-content .before, .tip3 .tip-content .after { top: 13px; left: -13px; position: absolute; width: 0; height: 0; content: ''; border-style: solid; border-color: transparent; border-right: 10px solid black; border-top-width: 10px; border-bottom-width: 10px; }
+.tip3 .tool-tip-inner:before, .tip3 .tool-tip-inner:after, .tip3 .tool-tip-inner .before, .tip3 .tool-tip-inner .after { top: 13px; left: -13px; position: absolute; width: 0; height: 0; content: ''; border-style: solid; border-color: transparent; border-right: 10px solid black; border-top-width: 10px; border-bottom-width: 10px; }
 
-.tip3 .tip-content:after, .tip3 .tip-content .after { left: -12px; position: absolute; border-right-color: white; }
+.tip3 .tool-tip-inner:after, .tip3 .tool-tip-inner .after { left: -12px; position: absolute; border-right-color: white; }

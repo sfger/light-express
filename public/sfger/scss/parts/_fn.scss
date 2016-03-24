@@ -280,7 +280,7 @@ $is_modern:0 !default; // 兼容低版本ie
 // 	border-top: 5px solid transparent
 // }
 
-@mixin tip-box($direction, $position, $arrSize, $bgColor:white, $borderColor:black){
+@mixin toolTip($direction, $position, $arrSize, $bgColor:white, $borderColor:black, $innerClass:'tool-tip-inner'){
 	$dirMap : ('top':'bottom', 'right':'left', 'bottom':'top', 'left':'right');
 	$od     : map-get($dirMap, $direction);// 反方向
 	$n      : 1;
@@ -288,8 +288,8 @@ $is_modern:0 !default; // 兼容低版本ie
 		$n:2;
 	}
 	padding-#{$direction}:nth($arrSize, $n);// padding使用相应宽/高的值，使可以hover到tip上显示
-	.tip-content{
-		position:relative;background:$bgColor;border-radius:8px;border:1px solid $borderColor;
+	.#{$innerClass}{
+		position:relative;padding:5px;background:$bgColor;border-radius:8px;border:1px solid $borderColor;
 		&:before,&:after,.before,.after{
 			@include absolute($position);@include size(0);content:'';
 			border-style:solid;border-color:transparent;
