@@ -92,40 +92,42 @@ gulp.task('del', function(cb){
 	});
 });
 gulp.task('css', ['del'], function(){
-	var dir  = project + '/css';
+	var dir  = project;
 	var dist = '*'===project ? '' : dir;
 	return gulp.src('public/'+dir+'/**/*.css')
 	.pipe(minifycss())
 	.pipe(gulp.dest('dist/'+dist));
 });
 gulp.task('js', ['del'], function(){
-	var dir  = project + '/js';
+	var dir  = project;
 	var dist = '*'===project ? '' : dir;
-	return gulp.src(['public/'+dir+'/**/*.js', '!./public/'+dir+'/**/*.@(entry).js', '!./public/**/parts/*.js'])
-	.pipe(uglify())
-	.pipe(gulp.dest('dist/'+dist));
-});
-gulp.task('tpl', ['del'], function(){
-	var dir  = project + '/tpl';
-	var dist = '*'===project ? '' : dir;
-	return gulp.src('public/'+dir+'/**/*')
+	return gulp.src([
+		'public/'+dir+'/**/*.js',
+		'!./public/'+dir+'/**/*.@(entry).js',
+		'!./public/**/parts/*.js'
+	]).pipe(uglify())
 	.pipe(gulp.dest('dist/'+dist));
 });
 gulp.task('html', ['del'], function(){
-	var dir  = project + '/html';
+	var dir  = project;
 	var dist = '*'===project ? dir='' : dir;
-	return gulp.src(['public/'+dir+'/**/*.html', 'public/'+dir+'**/*.ico'])
+	return gulp.src(['public/'+dir+'/**/*.html'])
 	.pipe(replace(/__version__/gi, timeString))
 	.pipe(gulp.dest('dist/'+dist));
 });
 gulp.task('img', ['del'], function(){
-	var dir  = project + '/img';
+	var dir  = project;
 	var dist = '*'===project ? '' : dir;
-	return gulp.src('public/'+dir+'/**/*')
-	.pipe(gulp.dest('dist/'+dist));
+	return gulp.src([
+		'public/'+dir+'/**/*.jpg',
+		'public/'+dir+'/**/*.ico',
+		'public/'+dir+'/**/*.gif',
+		'public/'+dir+'/**/*.png',
+		'public/favicon.ico'
+	]).pipe(gulp.dest('dist/'+dist));
 });
 gulp.task('sprite', ['del'], function(){
-	var dir  = project + '/sprite';
+	var dir  = project;
 	var dist = '*'===project ? '' : dir;
 	return gulp.src('public/'+dir+'/**/*')
 	.pipe(gulp.dest('dist/'+dist));
@@ -155,7 +157,7 @@ gulp.task('webpack', ['del'], function(cb){
 // 	return gulp.src('dist/'+project+'/**/*')
 // 	.pipe(gulp.dest('dist/list'));
 // });
-var task_list = ['css', 'img', 'tpl', 'webpack', 'js'];
+var task_list = ['css', 'img', 'webpack', 'js'];
 if('test'===parsed_args.server) task_list.push('html');
 gulp.task('default', task_list, function(){
 	// return Promise.resolve();

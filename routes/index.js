@@ -3,6 +3,11 @@ var libFs	= require('fs');
 var router  = express.Router();
 var path    = require('path');
 
+router.get(['/*.ejs', '/*.tpl', '/*.md', '/*.markdown', '/*.txt'], function(req, res, next){
+	var err = new Error('Not Found');
+	err.status = 404;
+	return next(err);
+});
 router.get(['/', '/*.html'], function(req, res, next){
 	var app      = req.app;
 	var url_path = req.path.slice(1, -5);

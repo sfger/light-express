@@ -30,9 +30,9 @@ app.use(express.UserConfig.staticHttpCombo);
 // app.locals.__version__ = '__version__';
 app.use(session({name:'_SSID_', keys:['skey1', 'skey2']}));
 
-Promise.resolve(new Promise(function(resolve, reject){
+new Promise(function(resolve, reject){
 	express.UserConfig.autoAddRoutes(app, path.join(__dirname, 'routes'), '/', {resolve:resolve, reject:reject});
-})).then(function(){
+}).then(function(){
 	app.use(express['static'](path.join(__dirname, express.UserConfig.staticDir), {index:'index.html'}));
 	app.use(function(req, res, next) {
 		var err = new Error('Not Found');
