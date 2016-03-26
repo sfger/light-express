@@ -1,13 +1,15 @@
-var fs            = require('fs');
-var exec          = require('child_process').exec;
-var path          = require('path');
-var sass          = require('node-sass');
-var postcss       = require('postcss');
-var staticDir     = '/public';
-var static_public = path.normalize(process.cwd() + '/' + staticDir);
-var config        = {
-	staticDir      : staticDir,
-	static_public  : static_public,
+var fs         = require('fs');
+var exec       = require('child_process').exec;
+var path       = require('path');
+var sass       = require('node-sass');
+var postcss    = require('postcss');
+var static_dir = path.normalize(process.cwd() + '/public');
+var view_dir   = static_dir;
+var route_dir  = path.normalize(process.cwd() + '/routes');
+var extension        = {
+	static_dir     : static_dir,
+	route_dir      : route_dir,
+	view_dir       : view_dir,
 	map_combo_file : {
 		'/sfger/js/case/seaShell/_test_.js' : 'data.js,data.js'
 	},
@@ -26,9 +28,9 @@ var config        = {
 	},
 
 	get_combo_file_list: function(file){
-		var files = config.map_combo_file[file].split(',');
+		var files = extension.map_combo_file[file].split(',');
 		return files.map(function(one){
-			return path.normalize(config.static_public + path.dirname(file) + '/' + one);
+			return path.normalize(extension.static_dir + path.dirname(file) + '/' + one);
 		});
 	},
 
@@ -43,7 +45,7 @@ var config        = {
 			item = item.value;
 			try{
 				item.pipe(writer, {end:false});
-				item.on('end', ()=>config.pipe_data(iterator, writer, next));
+				item.on('end', ()=>extension.pipe_data(iterator, writer, next));
 			}catch(e){
 				console.log(e);
 				return next();
@@ -53,8 +55,8 @@ var config        = {
 		}
 	},
 	pipe_stream_list_to_writer: function(list, writer, next){
-		var iterator = config.get_read_stream_iterator(list);
-		config.pipe_data(iterator, writer, next);
+		var iterator = extension.get_read_stream_iterator(list);
+		extension.pipe_data(iterator, writer, next);
 		return true;
 	},
 
@@ -62,8 +64,8 @@ var config        = {
 	 * 简单的http2.0 combo处理，未做304等状态处理，只供开发使用
 	 * */
 	staticHttpCombo: function(req, res, next){
-		if(req.path in config.map_combo_file){
-			config.pipe_stream_list_to_writer(config.get_combo_file_list(req.path), res, next());
+		if(req.path in extension.map_combo_file){
+			extension.pipe_stream_list_to_writer(extension.get_combo_file_list(req.path), res, next());
 			return false;
 		}
 		if(/\?\?/.test(req.originalUrl)){
@@ -88,17 +90,17 @@ var config        = {
 			var list = [];
 			file_list.forEach(function(one){
 				var file = req.path + one;
-				if(config.map_combo_file[file]){
-					list = list.concat(config.get_combo_file_list(file));
+				if(extension.map_combo_file[file]){
+					list = list.concat(extension.get_combo_file_list(file));
 				}else{
-					list.push(path.normalize(config.static_public + file));
+					list.push(path.normalize(extension.static_dir + file));
 				}
 			});
 			res.writeHead(200, {"Content-Type":types[type]});
 			if('js'===type){
-				config.pipe_stream_list_to_writer(list, res, next);
+				extension.pipe_stream_list_to_writer(list, res, next);
 			}else{
-				config.compile_list_to_writer(list, res, next);
+				extension.compile_list_to_writer(list, res, next);
 			}
 		}else{
 			next();
@@ -112,7 +114,7 @@ var config        = {
 			return new Promise(function(resolve, reject){
 				fs.stat(dirPath+'/'+file, function(err, stats){
 					if( stats.isDirectory() ){
-						config.autoAddRoutes(app, dirPath+'/'+file, routePath+file+'/', {resolve:resolve, reject:reject});
+						extension.autoAddRoutes(app, dirPath+'/'+file, routePath+file+'/', {resolve:resolve, reject:reject});
 					}else if( stats.isFile() ){
 						var list = file.split('.');
 						if(list.length==2 && list[1]==='js'){
@@ -133,10 +135,10 @@ var config        = {
 	},
 	dist: function(err, ret){
 		var req = this.req;
-		// console.log(config);
-		ret = config.minifyHTML(ret);
+		// console.log(extension);
+		ret = extension.minifyHTML(ret);
 		if(req.query.dist!=='0'){
-			config.writeStaticCache(this.distPath || req.route.path, ret);
+			extension.writeStaticCache(this.distPath || req.route.path, ret);
 		}
 		this.res.send(ret);
 	},
@@ -150,10 +152,10 @@ var config        = {
 		// console.log(url);
 		if(typeof url == 'object' && url.length) url = url[0];
 		var url_path = url.replace(/^\/|\/$/g, '');
-		// url_path = config.static_public + '/../html/' + (url_path || 'index') + '.html';
-		url_path = config.static_public + '/' + (url_path || 'index') + '.html';
+		// url_path = extension.static_dir + '/../html/' + (url_path || 'index') + '.html';
+		url_path = extension.static_dir + '/' + (url_path || 'index') + '.html';
 		url_path = path.normalize(url_path);
-		config.mkdirRecursive(path.dirname(url_path), 777, function(){
+		extension.mkdirRecursive(path.dirname(url_path), 777, function(){
 			fs.writeFile(url_path, ret, function(err){
 				if(err) throw err;
 				console.log('Dist ' + url_path + ' succeed!');
@@ -240,8 +242,8 @@ var config        = {
 				var css_dir   = path.normalize(path.dirname(css_path) + '/');
 				var scss_dir  = css_dir.replace(/([\\\/])css([\\\/])/, "$1scss$2");
 				var scss_path = scss_dir + path.basename(css_path, '.css') + '.scss';
-				config.mkdirRecursive(css_dir, 777, function(){
-					config.sass.node(scss_path, css_path, {resolve:resolve, reject:reject});
+				extension.mkdirRecursive(css_dir, 777, function(){
+					extension.sass.node(scss_path, css_path, {resolve:resolve, reject:reject});
 				});
 			});
 		})).then(function(css_ret){
@@ -251,11 +253,11 @@ var config        = {
 		});
 		return true;
 	},
-	compileSCSS: function(req, res, next){
+	CompileSCSS: function(req, res, next){
 		if(/.*\.css$/.test(req.path)){
-			var css_path = path.normalize(config.static_public + req.path);
+			var css_path = path.normalize(extension.static_dir + req.path);
 			res.writeHead(200, {"Content-Type":'text/css'});
-			config.compile_list_to_writer([css_path], res);
+			extension.compile_list_to_writer([css_path], res);
 		}else{
 			next();
 		}
@@ -274,7 +276,7 @@ var config        = {
 			list.forEach(function(one){
 				var s = fs.readFileSync(one, {encoding:'utf8', flag:'r'});
 				if(-1!==['tpl', 'ejs', 'html', 'htm'].indexOf(path.extname(one).slice(1))){
-					s = config.minify_code(s);
+					s = extension.minify_code(s);
 				}
 				data[path.basename(one)] = s;
 			});
@@ -291,16 +293,16 @@ var config        = {
 	 * 每次请求模块文件时，动态编译相应的模块文件
 	 * 具有合并多个模块文件为一个的功能
 	 * */
-	compileTemplate: function(req, res, next){
+	Compile2JS: function(req, res, next){
 		if(!/\/tpl\/.*\.js$/.test(req.path)) return next();
-		var out_file   = path.normalize(config.static_public + req.path);
+		var out_file   = path.normalize(extension.static_dir + req.path);
 		var out_path   = path.normalize(path.dirname(out_file) + '/');
 		var in_path    = path.normalize(out_path.replace(/([\\\/])tpl([\\\/])/, "$1htpl$2"));
 		var in_file    = in_path + path.basename(out_file, '.js');
 		var path_patch = in_file.split(/([\\\/])(htpl)([\\\/])/).slice(0, 4)
 		path_patch.push('map.json');
-		config.mkdirRecursive(out_path, 777, function(){
-			var map  = config.readJSONFile(path_patch.join(''));
+		extension.mkdirRecursive(out_path, 777, function(){
+			var map  = extension.readJSONFile(path_patch.join(''));
 			var list = [], stpl;
 			if(stpl = map[req.path.replace(/\.js$/,'').slice(1)]){ // 多模块合并
 				stpl.split(',').forEach(function(one){
@@ -309,9 +311,9 @@ var config        = {
 			}else{
 				list.push(in_file);
 			}
-			config.merge_tpl_list(list, out_file, next);
+			extension.merge_tpl_list(list, out_file, next);
 		});
 		return true;
 	}
 };
-module.exports = config;
+module.exports = extension;

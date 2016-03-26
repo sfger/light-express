@@ -1,5 +1,5 @@
 var express = require('express');
-var libFs	= require('fs');
+var fs      = require('fs');
 var router  = express.Router();
 var path    = require('path');
 
@@ -16,7 +16,7 @@ router.get(['/', '/*.html'], function(req, res, next){
 	var file     = path.join(app.get('views'), view) + '.ejs';
 
 	file = path.normalize(file);
-	libFs.exists(file, function(exists){
+	fs.exists(file, function(exists){
 		if(!exists) return next();
 		res.render(view, {
 			___         : '',
@@ -44,7 +44,7 @@ router.get(['/', '/*.html'], function(req, res, next){
 					return 'http://fpoimg.com/'+width+'x'+height+'?bg_color='+bg+'&text_color='+color+'&text=' + text;
 				}
 			}
-		}, express.UserConfig.dist.bind({req:req, res:res, distPath:url_path}));
+		}, req.app.Extension.dist.bind({req:req, res:res, distPath:url_path}));
 	});
 });
 

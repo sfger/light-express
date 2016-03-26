@@ -4,9 +4,9 @@ var app = require('../app');
 var fs = require('fs');
 
 var htts_server = require('https').createServer({
-	key:fs.readFileSync('./cert/key.pem'),
-	cert:fs.readFileSync('./cert/cert.pem')
-}, app).listen(443);
+	key  : fs.readFileSync('./cert/key.pem'),
+	cert : fs.readFileSync('./cert/cert.pem')
+}, app).listen(process.env.HTTPS_PORT||443);
 
 app.set('port', process.env.PORT||80);
 var server = app.listen(app.get('port'), function(){
