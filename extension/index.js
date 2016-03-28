@@ -243,7 +243,8 @@ var extension        = {
 				var scss_dir  = css_dir.replace(/([\\\/])css([\\\/])/, "$1scss$2");
 				var scss_path = scss_dir + path.basename(css_path, '.css') + '.scss';
 				extension.mkdirRecursive(css_dir, 777, function(){
-					extension.sass.node(scss_path, css_path, {resolve:resolve, reject:reject});
+					var defer = {resolve:resolve, reject:reject};
+					extension.sass.node(scss_path, css_path, defer);
 				});
 			});
 		})).then(function(css_ret){
