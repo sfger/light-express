@@ -3,4 +3,6 @@ npm-debug.log
 /dist/
 node_modules/
 .sass-cache/
-public/css/parts/
+
+/config/*.js
+!/config/test.js
