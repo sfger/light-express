@@ -1,34 +1,4 @@
-var servers = {
-	online:{
-		host: '192.168.1.1',
-		user: 'user',
-		pass: 'pwd',
-		remotePath: '/test/'
-	},
-	test:{
-		host: '192.168.1.2',
-		user: 'user',
-		pass: 'pwd',
-		remotePath: '/test/'
-	}
-}; 
-var argsOptions = [{
-	name      : 'dir', // 项目目录
-	shortName : 'd',
-	type      : '',
-	help      : 'Project directory name'
-},{
-	name         : 'help', // 帮助信息
-	shortName    : 'h',
-	type         : 'bool',
-	help         : 'Help info'
-},{
-	name         : 'server', // 目标服务器地址
-	shortName    : 's',
-	// defaultValue : 'online',
-	type         : '',
-	help         : 'Server info: ip user-name password remote-path'
-}];
+var argsOptions = require('./config/options');
 
 var args    = require('args');
 var options = args.Options.parse(argsOptions);
@@ -36,6 +6,7 @@ var options = args.Options.parse(argsOptions);
 var parsed_args;
 try{
 	parsed_args = args.parser(process.argv).parse(options);
+	if(parsed_args.help) throw new Error();
 }catch(e){
 	console.log(options.getHelp());
 	process.exit();
@@ -51,8 +22,10 @@ if(parsed_args.help){
 	console.log(options.getHelp());
 	process.exit();
 }
-
-if(!servers[parsed_args.server]){
+var server;
+try{
+	server = require('./config/'+parsed_args.server);
+}catch(e){
 	console.log('server does not exist!');
 	process.exit();
 }
@@ -162,7 +135,6 @@ if('test'===parsed_args.server) task_list.push('html');
 gulp.task('default', task_list, function(){
 	// return Promise.resolve();
 	if('*'===project) project = '';
-	var server = servers[parsed_args.server];
 	server.remotePath += project;
 	return gulp.src('dist/'+project+'/**/*')
 	.pipe(sftp(server));
