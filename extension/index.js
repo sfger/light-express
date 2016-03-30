@@ -135,6 +135,10 @@ var extension        = {
 	},
 	dist: function(err, ret){
 		var req = this.req;
+		if(err){
+			console.log(err);
+			return false;
+		}
 		// console.log(extension);
 		ret = extension.minifyHTML(ret);
 		if(req.query.dist!=='0'){
@@ -143,8 +147,7 @@ var extension        = {
 		this.res.send(ret);
 	},
 	minifyHTML: function(str){
-		// console.log(str);
-		str = str.replace(/(\/?>)\s+|\s+(?=<)/g, '$1')
+		str = (str||'').replace(/(\/?>)\s+|\s+(?=<)/g, '$1')
 		.replace(/\s*([\r\n]+)\s*/g, '$1');
 		return str;
 	},
