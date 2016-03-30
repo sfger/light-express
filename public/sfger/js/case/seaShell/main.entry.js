@@ -9,6 +9,9 @@ __non_webpack_require__.config({
 		// 'jquery-tabs':  {deps:["jquery"]}
 	}
 });
+// var aa = 1, bb = 2, cc = 3;
+// var {aa, ...zz} = {aa, bb, cc}
+// console.log(aa, zz);
 __non_webpack_require__([
 	'jquery'
 ], function($){

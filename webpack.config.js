@@ -29,7 +29,10 @@ module.exports = {
             {
                 exclude:/(node_modules|bower_components)/,
                 test:/\.js$/,
-                loader:'babel-loader'
+                loader:'babel-loader',
+				query:{
+					presets:['es2015', 'stage-0']
+				}
             },
             {test:/\.scss/, loader:'style-loader!css-loader!sass-loader'},
             {test:/\.css$/, loader:'style-loader!css-loader'},
