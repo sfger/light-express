@@ -1,6 +1,7 @@
+window.__version__ = document.getElementById("requirejs").getAttribute("data-version");
 require.config({
 	baseUrl : './',
-	urlArgs : "v=" + document.getElementById("requirejs").getAttribute("data-version"),
+	urlArgs : "v=" + __version__,
 	map     : {"*":{css:"public/require-css.js"}},
 	paths   : {
 		'jquery':'public/jquery'

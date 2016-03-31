@@ -6,7 +6,9 @@ define(function(require, exports, module){
 				new EJS({
 					text: data['index.tpl']
 				}).update(option.app.root, {
-					data:{}
+					data:{
+						__version__:__version__
+					}
 				});
 				option.next();
 			});
