@@ -1,5 +1,4 @@
 var argsOptions = require('./config/options');
-
 var args    = require('args');
 var options = args.Options.parse(argsOptions);
 
@@ -18,10 +17,6 @@ if(!project){
 	process.exit();
 }
 
-if(parsed_args.help){
-	console.log(options.getHelp());
-	process.exit();
-}
 var server;
 try{
 	server = require('./config/'+parsed_args.server);
@@ -65,44 +60,41 @@ gulp.task('del', function(cb){
 	});
 });
 gulp.task('css', ['del'], function(){
-	var dir  = project;
-	var dist = '*'===project ? '' : dir;
-	return gulp.src('public/'+dir+'/**/*.css')
+	var dist = '*'===project ? '' : project;
+	return gulp.src('public/'+project+'/**/*.css')
 	.pipe(minifycss())
 	.pipe(gulp.dest('dist/'+dist));
 });
 gulp.task('js', ['del'], function(){
-	var dir  = project;
-	var dist = '*'===project ? '' : dir;
+	var dist = '*'===project ? '' : project;
 	return gulp.src([
-		'public/'+dir+'/**/*.js',
-		'!./public/'+dir+'/**/*.@(entry).js',
+		'public/'+project+'/**/*.js',
+		'!./public/'+project+'/**/*.@(entry).js',
 		'!./public/**/parts/*.js'
 	]).pipe(uglify())
 	.pipe(gulp.dest('dist/'+dist));
 });
 gulp.task('html', ['del'], function(){
-	var dir  = project;
-	var dist = '*'===project ? dir='' : dir;
-	return gulp.src(['public/'+dir+'/**/*.html'])
+	var dist = '*'===project ? '' : project;
+	var src = ['public/'+project+'/**/*.html'];
+	if('*'===project) src.push('public/*.html');
+	return gulp.src(src)
 	.pipe(replace(/__version__/gi, timeString))
 	.pipe(gulp.dest('dist/'+dist));
 });
 gulp.task('img', ['del'], function(){
-	var dir  = project;
-	var dist = '*'===project ? '' : dir;
+	var dist = '*'===project ? '' : project;
 	return gulp.src([
-		'public/'+dir+'/**/*.jpg',
-		'public/'+dir+'/**/*.ico',
-		'public/'+dir+'/**/*.gif',
-		'public/'+dir+'/**/*.png',
+		'public/'+project+'/**/*.jpg',
+		'public/'+project+'/**/*.ico',
+		'public/'+project+'/**/*.gif',
+		'public/'+project+'/**/*.png',
 		'public/favicon.ico'
 	]).pipe(gulp.dest('dist/'+dist));
 });
 gulp.task('sprite', ['del'], function(){
-	var dir  = project;
-	var dist = '*'===project ? '' : dir;
-	return gulp.src('public/'+dir+'/**/*')
+	var dist = '*'===project ? '' : project;
+	return gulp.src('public/'+project+'/**/*')
 	.pipe(gulp.dest('dist/'+dist));
 });
 
