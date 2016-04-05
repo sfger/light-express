@@ -86,11 +86,12 @@ require([
 					'css!sfger/css/highlight.css'
 				], function($, markdown, hljs, article){
 					var md = new markdown().set({html:true, breaks:true});
-					article = md.render(article['test.markdown']);
+					article = md.render(article[article_index+'.markdown']);
 					new EJS({
-						text: '<div class="md-ctn"><%=data%></div>'
+						text: '<div><a href="#/index">首页</a> <a href="<%- home %>/index.html#/article/markdown">本文链接</a></div><div class="md-ctn"><%=data%></div><div><a href="#/index">首页</a> <a href="<%- home %>/index.html#/article/markdown">本文链接</a></div>'
 					}).update(app.root, {
-						data: article
+						data: article,
+						home: 'http://'+location.host + '/index.html'
 					});
 					$('pre code').each(function(i, block) {
 						hljs.highlightBlock(block);

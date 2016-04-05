@@ -1,5 +1,5 @@
 __non_webpack_require__.config({
-	baseUrl:'/sfger/js/',
+	baseUrl:'../../../js/',
 	urlArgs:"v=" + document.getElementById("requirejs").getAttribute("data-version"),
 	map:{"*":{css:"require-css"}},
 	paths:{},

@@ -3,7 +3,7 @@ define(function(require, exports, module){
 		create: function(option){
 			document.title = 'Article list';
 			new EJS({
-				text: '<a href="#/article/test">test</a>'
+				text: '<a href="#/article/markdown">test</a>'
 			}).update(option.app.root, {
 				data:{}
 			});
