@@ -6,13 +6,20 @@ var postcss    = require('postcss');
 var static_dir = path.normalize(process.cwd() + '/public');
 var view_dir   = static_dir;
 var route_dir  = path.normalize(process.cwd() + '/routes');
-var extension        = {
+var extension  = {
 	static_dir     : static_dir,
 	route_dir      : route_dir,
 	view_dir       : view_dir,
 	map_combo_file : {
 		'/sfger/js/case/seaShell/_test_.js' : 'data.js,data.js'
 	},
+	get_combo_file_list: function(file){
+		var files = extension.map_combo_file[file].split(',');
+		return files.map(function(one){
+			return path.normalize(extension.static_dir + path.dirname(file) + '/' + one);
+		});
+	},
+
 	readJSONFile: function(p){
 		var json = {};
 		try{
@@ -25,13 +32,6 @@ var extension        = {
 			console.log(e);
 		}
 		return json;
-	},
-
-	get_combo_file_list: function(file){
-		var files = extension.map_combo_file[file].split(',');
-		return files.map(function(one){
-			return path.normalize(extension.static_dir + path.dirname(file) + '/' + one);
-		});
 	},
 
 	get_read_stream_iterator: function*(list){
@@ -285,20 +285,49 @@ var extension        = {
 				data[path.basename(one)] = s;
 			});
 			fs.writeFile(out_file, "define("+JSON.stringify(data)+");", {mode:'777'}, function(){
-				return next();
+				return next&&next();
 			});
 		}catch(e){
 			console.log(e);
-			next();
+			next&&next();
 		}
 		return true;
+	},
+	CompileDir2JS: function(dir){
+		return new Promise(function(resolve, reject){
+			extension.dir_compile(dir, {resolve:resolve, reject:reject});
+		}).then(function(data){
+			data = Array.prototype.concat.apply([], data).filter(function(i){ return i;});
+			return Promise.resolve(data);
+		});
+	},
+	dir_compile: function(dir, defer){
+		fs.readdir(extension.static_dir + dir, function(err, files){
+			files.length && Promise.all(files.map(function(one){
+				return new Promise(function(resolve, reject){
+					var file_path = dir + one;
+					fs.stat(extension.static_dir+file_path, function(err, stats){
+						if(stats.isDirectory()){
+							extension.dir_compile(file_path+'/', {resolve:resolve, reject:reject});
+						}else{
+							if('.json'!==path.extname(file_path)){
+								var req = {path:path.normalize(file_path.replace(/([\\\/])htpl([\\\/])/, "$1tpl$2")+'.js').replace(/\\/g, '/')};
+								extension.Compile2JS(req, {});
+								resolve(path.normalize(extension.static_dir + file_path));
+							}
+							resolve(null);
+						}
+					});
+				});
+			})).then(defer.resolve);
+		});
 	},
 	/*
 	 * 每次请求模块文件时，动态编译相应的模块文件
 	 * 具有合并多个模块文件为一个的功能
 	 * */
 	Compile2JS: function(req, res, next){
-		if(!/\/tpl\/.*\.js$/.test(req.path)) return next();
+		if(!/\/tpl\/.*\.js$/.test(req.path)) return next&&next();
 		var out_file   = path.normalize(extension.static_dir + req.path);
 		var out_path   = path.normalize(path.dirname(out_file) + '/');
 		var in_path    = path.normalize(out_path.replace(/([\\\/])tpl([\\\/])/, "$1htpl$2"));
