@@ -7,8 +7,7 @@ html{
 	&,body{padding:0;margin:0;}
 	&.full-screen{
 		&,body{height:100%;overflow:hidden;}
-		background:#ade8aa;
-		background:linear-gradient(0deg, #3b9739, #ade8aa);
+		background:#ade8aa;background:linear-gradient(0deg, #3b9739, #ade8aa);
 		filter:progid:DXImageTransform.Microsoft.Gradient(gradientType=0,startColorStr=#ade8aa,endColorStr=#3b9739);
 		_background:#ade8aa;
 		#page,.home-page{height:100%;}
@@ -16,12 +15,12 @@ html{
 }
 
 @include keyframes(dropDown){
-	0%{margin-top:-90%;}
-	50%{margin-top:-78%;}
-	65%{margin-top:10%;}
-	80%{margin-top:-6%;}
-	95%{margin-top:3%;}
-	100%{margin-top:0;}
+	0%{transform:translateY(-490%);}
+	50%{transform:translateY(-248%);}
+	65%{transform:translateY(60%);}
+	80%{transform:translateY(-32%);}
+	95%{transform:translateY(18%);}
+	100%{transform:translateY(0);}
 }
 .navi-box{
 	width:505px;animation:dropDown 0.5s;
@@ -40,8 +39,8 @@ html{
 		}
 	}
 }
+.wrap{width:980px;margin:auto;}
 .article-page{
-	width:980px;margin:auto;
 	@media screen and (max-width:640px){width:auto;}
 	.md-ctn{
 		table{margin:8px 0;table-layout:fixed;border-collapse:collapse;border:1px black #666;}
@@ -50,4 +49,6 @@ html{
 		p{text-indent:32px;text-indent:2rem;}
 	}
 }
-.article-bar{padding:15px;background:#ade8aa;}
+.article-bar{padding:12px;background:#3b9739;
+	&,a{margin-right:4px;color:white;font:16px "Microsoft YaHei";}
+}
