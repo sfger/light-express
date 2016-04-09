@@ -1,7 +1,6 @@
-<link rel="stylesheet" id="css-base" type="text/css" href="./sfger/css/index.css?<%- __version__ %>" />
-<div class="imgc ctnc">
-	<div class="imge boxc">
-		<div class="contents">
+<div class="imgc home-page">
+	<div class="imge navi-box">
+		<div class="navi-links">
 			<h1>Share From Water</h1>
 			<a href="#/css">CSS&#187;</a>
 			<a href="#/ui">UI&#187;</a>

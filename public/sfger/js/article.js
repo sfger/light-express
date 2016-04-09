@@ -1,9 +1,10 @@
 define(function(require, exports, module){
 	var page = {
-		create: function(option){
+		create: function(){
+			var option = this.option;
 			document.title = 'Article list';
 			new EJS({
-				text: '<a href="#/article/markdown">test</a>'
+				text: '<a href="#/article/markdown">Markdown语法</a>'
 			}).update(option.app.root, {
 				data:{}
 			});

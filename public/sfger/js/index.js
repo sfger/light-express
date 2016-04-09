@@ -1,6 +1,8 @@
 define(function(require, exports, module){
-	var page = {
-		create: function(option){
+	module.exports = {
+		create: function(){
+			var option = this.option;
+			option.app.fullScreen();
 			document.title = 'Share From Water';
 			require(['sfger/tpl/index.tpl'], function(data){
 				new EJS({
@@ -14,7 +16,7 @@ define(function(require, exports, module){
 			});
 		},
 		destroy: function(){
+			this.option.app.exitFullScreen();
 		}
 	};
-	module.exports = page;
 });
