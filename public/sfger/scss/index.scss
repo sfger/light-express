@@ -13,7 +13,6 @@ html{
 		#page,.home-page{height:100%;}
 	}
 }
-
 @include keyframes(dropDown){
 	0%{transform:translateY(-490%);}
 	50%{transform:translateY(-248%);}
@@ -47,6 +46,8 @@ html{
 		th,td{padding:2px 4px;border:1px #666 solid;word-break:break-all;word-wrap:break-word;}
 		sub,sup{font-size:10px;}
 		p{text-indent:32px;text-indent:2rem;}
+		h1,h2,h3,h4,h5,h6,{line-height:normal;margin:6px 0;}
+		pre{margin:0;}
 	}
 }
 .article-bar{padding:12px;background:#3b9739;

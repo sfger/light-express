@@ -36,7 +36,6 @@ require([
 			next&&next();
 		},
 		init_router: function(){
-			var app = this;
 			app.router = Router({
 				'/404':{
 					before: app.fullScreen,
@@ -107,6 +106,7 @@ require([
 					'public/highlight',
 					'sfger/tpl/article/'+article_index+'.markdown'
 				], function($, markdown, hljs, article){
+					if(!article) return router.dispatch('on', '/404');
 					var md = new markdown().set({html:true, breaks:true});
 					article = md.render(article[article_index+'.markdown']);
 					new EJS({
@@ -119,6 +119,8 @@ require([
 						hljs.highlightBlock(block);
 					});
 					next();
+				}, function(){
+					router.dispatch('on', '/404');
 				});
 			});
 		}

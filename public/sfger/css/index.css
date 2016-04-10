@@ -112,6 +112,10 @@ html.full-screen #page, html.full-screen .home-page { height: 100%; }
 
 .article-page .md-ctn p { text-indent: 32px; text-indent: 2rem; }
 
+.article-page .md-ctn h1, .article-page .md-ctn h2, .article-page .md-ctn h3, .article-page .md-ctn h4, .article-page .md-ctn h5, .article-page .md-ctn h6 { line-height: normal; margin: 6px 0; }
+
+.article-page .md-ctn pre { margin: 0; }
+
 .article-bar { padding: 12px; background: #3b9739; }
 
 .article-bar, .article-bar a { margin-right: 4px; color: white; font: 16px "Microsoft YaHei"; }
