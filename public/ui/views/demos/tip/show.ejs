@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<title>Tip</title>
+<meta name="renderer" content="webkit">
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+<meta name="format-detection" content="telephone=no" />
+<meta name="author" content="" />
+<meta name="revisit-after" content="1 days" />
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<link rel="icon" href="../../../../favicon.ico" type="image/x-icon" />
+<link rel="shortcut icon" href="../../../../favicon.ico" type="image/x-icon" />
+<link rel="stylesheet" type="text/css" href="../../../css/tip.css?<%- __version__ %>" />
+<style type="text/css" media="all">
+</style>
+</head>
+<body>
+<div id="page">
+<% for(var i=0; i<4; i++){ %>
+<div class="tip tip<%-i%>">
+	<div class="tool-tip-inner">
+		aaaaaaaaaaaaaaaaaaaaaaaaaaaa<br />
+		<a href="">test</a>
+		<!--[if lt IE 8]><p class="before"></p><p class="after"></p><![endif]-->
+	</div>
+</div>
+<% } %>
+</div>
+</body>
+</html>

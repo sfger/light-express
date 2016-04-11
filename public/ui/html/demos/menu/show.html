@@ -1,0 +1,80 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8" /><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" /><title>Title</title><meta name="apple-mobile-web-app-capable" content="yes" /><meta name="apple-mobile-web-app-status-bar-style" content="black" /><meta name="format-detection" content="telephone=no" /><meta name="author" content="" /><meta name="revisit-after" content="1 days" /><meta name="keywords" content="" /><meta name="description" content="" /><link rel="icon" href="../../../../favicon.ico" type="image/x-icon" /><link rel="shortcut icon" href="../../../../favicon.ico" type="image/x-icon" /><link rel="stylesheet" type="text/css" href="../../../css/menu.css?__version__" /><style type="text/css" media="all">html{font-size:12px;}</style></head><body><div id="page"><h2>页面点击右键查看菜单</h2><div id="my_menu"></div></div><!-- #page end! --><script id="requirejs" data-version="__version__" src="../../../../public/js/require.js?__version__"></script><script>require.config({
+baseUrl:'../../../../',
+urlArgs:"v=" + document.getElementById("requirejs").getAttribute("data-version"),
+map:{"*":{css:"require-css"}},
+paths:{
+jquery:'public/js/jquery'
+},
+shim:{
+'ui/js/jquery-menu':['jquery']
+}
+});
+require(['ui/js/jquery-menu'],function(){
+try {
+document.execCommand('BackgroundImageCache', false, true);
+}catch(e){}
+var $myMenu = $('#my_menu');
+$('#my_menu').menu({
+width: 100,
+autoHide: false,
+data: [
+{name:'chart', icon:'chart', text:'流量'},
+{name:'takein', icon:'money', text:'收入'},
+{name:'user', icon:'user', disabled:true, text:'用户'},
+{name:'sub', text:'Sub', sub:{
+width: 200,
+data:[
+{name:'chart2', icon:'chart', text:'流量2222'},
+{name:'takein2', icon:'money', text:'收入2', sub:{
+data:[
+{name:'chart3', icon:'chart', text:'流量'},
+{name:'takein3', icon:'money', text:'收入'},
+{name:'user3', icon:'user', text:'用户3'},
+{name:'test3', text:'测试3', disabled:true},
+{'class':'separate'},
+{name:'exit3', text:'退出3'}
+]
+}},
+{name:'user2', icon:'user', text:'用户2'},
+{name:'test2', text:'测试2', sub:{
+width: 300,
+data: [
+{name:'chart3', icon:'chart', text:'流量333333333333333333333333333333333333'},
+{name:'takein3', icon:'money', text:'收入3'},
+{name:'user3', icon:'user', text:'用户3'},
+{name:'test3', text:'测试3', disabled:true},
+{'class':'separate'},
+{name:'exit3', text:'退出3'}
+]
+}},
+{'class':'separate'},
+{name:'exit', text:'退出2'}
+]
+}},
+{'class':'separate'},
+{name:'exit', text:'退出'}
+],
+onCreate: function(){
+this.addMenuItem({name:'aaa', icon:'user', text:'aaa'}, 'before', 'chart2');
+this.updateMenuItem('chart', {name:'teser', icon:'chart', text:'测试', disabled:true});
+//this.hideMenuItem('aaa');
+//this.showMenuItem('aaa');
+//this.deleteMenuItem('chart');
+},
+onShow: function(){
+//alert('show');
+},
+onHide: function(){
+//alert('hide');
+},
+onClick: function(item){
+alert(item.name);
+}
+});
+$(document).on({
+contextmenu: function(e){
+$myMenu.menu('open', e);
+return false;
+}
+});
+});</script></body></html>

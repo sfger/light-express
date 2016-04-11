@@ -11,7 +11,7 @@ var extension  = {
 	route_dir      : route_dir,
 	view_dir       : view_dir,
 	map_combo_file : {
-		'/sfger/js/case/seaShell/_test_.js' : 'data.js,data.js'
+		'/ui/js/case/seaShell/_test_.js' : 'data.js,data.js'
 	},
 	get_combo_file_list: function(file){
 		var files = extension.map_combo_file[file].split(',');
@@ -200,7 +200,7 @@ var extension  = {
 		node: function(in_file, out_file, defer){
 			sass.render({
 				// data      : 'body{background:blue; a{color:black;}}',
-				includePaths : [path.normalize(process.cwd()+'/public/sfger/scss')],
+				includePaths : [path.normalize(process.cwd()+'/public/public/scss')],
 				linefeed     : 'lf',
 				file         : in_file,
 				indentWidth  : 1,

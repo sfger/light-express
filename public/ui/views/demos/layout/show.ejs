@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<title>Title</title>
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+<meta name="format-detection" content="telephone=no" />
+<meta name="author" content="" />
+<meta name="revisit-after" content="1 days" />
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<link rel="icon" href="../../../../favicon.ico" type="image/x-icon" />
+<link rel="shortcut icon" href="../../../../favicon.ico" type="image/x-icon" />
+<link rel="stylesheet" type="text/css" href="../../../css/layout.css?<%- __version__ %>" />
+<style type="text/css" media="all">
+*{font-size:12px;}
+html,body{height:100%;overflow:hidden;}
+</style>
+</head>
+<body>
+<div id="page" class="sss">
+	<div class="layout-north imgc">
+		<span class="imge">north</span>
+		<!--[if lt IE 8]><p class="iecp"></p><![endif]-->
+	</div>
+	<div class="resize-bar bar-north"><span></span></div>
+	<div class="layout-middle-container cf">
+		<div class="layout-west">west</div>
+		<div class="resize-bar bar-west imgc">
+			<a href="javascript:" class="imge"></a>
+			<!--[if lt IE 8]><p class="iecp"></p><![endif]-->
+		</div>
+		<div class="layout-east">east</div>
+		<div class="resize-bar bar-east imgc">
+			<a href="javascript:" class="imge"></a>
+			<!--[if lt IE 8]><p class="iecp"></p><![endif]-->
+		</div>
+		<div class="layout-center">
+<div id="page2" class="sss">
+	<div class="layout-north imgc">
+		<span class="imge">north</span>
+		<!--[if lt IE 8]><p class="iecp"></p><![endif]-->
+	</div>
+	<div class="resize-bar bar-north"><span></span></div>
+	<div class="layout-middle-container cf">
+		<div class="layout-west">west</div>
+		<div class="resize-bar bar-west imgc">
+			<a href="javascript:" class="imge"></a>
+			<!--[if lt IE 8]><p class="iecp"></p><![endif]-->
+		</div>
+		<div class="layout-east">east</div>
+		<div class="resize-bar bar-east imgc">
+			<a href="javascript:" class="imge"></a>
+			<!--[if lt IE 8]><p class="iecp"></p><![endif]-->
+		</div>
+		<div class="layout-center">
+			center<br /> center<br /> center<br /> center<br /> center<br /> center<br /> center<br />
+			center<br /> center<br /> center<br /> center<br /> center<br /> center<br /> center<br />
+			center<br /> center<br /> center<br /> center<br /> center<br /> center<br /> center<br />
+			center<br /> center<br /> center<br /> center<br /> center<br /> center<br /> center<br />
+			center<br /> center<br /> center<br /> center<br /> center<br /> center<br /> center<br />
+			center<br /> center<br /> center<br /> center<br /> center<br /> center<br /> center<br />
+			center<br /> center<br /> center<br /> center<br /> center<br /> center<br /> center<br />
+			center<br /> center<br /> center<br /> center<br /> center<br /> center<br /> center<br />
+			center<br /> center<br /> center<br /> center<br /> center<br /> center<br /> center<br />
+			center<br /> center<br /> center<br /> center<br /> center<br /> center<br /> center<br />
+			center<br /> center<br /> center<br /> center<br /> center<br /> center<br /> center<br />
+			center<br /> center<br /> center<br /> center<br /> center<br /> center<br /> center<br />
+			center<br /> center<br /> center<br /> center<br /> center<br /> center<br /> center<br />
+			center<br /> center<br /> center<br /> center<br /> center<br /> center<br /> center<br />
+			center<br /> center<br /> center<br /> center<br /> center<br /> center<br /> center<br />
+			center<br /> center<br /> center<br /> center<br /> center<br /> center<br /> center<br />
+		</div>
+	</div>
+	<div class="resize-bar bar-south"><span></span></div>
+	<div class="layout-south imgc">
+		<span class="imge">south</span>
+		<!--[if lt IE 8]><p class="iecp"></p><![endif]-->
+	</div>
+</div>
+		</div>
+	</div>
+	<div class="resize-bar bar-south"><span></span></div>
+	<div class="layout-south imgc">
+		<span class="imge">south</span>
+		<!--[if lt IE 8]><p class="iecp"></p><![endif]-->
+	</div>
+</div>
+<script id="requirejs" data-version="<%- __version__ %>" src="../../../../public/js/require.js?<%- __version__ %>"></script>
+<script>
+require.config({
+	baseUrl:'../../../../',
+	urlArgs:document.getElementById("requirejs").getAttribute("data-version"),
+	map:{"*":{css:"require-css"}},
+	paths:{
+		jquery:'public/js/jquery'
+	},
+	shim:{
+		'ui/js/jquery-layout':['jquery']
+	}
+});
+require(['ui/js/jquery-layout'],function(){
+$('.sss').layout({
+	panel:{
+		toggle:true,
+		resize:true,
+		each  :{
+			north:{toggle:true, resize:true},
+			south:{toggle:true, resize:true},
+			west :{toggle:true, resize:true},
+			east :{toggle:true, resize:true}
+		}
+	}/*,
+	panelBar:{
+		size:4,
+		each:{
+			north:{height:2},
+			south:{height:2},
+			west :{width :8}
+		}
+	}*/
+});
+});
+</script>
+</body>
+</html>

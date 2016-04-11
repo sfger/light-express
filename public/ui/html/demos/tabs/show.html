@@ -1,0 +1,37 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8" /><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" /><title>Title</title><meta name="apple-mobile-web-app-capable" content="yes" /><meta name="apple-mobile-web-app-status-bar-style" content="black" /><meta name="format-detection" content="telephone=no" /><meta name="author" content="" /><meta name="revisit-after" content="1 days" /><meta name="keywords" content="" /><meta name="description" content="" /><link rel="icon" href="../../../../favicon.ico" type="image/x-icon" /><link rel="shortcut icon" href="../../../../favicon.ico" type="image/x-icon" /><link rel="stylesheet" type="text/css" href="../../../css/tabs.css?__version__" /><style type="text/css" media="all">.icon-chart{background:url("../../../img/chart.png") no-repeat;}
+.icon-user{background:url("../../../img/user.png") no-repeat;}
+.icon-money{background:url("../../../img/money.png") no-repeat;}
+#page{height:300px;/*overflow:auto;*/}
+.tab-ctn{border:1px solid #ccc;}
+.closer{font-family:SimSun;}</style></head><body><div id="page"><div class="tab-ctn"><ul class="tab-header"><li><a href="javascript:"><!--[if lt IE 8]><p class="iecp"></p><![endif]--><span class="icon icon-money"></span><span class="title">tab0</span><span class="closer">&times;</span></a></li><li><a href="javascript:"><!--[if lt IE 8]><p class="iecp"></p><![endif]--><span class="icon icon-chart"></span><span class="title">tab1</span><span class="closer">&times;</span></a></li><li><a href="javascript:"><!--[if lt IE 8]><p class="iecp"></p><![endif]--><span class="icon icon-user"></span><span class="title">tab2</span><span class="closer">&times;</span></a></li></ul><div class="tab-panel"><div class="itab">content0<br />content0<br />content0<br />content0<br />content0<br />content0<br />content0<br />content0<br />content0<br />content0<br />content0<br />content0<br />content0<br />content0<br />content0<br />content0<br />content0<br />content0<br />content0<br />content0<br />content0<br />content0<br />content0<br />content0<br />content0<br />content0<br />content0<br />content0<br />content0<br />content0<br />content0<br />content0<br />content0<br />content0<br />content0<br />content0<br /></div><div class="itab">content1<br />content1<br />content1<br />content1<br />content1<br />content1<br /></div><div class="itab">content2<br />content2<br />content2<br />content2<br />content2<br /></div></div></div></div><!-- #page end! --><script id="requirejs" data-version="__version__" src="../../../../public/js/require.js?__version__"></script><script>require.config({
+baseUrl:'../../../../',
+urlArgs:"v=" + document.getElementById("requirejs").getAttribute("data-version"),
+map:{"*":{css:"require-css"}},
+paths:{
+'jquery':'public/js/jquery'
+},
+shim:{
+'ui/js/jquery-tabs':['jquery', 'ui/js/base', 'ui/js/ecmaShim']
+}
+});
+require(['jquery', 'ui/js/jquery-tabs'], function($){
+$('.tab-ctn').tabs({
+height:60,
+tabWidth:150,
+contentFit:true,
+border:true,
+selected:1,
+/* onSelect:function(el, i){ */
+/* 	console.log(el, i); */
+/* }, */
+position:'north'
+}).tabs('add', {
+title:'new Add',
+content:'new Add<br />test',
+closable:true,
+icon:'money',
+select:true
+}, 2);
+$('.tab-ctn').tabs('select', 1);
+$('.tab-ctn').tabs('remove', 2);
+});</script></body></html>
