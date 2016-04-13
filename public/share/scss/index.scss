@@ -3,7 +3,7 @@
 @import 'parts/layout';
 @import 'highlight';
 html{
-	font:normal 16px/normal "Helvetica Neue",Helvetica,Arial,"Hiragino Sans GB",sans-serif;
+	font:normal 12px/normal "Helvetica Neue",Helvetica,Arial,"Hiragino Sans GB",sans-serif;
 	&,body{padding:0;margin:0;}
 	&.full-screen{
 		&,body{height:100%;overflow:hidden;}
@@ -38,7 +38,10 @@ html{
 		}
 	}
 }
-.wrap{width:980px;margin:auto;}
+.wrap{
+	width:980px;margin:auto;
+	@media screen and (max-width:640px){width:auto;}
+}
 .article-page{
 	@media screen and (max-width:640px){width:auto;}
 	.md-ctn{
@@ -47,9 +50,15 @@ html{
 		sub,sup{font-size:10px;}
 		p{text-indent:32px;text-indent:2rem;}
 		h1,h2,h3,h4,h5,h6,{line-height:normal;margin:6px 0;}
+		h1{font-size:16px;}
+		h2{font-size:15px;}
+		h3{font-size:14px;}
+		h4{font-size:13px;}
+		h5{font-size:12px;}
+		h6{font-size:11px;}
 		pre{margin:0;}
 	}
 }
 .article-bar{padding:12px;background:#3b9739;
-	&,a{margin-right:4px;color:white;font:16px "Microsoft YaHei";}
+	&,a{margin-right:4px;color:white;font:12px "Microsoft YaHei";}
 }

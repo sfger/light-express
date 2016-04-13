@@ -35,7 +35,7 @@
 
 .coffeescript .javascript, .javascript .xml, .lasso .markup, .tex .hljs-formula, .xml .javascript, .xml .vbscript, .xml .css, .xml .hljs-cdata { opacity: 0.5; }
 
-html { font: normal 16px/normal "Helvetica Neue",Helvetica,Arial,"Hiragino Sans GB",sans-serif; }
+html { font: normal 12px/normal "Helvetica Neue",Helvetica,Arial,"Hiragino Sans GB",sans-serif; }
 
 html, html body { padding: 0; margin: 0; }
 
@@ -102,6 +102,8 @@ html.full-screen #page, html.full-screen .home-page { height: 100%; }
 
 .wrap { width: 980px; margin: auto; }
 
+@media screen and (max-width: 640px) { .wrap { width: auto; } }
+
 @media screen and (max-width: 640px) { .article-page { width: auto; } }
 
 .article-page .md-ctn table { margin: 8px 0; table-layout: fixed; border-collapse: collapse; border: 1px black #666; }
@@ -114,8 +116,20 @@ html.full-screen #page, html.full-screen .home-page { height: 100%; }
 
 .article-page .md-ctn h1, .article-page .md-ctn h2, .article-page .md-ctn h3, .article-page .md-ctn h4, .article-page .md-ctn h5, .article-page .md-ctn h6 { line-height: normal; margin: 6px 0; }
 
+.article-page .md-ctn h1 { font-size: 16px; }
+
+.article-page .md-ctn h2 { font-size: 15px; }
+
+.article-page .md-ctn h3 { font-size: 14px; }
+
+.article-page .md-ctn h4 { font-size: 13px; }
+
+.article-page .md-ctn h5 { font-size: 12px; }
+
+.article-page .md-ctn h6 { font-size: 11px; }
+
 .article-page .md-ctn pre { margin: 0; }
 
 .article-bar { padding: 12px; background: #3b9739; }
 
-.article-bar, .article-bar a { margin-right: 4px; color: white; font: 16px "Microsoft YaHei"; }
+.article-bar, .article-bar a { margin-right: 4px; color: white; font: 12px "Microsoft YaHei"; }
