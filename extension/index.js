@@ -96,8 +96,8 @@ var extension  = {
 					list.push(path.normalize(extension.static_dir + file));
 				}
 			});
-			res.writeHead(200, {"Content-Type":types[type]});
 			if('js'===type){
+				res.writeHead(200, {"Content-Type":types[type]});
 				extension.pipe_stream_list_to_writer(list, res, next);
 			}else{
 				extension.compile_list_to_writer(list, res, next);
@@ -197,7 +197,7 @@ var extension  = {
 				return next();
 			});
 		},
-		node: function(in_file, out_file, defer){
+		node: function(in_file, out_file, defer, next){
 			sass.render({
 				// data      : 'body{background:blue; a{color:black;}}',
 				includePaths : [path.normalize(process.cwd()+'/public/public/scss')],
@@ -213,6 +213,8 @@ var extension  = {
 					console.log(error.column);
 					console.log(error.message);
 					console.log(error.line);
+					console.log(next);
+					return next&&next();
 				}else{
 					postcss([
 						// require('postcss-sprites')({
@@ -247,10 +249,11 @@ var extension  = {
 				var scss_path = scss_dir + path.basename(css_path, '.css') + '.scss';
 				extension.mkdirRecursive(css_dir, 777, function(){
 					var defer = {resolve:resolve, reject:reject};
-					extension.sass.node(scss_path, css_path, defer);
+					extension.sass.node(scss_path, css_path, defer, next);
 				});
 			});
 		})).then(function(css_ret){
+			res.writeHead(200, {"Content-Type":'text/css'});
 			res.end(css_ret.join("\n"));
 		})['catch'](function(e){
 			console.log(e);
@@ -260,8 +263,7 @@ var extension  = {
 	CompileSCSS: function(req, res, next){
 		if(/.*\.css$/.test(req.path)){
 			var css_path = path.normalize(extension.static_dir + req.path);
-			res.writeHead(200, {"Content-Type":'text/css'});
-			extension.compile_list_to_writer([css_path], res);
+			extension.compile_list_to_writer([css_path], res, next);
 		}else{
 			next();
 		}

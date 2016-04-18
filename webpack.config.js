@@ -1,13 +1,13 @@
 var path = require('path');
 var glob = require('glob');
-var entrysArray = glob.sync("*/js/**/*.@(entry).js", {
+var entrysArray = glob.sync("*/js/**/*.@(entry).js?(x)", {
 	cwd:'./public/',
 	nobrace:true
 });
 // console.log(entrysArray);
 var entryMap = {};
 entrysArray.forEach((one, i)=>{
-	entryMap[one.replace(/\.entry\.js$/, '')] = './' + one;
+	entryMap[one.replace(/\.entry\.jsx?$/, '')] = './' + one;
 });
 // console.log(entryMap);
 
@@ -34,6 +34,10 @@ module.exports = {
 					presets:['es2015', 'stage-0']
 				}
             },
+			{
+				test: /\.jsx$/,
+				loader: 'babel-loader!jsx-loader?harmony'
+			},
             {test:/\.scss/, loader:'style-loader!css-loader!sass-loader'},
             {test:/\.css$/, loader:'style-loader!css-loader'},
             {test:/\.(png|jpg)$/, loader:'url-loader?limit=8192'}
