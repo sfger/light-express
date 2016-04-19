@@ -37,9 +37,10 @@ require.config({
 		jquery:'public/js/jquery'
 	},
 	shim:{
+		'ui/js/jquery-datagrid': ['jquery']
 	}
 });
-require(['jquery', 'ui/js/ecmaShim', 'ui/js/base', 'ui/js/jquery-datagrid', 'ui/js/pagination'],function(){
+require(['jquery', 'ui/js/ecmaShim', 'ui/js/base', 'ui/js/jquery-datagrid', 'ui/js/pagination'],function($){
 var data = [];
 for(var row=0; row<45; row++){
     data[row] = {};

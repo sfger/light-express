@@ -5,7 +5,7 @@
 
 .cf:after { clear: both; overflow: hidden; }
 
-.imgc:before, .imgc .iecp, .imgc img, audio, canvas, video, .pagination-ctn .pc, .pagination-ctn a, .pagination-ctn .form, .pagination-ctn .desc, .pagination-ctn .form span, .pagination-ctn .form input, .pagination-ctn .form .go { display: inline-block; *display: inline; *zoom: 1; vertical-align: middle; }
+.imgc:before, .imgc .iecp, .imgc img, audio, canvas, video, .ib-row:before, .ib-row .iecp, .pagination-ctn .pc, .pagination-ctn a, .pagination-ctn .form, .pagination-ctn .desc, .pagination-ctn .form span, .pagination-ctn .form input, .pagination-ctn .form .go { display: inline-block; *display: inline; *zoom: 1; vertical-align: middle; }
 
 .imge { display: inline-block; *display: inline; *zoom: 1; vertical-align: middle; font-size: 12px; font-size: 1rem; line-height: normal; }
 
@@ -30,6 +30,20 @@ fieldset, img { border: none; }
 :focus { outline: none; }
 
 article, aside, details, figcaption, figure, footer, header, hgroup, main, nav, section, summary { display: block; }
+
+.ib-row { font-size: 0; }
+
+.ib-row:before, .ib-row .iecp { content: ""; height: 100%; font-size: 0; line-height: 0; width: 0; }
+
+.ib-col, .ib-col-full { display: inline-block; *display: inline; *zoom: 1; vertical-align: middle; font-size: 12px; font-size: 1rem; line-height: normal; }
+
+.ib-col-full { width: 100%; }
+
+.ib-top { vertical-align: top; }
+
+.ib-middle { vertical-align: middle; }
+
+.ib-bottom { vertical-align: bottom; }
 
 .pagination-ctn { padding: 1px; text-align: center; }
 

@@ -213,7 +213,7 @@ var extension  = {
 					console.log(error.column);
 					console.log(error.message);
 					console.log(error.line);
-					console.log(next);
+					// console.log(next);
 					return next&&next();
 				}else{
 					postcss([

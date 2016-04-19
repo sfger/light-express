@@ -62,7 +62,7 @@ $is_modern:0 !default; // 兼容低版本ie
 
 // 通用居中样式
 // 使用见_layout.scss
-@mixin imge($vertical-align){
+@mixin imge($vertical-align:middle){
 	@include inline-block($vertical-align);font-size:12px;font-size:1rem;line-height:normal;
 }
 @mixin imgc($is_image:1, $selecor:img, $align:center){
