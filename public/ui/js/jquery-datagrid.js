@@ -19,11 +19,51 @@ $.fn.datagrid = function(options){
 		data:[]
 	}, options);
 	var handler       = function(box, options){ return new handler.prototype.init(box, options); };
-	var markChars     = light.ui.markChars;
-	var push          = light.util.push;
-	var toString      = light.util.toString;
-	var getType       = light.util.getType;
-	var createElement = light.util.createElement;
+	var markChars     = {up: '↑', down : '↓', empty:'&nbsp;'};
+	var push          = Array.prototype.push;
+	var toString      = Object.prototype.toString;
+	var getType = function(obj){ return toString.call(obj).slice(8, -1); };
+	var createElement = function(node){
+		var cd = '',
+			at=[],
+			attr = null,
+			children = null,
+			fn = createElement,
+			node_type = getType(node);
+		if(node_type === 'Array'){
+			for(var j in node) cd += fn(node[j]);
+		}else{
+			if(node_type==="String" || node_type=="Number"){
+				cd = node;
+			}else if(node_type==='Object' && node.name){
+				attr = node.attr, children = node.children, at = [];
+				if(attr){
+					for(var key in attr){
+						if(key=='className'){
+							at.push('class="' + attr[key] + '"');
+							continue;
+						}else if(key=='style'){
+							var style = attr[key];
+							var ot = getType(style);
+							attr[key] = '';
+							if(ot=='Object'){
+								for(var sk in style){
+									attr[key] += sk + ':' + style[sk] + ';';
+								}
+							}else if(ot=='String'){
+								attr[key] = style;
+							}
+						}
+						at.push('' + key + '="' + attr[key] + '"');
+					}
+				}
+				if(at.length) at.unshift('');
+				if(children && getType(children) !== 'Array') children = [children];
+				cd = '<' + node.name + at.join(' ') + '>' + (children ? fn(children) : '') + '</' + node.name + '>';
+			} else cd = '';
+		}
+		return cd;
+	};
 	// fn get_table{{{
 	var get_table = function(options, that){
 		var get_head_rows = function(rows, isFrozen){
@@ -31,9 +71,9 @@ $.fn.datagrid = function(options){
 			var l = 0;
 			var colsType = isFrozen ? 'frozenColumns' : 'columns';
 			if(!rows) return ret;
-			var ii = rows.length - 1;
+			var il = rows.length - 1;
 			var fieldElements = [];
-			for(var i=ii; i>=0; i--){
+			for(var i=il; i>=0; i--){
 				ret.unshift(createElement({name:'tr', children:(function(){
 					var nodes = [];
 					for(var j=rows[i].length-1; j>=0; j--){
@@ -44,15 +84,18 @@ $.fn.datagrid = function(options){
 						if(option.rowspan) td_attr.rowspan = option.rowspan;
 						if(option.colspan) td_attr.colspan = option.colspan;
 						var colspan = option.colspan || 1;
-						var isField = colspan==1&&(i==ii||rows.length==(i+(option.rowspan||1)));
+						var isField = colspan==1&&(i==il||rows.length==(i+(option.rowspan||1)));
 						if(isField){
 							that[colsType].unshift(option);
 							td_attr.className = 'field';
 						}
 						nodes.unshift(createElement({
 							name:'td', attr:td_attr, children:{
-								name:'div', attr:{className:'cell', style:{width:width}}, children:
-									[markChars.empty, title, {name:'span', attr:{className:'sort-mark'}, children:markChars.empty}]
+								name:'div', attr:{className:'cell', style:{width:width}}, children: [
+									markChars.empty,
+									{name:'span', attr:{className:'field-title', "data-field":option.field}, children:title},
+									{name:'span', attr:{className:'sort-mark'}}, markChars.empty
+								]
 							}
 						}));
 					}
@@ -92,7 +135,7 @@ $.fn.datagrid = function(options){
 										className:'cell',
 										style:{width:options.autoColWidth ? 'auto' : ((option.width||options.colWidth) + 'px')}
 									}, children:
-										 getType(formatter)==='Function' ? formatter(val, row, field) : val
+										 $.type(formatter)==='function' ? formatter(val, row, field) : val
 								}
 							}));
 						});
@@ -161,6 +204,7 @@ $.fn.datagrid = function(options){
 			var field = fieldElements[i];
 			var t1  = getHW(this, type),
 				t2  = getHW(field, type);
+			if(t1===t2) return;
 			var t = t1<t2 ? t2 : t1;
 			$([this, field])[type](t+5);
 		});
@@ -193,31 +237,45 @@ $.fn.datagrid = function(options){
 	};
 	//}}}
 	var defaultSortFn = function(a, b){
-		var c, field = this.field;
-		a = a[field], b = b[field];
-		if(!this.order) c = a, a = b, b = c;
-		return a==b ? 0 : (b>a ? 1 : -1);
+		var field = this.field;
+		var m = this.order ? -1 : 1;
+		if(a[field]==b[field]) return 0;
+		return m*(a[field]>b[field] ? 1 : -1);
 	};
 	handler.prototype = {
-		defaultOrder:false, //true:desc, false:asc
+		defaultOrder: false, //true:desc, false:asc
 		init: function(box, options){
 			var $box = $(box);
-			$box.addClass('datagrid-container cf');
+			$box.addClass('datagrid-ctn cf');
 
 			var that           = this;
+			this.render        = box;
+			// if(options.pagination && options.localData){
+			// 	box.innerHTML = '<div class="datagrid-pagination"></div>';
+			// 	var $pbox = $('.datagrid-pagination', box)
+			// 	var pbox = $pbox.get(0);
+			// 	options.pagination.renders = [pbox];
+			// 	options.pagination.dataSize = options.localData.length;
+			// 	(options.pagination);
+			// 	var po = pbox.ui.iPagination.userOptions;
+			// 	options.data = options.localData.slice((po.pageNumber-1)*po.pageSize, po.pageNumber*po.pageSize);
+			// }
+			this.updateData(options);
+			// this.updateData(options);
+			this.init_event();
+			this.fix_size();
+
+			options.onCreate.bind(this)();
+		},
+		updateData: function(options){
+			var that    = this;
+			var box     = this.render;
+			var $box    = $(box);
+			$box.empty();
+			options = $.extend(true, {}, this.userOptions, options);
 			this.columns       = [];
 			this.frozenColumns = [];
 			this.userOptions   = options;
-			this.render        = box;
-			if(options.pagination && options.localData){
-				box.innerHTML = '<div class="datagrid-pagination"></div>';
-				var pbox = $('.datagrid-pagination', box).get(0);
-				options.pagination.renders = [pbox];
-				options.pagination.dataSize = options.localData.length;
-				pagination(options.pagination);
-				var po = pbox.ui.iPagination.userOptions;
-				options.data = options.localData.slice((po.pageNumber-1)*po.pageSize, po.pageNumber*po.pageSize);
-			}
 			$(get_table(options, that)).prependTo(box);
 			this.fieldElements = $('.field .cell', box);
 			adjust_table($('table', box), that);
@@ -240,47 +298,44 @@ $.fn.datagrid = function(options){
 			push.apply(allColumns, this.columns);
 			this.allColumns = allColumns;
 			this.dataTbodys = $('.body tbody', box);
-			if(!(options.data[0].tr && options.data[0].frozenTr)){
+			// if(!(options.data[0].tr && options.data[0].frozenTr)|| isReplaceRow){
 				options.data.forEach(function(rowData, rowNum){
 					if(options.frozenColumns.length)
 						rowData.frozenTr = that.dataTbodys[0].rows[rowNum];
 					rowData.tr = that.dataTbodys[1].rows[rowNum];
 				});
-			}
+			// }
 			if(options.remoteSort || options.sort){
 				if(options.remoteSort){
 					var fieldIndex = (function(){
-						for(var i in that.allColumns){
+						for(var i=0,il=that.allColumns.length; i<il; i++){
 							if(options.sort.field===that.allColumns[i].field){
-								return i + 1;
+								return (Number(i)||0) + 1;
 							}
 						}
 					})();
-					$('.sort-mark', this.fieldElements[fieldIndex]).html(light.ui.markChars[options.sort.order=='desc'? 'down' : 'up']);
+					$('.sort-mark', this.fieldElements[fieldIndex]).addClass(options.sort.order=='desc'?'desc':'asc');
 				}else{
-					this.sortBy(options.sort.field, options.sort.order==='desc');
+					this.sortBy(options.sort.field, options.sort.order);
 				}
 			}
-			this.init_event();
-
+			this.fix_size();
+		},
+		fix_size: function(){
+			var that = this;
 			that.resize(); //修改样式
 			setTimeout(function(){ that.resize(); }, 0); // 再次计算样式，消除滚动条的影响
-
-			options.onCreate.bind(this)();
+		},
+		resize: function(){
+			var dataViews = $('.view', this.render);
+			var tables = $('table', dataViews);
+			tables.eq(1).parent().css({height:tables.get(3).parentNode.clientHeight});
+			dataViews.eq(1).css({width: this.render.clientWidth - 1 - dataViews.get(0).offsetWidth});
 		},
 		init_event: function(){
 			var that    = this;
 			var options = this.userOptions;
 			var $box    = $(this.render);
-			$box.on({
-				click: function(e){
-					var fieldIndex = that.fieldElements.index(this.children[0]) - (options.rowNum ? 1 : 0);
-					if(options.rowNum && fieldIndex===-1) return false;
-					var field = that.allColumns[fieldIndex].field;
-					that.sortBy(field, that.sort!==field ? that.defaultOrder : !that.order);
-				}
-			}, '.field');
-
 			$(window).on('resize', function(){ that.resize(); });
 			if(document.documentMode===5 || /MSIE 6/.test(navigator.userAgent)){
 				var hover_binds = {// css tr:hover fix
@@ -288,6 +343,12 @@ $.fn.datagrid = function(options){
 					mouseleave: function(){ this.style.backgroundColor = 'transparent'; }
 				};
 				$box.on(hover_binds, '.head td').on(hover_binds, '.body tr');
+			}
+			if(!options.remoteSort){
+				$box.on('click', '.field', function(e){
+					var field = $('.field-title', this).data('field');
+					that.sortBy(field, !this.order||this.defaultOrder);
+				});
 			}
 		},
 		sortBy: function(field, order){ //order: (true||'desc')->desc, (false||not 'desc')->asc
@@ -302,15 +363,16 @@ $.fn.datagrid = function(options){
 				return false;
 			})[0];
 			var fieldElement = this.fieldElements[fieldIndex].parentNode;
-			if(this.sort) $('.sort-mark', this.sort.parentNode).html(markChars.empty);
-			$('.sort-mark', fieldElement).html(order?markChars.down:markChars.up)
-			if(this.sort===fieldElement.field && fieldElement.order===order) return false;
-			this.order = fieldElement.order = order;
-			if(this.sort===fieldOption.field && fieldElement.order===!this.defaultOrder){
-				this.sort = fieldElement.field = field;
+			if(this.sortElement) $('.sort-mark', this.sortElement).removeClass('asc desc');
+			this.sortElement = fieldElement;
+			$('.sort-mark', fieldElement).removeClass('asc desc').addClass(order?'desc':'asc');
+			if(field===fieldElement.field && fieldElement.order===order) return false;
+			fieldElement.order = order;
+			if((field===fieldOption.field) && (fieldElement.order===!order)){
+				fieldElement.field = field;
 				options.data = options.data.reverse();
 			}else{
-				this.sort = fieldElement.field = field;
+				fieldElement.field = field;
 				options.data.sort((fieldOption.sort || defaultSortFn).bind({field:field, order:order}));
 			}
 			var frozenTrDoc = document.createDocumentFragment(),
@@ -339,19 +401,13 @@ $.fn.datagrid = function(options){
 			});
 			if(frozenTrDoc.children || frozenTrDoc.childNodes){
 				frozenTbody.appendChild(frozenTrDoc);
+				frozenTbody.style.display = '';
 			}
 			if(trDoc.children || trDoc.childNodes){
 				tbody.appendChild(trDoc);
+				tbody.style.display = '';
 			}
-			frozenTbody.style.display = '';
-			tbody.style.display = '';
 			frozenTrDoc = null, trDoc = null, frozenTbody = null, tbody = null;
-		},
-		resize: function(){
-			var dataViews = $('.view', this.render);
-			var tables = $('table', dataViews);
-			tables.eq(1).parent().css({height:tables.get(3).parentNode.clientHeight});
-			dataViews.eq(1).css({width: this.render.clientWidth - 1 - dataViews.get(0).offsetWidth});
 		}
 	};
 	handler.prototype.init.prototype = handler.prototype;
