@@ -1,11 +1,9 @@
-(function($, undefined){
-"use strict";
 $.fn.datagrid = function(options){
 	var type = $.type(options);
 	if(type==='string'){
 		this.each(function(){
 			var ui = $(this).data('ui');
-			if(ui&&ui.iDatagrid){
+			if(ui && ui.iDatagrid){
 				ui.iDatagrid[options]();
 			}else{
 				throw new Error('UI:datagrid does not init...');
@@ -18,11 +16,12 @@ $.fn.datagrid = function(options){
 		startRowNum:1,
 		data:[]
 	}, options);
-	var handler       = function(box, options){ return new handler.prototype.init(box, options); };
-	var markChars     = {up: '↑', down : '↓', empty:'&nbsp;'};
-	var push          = Array.prototype.push;
-	var toString      = Object.prototype.toString;
-	var getType = function(obj){ return toString.call(obj).slice(8, -1); };
+	var handler   = function(box, options){ return new handler.prototype.init(box, options); };
+	var markChars = {up: '↑', down : '↓', empty:'&nbsp;'};
+	var push      = Array.prototype.push;
+	var toString  = Object.prototype.toString;
+	var getType   = function(obj){ return toString.call(obj).slice(8, -1); };
+	// createElement{{{
 	var createElement = function(node){
 		var cd = '',
 			at=[],
@@ -39,10 +38,7 @@ $.fn.datagrid = function(options){
 				attr = node.attr, children = node.children, at = [];
 				if(attr){
 					for(var key in attr){
-						if(key=='className'){
-							at.push('class="' + attr[key] + '"');
-							continue;
-						}else if(key=='style'){
+						if(key=='style'){
 							var style = attr[key];
 							var ot = getType(style);
 							attr[key] = '';
@@ -64,6 +60,8 @@ $.fn.datagrid = function(options){
 		}
 		return cd;
 	};
+	// }}}
+
 	// fn get_table{{{
 	var get_table = function(options, that){
 		var get_head_rows = function(rows, isFrozen){
@@ -87,22 +85,22 @@ $.fn.datagrid = function(options){
 						var isField = colspan==1&&(i==il||rows.length==(i+(option.rowspan||1)));
 						if(isField){
 							that[colsType].unshift(option);
-							td_attr.className = 'field';
+							td_attr['class'] = 'field';
 						}
 						nodes.unshift(createElement({
 							name:'td', attr:td_attr, children:{
-								name:'div', attr:{className:'cell', style:{width:width}}, children: [
+								name:'div', attr:{'class':'cell', style:{width:width}, "data-field":option.field}, children: [
 									markChars.empty,
-									{name:'span', attr:{className:'field-title', "data-field":option.field}, children:title},
-									{name:'span', attr:{className:'sort-mark'}}, markChars.empty
+									{name:'span', attr:{'class':'field-title'}, children:title},
+									{name:'span', attr:{'class':'sort-mark'}}, markChars.empty
 								]
 							}
 						}));
 					}
 					if(isFrozen && i==0 && options.rowNum){
 						nodes.unshift(createElement({
-							name:'td', attr:{rowspan:options.frozenColumns.length, className:'field'}, children:{
-								name:'div', attr:{className:'cell'}
+							name:'td', attr:{rowspan:options.frozenColumns.length, 'class':'field'}, children:{
+								name:'div', attr:{'class':'cell'}
 							}
 						}));
 					}
@@ -120,7 +118,7 @@ $.fn.datagrid = function(options){
 						if(options.rowNum && isLeft){
 							nodes.push(createElement({
 								name:'td', children:{
-									name:'div', attr:{className:'cell'}, children:i+options.startRowNum
+									name:'div', attr:{'class':'cell'}, children:i+options.startRowNum
 								}
 							}));
 						}
@@ -132,7 +130,7 @@ $.fn.datagrid = function(options){
 							nodes.push(createElement({
 								name:'td', children:{
 									name:'div', attr:{
-										className:'cell',
+										'class':'cell',
 										style:{width:options.autoColWidth ? 'auto' : ((option.width||options.colWidth) + 'px')}
 									}, children:
 										 $.type(formatter)==='function' ? formatter(val, row, field) : val
@@ -146,33 +144,33 @@ $.fn.datagrid = function(options){
 			return ret;
 		};
 		return createElement({
-			name:'div', attr:{className:'view-wrapper' + (options.autoRowHeight ? ' autoRowHeight' : '')}, children:[{
-				name:'div', attr:{className:'view frozen'}, children:[{
-					name:'div', attr:{className:'head-wrapper'}, children:{
-						name:'table', attr:{className:'frozen head'}, children:{
+			name:'div', attr:{'class':'view-wrapper' + (options.autoRowHeight ? ' autoRowHeight' : '')}, children:[{
+				name:'div', attr:{'class':'view frozen'}, children:[{
+					name:'div', attr:{'class':'head-wrapper'}, children:{
+						name:'table', attr:{'class':'frozen head'}, children:{
 							name:'tbody', children:get_head_rows(options.frozenColumns, true)
 						}
 					}
 				}, {
-					name:'div', attr:{className:'body-wrapper', style:'overflow:hidden;'}, children:{
-						name:'table', attr:{className:'frozen body'}, children:{
+					name:'div', attr:{'class':'body-wrapper', style:'overflow:hidden;'}, children:{
+						name:'table', attr:{'class':'frozen body'}, children:{
 							name:'tbody', children:
 								get_data_rows(options.data, that.frozenColumns, true)
 						}
 					}
 				}
 			]}, {
-				name:'div', attr:{className: 'view'}, children:[{
+				name:'div', attr:{'class': 'view'}, children:[{
 					name:'div', attr:{style:'overflow:hidden'}, children:{
-						name:'div', attr:{className: 'head-wrapper'}, children:{
-							name:'table', attr:{className: 'head'}, children:{
+						name:'div', attr:{'class': 'head-wrapper'}, children:{
+							name:'table', attr:{'class': 'head'}, children:{
 								name:'tbody', children:get_head_rows(options.columns)
 							}
 						}
 					}
 				}, {
-					name:'div', attr:{className: 'body-wrapper'}, children:{
-						name:'table', attr:{className: 'body'}, children:{
+					name:'div', attr:{'class': 'body-wrapper'}, children:{
+						name:'table', attr:{'class': 'body'}, children:{
 							name:'tbody', children:
 								get_data_rows(options.data, that.columns)
 						}
@@ -248,8 +246,8 @@ $.fn.datagrid = function(options){
 			var $box = $(box);
 			$box.addClass('datagrid-ctn cf');
 
-			var that           = this;
-			this.render        = box;
+			var that    = this;
+			this.render = box;
 			// if(options.pagination && options.localData){
 			// 	box.innerHTML = '<div class="datagrid-pagination"></div>';
 			// 	var $pbox = $('.datagrid-pagination', box)
@@ -268,11 +266,11 @@ $.fn.datagrid = function(options){
 			options.onCreate.bind(this)();
 		},
 		updateData: function(options){
-			var that    = this;
-			var box     = this.render;
-			var $box    = $(box);
+			var that = this;
+			var box  = this.render;
+			var $box = $(box);
+			options  = $.extend(true, {}, this.userOptions, options);
 			$box.empty();
-			options = $.extend(true, {}, this.userOptions, options);
 			this.columns       = [];
 			this.frozenColumns = [];
 			this.userOptions   = options;
@@ -280,14 +278,14 @@ $.fn.datagrid = function(options){
 			this.fieldElements = $('.field .cell', box);
 			adjust_table($('table', box), that);
 
-			if(document.documentMode===5 || /MSIE 6/.test(navigator.userAgent)){
+			/* if(document.documentMode===5 || /MSIE 6/.test(navigator.userAgent)){
 				$('.view', box).css({height: $('.head-wrapper').get(0).offsetHeight + $('.body-wrapper').get(0).offsetHeight})// css height:100% fix,
 					.eq(0).css({width:$('.view', box).eq(0).find('table').eq(0).width()});// css display:inline fix
 
 				// css selector fix
 				$('.body-wrapper table, .body-wrapper table tr:first-child td', box).css({borderTop:'none'});
-			}
-			(function(){// css selector fix
+			} */
+			(function(){ // css selector fix
 				var fie = navigator.userAgent.match(/MSIE (\d*)/);
 				if(fie && fie[1]<9){
 					$('.view', box).eq(1).find('table, table td:first-child').css({borderLeft:'none'});
@@ -299,25 +297,18 @@ $.fn.datagrid = function(options){
 			this.allColumns = allColumns;
 			this.dataTbodys = $('.body tbody', box);
 			// if(!(options.data[0].tr && options.data[0].frozenTr)|| isReplaceRow){
-				options.data.forEach(function(rowData, rowNum){
-					if(options.frozenColumns.length)
-						rowData.frozenTr = that.dataTbodys[0].rows[rowNum];
-					rowData.tr = that.dataTbodys[1].rows[rowNum];
-				});
+			options.data.forEach(function(rowData, rowNum){
+				if(options.frozenColumns.length)
+					rowData.frozenTr = that.dataTbodys[0].rows[rowNum];
+				rowData.tr = that.dataTbodys[1].rows[rowNum];
+			});
 			// }
-			if(options.remoteSort || options.sort){
-				if(options.remoteSort){
-					var fieldIndex = (function(){
-						for(var i=0,il=that.allColumns.length; i<il; i++){
-							if(options.sort.field===that.allColumns[i].field){
-								return (Number(i)||0) + 1;
-							}
-						}
-					})();
-					$('.sort-mark', this.fieldElements[fieldIndex]).addClass(options.sort.order=='desc'?'desc':'asc');
-				}else{
-					this.sortBy(options.sort.field, options.sort.order);
-				}
+			var sort = options.sort;
+			if(options.remoteSort){
+				var sort_order = (-1===[true,'desc'].indexOf(order)) ? 'asc' : 'desc';
+				$('.head-wrapper [data-field='+sort.field+'] .sort-mark', box).addClass(sort_order);
+			}else if(options.sort){
+				this.sortBy({field:sort.field, order:sort.order});
 			}
 			this.fix_size();
 		},
@@ -337,59 +328,61 @@ $.fn.datagrid = function(options){
 			var options = this.userOptions;
 			var $box    = $(this.render);
 			$(window).on('resize', function(){ that.resize(); });
-			if(document.documentMode===5 || /MSIE 6/.test(navigator.userAgent)){
+			/* if(document.documentMode===5 || /MSIE 6/.test(navigator.userAgent)){
 				var hover_binds = {// css tr:hover fix
 					mouseenter: function(){ this.style.backgroundColor = '#e6e6e6'; },
 					mouseleave: function(){ this.style.backgroundColor = 'transparent'; }
 				};
 				$box.on(hover_binds, '.head td').on(hover_binds, '.body tr');
-			}
+			} */
 			if(!options.remoteSort){
-				$box.on('click', '.field', function(e){
-					var field = $('.field-title', this).data('field');
-					that.sortBy(field, !this.order||this.defaultOrder);
+				$box.on('click', '.field .cell', function(e){
+					that.sortBy({
+						field: $(this).data('field'),
+						order: !this.order||this.defaultOrder
+					});
 				});
 			}
 		},
-		sortBy: function(field, order){ //order: (true||'desc')->desc, (false||not 'desc')->asc
-			order = (-1===[true,'desc'].indexOf(order)) ? false : true;
-			var options = this.userOptions;
-			var fieldIndex;
-			var fieldOption = this.allColumns.filter(function(option, i){
-				if(option.field===field){
-					fieldIndex = i + 1;
-					return true;
-				}
-				return false;
+		getColumnOption: function(fieldName){
+			return this.allColumns.filter(function(one, i){
+				return one.field===fieldName;
 			})[0];
-			var fieldElement = this.fieldElements[fieldIndex].parentNode;
-			if(this.sortElement) $('.sort-mark', this.sortElement).removeClass('asc desc');
-			this.sortElement = fieldElement;
-			$('.sort-mark', fieldElement).removeClass('asc desc').addClass(order?'desc':'asc');
-			if(field===fieldElement.field && fieldElement.order===order) return false;
-			fieldElement.order = order;
-			if((field===fieldOption.field) && (fieldElement.order===!order)){
-				fieldElement.field = field;
-				options.data = options.data.reverse();
-			}else{
-				fieldElement.field = field;
-				options.data.sort((fieldOption.sort || defaultSortFn).bind({field:field, order:order}));
+		},
+		getColumnSortFunction: function(fieldName){
+			return this.getColumnOption(fieldName).sort || defaultSortFn;
+		},
+		sortBy: function(option){ //order: (true||'desc')->desc, (false||not 'desc')->asc
+			option.order = (-1===[true,'desc'].indexOf(option.order)) ? false : true;
+			var sortElement = $('.head-wrapper [data-field='+option.field+']', this.render).get(0);
+			var preSortElement = this.sortElement;
+			var options = this.userOptions;
+			this.sortElement = sortElement;
+			if(preSortElement){
+				if(sortElement===preSortElement){
+				   if(option.order===preSortElement.order) return false;
+				   else options.data = options.data.reverse();
+				}
+				$('.sort-mark', preSortElement).removeClass('asc desc');
 			}
-			var frozenTrDoc = document.createDocumentFragment(),
-				trDoc = document.createDocumentFragment(),
-				frozenTbody = null,
-				tbody = null;
+			$('.sort-mark', sortElement).addClass(option.order?'desc':'asc');
+			options.data.sort(this.getColumnSortFunction(option.field).bind(option));
+			sortElement.order = option.order;
+			sortElement.field = option.field;
+			var frozenTrDoc   = document.createDocumentFragment(),
+				trDoc         = document.createDocumentFragment(),
+				frozenTbody   = null,
+				tbody         = null;
 			options.data.forEach(function(rowData, rowNum){
 				var frozenTr = rowData.frozenTr;
-				var tr = rowData.tr;
+				var tr       = rowData.tr;
 				if(frozenTr){
 					frozenTbody || (function(){
 						frozenTbody = frozenTr.parentNode;
 						frozenTbody.style.display = 'none';
 					})();
 					frozenTrDoc.appendChild(frozenTr);
-					if(options.rowNum)
-						frozenTr.children[0].children[0].innerHTML = rowNum + 1;
+					if(options.rowNum) $('td:eq(0) .cell', frozenTr).text(rowNum+1);
 				}
 				if(tr){
 					tbody || (function(){
@@ -419,5 +412,3 @@ $.fn.datagrid = function(options){
 		else $this.data('ui', {iDatagrid:instance});
 	});
 };
-})(jQuery);
-/* vim: set fdm=marker : */
