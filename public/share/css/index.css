@@ -4,7 +4,7 @@
 
 .cf:after { clear: both; overflow: hidden; }
 
-.imgc:before, .imgc .iecp, .imgc img { display: inline-block; *display: inline; *zoom: 1; vertical-align: middle; }
+.imgc:before, .imgc .iecp, .imgc img, .ib-row:before, .ib-row .iecp { display: inline-block; *display: inline; *zoom: 1; vertical-align: middle; }
 
 .imge { display: inline-block; *display: inline; *zoom: 1; vertical-align: middle; font-size: 12px; font-size: 1rem; line-height: normal; }
 
@@ -13,6 +13,20 @@
 .imgc:before, .imgc .iecp { content: ""; height: 100%; font-size: 0; line-height: 0; width: 0; }
 
 .imgc img { max-width: 100%; max-height: 100%; }
+
+.ib-row { font-size: 0; }
+
+.ib-row:before, .ib-row .iecp { content: ""; height: 100%; font-size: 0; line-height: 0; width: 0; }
+
+.ib-col, .ib-col-full { display: inline-block; *display: inline; *zoom: 1; vertical-align: middle; font-size: 12px; font-size: 1rem; line-height: normal; }
+
+.ib-col-full { width: 100%; }
+
+.ib-top { vertical-align: top; }
+
+.ib-middle { vertical-align: middle; }
+
+.ib-bottom { vertical-align: bottom; }
 
 /* Original style from softwaremaniacs.org (c) Ivan Sagalaev <Maniac@SoftwareManiacs.Org> */
 .hljs { display: block; overflow-x: auto; padding: 0.5em; background: #f0f0f0; -webkit-text-size-adjust: none; }
