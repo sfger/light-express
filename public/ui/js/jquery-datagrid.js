@@ -1,20 +1,47 @@
+// requestAnimationFrame {{{
+(function() {
+	'use strict';
+	var vendors = ['webkit', 'moz'];
+	for (var i = 0; i < vendors.length && !window.requestAnimationFrame; ++i) {
+		var vp = vendors[i];
+		window.requestAnimationFrame = window[vp+'RequestAnimationFrame'];
+		window.cancelAnimationFrame = (window[vp+'CancelAnimationFrame']
+			|| window[vp+'CancelRequestAnimationFrame']);
+	}
+	if (/iP(ad|hone|od).*OS 6/.test(window.navigator.userAgent) // iOS6 is buggy
+		|| !window.requestAnimationFrame || !window.cancelAnimationFrame) {
+			var lastTime = 0;
+			window.requestAnimationFrame = function(callback) {
+				var now = Date.now();
+				var nextTime = Math.max(lastTime + 16, now);
+				return setTimeout(function() { callback(lastTime = nextTime); }, nextTime - now);
+			};
+			window.cancelAnimationFrame = clearTimeout;
+		}
+}());
+// }}}
 $.fn.datagrid = function(options){
 	var type = $.type(options);
 	if(type==='string'){
-		this.each(function(){
-			var ui = $(this).data('ui');
+		var args = Array.prototype.slice.call(arguments).slice(1);
+		var ret = [];
+		for(oi=0,oil=this.length; oi<oil; oi++){
+			var ui = $(this[oi]).data('ui');
 			if(ui && ui.iDatagrid){
-				ui.iDatagrid[options]();
+				ret.push(ui.iDatagrid[options].apply(ui.iDatagrid, args));
 			}else{
 				throw new Error('UI:datagrid does not init...');
 			}
-		});
-		return true;
+		}
+		var len = ret.length;
+		if(0===len) return this;
+		if(1===len) return ret[0];
+		else return ret;
 	}
 	options = $.extend(true, {
-		colWidth:80,
-		startRowNum:1,
-		data:[]
+		colWidth    : 80,
+		startRowNum : 1,
+		data        : []
 	}, options);
 	var handler   = function(box, options){ return new handler.prototype.init(box, options); };
 	var markChars = {up: '↑', down : '↓', empty:'&nbsp;'};
@@ -97,7 +124,7 @@ $.fn.datagrid = function(options){
 							}
 						}));
 					}
-					if(isFrozen && i==0 && options.rowNum){
+					if(isFrozen && i===0 && options.rowNum){
 						nodes.unshift(createElement({
 							name:'td', attr:{rowspan:options.frozenColumns.length, 'class':'field'}, children:{
 								name:'div', attr:{'class':'cell'}
@@ -227,9 +254,14 @@ $.fn.datagrid = function(options){
 			var width_full = (document.compatMode === "CSS1Compat"&&!/msie 6/i.test(navigator.userAgent)) ? 'auto' : '100%';
 			tp1.css({width:width_full});
 			tp0.parent().css({width:width_full, overflow:'hidden'});
-			$(tp1).on('scroll', function(){
+			var update_scroll_offset = function(){
 				tp0.parent().get(0).scrollLeft = this.scrollLeft;
 				tables.get(1).parentNode.scrollTop = this.scrollTop;
+			};
+			var scroll_id = null;
+			$(tp1).on('scroll', function(){
+				cancelAnimationFrame(scroll_id);
+				scroll_id = requestAnimationFrame(update_scroll_offset.bind(this));
 			});
 		}
 	};
@@ -258,14 +290,14 @@ $.fn.datagrid = function(options){
 			// 	var po = pbox.ui.iPagination.userOptions;
 			// 	options.data = options.localData.slice((po.pageNumber-1)*po.pageSize, po.pageNumber*po.pageSize);
 			// }
-			this.updateData(options);
-			// this.updateData(options);
+			this.update(options);
+			// this.update(options);
 			this.init_event();
 			this.fix_size();
 
 			options.onCreate.bind(this)();
 		},
-		updateData: function(options){
+		update: function(options){
 			var that = this;
 			var box  = this.render;
 			var $box = $(box);
@@ -311,6 +343,7 @@ $.fn.datagrid = function(options){
 				this.sortBy({field:sort.field, order:sort.order});
 			}
 			this.fix_size();
+			return true;
 		},
 		fix_size: function(){
 			var that = this;
@@ -352,7 +385,8 @@ $.fn.datagrid = function(options){
 		getColumnSortFunction: function(fieldName){
 			return this.getColumnOption(fieldName).sort || defaultSortFn;
 		},
-		sortBy: function(option){ //order: (true||'desc')->desc, (false||not 'desc')->asc
+		sortBy: function(option){
+			//order: (true||'desc')->desc, (false||not 'desc')->asc
 			option.order = (-1===[true,'desc'].indexOf(option.order)) ? false : true;
 			var sortElement = $('.head-wrapper [data-field='+option.field+']', this.render).get(0);
 			var preSortElement = this.sortElement;
@@ -401,6 +435,7 @@ $.fn.datagrid = function(options){
 				tbody.style.display = '';
 			}
 			frozenTrDoc = null, trDoc = null, frozenTbody = null, tbody = null;
+			return true;
 		}
 	};
 	handler.prototype.init.prototype = handler.prototype;
@@ -412,3 +447,4 @@ $.fn.datagrid = function(options){
 		else $this.data('ui', {iDatagrid:instance});
 	});
 };
+// vim: fdm=marker

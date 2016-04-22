@@ -41,24 +41,27 @@ require.config({
 	}
 });
 require(['jquery', 'ui/js/jquery-datagrid'],function($){
-var data = [];
-for(var row=0; row<45; row++){
-    data[row] = {};
-    for(var col=0; col<35; col++){
-		/* data[row]['col-'+(col+1)] = 'row:' + (row+1) + '<br />col:' + (col+1); */
-		data[row]['col-'+(col+1)] =  Number(Math.random()*100).toFixed(2);
-    } 
-}
+var gen_data = function(){
+	var data = [];
+	for(var row=0; row<45; row++){
+		data[row] = {};
+		for(var col=0; col<35; col++){
+			/* data[row]['col-'+(col+1)] = 'row:' + (row+1) + '<br />col:' + (col+1); */
+			data[row]['col-'+(col+1)] =  Number(Math.random()*100).toFixed(2);
+		} 
+	}
+	return data;
+};
 var fieldSortFns = {
-	sortStr: null, //default
-	sortNum: function(a, b){//this指{field:field, order:order}
+	sortStr: null, // default
+	sortNum: function(a, b){ // this指{field:field, order:order}
 		var field = this.field;
 		var m = this.order ? -1 : 1;
 		return m*(a[this.field] - b[this.field]);
 	}
 };
 var options = {
-	data          : data,
+	data          : gen_data(),
 	rowNum        : true,
 	autoRowHeight : true,
 	autoColWidth  : true,
@@ -134,7 +137,16 @@ var options = {
 	onCreate:function(){
 	}
 };
-$('#my_datagrid').datagrid(options);
+var $grid = $('#my_datagrid');
+$grid.datagrid(options);
+/*
+setInterval(function(){
+	$grid.datagrid('update', {data:gen_data()});
+	setTimeout(function(){
+		$grid.datagrid('sortBy', {field : 'col-2', order : 'asc'});
+	}, 3000);
+}, 5000);
+*/
 });
 </script>
 </body>
