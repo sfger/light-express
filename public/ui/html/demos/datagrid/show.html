@@ -10,15 +10,16 @@ paths:{
 jquery:'public/js/jquery'
 },
 shim:{
-'ui/js/jquery-datagrid': ['jquery']
+'ui/js/jquery-datagrid': ['jquery'],
+'ui/js/jquery-pagination': ['jquery']
 }
 });
-require(['jquery', 'ui/js/ecmaShim', 'ui/js/base', 'ui/js/jquery-datagrid', 'ui/js/pagination'],function(){
+require(['jquery', 'ui/js/ecmaShim', 'ui/js/jquery-datagrid', 'ui/js/jquery-pagination'],function(){
 var data = [];
 for(var row=0; row<45; row++){
 data[row] = {};
 for(var col=0; col<35; col++){
-//data[row]['col-'+(col+1)] = 'row:' + (row+1) + '<br />col:' + (col+1);
+/* data[row]['col-'+(col+1)] = 'row:' + (row+1) + '<br />col:' + (col+1); */
 data[row]['col-'+(col+1)] =  Number(Math.random()*100).toFixed(2);
 }
 }
@@ -32,8 +33,8 @@ return a==b ? 0 :(b-a>0 ? 1: -1);
 }
 };
 $('#my_datagrid').datagrid({
-//data:data,
-localData:data,
+data:data,
+/* localData:data, */
 rowNum:true,
 autoRowHeight:true,
 autoColWidth:true,

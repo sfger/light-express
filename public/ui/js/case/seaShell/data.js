@@ -4,76 +4,6 @@ define(function(){
 		{
 			name: 'Collection',
 			children:[
-				//Search{{{
-				{
-					name: '搜索、百科与词典',
-					children:[
-						{name:'Baidu', url:'http://www.baidu.com'},
-						{name:'SoSo', url:'http://www.soso.com'},
-						{name:'Google', url:'https://www.google.com', target:'_blank'},
-						{name:'Wikipedia', url:'http://www.wikipedia.org/'}
-					]
-				},
-				//}}}
-				//Video{{{
-				{
-					name: '视频',
-					children:[
-						{name:'优酷', url:'http://www.youku.com'},
-						{name:'PPS', url:'http://www.pps.tv'},
-						{name:'土豆', url:'http://www.tudou.com/'},
-						{name:'网易视频', url:'http://v.163.com/'},
-						{name:'迅雷视频', url:'http://www.xunlei.com/'},
-						{name:'风云直播', url:'http://www.fengyunzhibo.com/'}
-					]
-				},
-				//}}}
-				//WebSite{{{
-				{
-					name: '门户、新闻与社区',
-					children:[
-						{name:'网易', url:'http://www.163.com'},
-						{name:'新浪', url:'http://www.sina.com.cn'},
-						{name:'搜狐', url:'http://www.sohu.com/'},
-						{name:'腾讯', url:'http://www.qq.com/'},
-						{name:'新华网', url:'http://www.xinhuanet.com/'}
-					]
-				},
-				//}}}
-				//Blog{{{
-				{
-					name: '个人博客、社区',
-					children:[
-						{name:'博客园', url:'http://www.cnblogs.com'},
-						{name:'大前端', url:'http://www.daqianduan.com/'},
-						{name:'36kr', url:'http://www.36kr.com/'},
-						{name:'Lamp Blog', url:'http://www.lampblog.net/ubuntu/find%E5%91%BD%E4%BB%A4/'},
-						{name:'酷壳', url:'http://coolshell.cn/'},
-						{name:'DivCSS', url:'http://www.divcss5.com/'},
-						{name:'w3cplus', url:'http://www.w3cplus.com/'},
-						{name:'berlinix', url:'http://www.berlinix.com/'},
-						{name:'51CTO', url:'http://www.51cto.com'},
-						{name:'潘魏增', url:'http://panweizeng.com'},
-						{name:'子猴博客', url:'http://www.zihou.me'},
-						{name:'Typeof', url:'http://typeof.net'},
-						{name:'Heroin', url:'http://heroin.so'},
-						{name:'CSSASS', url:'http://www.cssass.com/blog/'},
-						{name:'IBM-CN', url:'https://www.ibm.com/developerworks/cn/'},
-						{name:'Soboom', url:'http://www.soboom.com/index.html'},
-						{name:'张鑫旭', url:'http://www.zhangxinxu.com'},
-						{name:"Sivan's Blog", url:'http://lightcss.com/'},
-						{name:'月光博客', url:'http://www.williamlong.info/'},
-						{name:'阮一峰', url:'http://www.ruanyifeng.com/blog/', target:"_blank"},
-						{name:'前端观察', url:'http://www.qianduan.net/'},
-						{name:'webrebuild', url:'http://www.webrebuild.org/'},
-						{name:'蓝色梦想', url:'http://www.blueidea.com/'},
-						{name:'绝影', url:'http://blog.csdn.net/hitetoshi/'},
-						{name:'D瓜哥', url:'http://www.cnblogs.com/diguage/'},
-						{name:'HTML580', url:'http://www.html580.com/'},
-						{name:'v_JULY_v', url:'http://blog.csdn.net/v_JULY_v'}
-					]
-				},
-				//}}}
 				//TeamBlog{{{
 				{
 					name: '团队博客',
@@ -92,12 +22,7 @@ define(function(){
 						{
 							name: '淘宝',
 							children:[
-								// {name:'淘宝UED', url:'http://ued.taobao.com/'},
-								// {name:'淘宝QA', url:'http://rdc.taobao.com/blog/qa/'},
 								{name:'淘测试', url:'http://www.taobaotest.com/'},
-								// {name:'淘宝DBA', url:'http://www.taobaodba.com/'},
-								// {name:'淘宝JAVA中间件', url:'http://rdc.taobao.com/team/jm/'},
-								// {name:'淘宝核心技术团队', url:'http://rdc.taobao.com/blog/cs/'},
 								{name:'淘宝搜索技术团队', url:'http://www.searchtb.com/'},
 								{name:'一淘UX', url:'http://ux.etao.com/'}
 							]
@@ -106,26 +31,9 @@ define(function(){
 							name: '阿里巴巴',
 							children:[
 								{name:'阿里巴巴国际站UED', url:'http://www.aliued.com/'},
-								// {name:'阿里集团数据平台', url:'http://www.alidata.org/'},
 								{name:'阿里巴巴中文站UED', url:'http://www.aliued.cn/'}
 							]
 						},
-						// {
-						// 	name: '支付宝',
-						// 	children:[
-						// 		{name:'支付宝PED', url:'http://ped.alipay.com/'},
-						// 		{name:'支付宝UED', url:'http://ued.alipay.com/'},
-						// 		{name:'支付宝用户研究', url:'http://ued.alipay.com/ur'}
-						// 	]
-						// },
-						// {
-						// 	name: '搜狐',
-						// 	children:[
-						// 		{name:'搜狐MUED', url:'http://mued.sohu.com/'},
-						// 		{name:'搜狐焦点UED', url:'http://ued.focus.cn/wordpress/'},
-						// 		{name:'搜狐UED', url:'http://ued.sohu.com/'}
-						// 	]
-						// },
 						{
 							name: '百度',
 							children:[
@@ -137,7 +45,6 @@ define(function(){
 						{
 							name: '新浪',
 							children:[
-								{name:'新浪微博UDC', url:'http://udc.weibo.com/'},
 								{name:'新浪UED', url:'http://ued.sina.com/'}
 							]
 						},
@@ -145,8 +52,27 @@ define(function(){
 						{name:'人人FED', url:'http://fed.renren.com/'},
 						{name:'网易UEDC', url:'http://uedc.163.com/'},
 						{name:'奇虎75Team', url:'http://www.75team.com/'},
-						// {name:'搜狗UED', url:'http://ued.sogou.com/'},
 						{name:'19楼UED', url:'http://blog.19ued.com/'}
+					]
+				},
+				//}}}
+				//Blog{{{
+				{
+					name: '个人博客、社区',
+					children:[
+						{name:'博客园', url:'http://www.cnblogs.com'},
+						{name:'36kr', url:'http://www.36kr.com/'},
+						{name:'w3cplus', url:'http://www.w3cplus.com/'},
+						{name:'Typeof', url:'http://typeof.net'},
+						{name:'IBM-CN', url:'https://www.ibm.com/developerworks/cn/'},
+						{name:'张鑫旭', url:'http://www.zhangxinxu.com'},
+						{name:'月光博客', url:'http://www.williamlong.info/'},
+						{name:'阮一峰', url:'http://www.ruanyifeng.com/blog/', target:"_blank"},
+						{name:'前端观察', url:'http://www.qianduan.net/'},
+						{name:'大前端', url:'http://www.daqianduan.com/'},
+						{name:'酷壳', url:'http://coolshell.cn/'},
+						{name:'HTML580', url:'http://www.html580.com/'},
+						{name:'CSSASS', url:'http://www.cssass.com/blog/'},
 					]
 				},
 				//}}}
@@ -204,6 +130,30 @@ define(function(){
 						{name:'谷歌流量分析', url:'https://www.google.com/analytics/web/?hl=zh-CN', target:'_blank'},
 						{name:'Java document', url:'http://docs.oracle.com/javase/6/docs/api/overview-summary.html'},
 						{name:'Codeplex', url:'http://www.codeplex.com/'}
+					]
+				},
+				//}}}
+				//Search{{{
+				{
+					name: '搜索、百科与词典',
+					children:[
+						{name:'Baidu', url:'http://www.baidu.com'},
+						{name:'SoSo', url:'http://www.soso.com'},
+						{name:'Google', url:'https://www.google.com', target:'_blank'},
+						{name:'Wikipedia', url:'http://www.wikipedia.org/'}
+					]
+				},
+				//}}}
+				//Video{{{
+				{
+					name: '视频',
+					children:[
+						{name:'优酷', url:'http://www.youku.com'},
+						{name:'PPS', url:'http://www.pps.tv'},
+						{name:'土豆', url:'http://www.tudou.com/'},
+						{name:'网易视频', url:'http://v.163.com/'},
+						{name:'迅雷视频', url:'http://www.xunlei.com/'},
+						{name:'风云直播', url:'http://www.fengyunzhibo.com/'}
 					]
 				}
 				//}}}

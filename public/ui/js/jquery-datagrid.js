@@ -1,29 +1,94 @@
-(function($, undefined){
-"use strict";
+// requestAnimationFrame {{{
+(function() {
+	'use strict';
+	var vendors = ['webkit', 'moz'];
+	for (var i = 0; i < vendors.length && !window.requestAnimationFrame; ++i) {
+		var vp = vendors[i];
+		window.requestAnimationFrame = window[vp+'RequestAnimationFrame'];
+		window.cancelAnimationFrame = (window[vp+'CancelAnimationFrame']
+			|| window[vp+'CancelRequestAnimationFrame']);
+	}
+	if (/iP(ad|hone|od).*OS 6/.test(window.navigator.userAgent) // iOS6 is buggy
+		|| !window.requestAnimationFrame || !window.cancelAnimationFrame) {
+			var lastTime = 0;
+			window.requestAnimationFrame = function(callback) {
+				var now = Date.now();
+				var nextTime = Math.max(lastTime + 16, now);
+				return setTimeout(function() { callback(lastTime = nextTime); }, nextTime - now);
+			};
+			window.cancelAnimationFrame = clearTimeout;
+		}
+}());
+// }}}
 $.fn.datagrid = function(options){
 	var type = $.type(options);
 	if(type==='string'){
-		this.each(function(){
-			var ui = $(this).data('ui');
-			if(ui&&ui.iDatagrid){
-				ui.iDatagrid[options]();
+		var args = Array.prototype.slice.call(arguments).slice(1);
+		var ret = [];
+		for(oi=0,oil=this.length; oi<oil; oi++){
+			var ui = $(this[oi]).data('ui');
+			if(ui && ui.iDatagrid){
+				ret.push(ui.iDatagrid[options].apply(ui.iDatagrid, args));
 			}else{
 				throw new Error('UI:datagrid does not init...');
 			}
-		});
-		return true;
+		}
+		var len = ret.length;
+		if(0===len) return this;
+		if(1===len) return ret[0];
+		else return ret;
 	}
 	options = $.extend(true, {
-		colWidth:80,
-		startRowNum:1,
-		data:[]
+		colWidth    : 80,
+		startRowNum : 1,
+		data        : []
 	}, options);
-	var handler       = function(box, options){ return new handler.prototype.init(box, options); };
-	var markChars     = light.ui.markChars;
-	var push          = light.util.push;
-	var toString      = light.util.toString;
-	var getType       = light.util.getType;
-	var createElement = light.util.createElement;
+	var handler   = function(box, options){ return new handler.prototype.init(box, options); };
+	var markChars = {up: '↑', down : '↓', empty:'&nbsp;'};
+	var push      = Array.prototype.push;
+	var toString  = Object.prototype.toString;
+	var getType   = function(obj){ return toString.call(obj).slice(8, -1); };
+	// createElement{{{
+	var createElement = function(node){
+		var cd = '',
+			at=[],
+			attr = null,
+			children = null,
+			fn = createElement,
+			node_type = getType(node);
+		if(node_type === 'Array'){
+			for(var j in node) cd += fn(node[j]);
+		}else{
+			if(node_type==="String" || node_type=="Number"){
+				cd = node;
+			}else if(node_type==='Object' && node.name){
+				attr = node.attr, children = node.children, at = [];
+				if(attr){
+					for(var key in attr){
+						if(key=='style'){
+							var style = attr[key];
+							var ot = getType(style);
+							attr[key] = '';
+							if(ot=='Object'){
+								for(var sk in style){
+									attr[key] += sk + ':' + style[sk] + ';';
+								}
+							}else if(ot=='String'){
+								attr[key] = style;
+							}
+						}
+						at.push('' + key + '="' + attr[key] + '"');
+					}
+				}
+				if(at.length) at.unshift('');
+				if(children && getType(children) !== 'Array') children = [children];
+				cd = '<' + node.name + at.join(' ') + '>' + (children ? fn(children) : '') + '</' + node.name + '>';
+			} else cd = '';
+		}
+		return cd;
+	};
+	// }}}
+
 	// fn get_table{{{
 	var get_table = function(options, that){
 		var get_head_rows = function(rows, isFrozen){
@@ -31,9 +96,9 @@ $.fn.datagrid = function(options){
 			var l = 0;
 			var colsType = isFrozen ? 'frozenColumns' : 'columns';
 			if(!rows) return ret;
-			var ii = rows.length - 1;
+			var il = rows.length - 1;
 			var fieldElements = [];
-			for(var i=ii; i>=0; i--){
+			for(var i=il; i>=0; i--){
 				ret.unshift(createElement({name:'tr', children:(function(){
 					var nodes = [];
 					for(var j=rows[i].length-1; j>=0; j--){
@@ -44,22 +109,25 @@ $.fn.datagrid = function(options){
 						if(option.rowspan) td_attr.rowspan = option.rowspan;
 						if(option.colspan) td_attr.colspan = option.colspan;
 						var colspan = option.colspan || 1;
-						var isField = colspan==1&&(i==ii||rows.length==(i+(option.rowspan||1)));
+						var isField = colspan==1&&(i==il||rows.length==(i+(option.rowspan||1)));
 						if(isField){
 							that[colsType].unshift(option);
-							td_attr.className = 'field';
+							td_attr['class'] = 'field';
 						}
 						nodes.unshift(createElement({
 							name:'td', attr:td_attr, children:{
-								name:'div', attr:{className:'cell', style:{width:width}}, children:
-									[markChars.empty, title, {name:'span', attr:{className:'sort-mark'}, children:markChars.empty}]
+								name:'div', attr:{'class':'cell', style:{width:width}, "data-field":option.field}, children: [
+									markChars.empty,
+									{name:'span', attr:{'class':'field-title'}, children:title},
+									{name:'span', attr:{'class':'sort-mark'}}, markChars.empty
+								]
 							}
 						}));
 					}
-					if(isFrozen && i==0 && options.rowNum){
+					if(isFrozen && i===0 && options.rowNum){
 						nodes.unshift(createElement({
-							name:'td', attr:{rowspan:options.frozenColumns.length, className:'field'}, children:{
-								name:'div', attr:{className:'cell'}
+							name:'td', attr:{rowspan:options.frozenColumns.length, 'class':'field'}, children:{
+								name:'div', attr:{'class':'cell'}
 							}
 						}));
 					}
@@ -77,7 +145,7 @@ $.fn.datagrid = function(options){
 						if(options.rowNum && isLeft){
 							nodes.push(createElement({
 								name:'td', children:{
-									name:'div', attr:{className:'cell'}, children:i+options.startRowNum
+									name:'div', attr:{'class':'cell'}, children:i+options.startRowNum
 								}
 							}));
 						}
@@ -89,10 +157,10 @@ $.fn.datagrid = function(options){
 							nodes.push(createElement({
 								name:'td', children:{
 									name:'div', attr:{
-										className:'cell',
+										'class':'cell',
 										style:{width:options.autoColWidth ? 'auto' : ((option.width||options.colWidth) + 'px')}
 									}, children:
-										 getType(formatter)==='Function' ? formatter(val, row, field) : val
+										 $.type(formatter)==='function' ? formatter(val, row, field) : val
 								}
 							}));
 						});
@@ -103,33 +171,33 @@ $.fn.datagrid = function(options){
 			return ret;
 		};
 		return createElement({
-			name:'div', attr:{className:'view-wrapper' + (options.autoRowHeight ? ' autoRowHeight' : '')}, children:[{
-				name:'div', attr:{className:'view frozen'}, children:[{
-					name:'div', attr:{className:'head-wrapper'}, children:{
-						name:'table', attr:{className:'frozen head'}, children:{
+			name:'div', attr:{'class':'view-wrapper' + (options.autoRowHeight ? ' autoRowHeight' : '')}, children:[{
+				name:'div', attr:{'class':'view frozen'}, children:[{
+					name:'div', attr:{'class':'head-wrapper'}, children:{
+						name:'table', attr:{'class':'frozen head'}, children:{
 							name:'tbody', children:get_head_rows(options.frozenColumns, true)
 						}
 					}
 				}, {
-					name:'div', attr:{className:'body-wrapper', style:'overflow:hidden;'}, children:{
-						name:'table', attr:{className:'frozen body'}, children:{
+					name:'div', attr:{'class':'body-wrapper', style:'overflow:hidden;'}, children:{
+						name:'table', attr:{'class':'frozen body'}, children:{
 							name:'tbody', children:
 								get_data_rows(options.data, that.frozenColumns, true)
 						}
 					}
 				}
 			]}, {
-				name:'div', attr:{className: 'view'}, children:[{
+				name:'div', attr:{'class': 'view'}, children:[{
 					name:'div', attr:{style:'overflow:hidden'}, children:{
-						name:'div', attr:{className: 'head-wrapper'}, children:{
-							name:'table', attr:{className: 'head'}, children:{
+						name:'div', attr:{'class': 'head-wrapper'}, children:{
+							name:'table', attr:{'class': 'head'}, children:{
 								name:'tbody', children:get_head_rows(options.columns)
 							}
 						}
 					}
 				}, {
-					name:'div', attr:{className: 'body-wrapper'}, children:{
-						name:'table', attr:{className: 'body'}, children:{
+					name:'div', attr:{'class': 'body-wrapper'}, children:{
+						name:'table', attr:{'class': 'body'}, children:{
 							name:'tbody', children:
 								get_data_rows(options.data, that.columns)
 						}
@@ -161,6 +229,7 @@ $.fn.datagrid = function(options){
 			var field = fieldElements[i];
 			var t1  = getHW(this, type),
 				t2  = getHW(field, type);
+			if(t1===t2) return;
 			var t = t1<t2 ? t2 : t1;
 			$([this, field])[type](t+5);
 		});
@@ -185,51 +254,70 @@ $.fn.datagrid = function(options){
 			var width_full = (document.compatMode === "CSS1Compat"&&!/msie 6/i.test(navigator.userAgent)) ? 'auto' : '100%';
 			tp1.css({width:width_full});
 			tp0.parent().css({width:width_full, overflow:'hidden'});
-			$(tp1).on('scroll', function(){
+			var update_scroll_offset = function(){
 				tp0.parent().get(0).scrollLeft = this.scrollLeft;
 				tables.get(1).parentNode.scrollTop = this.scrollTop;
+			};
+			var scroll_id = null;
+			$(tp1).on('scroll', function(){
+				cancelAnimationFrame(scroll_id);
+				scroll_id = requestAnimationFrame(update_scroll_offset.bind(this));
 			});
 		}
 	};
 	//}}}
 	var defaultSortFn = function(a, b){
-		var c, field = this.field;
-		a = a[field], b = b[field];
-		if(!this.order) c = a, a = b, b = c;
-		return a==b ? 0 : (b>a ? 1 : -1);
+		var field = this.field;
+		var m = this.order ? -1 : 1;
+		if(a[field]==b[field]) return 0;
+		return m*(a[field]>b[field] ? 1 : -1);
 	};
 	handler.prototype = {
-		defaultOrder:false, //true:desc, false:asc
+		defaultOrder: false, //true:desc, false:asc
 		init: function(box, options){
 			var $box = $(box);
-			$box.addClass('datagrid-container cf');
+			$box.addClass('datagrid-ctn cf');
 
-			var that           = this;
+			var that    = this;
+			this.render = box;
+			// if(options.pagination && options.localData){
+			// 	box.innerHTML = '<div class="datagrid-pagination"></div>';
+			// 	var $pbox = $('.datagrid-pagination', box)
+			// 	var pbox = $pbox.get(0);
+			// 	options.pagination.renders = [pbox];
+			// 	options.pagination.dataSize = options.localData.length;
+			// 	(options.pagination);
+			// 	var po = pbox.ui.iPagination.userOptions;
+			// 	options.data = options.localData.slice((po.pageNumber-1)*po.pageSize, po.pageNumber*po.pageSize);
+			// }
+			this.update(options);
+			// this.update(options);
+			this.init_event();
+			this.fix_size();
+
+			options.onCreate.bind(this)();
+		},
+		update: function(options){
+			var that = this;
+			var box  = this.render;
+			var $box = $(box);
+			options  = $.extend(true, {}, this.userOptions, options);
+			$box.empty();
 			this.columns       = [];
 			this.frozenColumns = [];
 			this.userOptions   = options;
-			this.render        = box;
-			if(options.pagination && options.localData){
-				box.innerHTML = '<div class="datagrid-pagination"></div>';
-				var pbox = $('.datagrid-pagination', box).get(0);
-				options.pagination.renders = [pbox];
-				options.pagination.dataSize = options.localData.length;
-				pagination(options.pagination);
-				var po = pbox.ui.iPagination.userOptions;
-				options.data = options.localData.slice((po.pageNumber-1)*po.pageSize, po.pageNumber*po.pageSize);
-			}
 			$(get_table(options, that)).prependTo(box);
 			this.fieldElements = $('.field .cell', box);
 			adjust_table($('table', box), that);
 
-			if(document.documentMode===5 || /MSIE 6/.test(navigator.userAgent)){
+			/* if(document.documentMode===5 || /MSIE 6/.test(navigator.userAgent)){
 				$('.view', box).css({height: $('.head-wrapper').get(0).offsetHeight + $('.body-wrapper').get(0).offsetHeight})// css height:100% fix,
 					.eq(0).css({width:$('.view', box).eq(0).find('table').eq(0).width()});// css display:inline fix
 
 				// css selector fix
 				$('.body-wrapper table, .body-wrapper table tr:first-child td', box).css({borderTop:'none'});
-			}
-			(function(){// css selector fix
+			} */
+			(function(){ // css selector fix
 				var fie = navigator.userAgent.match(/MSIE (\d*)/);
 				if(fie && fie[1]<9){
 					$('.view', box).eq(1).find('table, table td:first-child').css({borderLeft:'none'});
@@ -240,94 +328,95 @@ $.fn.datagrid = function(options){
 			push.apply(allColumns, this.columns);
 			this.allColumns = allColumns;
 			this.dataTbodys = $('.body tbody', box);
-			if(!(options.data[0].tr && options.data[0].frozenTr)){
-				options.data.forEach(function(rowData, rowNum){
-					if(options.frozenColumns.length)
-						rowData.frozenTr = that.dataTbodys[0].rows[rowNum];
-					rowData.tr = that.dataTbodys[1].rows[rowNum];
-				});
+			// if(!(options.data[0].tr && options.data[0].frozenTr)|| isReplaceRow){
+			options.data.forEach(function(rowData, rowNum){
+				if(options.frozenColumns.length)
+					rowData.frozenTr = that.dataTbodys[0].rows[rowNum];
+				rowData.tr = that.dataTbodys[1].rows[rowNum];
+			});
+			// }
+			var sort = options.sort;
+			if(options.remoteSort){
+				var sort_order = (-1===[true,'desc'].indexOf(order)) ? 'asc' : 'desc';
+				$('.head-wrapper [data-field='+sort.field+'] .sort-mark', box).addClass(sort_order);
+			}else if(options.sort){
+				this.sortBy({field:sort.field, order:sort.order});
 			}
-			if(options.remoteSort || options.sort){
-				if(options.remoteSort){
-					var fieldIndex = (function(){
-						for(var i in that.allColumns){
-							if(options.sort.field===that.allColumns[i].field){
-								return i + 1;
-							}
-						}
-					})();
-					$('.sort-mark', this.fieldElements[fieldIndex]).html(light.ui.markChars[options.sort.order=='desc'? 'down' : 'up']);
-				}else{
-					this.sortBy(options.sort.field, options.sort.order==='desc');
-				}
-			}
-			this.init_event();
-
+			this.fix_size();
+			return true;
+		},
+		fix_size: function(){
+			var that = this;
 			that.resize(); //修改样式
 			setTimeout(function(){ that.resize(); }, 0); // 再次计算样式，消除滚动条的影响
-
-			options.onCreate.bind(this)();
+		},
+		resize: function(){
+			var dataViews = $('.view', this.render);
+			var tables = $('table', dataViews);
+			tables.eq(1).parent().css({height:tables.get(3).parentNode.clientHeight});
+			dataViews.eq(1).css({width: this.render.clientWidth - 1 - dataViews.get(0).offsetWidth});
 		},
 		init_event: function(){
 			var that    = this;
 			var options = this.userOptions;
 			var $box    = $(this.render);
-			$box.on({
-				click: function(e){
-					var fieldIndex = that.fieldElements.index(this.children[0]) - (options.rowNum ? 1 : 0);
-					if(options.rowNum && fieldIndex===-1) return false;
-					var field = that.allColumns[fieldIndex].field;
-					that.sortBy(field, that.sort!==field ? that.defaultOrder : !that.order);
-				}
-			}, '.field');
-
 			$(window).on('resize', function(){ that.resize(); });
-			if(document.documentMode===5 || /MSIE 6/.test(navigator.userAgent)){
+			/* if(document.documentMode===5 || /MSIE 6/.test(navigator.userAgent)){
 				var hover_binds = {// css tr:hover fix
 					mouseenter: function(){ this.style.backgroundColor = '#e6e6e6'; },
 					mouseleave: function(){ this.style.backgroundColor = 'transparent'; }
 				};
 				$box.on(hover_binds, '.head td').on(hover_binds, '.body tr');
+			} */
+			if(!options.remoteSort){
+				$box.on('click', '.field .cell', function(e){
+					that.sortBy({
+						field: $(this).data('field'),
+						order: !this.order||this.defaultOrder
+					});
+				});
 			}
 		},
-		sortBy: function(field, order){ //order: (true||'desc')->desc, (false||not 'desc')->asc
-			order = (-1===[true,'desc'].indexOf(order)) ? false : true;
-			var options = this.userOptions;
-			var fieldIndex;
-			var fieldOption = this.allColumns.filter(function(option, i){
-				if(option.field===field){
-					fieldIndex = i + 1;
-					return true;
-				}
-				return false;
+		getColumnOption: function(fieldName){
+			return this.allColumns.filter(function(one, i){
+				return one.field===fieldName;
 			})[0];
-			var fieldElement = this.fieldElements[fieldIndex].parentNode;
-			if(this.sort) $('.sort-mark', this.sort.parentNode).html(markChars.empty);
-			$('.sort-mark', fieldElement).html(order?markChars.down:markChars.up)
-			if(this.sort===fieldElement.field && fieldElement.order===order) return false;
-			this.order = fieldElement.order = order;
-			if(this.sort===fieldOption.field && fieldElement.order===!this.defaultOrder){
-				this.sort = fieldElement.field = field;
-				options.data = options.data.reverse();
-			}else{
-				this.sort = fieldElement.field = field;
-				options.data.sort((fieldOption.sort || defaultSortFn).bind({field:field, order:order}));
+		},
+		getColumnSortFunction: function(fieldName){
+			return this.getColumnOption(fieldName).sort || defaultSortFn;
+		},
+		sortBy: function(option){
+			//order: (true||'desc')->desc, (false||not 'desc')->asc
+			option.order = (-1===[true,'desc'].indexOf(option.order)) ? false : true;
+			var sortElement = $('.head-wrapper [data-field='+option.field+']', this.render).get(0);
+			var preSortElement = this.sortElement;
+			var options = this.userOptions;
+			this.sortElement = sortElement;
+			if(preSortElement){
+				if(sortElement===preSortElement){
+				   if(option.order===preSortElement.order) return false;
+				   else options.data = options.data.reverse();
+				}
+				$('.sort-mark', preSortElement).removeClass('asc desc');
 			}
-			var frozenTrDoc = document.createDocumentFragment(),
-				trDoc = document.createDocumentFragment(),
-				frozenTbody = null,
-				tbody = null;
+			$('.sort-mark', sortElement).addClass(option.order?'desc':'asc');
+			options.data.sort(this.getColumnSortFunction(option.field).bind(option));
+			sortElement.order = option.order;
+			sortElement.field = option.field;
+			var frozenTrDoc   = document.createDocumentFragment(),
+				trDoc         = document.createDocumentFragment(),
+				frozenTbody   = null,
+				tbody         = null;
 			options.data.forEach(function(rowData, rowNum){
 				var frozenTr = rowData.frozenTr;
-				var tr = rowData.tr;
+				var tr       = rowData.tr;
 				if(frozenTr){
 					frozenTbody || (function(){
 						frozenTbody = frozenTr.parentNode;
 						frozenTbody.style.display = 'none';
 					})();
 					frozenTrDoc.appendChild(frozenTr);
-					if(options.rowNum)
-						frozenTr.children[0].children[0].innerHTML = rowNum + 1;
+					if(options.rowNum) $('td:eq(0) .cell', frozenTr).text(rowNum+1);
 				}
 				if(tr){
 					tbody || (function(){
@@ -339,19 +428,14 @@ $.fn.datagrid = function(options){
 			});
 			if(frozenTrDoc.children || frozenTrDoc.childNodes){
 				frozenTbody.appendChild(frozenTrDoc);
+				frozenTbody.style.display = '';
 			}
 			if(trDoc.children || trDoc.childNodes){
 				tbody.appendChild(trDoc);
+				tbody.style.display = '';
 			}
-			frozenTbody.style.display = '';
-			tbody.style.display = '';
 			frozenTrDoc = null, trDoc = null, frozenTbody = null, tbody = null;
-		},
-		resize: function(){
-			var dataViews = $('.view', this.render);
-			var tables = $('table', dataViews);
-			tables.eq(1).parent().css({height:tables.get(3).parentNode.clientHeight});
-			dataViews.eq(1).css({width: this.render.clientWidth - 1 - dataViews.get(0).offsetWidth});
+			return true;
 		}
 	};
 	handler.prototype.init.prototype = handler.prototype;
@@ -363,5 +447,4 @@ $.fn.datagrid = function(options){
 		else $this.data('ui', {iDatagrid:instance});
 	});
 };
-})(jQuery);
-/* vim: set fdm=marker : */
+// vim: fdm=marker
