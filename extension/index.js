@@ -60,9 +60,6 @@ var extension  = {
 		return true;
 	},
 
-	/*
-	 * 简单的http2.0 combo处理，未做304等状态处理，只供开发使用
-	 * */
 	staticHttpCombo: (req, res, next) => {
 		if(req.path in extension.map_combo_file){
 			extension.pipe_stream_list_to_writer(extension.get_combo_file_list(req.path), res, next());
@@ -76,8 +73,8 @@ var extension  = {
 				"css": "text/css"
 			};
 			if(type==='js' || type==='css'){
-				// 跳转，如：http://localhost/public/js??jquery-min.js,jquery-window.js?_a=1&v=201502110322
-				//        => http://localhost/public/js/??jquery-min.js,jquery-window.js?_a=1&v=201502110322
+				// 跳转，如：http://localhost/public/js??jquery.js,require.js?_a=1&v=20160101
+				//        => http://localhost/public/js/??jquery.js,require.js?_a=1&v=20160101
 				if(req.path[req.path.length-1]!=='/'){
 					res.redirect(req.originalUrl.replace(/\?\?/, '/??'));
 					// res.writeHead(302);
@@ -146,8 +143,10 @@ var extension  = {
 		this.res.send(ret);
 	},
 	minifyHTML: (str) => {
-		str = (str||'').replace(/(\/?>)\s+|\s+(?=<)/g, '$1')
-		.replace(/\s*([\r\n]+)\s*/g, '$1');
+		str = (str||'').replace(/(\/?>)\s+|\s+(?=<)/g, '$1');
+		// str = str.replace(/\\/g, "\\\\");
+		str = str.replace(/\s*([\r\n]+)\s*/g, '$1');
+		// str = str.replace(/([^\\])(')/g, "$1\\$2"); // '
 		return str;
 	},
 	writeStaticCache: (url, ret) => {
@@ -266,20 +265,13 @@ var extension  = {
 		}
 		return true;
 	},
-	minify_code: (s) => {
-		s = s.replace(/(\/?>)\s+|\s+(?=<)/g, '$1');
-		// s = s.replace(/\\/g, "\\\\");
-		s = s.replace(/\s*([\r\n]+)\s*/g, '$1');
-		// s = s.replace(/([^\\])(')/g, "$1\\$2"); // '
-		return s;
-	},
 	merge_tpl_list: (list, out_file, next) => {
 		var data = {};
 		try{
 			list.forEach((one) => {
 				var s = fs.readFileSync(one, {encoding:'utf8', flag:'r'});
 				if(~['tpl', 'ejs', 'html', 'htm'].indexOf(path.extname(one).slice(1))){
-					s = extension.minify_code(s);
+					s = extension.minifyHTML(s);
 				}
 				data[path.basename(one)] = s;
 			});
@@ -331,7 +323,7 @@ var extension  = {
 		var out_path   = path.normalize(path.dirname(out_file) + '/');
 		var in_path    = path.normalize(out_path.replace(/([\\\/])tpl([\\\/])/, "$1htpl$2"));
 		var in_file    = in_path + path.basename(out_file, '.js');
-		var path_patch = in_file.split(/([\\\/])(htpl)([\\\/])/).slice(0, 4)
+		var path_patch = in_file.split(/([\\\/])(htpl)([\\\/])/).slice(0, 4);
 		path_patch.push('map.json');
 		extension.mkdirRecursive(out_path, 777, ()=>{
 			var map  = extension.readJSONFile(path_patch.join(''));

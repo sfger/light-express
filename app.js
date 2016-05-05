@@ -4,7 +4,6 @@ var logger     = require('morgan');
 var cookie     = require('cookie-parser');
 var session    = require('cookie-session');
 var bodyParser = require('body-parser');
-// var is_dev  = "development"===app.get('env');
 var webpackDev = require("webpack-dev-middleware");
 var webpack    = require("webpack");
 var compiler   = webpack(require('./webpack.config.js'));
@@ -24,7 +23,7 @@ app.use(session({name:'_SSID_', keys:['skey1', 'skey2']}));
 
 new Promise((resolve, reject) => {
 	var defer = {resolve, reject};
-	// if(!is_dev) defer.resolve();
+	// if(!("development"===app.get('env'))) defer.resolve();
 	app.use(logger('dev'));
 	app.use(Extension.CompileSCSS);
 	app.use(Extension.Compile2JS);
