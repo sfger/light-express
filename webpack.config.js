@@ -6,7 +6,7 @@ var entrysArray = glob.sync("*/js/**/*.@(entry).js?(x)", {
 });
 // console.log(entrysArray);
 var entryMap = {};
-entrysArray.forEach((one, i)=>{
+entrysArray.forEach((one, i) => {
 	entryMap[one.replace(/\.entry\.jsx?$/, '')] = './' + one;
 });
 // console.log(entryMap);

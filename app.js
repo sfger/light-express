@@ -22,24 +22,24 @@ app.use(cookie());
 // app.locals.__version__ = '__version__';
 app.use(session({name:'_SSID_', keys:['skey1', 'skey2']}));
 
-new Promise(function(resolve, reject){
-	var defer = {resolve:resolve, reject:reject};
+new Promise((resolve, reject) => {
+	var defer = {resolve, reject};
 	// if(!is_dev) defer.resolve();
 	app.use(logger('dev'));
 	app.use(Extension.CompileSCSS);
 	app.use(Extension.Compile2JS);
 	app.use(Extension.staticHttpCombo);
 	Extension.autoAddRoutes(app, Extension.route_dir, '/', defer);
-}).then(function(){
+}).then(() => {
 	app.use(express['static'](Extension.static_dir, {
 		index:'index.html'
 	}));
-	app.use(function(req, res, next) {
+	app.use((req, res, next) => {
 		var err = new Error('Not Found');
 		err.status = 404;
 		next(err);
 	});
-	app.use(function(err, req, res, next) {
+	app.use((err, req, res, next) => {
 		var status = err.status || 500;
 		res.status(status);
 		res.render(status, {

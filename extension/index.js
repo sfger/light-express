@@ -7,20 +7,20 @@ var static_dir = path.normalize(process.cwd() + '/public');
 var view_dir   = static_dir;
 var route_dir  = path.normalize(process.cwd() + '/routes');
 var extension  = {
-	static_dir     : static_dir,
-	route_dir      : route_dir,
-	view_dir       : view_dir,
+	static_dir,
+	route_dir,
+	view_dir,
 	map_combo_file : {
 		'/ui/js/case/seaShell/_test_.js' : 'data.js,data.js'
 	},
-	get_combo_file_list: function(file){
+	get_combo_file_list: file => {
 		var files = extension.map_combo_file[file].split(',');
-		return files.map(function(one){
+		return files.map(one => {
 			return path.normalize(extension.static_dir + path.dirname(file) + '/' + one);
 		});
 	},
 
-	readJSONFile: function(p){
+	readJSONFile: (p) => {
 		var json = {};
 		try{
 			p = path.normalize(p);
@@ -39,7 +39,7 @@ var extension  = {
 			yield fs.createReadStream(list[i], {autoClose:false});
 		}
 	},
-	pipe_data: function(iterator, writer, next){
+	pipe_data: (iterator, writer, next) => {
 		var item = iterator.next();
 		if(!item.done){
 			item = item.value;
@@ -54,7 +54,7 @@ var extension  = {
 			writer.end('');
 		}
 	},
-	pipe_stream_list_to_writer: function(list, writer, next){
+	pipe_stream_list_to_writer: (list, writer, next) => {
 		var iterator = extension.get_read_stream_iterator(list);
 		extension.pipe_data(iterator, writer, next);
 		return true;
@@ -63,7 +63,7 @@ var extension  = {
 	/*
 	 * 简单的http2.0 combo处理，未做304等状态处理，只供开发使用
 	 * */
-	staticHttpCombo: function(req, res, next){
+	staticHttpCombo: (req, res, next) => {
 		if(req.path in extension.map_combo_file){
 			extension.pipe_stream_list_to_writer(extension.get_combo_file_list(req.path), res, next());
 			return false;
@@ -88,7 +88,7 @@ var extension  = {
 			}
 
 			var list = [];
-			file_list.forEach(function(one){
+			file_list.forEach(one=>{
 				var file = req.path + one;
 				if(extension.map_combo_file[file]){
 					list = list.concat(extension.get_combo_file_list(file));
@@ -108,11 +108,10 @@ var extension  = {
 		return true;
 	},
 
-	autoAddRoutes: function(app, dirPath, routePath, defer){
-		var routeFiles = fs.readdirSync(dirPath);
-		Promise.all(routeFiles.map(function(file){
-			return new Promise(function(resolve, reject){
-				fs.stat(dirPath+'/'+file, function(err, stats){
+	autoAddRoutes: (app, dirPath, routePath, defer) => {
+		Promise.all(fs.readdirSync(dirPath).map(file=>{
+			return new Promise((resolve, reject)=>{
+				fs.stat(dirPath+'/'+file, (err, stats)=>{
 					if( stats.isDirectory() ){
 						extension.autoAddRoutes(app, dirPath+'/'+file, routePath+file+'/', {resolve:resolve, reject:reject});
 					}else if( stats.isFile() ){
@@ -129,7 +128,7 @@ var extension  = {
 					}
 				});
 			});
-		})).then(function(){
+		})).then(()=>{
 			defer.resolve();
 		});
 	},
@@ -146,39 +145,38 @@ var extension  = {
 		}
 		this.res.send(ret);
 	},
-	minifyHTML: function(str){
+	minifyHTML: (str) => {
 		str = (str||'').replace(/(\/?>)\s+|\s+(?=<)/g, '$1')
 		.replace(/\s*([\r\n]+)\s*/g, '$1');
 		return str;
 	},
-	writeStaticCache: function(url, ret){
+	writeStaticCache: (url, ret) => {
 		// console.log(url);
 		if(typeof url == 'object' && url.length) url = url[0];
 		var url_path = url.replace(/^\/|\/$/g, '');
 		// url_path = extension.static_dir + '/../html/' + (url_path || 'index') + '.html';
 		url_path = extension.static_dir + '/' + (url_path || 'index') + '.html';
 		url_path = path.normalize(url_path);
-		extension.mkdirRecursive(path.dirname(url_path), 777, function(){
-			fs.writeFile(url_path, ret, function(err){
+		extension.mkdirRecursive(path.dirname(url_path), 777, ()=>{
+			fs.writeFile(url_path, ret, (err)=>{
 				if(err) throw err;
 				console.log('Dist ' + url_path + ' succeed!');
 			});
 		});
 	},
 	mkdirRecursive: function(dirpath, mode, callback){
-		var that = this;
-		fs.exists(dirpath, function(exists){
+		fs.exists(dirpath, (exists)=>{
 			if(exists){
 				callback(dirpath);
 			}else{
-				that.mkdirRecursive(path.dirname(dirpath), mode, function(){
+				extension.mkdirRecursive(path.dirname(dirpath), mode, ()=>{
 					fs.mkdir(dirpath, mode, callback);
 				});
 			}
 		});
 	},
 	sass: {
-		ruby: function(in_file, out_file, lib, next){
+		ruby: (in_file, out_file, lib, next)=>{
 			var sh = [
 				'scss',
 				'--sourcemap=none',
@@ -188,7 +186,7 @@ var extension  = {
 				out_file
 			];
 			// console.log(sh.join(' '));
-			exec(sh.join(' '), function(error, stdout, stderr){
+			exec(sh.join(' '), (error, stdout, stderr)=>{
 				if(error){
 					console.log(error);
 					console.log(stdout);
@@ -197,7 +195,7 @@ var extension  = {
 				return next();
 			});
 		},
-		node: function(in_file, out_file, defer, next){
+		node: (in_file, out_file, defer, next)=>{
 			sass.render({
 				// data      : 'body{background:blue; a{color:black;}}',
 				includePaths : [path.normalize(process.cwd()+'/public/public/scss')],
@@ -206,7 +204,7 @@ var extension  = {
 				indentWidth  : 1,
 				indentType   : 'tab',
 				outputStyle  : 'compact'
-			}, function(error, result){
+			}, (error, result)=>{
 				if(error){
 					console.log(error);
 					console.log(error.status);
@@ -229,9 +227,9 @@ var extension  = {
 						require('postcss-urlrev')({})
 					]).process(result.css, {
 						from:in_file, to:out_file
-					}).then(function(result){
+					}).then(result=>{
 						// console.log(result.css);
-						fs.writeFile(out_file, result.css, {mode:'777'}, function(){
+						fs.writeFile(out_file, result.css, {mode:'777'}, ()=>{
 							console.log(`Compile ${out_file} success`);
 							// return next();
 						});
@@ -241,26 +239,25 @@ var extension  = {
 			});
 		}
 	},
-	compile_list_to_writer: function(list, res, next){
-		Promise.all(list.map(function(css_path){
-			return new Promise(function(resolve, reject){
+	compile_list_to_writer: (list, res, next) => {
+		Promise.all(list.map(css_path=>{
+			return new Promise((resolve, reject)=>{
 				var css_dir   = path.normalize(path.dirname(css_path) + '/');
 				var scss_dir  = css_dir.replace(/([\\\/])css([\\\/])/, "$1scss$2");
 				var scss_path = scss_dir + path.basename(css_path, '.css') + '.scss';
-				extension.mkdirRecursive(css_dir, 777, function(){
-					var defer = {resolve:resolve, reject:reject};
-					extension.sass.node(scss_path, css_path, defer, next);
+				extension.mkdirRecursive(css_dir, 777, ()=>{
+					extension.sass.node(scss_path, css_path, {resolve, reject}, next);
 				});
 			});
-		})).then(function(css_ret){
+		})).then(css_ret => {
 			res.writeHead(200, {"Content-Type":'text/css'});
 			res.end(css_ret.join("\n"));
-		})['catch'](function(e){
+		})['catch'](e=>{
 			console.log(e);
 		});
 		return true;
 	},
-	CompileSCSS: function(req, res, next){
+	CompileSCSS: (req, res, next) => {
 		if(/.*\.css$/.test(req.path)){
 			var css_path = path.normalize(extension.static_dir + req.path);
 			extension.compile_list_to_writer([css_path], res, next);
@@ -269,19 +266,19 @@ var extension  = {
 		}
 		return true;
 	},
-	minify_code: function(s){
+	minify_code: (s) => {
 		s = s.replace(/(\/?>)\s+|\s+(?=<)/g, '$1');
 		// s = s.replace(/\\/g, "\\\\");
 		s = s.replace(/\s*([\r\n]+)\s*/g, '$1');
 		// s = s.replace(/([^\\])(')/g, "$1\\$2"); // '
 		return s;
 	},
-	merge_tpl_list: function(list, out_file, next){
+	merge_tpl_list: (list, out_file, next) => {
 		var data = {};
 		try{
-			list.forEach(function(one){
+			list.forEach((one) => {
 				var s = fs.readFileSync(one, {encoding:'utf8', flag:'r'});
-				if(-1!==['tpl', 'ejs', 'html', 'htm'].indexOf(path.extname(one).slice(1))){
+				if(~['tpl', 'ejs', 'html', 'htm'].indexOf(path.extname(one).slice(1))){
 					s = extension.minify_code(s);
 				}
 				data[path.basename(one)] = s;
@@ -295,20 +292,20 @@ var extension  = {
 		}
 		return true;
 	},
-	CompileDir2JS: function(dir){
-		return new Promise(function(resolve, reject){
+	CompileDir2JS: (dir) => {
+		return new Promise((resolve, reject) => {
 			extension.dir_compile(dir, {resolve:resolve, reject:reject});
-		}).then(function(data){
-			data = Array.prototype.concat.apply([], data).filter(function(i){ return i;});
+		}).then((data) => {
+			data = Array.prototype.concat.apply([], data).filter(i=>i);
 			return Promise.resolve(data);
 		});
 	},
-	dir_compile: function(dir, defer){
-		fs.readdir(extension.static_dir + dir, function(err, files){
-			files.length && Promise.all(files.map(function(one){
-				return new Promise(function(resolve, reject){
+	dir_compile: (dir, defer) => {
+		fs.readdir(extension.static_dir + dir, (err, files)=>{
+			files.length && Promise.all(files.map((one)=>{
+				return new Promise((resolve, reject)=>{
 					var file_path = dir + one;
-					fs.stat(extension.static_dir+file_path, function(err, stats){
+					fs.stat(extension.static_dir+file_path, (err, stats)=>{
 						if(stats.isDirectory()){
 							extension.dir_compile(file_path+'/', {resolve:resolve, reject:reject});
 						}else{
@@ -328,7 +325,7 @@ var extension  = {
 	 * 每次请求模块文件时，动态编译相应的模块文件
 	 * 具有合并多个模块文件为一个的功能
 	 * */
-	Compile2JS: function(req, res, next){
+	Compile2JS: (req, res, next) => {
 		if(!/\/tpl\/.*\.js$/.test(req.path)) return next&&next();
 		var out_file   = path.normalize(extension.static_dir + req.path);
 		var out_path   = path.normalize(path.dirname(out_file) + '/');
@@ -336,11 +333,11 @@ var extension  = {
 		var in_file    = in_path + path.basename(out_file, '.js');
 		var path_patch = in_file.split(/([\\\/])(htpl)([\\\/])/).slice(0, 4)
 		path_patch.push('map.json');
-		extension.mkdirRecursive(out_path, 777, function(){
+		extension.mkdirRecursive(out_path, 777, ()=>{
 			var map  = extension.readJSONFile(path_patch.join(''));
 			var list = [], stpl;
 			if(stpl = map[req.path.replace(/\.js$/,'').slice(1)]){ // 多模块合并
-				stpl.split(',').forEach(function(one){
+				stpl.split(',').forEach((one) => {
 					list.push(out_path.replace(/([\\\/])tpl([\\\/])/, "$1htpl$2") + one + '.tpl');
 				});
 			}else{
