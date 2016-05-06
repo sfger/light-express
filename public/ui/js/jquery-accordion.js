@@ -63,7 +63,7 @@ $.fn.accordion = function(options){
 								duration: 210,
 								start: function(){
 									if(document.documentMode<7)
-										$(this).css({display:'block', overflow:"auto"})
+										$(this).css({display:'block', overflow:"auto"});
 								}
 							});
 						}else{

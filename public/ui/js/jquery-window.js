@@ -62,13 +62,13 @@ $.fn.window = function(options){
 				};
 			});
 
-			$(this.closer).on('click', function(e){
+			$(this.closer).on('click', function(){
 				that.close();
 				return false;
 			});
 			if(options.show) this.show();
-			var isIE6      = /MSIE 6.0/.exec(navigator.userAgent);
-			var css1compat = document.compatMode === "CSS1Compat";
+			// var isIE6      = /MSIE 6.0/.exec(navigator.userAgent);
+			// var css1compat = document.compatMode === "CSS1Compat";
 			// if(isIE6 || !css1compat) $(window).resize(function(){that.resize();});
 			if(options.onCreate && typeof options.onCreate==='function') options.onCreate();
 		},
@@ -83,12 +83,12 @@ $.fn.window = function(options){
 		},
 		open: function(){ this.show(); }, // alias for show
 		show: function(){
-			var html = document.documentElement;
-			var body = document.body;
+			// var html = document.documentElement;
+			// var body = document.body;
 			// body.style.width = body.offsetWidth + 'px';
-			var $container = $(this.container),
-				$contents  = $(this.contents),
-				wraper     = this.wraper;
+			var $container = $(this.container);
+			// var $contents  = $(this.contents);
+			// var	wraper     = this.wraper;
 			if($container.is(':visible')) return false;
 
 			var options	   = this.userOptions;

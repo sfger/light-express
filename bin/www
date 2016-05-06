@@ -3,7 +3,7 @@ var debug = require('debug')('test');
 var app = require('../app');
 var fs = require('fs');
 
-var htts_server = require('https').createServer({
+require('https').createServer({
 	key  : fs.readFileSync('./cert/key.pem'),
 	cert : fs.readFileSync('./cert/cert.pem')
 }, app).listen(process.env.HTTPS_PORT||443);

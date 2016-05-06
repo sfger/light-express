@@ -1,4 +1,4 @@
-window.__version__ = document.getElementById("requirejs").getAttribute("data-version");
+var __version__ = document.getElementById("requirejs").getAttribute("data-version");
 require.config({
 	baseUrl : './',
 	urlArgs : __version__,
@@ -60,12 +60,12 @@ require([
 			});
 		},
 		define_router_param: function(){
-			router = this.router;
+			var router = this.router;
 			router.param('id', /([\d]+)/);
 			router.param('index', /([\w]+)/);
 		},
 		global_router: function(){
-			router = this.router;
+			var router = this.router;
 			router.on('on', '/?(.*)', function(path, next){
 				var destroy_previous_page = function(){
 					if(app.page) app.page.destroy();
@@ -73,7 +73,7 @@ require([
 				};
 				new Promise(function(resolve, reject){
 					var module = 'share/js/' + (path||'index');
-					require([module], resolve, function(err){
+					require([module], resolve, function(){
 						return reject(404);
 					});
 				}).then(function(page){
@@ -87,13 +87,14 @@ require([
 					};
 					page.create();
 					app.page = page;
-				})['catch'](function(err){
+				})['catch'](function(){
 					destroy_previous_page();
 					router.dispatch('on', '/404');
 				});
 			});
 		},
 		config_router: function(){
+			var router = this.router;
 			router.on('on', '/article/:index', function(article_index, next){
 				require.config({
 					shim: {

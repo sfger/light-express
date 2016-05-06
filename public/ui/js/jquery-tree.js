@@ -73,7 +73,7 @@ $.fn.tree = function(options){
 		init: function(box, options){
 			var that = this;
 			var document = window.document;
-			['Height', 'Width'].forEach(function(one, i){
+			['Height', 'Width'].forEach(function(one){
 				that['getView'+one] = (function () {
 					var container = "BackCompat" === document.compatMode ? document.body : document.documentElement;
 					return function () {
@@ -153,7 +153,7 @@ $.fn.tree = function(options){
 				};
 				// }}}
 				$(this.contents).delegate('.checkbox', {
-					click: function(e){
+					click: function(){
 						var line = this.parentNode;
 						var li = line.parentNode;
 						check.updateChildCheckState({children:[li]}, !line.option.checked);

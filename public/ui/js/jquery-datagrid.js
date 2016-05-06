@@ -9,23 +9,24 @@
 			|| window[vp+'CancelRequestAnimationFrame']);
 	}
 	if (/iP(ad|hone|od).*OS 6/.test(window.navigator.userAgent) // iOS6 is buggy
-		|| !window.requestAnimationFrame || !window.cancelAnimationFrame) {
-			var lastTime = 0;
-			window.requestAnimationFrame = function(callback) {
-				var now = Date.now();
-				var nextTime = Math.max(lastTime + 16, now);
-				return setTimeout(function() { callback(lastTime = nextTime); }, nextTime - now);
-			};
-			window.cancelAnimationFrame = clearTimeout;
-		}
+	|| !window.requestAnimationFrame || !window.cancelAnimationFrame) {
+		var lastTime = 0;
+		window.requestAnimationFrame = function(callback) {
+			var now = Date.now();
+			var nextTime = Math.max(lastTime + 16, now);
+			return setTimeout(function() { callback(lastTime = nextTime); }, nextTime - now);
+		};
+		window.cancelAnimationFrame = clearTimeout;
+	}
 }());
 // }}}
+// var $ = function(){};
 $.fn.datagrid = function(options){
 	var type = $.type(options);
 	if(type==='string'){
 		var args = Array.prototype.slice.call(arguments).slice(1);
 		var ret = [];
-		for(oi=0,oil=this.length; oi<oil; oi++){
+		for(var oi=0,oil=this.length; oi<oil; oi++){
 			var ui = $(this[oi]).data('ui');
 			if(ui && ui.iDatagrid){
 				ret.push(ui.iDatagrid[options].apply(ui.iDatagrid, args));
@@ -93,11 +94,10 @@ $.fn.datagrid = function(options){
 	var get_table = function(options, that){
 		var get_head_rows = function(rows, isFrozen){
 			var ret = [];
-			var l = 0;
 			var colsType = isFrozen ? 'frozenColumns' : 'columns';
 			if(!rows) return ret;
 			var il = rows.length - 1;
-			var fieldElements = [];
+			// var fieldElements = [];
 			for(var i=il; i>=0; i--){
 				ret.unshift(createElement({name:'tr', children:(function(){
 					var nodes = [];
@@ -149,7 +149,7 @@ $.fn.datagrid = function(options){
 								}
 							}));
 						}
-						cols && cols.forEach(function(option, ii){
+						cols && cols.forEach(function(option){
 							if(!option) return true;
 							var field = option.field,
 								val = row[field],
@@ -160,7 +160,7 @@ $.fn.datagrid = function(options){
 										'class':'cell',
 										style:{width:options.autoColWidth ? 'auto' : ((option.width||options.colWidth) + 'px')}
 									}, children:
-										 $.type(formatter)==='function' ? formatter(val, row, field) : val
+										$.type(formatter)==='function' ? formatter(val, row, field) : val
 								}
 							}));
 						});
@@ -216,16 +216,16 @@ $.fn.datagrid = function(options){
 	};
 	var align_table = function(a, b, type){
 		var st = type==='width' ? 'Width' : 'Height';
-		$(a).each(function(i, one){
+		$(a).each(function(i){
 			var t1 = this['offset' + st];
 			var t2 = b[i]['offset' + st];
 			var t = t1<t2 ? t2 : t1;
 			$([this, b[i]])[type](t);
 		});
 	};
-	var align_tr = align_table;
+	// var align_tr = align_table;
 	var align_td = function(a, type, fieldElements){
-		$.each(a, function(i, one){
+		$.each(a, function(i){
 			var field = fieldElements[i];
 			var t1  = getHW(this, type),
 				t2  = getHW(field, type);
@@ -278,7 +278,6 @@ $.fn.datagrid = function(options){
 			var $box = $(box);
 			$box.addClass('datagrid-ctn cf');
 
-			var that    = this;
 			this.render = box;
 			// if(options.pagination && options.localData){
 			// 	box.innerHTML = '<div class="datagrid-pagination"></div>';
@@ -337,7 +336,7 @@ $.fn.datagrid = function(options){
 			// }
 			var sort = options.sort;
 			if(options.remoteSort){
-				var sort_order = (-1===[true,'desc'].indexOf(order)) ? 'asc' : 'desc';
+				var sort_order = (-1===[true,'desc'].indexOf(sort.order)) ? 'asc' : 'desc';
 				$('.head-wrapper [data-field='+sort.field+'] .sort-mark', box).addClass(sort_order);
 			}else if(options.sort){
 				this.sortBy({field:sort.field, order:sort.order});
@@ -369,7 +368,7 @@ $.fn.datagrid = function(options){
 				$box.on(hover_binds, '.head td').on(hover_binds, '.body tr');
 			} */
 			if(!options.remoteSort){
-				$box.on('click', '.field .cell', function(e){
+				$box.on('click', '.field .cell', function(){
 					that.sortBy({
 						field: $(this).data('field'),
 						order: !this.order||this.defaultOrder
@@ -378,7 +377,7 @@ $.fn.datagrid = function(options){
 			}
 		},
 		getColumnOption: function(fieldName){
-			return this.allColumns.filter(function(one, i){
+			return this.allColumns.filter(function(one){
 				return one.field===fieldName;
 			})[0];
 		},
@@ -394,8 +393,8 @@ $.fn.datagrid = function(options){
 			this.sortElement = sortElement;
 			if(preSortElement){
 				if(sortElement===preSortElement){
-				   if(option.order===preSortElement.order) return false;
-				   else options.data = options.data.reverse();
+					if(option.order===preSortElement.order) return false;
+					else options.data = options.data.reverse();
 				}
 				$('.sort-mark', preSortElement).removeClass('asc desc');
 			}

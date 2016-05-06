@@ -108,11 +108,11 @@ $.fn.tabs = function(options){
 				}).resize();
 			}
 			$(box.children[0]).on({
-				click:function(e){
+				click:function(){
 					that.select(that.headers.indexOf(this));
 				}
 			}, 'li').on({
-				click:function(e){
+				click:function(){
 					that.close(that.headers.indexOf(this.parentNode.parentNode));
 					return false;
 				}

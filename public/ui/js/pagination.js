@@ -1,6 +1,6 @@
 (function(window, undefined){
 	"use strict";
-    var pagination = function(options){
+	var pagination = function(options){
 		options = light.util.extend({
 			useAjax:false,
 			dataSize:0,
@@ -10,7 +10,7 @@
 			pageSizeList:[10, 25, 50, 100]
 		}, options);
 		var pagination = (function(){
-			var pagination = function(options){ return new pagination.prototype.init(options); }
+			var pagination = function(options){ return new pagination.prototype.init(options); };
 			pagination.prototype = {
 				render:null,pageCount:1,
 				init:function(options){
@@ -142,7 +142,7 @@
 					}
 					if(cur!=page) this.getNaviNode(url,cur+1,"下一页");
 				}
-			}
+			};
 			pagination.prototype.init.prototype = pagination.prototype;
 			return pagination;
 		})();
@@ -152,7 +152,7 @@
 				iPagination:pagination(light.util.extend(true, {render:options.renders[i]}, options))
 			};
 		}
-    };
-    return window.pagination = pagination;
+	};
+	return window.pagination = pagination;
 })(window);
 /* vim: set fdm=marker */

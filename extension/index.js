@@ -326,9 +326,10 @@ var extension  = {
 		var path_patch = in_file.split(/([\\\/])(htpl)([\\\/])/).slice(0, 4);
 		path_patch.push('map.json');
 		extension.mkdirRecursive(out_path, 777, ()=>{
+			var list = [];
 			var map  = extension.readJSONFile(path_patch.join(''));
-			var list = [], stpl;
-			if(stpl = map[req.path.replace(/\.js$/,'').slice(1)]){ // 多模块合并
+			var stpl = map[req.path.replace(/\.js$/,'').slice(1)];
+			if( stpl ){ // 多模块合并
 				stpl.split(',').forEach((one) => {
 					list.push(out_path.replace(/([\\\/])tpl([\\\/])/, "$1htpl$2") + one + '.tpl');
 				});

@@ -14,7 +14,7 @@ module.exports = {
         },
         "sourceType": "module"
     },
-    // "plugins": [ "react" ],
+    "plugins": [ "react" ],
     "rules": {
 		"no-console"      : [ "off" ],
         "indent"          : [ "warn", "tab" ],

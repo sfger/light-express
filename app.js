@@ -9,7 +9,7 @@ var webpack    = require("webpack");
 var compiler   = webpack(require('./webpack.config.js'));
 var Extension  = require('./extension');
 app.use(webpackDev(compiler, {
-    stats:{colors:true}
+	stats:{colors:true}
 }));
 
 app.Extension = Extension;
@@ -38,7 +38,7 @@ new Promise((resolve, reject) => {
 		err.status = 404;
 		next(err);
 	});
-	app.use((err, req, res, next) => {
+	app.use((err, req, res/*, next*/) => {
 		var status = err.status || 500;
 		res.status(status);
 		res.render(status, {

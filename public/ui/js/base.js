@@ -44,7 +44,7 @@ var light = {
 			}
 			var getType = light.util.getType;
 			var targetType = getType(target);
-			if(!targetType in {"Object":1, "Function":1}) target = {};
+			if(!(targetType in {"Object":1, "Function":1})) target = {};
 			if(i===len) target = {}, i--;
 			for(; i<len; i++){
 				var options = arguments[i];
