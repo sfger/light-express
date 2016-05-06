@@ -36,8 +36,8 @@
 			/(blackberry)/.exec( ua ) ||
 			[];
 
-		var browser = {},
-			matched = {
+		var browser = {};
+		var matched = {
 			browser: match[ 5 ] || match[ 3 ] || match[ 1 ] || "",
 			version: match[ 2 ] || match[ 4 ] || "0",
 			versionNumber: match[ 4 ] || match[ 2 ] || "0",

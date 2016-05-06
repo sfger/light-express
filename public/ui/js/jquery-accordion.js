@@ -17,7 +17,7 @@ $.fn.accordion = function(options){
 		data: []
 	}, options);
 	var handler = function(box, options){ return new handler.prototype.init(box, options); };
-	var getType = light.util.getType;
+	// var getType = light.util.getType;
 	handler.prototype = {
 		init: function(box, options){
 			var that = this;
@@ -52,7 +52,7 @@ $.fn.accordion = function(options){
 				click: function(){
 					var panel = this.parentNode.children[1];
 					var spl = that.selectedPanel;
-					var $spl = $(spl);
+					// var $spl = $(spl);
 					spl && $(spl.parentNode.children[0]).removeClass('selected');
 					if(panel!=spl){
 						$(this).addClass('selected');

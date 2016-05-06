@@ -14,7 +14,18 @@ module.exports = {
         },
         "sourceType": "module"
     },
-    "plugins": [ "react" ],
+    "plugins" : [ "react" ],
+	"globals" : {
+		"window"      : true,
+		"jQuery"      : true,
+		"$"           : true,
+		"require"     : true,
+		"define"      : true,
+		"EJS"         : true,
+		"undefined"   : true,
+		"light"       : true,
+		"__version__" : true
+	},
     "rules": {
 		"no-console"      : [ "off" ],
         "indent"          : [ "warn", "tab" ],

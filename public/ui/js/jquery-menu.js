@@ -24,7 +24,7 @@ $.fn.menu = function(method, op){
 			var that = this;
 			this.userOptions = options;
 			var document = window.document;
-			var getType = function(obj){ return toString.call(obj).slice(8, -1); };
+			// var getType = function(obj){ return toString.call(obj).slice(8, -1); };
 			var $box = $(box);
 			$box.addClass('menu-ctn cf').hide();
 			this.container = box;
@@ -91,7 +91,7 @@ $.fn.menu = function(method, op){
 				wraper.appendChild(ul);
 				return wraper;
 			};
-			var w = $(createMenu(options)).appendTo(box);
+			$(createMenu(options)).appendTo(box);
 			$box.on({
 				mouseenter: function(){
 					if(this.showMenuTimer) clearTimeout(this.showMenuTimer);
@@ -211,7 +211,7 @@ $.fn.menu = function(method, op){
 				}
 			}else{
 				$sc = $(this.menuitems[refName]);
-				if(!position) position = after;
+				if(!position) position = 'after';
 				method = position;
 			}
 			$sc[method](li);
