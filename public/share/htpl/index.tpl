@@ -1,14 +1,19 @@
+<%
+var list = [
+	{'name':'CSS'       , 'url':'#/css'},
+	{'name':'UI'        , 'url':'#/ui'},
+	{'name':'Article'   , 'url':'#/article'},
+	{'name':'Books'     , 'url':'#/books'},
+	{'name':'View Book' , 'url':'#/books/view/1'},
+	{'name':'Link'      , 'url':'./ui/html/demos/complex/seaShell.html'}
+];
+%>
 <div class="imgc home-page">
 	<div class="imge navi-box">
-		<div class="navi-links">
-			<h1>Share From Water</h1>
-			<a href="#/css">CSS&#187;</a>
-			<a href="#/ui">UI&#187;</a>
-			<a href="#/article">Articles&#187;</a>
-			<a href="#/books">Books&#187;</a>
-			<a href="#/books/view/1">View Books&#187;</a>
-			<a href="./ui/html/demos/complex/seaShell.html">Link&#187;</a>
-		</div>
+		<h1>Share From Water</h1>
+		<% list.forEach(function(one){ %>
+		<a href="<%= one['url'] %>"><%= one['name'] %>&#187;</a>
+		<% }); %>
 	</div>
 	<!--[if lt IE 8]><p class="iecp"></p><![endif]-->
 </div>

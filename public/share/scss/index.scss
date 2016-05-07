@@ -3,7 +3,7 @@
 @import 'parts/layout';
 @import 'highlight';
 html{
-	font:normal 12px/normal "Helvetica Neue",Helvetica,Arial,"Hiragino Sans GB",sans-serif;
+	font:normal 16px/normal "Helvetica Neue",Helvetica,Arial,"Hiragino Sans GB",sans-serif;
 	&,body{padding:0;margin:0;}
 	&.full-screen{
 		&,body{height:100%;overflow:hidden;}
@@ -24,18 +24,16 @@ html{
 .navi-box{
 	width:505px;animation:dropDown 0.5s;
 	@media screen and (max-width:640px){width:80%;}
-	.navi-links{
-		@include border-radius(8px);@include background-color-rgba(#000,0.3);
-		text-align:center;_background:darken(#ade8aa,51%);
-		overflow:hidden;padding:20px;color:white;
-		h1,h3{font-size:25px;margin-bottom:10px;text-align:center;font-weight:normal;}
-		h3{font-size:14px;}
-		a{
-			@include ib;@include button(133px, auto);@include border-radius(4px);
-			padding:2px 5px;margin:5px;_margin:5px 11px;transition:all 0.3s ease-in 0s;
-			font-size:14px;border:1px solid #fff;line-height:25px;text-decoration:none;color:white;
-			&:hover{background:white;color:#666;/*transform:rotate(3deg);*/}
-		}
+	@include border-radius(8px);@include background-color-rgba(#000,0.3);
+	text-align:center;_background:darken(#ade8aa,51%);
+	overflow:hidden;padding:20px;color:white;
+	h1,h3{font-size:25px;margin-bottom:10px;text-align:center;font-weight:normal;}
+	h3{font-size:16px;}
+	a{
+		@include ib;@include button(133px, auto);@include border-radius(4px);
+		padding:2px 5px;margin:5px;_margin:5px 11px;transition:all 0.3s ease-in 0s;
+		font-size:16px;border:1px solid #fff;line-height:25px;text-decoration:none;color:white;
+		&:hover{background:white;color:#666;/*transform:rotate(3deg);*/}
 	}
 }
 .wrap{
@@ -43,22 +41,24 @@ html{
 	@media screen and (max-width:640px){width:auto;}
 }
 .article-page{
-	@media screen and (max-width:640px){width:auto;}
+	// @media screen and (max-width:640px){width:auto;}
 	.md-ctn{
+		padding:4px;
 		table{margin:8px 0;table-layout:fixed;border-collapse:collapse;border:1px black #666;}
 		th,td{padding:2px 4px;border:1px #666 solid;word-break:break-all;word-wrap:break-word;}
 		sub,sup{font-size:10px;}
 		p{text-indent:32px;text-indent:2rem;}
 		h1,h2,h3,h4,h5,h6,{line-height:normal;margin:6px 0;}
-		h1{font-size:16px;}
-		h2{font-size:15px;}
-		h3{font-size:14px;}
-		h4{font-size:13px;}
-		h5{font-size:12px;}
-		h6{font-size:11px;}
+		h1{font-size:18px;}
+		h2{font-size:17px;}
+		h3{font-size:16px;}
+		h4{font-size:15px;}
+		h5{font-size:14px;}
+		h6{font-size:12px;}
 		pre{margin:0;}
 	}
 }
-.article-bar{padding:12px;background:#3b9739;
-	&,a{margin-right:4px;color:white;font:12px "Microsoft YaHei";}
+.article-bar{
+	padding:16px;background:#3b9739;
+	a{margin-right:4px;color:white;font:14px "Microsoft YaHei";}
 }

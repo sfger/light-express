@@ -1,5 +1,5 @@
-var __version__ = document.getElementById("requirejs").getAttribute("data-version");
-require.config({
+var __version__ = window.__version__ = document.getElementById("requirejs").getAttribute("data-version");
+require.config({//{{{
 	baseUrl : './',
 	urlArgs : __version__,
 	map     : {"*":{css:"public/require-css.js"}},
@@ -9,19 +9,52 @@ require.config({
 	shim    : {
 		jquery: ['public/js/es5-shim', 'public/js/es6-shim']
 	}
-});
+});//}}}
+define('app/404', function(){//{{{
+	return '<div class="imgc" style="height:100%;">'+
+		'<div class="imge">您访问的网页不存在，<a href="#/index">返回首页</a></div>' +
+	'</div>';
+});//}}}
+define('app/router', [//{{{
+	'public/js/router',
+	'app/404'
+], function(director, html_404){
+	return function(app){
+		return director.Router({
+			'/404':{
+				before: app.fullScreen,
+				after: app.exitFullScreen,
+				on: function(next){
+					document.title = '404 Not Found';
+					new EJS({
+						text: html_404
+					}).update(app.root, {
+						data:{}
+					});
+					next();
+				}
+			}
+		}).configure({
+			async    : true,
+			recurse  : 'forward',
+			notfound : function(){
+				// app.router.setRoute('404');
+				app.router.dispatch('on','/404');
+			}
+		});
+	};
+});//}}}
 require([
 	'jquery',
-	'public/js/router',
 	// 'public/fetch',
 	// 'public/web-animations',
+	'app/router',
 	'public/js/ejs'
-], function($, director){
-	var Router = director.Router;
+], function($, app_router){
 	var app = {
 		root: document.getElementById('page'),
 		boot: function(){
-			this.init_router();
+			this.router = app_router(this);
 			this.define_router_param();
 			this.config_router();
 			this.global_router();
@@ -34,30 +67,6 @@ require([
 		exitFullScreen: function(next){
 			$('html').removeClass('full-screen');
 			next&&next();
-		},
-		init_router: function(){
-			app.router = Router({
-				'/404':{
-					before: app.fullScreen,
-					after: app.exitFullScreen,
-					on: function(next){
-						document.title = '404 Not Found';
-						new EJS({
-							text:'<div class="imgc" style="height:100%;"><div class="imge">您访问的网页不存在，<a href="#/index">返回首页</a></div></div>'
-						}).update(app.root, {
-							data:{}
-						});
-						next();
-					}
-				}
-			}).configure({
-				async    : true,
-				recurse  : 'forward',
-				notfound : function(){
-					// app.router.setRoute('404');
-					app.router.dispatch('on','/404');
-				}
-			});
 		},
 		define_router_param: function(){
 			var router = this.router;
@@ -108,6 +117,7 @@ require([
 					'share/tpl/article/'+article_index+'.markdown'
 				], function($, markdown, hljs, article){
 					if(!article) return router.dispatch('on', '/404');
+					app.exitFullScreen();
 					var md = new markdown().set({html:true, breaks:true});
 					article = md.render(article[article_index+'.markdown']);
 					new EJS({
@@ -116,6 +126,7 @@ require([
 						data: article,
 						home: '#/index'
 					});
+					document.title = document.querySelector('h1').innerHTML;
 					$('pre code').each(function(i, block) {
 						hljs.highlightBlock(block);
 					});
@@ -128,3 +139,4 @@ require([
 	};
 	app.boot();
 });
+// vim: fdm=marker

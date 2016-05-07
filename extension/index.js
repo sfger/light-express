@@ -286,7 +286,7 @@ var extension  = {
 	},
 	CompileDir2JS: (dir) => {
 		return new Promise((resolve, reject) => {
-			extension.dir_compile(dir, {resolve:resolve, reject:reject});
+			extension.dir_compile(dir, {resolve, reject});
 		}).then((data) => {
 			data = Array.prototype.concat.apply([], data).filter(i=>i);
 			return Promise.resolve(data);
