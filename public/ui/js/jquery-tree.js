@@ -1,5 +1,3 @@
-(function($, undefined){
-// "use strict";
 $.fn.tree = function(options){
 	var type = $.type(options);
 	if(type==='string'){
@@ -30,14 +28,14 @@ $.fn.tree = function(options){
 		}
 		var ul = document.createElement('ul');
 		ul.setAttribute('data-deep', deep);
-		for(var i=0,ii=data.length-1; i<=ii; i++){
+		for(var i=0,il=data.length-1; i<=il; i++){
 			var name = document.createElement('span'),
 				li   = document.createElement('li'),
 				line = document.createElement('a');
 			ul.appendChild(li);
 			ul.setAttribute('data-deep', deep);
 			li.appendChild(line);
-			line.setAttribute('href', 'javascript:');
+			line.href = 'javascript:';
 			line.className = 'line';
 			line.option = data[i];
 			var indent = data[i].children ? (deep==1?deep-2:deep-1) : deep;
@@ -335,7 +333,7 @@ $.fn.tree = function(options){
 			var parentNode = null;
 			try{
 				parentNode = node.parentNode.parentNode.children[0];
-			}catch(e){}
+			}catch(e){null;}
 			return parentNode;
 		},
 		disableSelection: function(){
@@ -376,5 +374,4 @@ $.fn.tree = function(options){
 		else $this.data('ui', {iTree:instance});
 	});
 };
-})(jQuery);
 /* vim: set fdm=marker : */

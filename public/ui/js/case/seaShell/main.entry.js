@@ -44,7 +44,7 @@ __non_webpack_require__([
 	$leftMenu.tree({
 		data:data,
 		animate:{time:115},
-		onClick:function(e){
+		onClick:function(){
 			var option = this.option;
 			if(!$leftMenu.tree('isLeaf', this)){
 				return false;
@@ -66,8 +66,7 @@ __non_webpack_require__([
 				try{
 					var win = window.open(this.option.url);
 					win.opener = null;
-					return false;
-				}catch(e){}
+				}catch(e){null;}
 				return false;
 			}
 		}

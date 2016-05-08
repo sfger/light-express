@@ -16,15 +16,16 @@ module.exports = {
     },
     "plugins" : [ "react" ],
 	"globals" : {
-		"window"      : true,
-		"jQuery"      : true,
-		"$"           : true,
-		"require"     : true,
-		"define"      : true,
-		"EJS"         : true,
-		"undefined"   : true,
-		"light"       : true,
-		"__version__" : true
+		"window"                  : true,
+		"jQuery"                  : true,
+		"$"                       : true,
+		"require"                 : true,
+		"define"                  : true,
+		"EJS"                     : true,
+		"undefined"               : true,
+		"light"                   : true,
+		"__non_webpack_require__" : true,
+		"__version__"             : true
 	},
     "rules": {
 		"no-console"      : [ "off" ],

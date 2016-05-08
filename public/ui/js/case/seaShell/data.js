@@ -21,7 +21,6 @@ define(function(){
 							name: '淘宝',
 							children:[
 								{name:'淘宝FED', url:'http://taobaofed.org/'},
-								{name:'阿里中间件', url:'http://jm.taobao.org/'},
 								{name:'淘测试', url:'http://www.taobaotest.com/'},
 								{name:'淘宝搜索技术团队', url:'http://www.searchtb.com/'},
 								{name:'一淘UX', url:'http://ux.etao.com/'}
@@ -30,6 +29,7 @@ define(function(){
 						{
 							name: '阿里巴巴',
 							children:[
+								{name:'阿里中间件', url:'http://jm.taobao.org/'},
 								{name:'阿里巴巴国际站UED', url:'http://www.aliued.com/'},
 								{name:'阿里巴巴中文站UED', url:'http://www.aliued.cn/'}
 							]

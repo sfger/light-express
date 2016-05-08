@@ -299,9 +299,8 @@ $.fn.datagrid = function(options){
 		update: function(options){
 			var that = this;
 			var box  = this.render;
-			var $box = $(box);
 			options  = $.extend(true, {}, this.userOptions, options);
-			$box.empty();
+			$(box).empty(); // 清空内容取消绑定的事件
 			this.columns       = [];
 			this.frozenColumns = [];
 			this.userOptions   = options;
