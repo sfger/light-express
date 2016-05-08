@@ -1,9 +1,11 @@
 __non_webpack_require__.config({
-	baseUrl:'../../../js/',
-	urlArgs:"v=" + document.getElementById("requirejs").getAttribute("data-version"),
-	map:{"*":{css:"require-css"}},
-	paths:{},
-	shim:{
+	baseUrl: '../../../js/',
+	urlArgs: document.getElementById("requirejs").getAttribute("data-version"),
+	map: {"*":{css:"require-css"}},
+	paths: {
+		'jquery': '../../public/js/jquery'
+	},
+	shim: {
 		// 'jquery-layout':{deps:["jquery"]},
 		// 'jquery-tree':  {deps:["jquery"]},
 		// 'jquery-tabs':  {deps:["jquery"]}
@@ -19,9 +21,9 @@ __non_webpack_require__([
 	require('../../jquery-layout');
 	require('../../jquery-tree');
 	require('../../jquery-tabs');
-	var $leftMenu = $('.left-menu'),
-		$mainTab = $('.tab-ctn'),
-		$page = $('#page');
+	var $leftMenu = $('.left-menu');
+	var $mainTab = $('.tab-ctn');
+	var $page = $('#page');
 	$page.layout({
 		panel:{
 			toggle:true,
@@ -35,7 +37,7 @@ __non_webpack_require__([
 		},
 		panelBar:{
 			size: 1,
-			each:{west:{width:4}}
+			each: {west:{width:4}}
 		}
 	}).show();
 	var data = require('./data');
@@ -78,9 +80,13 @@ __non_webpack_require__([
 		border     : true,
 		position   : 'north'
 	});
+	var default_tab = '<div class="imgc" style="height:100%;">'+
+		'<div class="imge">欢迎来朴水做客！</div>'+
+		'<!--[if lt IE 8]><p class="iecp"></p><![endif]-->'+
+	'</div>';
 	$mainTab.tabs('add', {
 		title    : '主页',
-		content  : '<div class="imgc" style="height:100%;"><div class="imge">欢迎来朴水做客！</div><!--[if lt IE 8]><p class="iecp"></p><![endif]--></div>',
+		content  : default_tab,
 		closable : true,
 		select   : true
 	});

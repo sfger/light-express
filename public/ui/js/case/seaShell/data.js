@@ -11,17 +11,17 @@ define(function(){
 						{
 							name: '腾讯',
 							children:[
-								// {name:'QQ客户端团队博客', url:'http://impd.tencent.com/'},
 								{name:'腾讯Web前端 AlloyTeam', url:'http://www.alloyteam.com/'},
 								{name:'TGideas游戏设计', url:'http://tgideas.qq.com/'},
 								{name:'WSD 用户体验', url:'http://mxd.tencent.com/'},
-								// {name:'ECD电商用户体验', url:'http://ecd.tencent.com/'},
 								{name:'CDC用户研究与体验设计中心', url:'http://cdc.tencent.com/'}
 							]
 						},
 						{
 							name: '淘宝',
 							children:[
+								{name:'淘宝FED', url:'http://taobaofed.org/'},
+								{name:'阿里中间件', url:'http://jm.taobao.org/'},
 								{name:'淘测试', url:'http://www.taobaotest.com/'},
 								{name:'淘宝搜索技术团队', url:'http://www.searchtb.com/'},
 								{name:'一淘UX', url:'http://ux.etao.com/'}
@@ -171,7 +171,6 @@ define(function(){
 						{name: 'Underscore', url: 'https://github.com/documentcloud/underscore/'},
 						{name: 'Backbone', url: 'https://github.com/documentcloud/backbone/'},
 						{name: 'seajs', url: 'http://seajs.org/'},
-						{name: 'Qwrap', url: 'http://qwrap.com/'},
 						{name: 'WindJS', url: 'http://windjs.org/cn/'},
 						{name: 'Impress', url: 'http://bartaz.github.io/impress.js/#/bored'},
 						{name: 'MessengerJS', url: 'http://biqing.github.io/MessengerJS/'}
@@ -180,7 +179,7 @@ define(function(){
 				{
 					name: 'Share',
 					children: [
-						{name:'Dron', url:'http://ucren.com/blog/'},
+						{name: 'Dron', url:'http://ucren.com/blog/'},
 						{name: 'Franky', url: 'http://www.cnblogs.com/_franky'},
 						{name: '司徒正美', url: 'http://www.cnblogs.com/rubylouvre'},
 						{name: 'Gray Zhang', url: 'http://otakustay.com/'},
