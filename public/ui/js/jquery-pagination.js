@@ -1,5 +1,3 @@
-(function($, undefined){
-"use strict";
 $.fn.pagination = function(options){
 	var type = $.type(options);
 	if(type==='string'){
@@ -210,5 +208,4 @@ $.fn.pagination = function(options){
 			$this.data('ui', {iPagination:instance});
 	});
 };
-})(jQuery);
 /* vim: set fdm=marker */

@@ -8,6 +8,11 @@ var webpackDev = require("webpack-dev-middleware");
 var webpack    = require("webpack");
 var compiler   = webpack(require('./webpack.config.js'));
 var Extension  = require('./extension');
+/* eslint comma-dangle:1 */
+/* eslint-disable */
+/* eslint-enable */
+/* eslint-disable comma-dangle */
+/* eslint-enable comma-dangle */
 app.use(webpackDev(compiler, {
 	stats:{colors:true}
 }));

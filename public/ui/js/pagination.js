@@ -1,4 +1,4 @@
-(function(window, undefined){
+(function(window){
 	"use strict";
 	var pagination = function(options){
 		options = light.util.extend({

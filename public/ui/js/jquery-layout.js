@@ -1,5 +1,3 @@
-(function($, undefined){
-"use strict";
 $.fn.layout = function(options){
 	var type = $.type(options);
 	if(type==='string'){
@@ -223,4 +221,3 @@ $.fn.layout = function(options){
 		else $this.data('ui', {iLayout:instance});
 	});
 };
-})(jQuery);

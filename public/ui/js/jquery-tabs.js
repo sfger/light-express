@@ -1,5 +1,3 @@
-(function($, undefined){
-"use strict";
 $.fn.tabs = function(options){
 	var type = $.type(options);
 	if(type==='string'){
@@ -218,5 +216,4 @@ $.fn.tabs = function(options){
 		else $this.data('ui', {iTab:instance});
 	});
 };
-})(jQuery);
 /* vim: set fdm=marker : */

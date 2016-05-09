@@ -88,17 +88,16 @@ $.fn.extend({
 			j.Btn.dBg.Focus = j.Btn.dBg.Focus || jun.Btn.dBg.Focus;
 			j.Fn = j.Fn || jun.Fn;
 			var _self = this;
-			var Stime, Sp = 0,
-			Isup = 0;
+			var Stime, Sp = 0, Isup = 0;
 			$(_self).css({
 				overflow: "hidden",
 				position: "relative",
 				padding: "0px"
 			});
-			var dw = $(_self).width(),
-			dh = $(_self).height() - 1;
+			// var dw = $(_self).width();
+			var dh = $(_self).height() - 1;
 			var sw = j.W ? parseInt(j.W) : 21;
-			var sl = dw - sw;
+			// var sl = dw - sw;
 			var bw = j.Btn.btn == true ? sw: 0;
 			if ($(_self).children(".jscroll-c").height() == null) { //存在性检测
 				$(_self).wrapInner("<div class='jscroll-c' style='top:0px;z-index:9999;zoom:1;position:relative'></div>");
@@ -189,8 +188,7 @@ $.fn.extend({
 			var wh = sh / 6; //滚动时候跳动幅度
 			sh = parseInt(sh);
 			sh = j.H || sh;
-			var curT = 0,
-			allowS = false;
+			var curT = 0, allowS = false;
 			jscrollh.height(sh);
 			if (sch <= dh) {
 				jscrollc.css({
@@ -213,8 +211,8 @@ $.fn.extend({
 					background: j.Bar.Bg.Focus,
 					"background-image": j.BgUrl
 				});
-				var pageY = e.pageY,
-				t = parseInt($(this).css("top"));
+				var pageY = e.pageY;
+				var t = parseInt($(this).css("top"));
 				$(document).mousemove(function(e2) {
 					curT = t + e2.pageY - pageY; //pageY浏览器可视区域鼠标位置，screenY屏幕可视区域鼠标位置
 					setT();
@@ -230,7 +228,7 @@ $.fn.extend({
 				});
 				return false;
 			});
-			jscrollu.bind("mousedown", function(e) {
+			jscrollu.bind("mousedown", function() {
 				j['Fn'] && j['Fn'].call(_self);
 				Isup = 1;
 				jscrollu.css({
@@ -250,7 +248,7 @@ $.fn.extend({
 				});
 				return false;
 			});
-			jscrolld.bind("mousedown", function(e) {
+			jscrolld.bind("mousedown", function() {
 				j['Fn'] && j['Fn'].call(_self);
 				Isup = 1;
 				jscrolld.css({

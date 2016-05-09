@@ -72,7 +72,7 @@ define(function(){
 						{name:'大前端', url:'http://www.daqianduan.com/'},
 						{name:'酷壳', url:'http://coolshell.cn/'},
 						{name:'HTML580', url:'http://www.html580.com/'},
-						{name:'CSSASS', url:'http://www.cssass.com/blog/'},
+						{name:'CSSASS', url:'http://www.cssass.com/blog/'}
 					]
 				},
 				//}}}

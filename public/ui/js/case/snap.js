@@ -32,13 +32,13 @@ require([
 	// 	});
 	// }).then(show_markdown);
 	try{
-	$.ajax({
-		url: '../md/test.md',
-		success: show_markdown,
-		error: function(a,b,c){
-			console.log(a,b,c);
-		}
-	});
+		$.ajax({
+			url: '../md/test.md',
+			success: show_markdown,
+			error: function(a,b,c){
+				console.log(a,b,c);
+			}
+		});
 	}catch(e){
 		console.log(e);
 	}

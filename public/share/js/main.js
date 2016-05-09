@@ -1,4 +1,4 @@
-var __version__ = window.__version__ = document.getElementById("requirejs").getAttribute("data-version");
+window.__version__ = document.getElementById("requirejs").getAttribute("data-version");
 require.config({//{{{
 	baseUrl : './',
 	urlArgs : __version__,

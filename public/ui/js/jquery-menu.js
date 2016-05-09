@@ -1,5 +1,3 @@
-(function($, undefined){
-"use strict";
 $.fn.menu = function(method, op){
 	var type = $.type(method);
 	if(type==='string'){
@@ -241,5 +239,4 @@ $.fn.menu = function(method, op){
 		else $this.data('ui', {iMenu:instance});
 	});
 };
-})(jQuery);
 /* vim: set fdm=marker : */

@@ -1,4 +1,3 @@
-// light {{{
 var light = {
 	// ui {{{
 	ui:{
@@ -211,6 +210,4 @@ var light = {
 	}
 	// }}}
 };
-// }}}
-
 /* vim: set fdm=marker : */

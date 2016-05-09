@@ -1,5 +1,3 @@
-(function($, undefined){
-"use strict";
 $.fn.window = function(options){
 	var type = $.type(options);
 	if(type==='string'){
@@ -148,4 +146,3 @@ $.fn.window = function(options){
 		else $this.data('ui', {iWindow:instance});
 	});
 };
-})(jQuery);

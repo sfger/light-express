@@ -1,5 +1,3 @@
-(function($, undefined){
-"use strict";
 $.fn.accordion = function(options){
 	var type = $.type(options);
 	if(type==='string'){
@@ -93,5 +91,4 @@ $.fn.accordion = function(options){
 		else $this.data('ui', {iAccordion:instance});
 	});
 };
-})(jQuery);
 /* vim: set fdm=marker : */
