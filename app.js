@@ -35,7 +35,7 @@ new Promise((resolve, reject) => {
 	app.use(Extension.staticHttpCombo);
 	Extension.autoAddRoutes(app, Extension.route_dir, '/', defer);
 }).then(() => {
-	app.use(express['static'](Extension.static_dir, {
+	app.use(express.static(Extension.static_dir, {
 		index:'index.html'
 	}));
 	app.use((req, res, next) => {
@@ -51,6 +51,8 @@ new Promise((resolve, reject) => {
 			error:{}
 		});
 	});
+}).catch(function(err){
+	console.log(err);
 });
 module.exports = app;
 /* vim:set fdm=marker tabstop=4 shiftwidth=4 softtabstop=4: */

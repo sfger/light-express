@@ -14,8 +14,7 @@ var extension  = {
 		'/ui/js/case/seaShell/_test_.js' : 'data.js,data.js'
 	},
 	get_combo_file_list: file => {
-		var files = extension.map_combo_file[file].split(',');
-		return files.map(one => {
+		return extension.map_combo_file[file].split(',').map(one => {
 			return path.normalize(extension.static_dir + path.dirname(file) + '/' + one);
 		});
 	},
@@ -110,7 +109,7 @@ var extension  = {
 			return new Promise((resolve, reject)=>{
 				fs.stat(dirPath+'/'+file, (err, stats)=>{
 					if( stats.isDirectory() ){
-						extension.autoAddRoutes(app, dirPath+'/'+file, routePath+file+'/', {resolve:resolve, reject:reject});
+						extension.autoAddRoutes(app, dirPath+'/'+file, routePath+file+'/', {resolve, reject});
 					}else if( stats.isFile() ){
 						var list = file.split('.');
 						if(list.length==2 && list[1]==='js'){
@@ -163,7 +162,7 @@ var extension  = {
 			});
 		});
 	},
-	mkdirRecursive: function(dirpath, mode, callback){
+	mkdirRecursive: (dirpath, mode, callback)=>{
 		fs.exists(dirpath, (exists)=>{
 			if(exists){
 				callback(dirpath);
@@ -180,7 +179,7 @@ var extension  = {
 				'scss',
 				'--sourcemap=none',
 				'-t compressed',
-				// '-I ' + lib,
+				'-I ' + lib,
 				in_file,
 				out_file
 			];
@@ -197,7 +196,7 @@ var extension  = {
 		node: (in_file, out_file, defer, next)=>{
 			sass.render({
 				// data      : 'body{background:blue; a{color:black;}}',
-				includePaths : [path.normalize(process.cwd()+'/public/public/scss')],
+				includePaths : [path.normalize(static_dir+'/public/scss')],
 				linefeed     : 'lf',
 				file         : in_file,
 				indentWidth  : 1,
@@ -210,7 +209,6 @@ var extension  = {
 					console.log(error.column);
 					console.log(error.message);
 					console.log(error.line);
-					// console.log(next);
 					return next&&next();
 				}else{
 					postcss([
@@ -251,7 +249,7 @@ var extension  = {
 		})).then(css_ret => {
 			res.writeHead(200, {"Content-Type":'text/css'});
 			res.end(css_ret.join("\n"));
-		})['catch'](e=>{
+		}).catch(e=>{
 			console.log(e);
 		});
 		return true;
@@ -299,7 +297,7 @@ var extension  = {
 					var file_path = dir + one;
 					fs.stat(extension.static_dir+file_path, (err, stats)=>{
 						if(stats.isDirectory()){
-							extension.dir_compile(file_path+'/', {resolve:resolve, reject:reject});
+							extension.dir_compile(file_path+'/', {resolve, reject});
 						}else{
 							if('.json'!==path.extname(file_path)){
 								var req = {path:path.normalize(file_path.replace(/([\\\/])htpl([\\\/])/, "$1tpl$2")+'.js').replace(/\\/g, '/')};
