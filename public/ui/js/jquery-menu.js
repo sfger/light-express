@@ -39,7 +39,7 @@ $.fn.menu = function(method, op){
 					}
 				}
 				wraper.style.position = 'relative';
-				wraper.innerHTML = '<div class="menu-vertical-line"></div>';
+				// wraper.innerHTML = '<div class="menu-vertical-line"></div>';
 				var ul = document.createElement('ul');
 				ul.className = 'cf';
 				for(var i=0,ii=data.length-1; i<=ii; i++){
@@ -151,11 +151,11 @@ $.fn.menu = function(method, op){
 		},
 		show: function(e){
 			$(this.container).css({left:e.pageX, top:e.pageY}).show();
-			if(document.documentMode===5 || /MSIE 6/.test(navigator.userAgent)){
-				$(this.container).find('.menu-vertical-line').each(function(){
-					this.style.height = this.parentNode.offsetHeight + 'px';
-				});
-			}
+			// if(document.documentMode===5 || /MSIE 6/.test(navigator.userAgent)){
+			// 	$(this.container).find('.menu-vertical-line').each(function(){
+			// 		this.style.height = this.parentNode.offsetHeight + 'px';
+			// 	});
+			// }
 			this.userOptions.onShow.bind(this)();
 			return this;
 		},

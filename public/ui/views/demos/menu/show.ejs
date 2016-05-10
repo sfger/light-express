@@ -33,13 +33,40 @@ require.config({
 		jquery:'public/js/jquery'
 	},
 	shim:{
-		'ui/js/jquery-menu':['jquery']
+		'ui/js/jquery-menu':['jquery', 'public/js/es5-shim']
 	}
 });
 require(['ui/js/jquery-menu'],function(){
 try {
 	document.execCommand('BackgroundImageCache', false, true);
 }catch(e){}
+var menu_data = [
+	{name:'chart2', icon:'chart', text:'流量2222'},
+	{name:'takein2', icon:'money', text:'收入2', sub:{
+		data:[
+			{name:'chart3', icon:'chart', text:'流量'},
+			{name:'takein3', icon:'money', text:'收入'},
+			{name:'user3', icon:'user', text:'用户3'},
+			{name:'test3', text:'测试3', disabled:true},
+			{'class':'separate'},
+			{name:'exit3', text:'退出3'}
+		]
+	}},
+	{name:'user2', icon:'user', text:'用户2'},
+	{name:'test2', text:'测试2', sub:{
+		width: 300,
+		data: [
+			{name:'chart3', icon:'chart', text:'流量333333333333333333333333333333333333'},
+			{name:'takein3', icon:'money', text:'收入3'},
+			{name:'user3', icon:'user', text:'用户3'},
+			{name:'test3', text:'测试3', disabled:true},
+			{'class':'separate'},
+			{name:'exit3', text:'退出3'}
+		]
+	}},
+	{'class':'separate'},
+	{name:'exit', text:'退出2'}
+];
 var $myMenu = $('#my_menu');
 $('#my_menu').menu({
 	width: 100,
@@ -50,33 +77,7 @@ $('#my_menu').menu({
 		{name:'user', icon:'user', disabled:true, text:'用户'},
 		{name:'sub', text:'Sub', sub:{
 			width: 200,
-			data:[
-				{name:'chart2', icon:'chart', text:'流量2222'},
-				{name:'takein2', icon:'money', text:'收入2', sub:{
-					data:[
-						{name:'chart3', icon:'chart', text:'流量'},
-						{name:'takein3', icon:'money', text:'收入'},
-						{name:'user3', icon:'user', text:'用户3'},
-						{name:'test3', text:'测试3', disabled:true},
-						{'class':'separate'},
-						{name:'exit3', text:'退出3'}
-					]
-				}},
-				{name:'user2', icon:'user', text:'用户2'},
-				{name:'test2', text:'测试2', sub:{
-					width: 300,
-					data: [
-						{name:'chart3', icon:'chart', text:'流量333333333333333333333333333333333333'},
-						{name:'takein3', icon:'money', text:'收入3'},
-						{name:'user3', icon:'user', text:'用户3'},
-						{name:'test3', text:'测试3', disabled:true},
-						{'class':'separate'},
-						{name:'exit3', text:'退出3'}
-					]
-				}},
-				{'class':'separate'},
-				{name:'exit', text:'退出2'}
-			]
+			data: menu_data
 		}},
 		{'class':'separate'},
 		{name:'exit', text:'退出'}
