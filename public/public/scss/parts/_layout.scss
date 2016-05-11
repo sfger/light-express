@@ -8,6 +8,9 @@
 .ib-row{@include imgc(0,'',left);}
 .ib-col,.ib-col-full{@include imge;}
 .ib-col-full{width:100%;}
+.ib-row{
+	&.ib-col,.ib-col-full{font-size:0;}
+}
 .ib-top{vertical-align:top;}
 .ib-middle{vertical-align:middle;}
 .ib-bottom{vertical-align:bottom;}
