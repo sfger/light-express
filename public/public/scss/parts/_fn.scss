@@ -16,14 +16,24 @@ $is_modern:0 !default; // 兼容低版本ie
 	}
 }
 // sass:
+// .test{
+// 	@include prefix((transition:#{top 1s,transform 1s,left 1s}));
+// }
 // .element {
-//  @include prefix((transform: translate(-50%, -50%)), webkit ms);
+// 	@include prefix((transform: translate(-50%, -50%)), webkit ms);
 // }
 // Ouput:
+// .test {
+// 	-webkit-transition: top 1s, transform 1s, left 1s;
+// 	-moz-transition: top 1s, transform 1s, left 1s;
+// 	-ms-transition: top 1s, transform 1s, left 1s;
+// 	-o-transition: top 1s, transform 1s, left 1s;
+// 	transition: top 1s, transform 1s, left 1s;
+// }
 // .element {
-//  -webkit-transform: translate(-50%, -50%);
-//  -ms-transform: translate(-50%, -50%);
-//  transform: translate(-50%, -50%);
+// 	-webkit-transform: translate(-50%, -50%);
+// 	-ms-transform: translate(-50%, -50%);
+// 	transform: translate(-50%, -50%);
 // }
 @mixin keyframes($name){
 	@keyframes #{$name}{@content}
