@@ -16,6 +16,9 @@ $is_modern:0 !default; // 兼容低版本ie
 	}
 }
 // sass:
+// .lits{
+// 	@include prefix((transform:rotate(0deg),transition:all .2s ease-out));
+// }
 // .test{
 // 	@include prefix((transition:#{top 1s,transform 1s,left 1s}));
 // }
