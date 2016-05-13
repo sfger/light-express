@@ -1,5 +1,4 @@
 var fs         = require('fs');
-var exec       = require('child_process').exec;
 var path       = require('path');
 var sass       = require('node-sass');
 var postcss    = require('postcss');
@@ -173,68 +172,47 @@ var extension  = {
 			}
 		});
 	},
-	sass: {
-		ruby: (in_file, out_file, lib, next)=>{
-			var sh = [
-				'scss',
-				'--sourcemap=none',
-				'-t compressed',
-				'-I ' + lib,
-				in_file,
-				out_file
-			];
-			// console.log(sh.join(' '));
-			exec(sh.join(' '), (error, stdout, stderr)=>{
-				if(error){
-					console.log(error);
-					console.log(stdout);
-					console.log(stderr);
-				}
-				return next();
-			});
-		},
-		node: (in_file, out_file, defer, next)=>{
-			sass.render({
-				// data      : 'body{background:blue; a{color:black;}}',
-				includePaths : [path.normalize(static_dir+'/public/scss')],
-				linefeed     : 'lf',
-				file         : in_file,
-				indentWidth  : 1,
-				indentType   : 'tab',
-				outputStyle  : 'compact'
-			}, (error, result)=>{
-				if(error){
-					console.log(error);
-					console.log(error.status);
-					console.log(error.column);
-					console.log(error.message);
-					console.log(error.line);
-					return next&&next();
-				}else{
-					postcss([
-						// require('postcss-sprites')({
-						// 	stylesheetPath:path.dirname(out_file),
-						// 	spritePath:out_file+'.sprite.png'
-						// }),
-						require('postcss-image-inliner')({
-							assetPaths:[path.dirname(out_file)],
-							maxFileSize:20480
-						}),
-						require('precss')({}),
-						require('postcss-urlrev')({})
-					]).process(result.css, {
-						from:in_file, to:out_file
-					}).then(result=>{
-						// console.log(result.css);
-						fs.writeFile(out_file, result.css, {mode:'777'}, ()=>{
-							console.log(`Compile ${out_file} success`);
-							// return next();
-						});
-						defer.resolve(result.css);
+	nodeSass: (in_file, out_file, defer, next)=>{
+		sass.render({
+			// data      : 'body{background:blue; a{color:black;}}',
+			includePaths : [path.normalize(static_dir+'/public/scss')],
+			linefeed     : 'lf',
+			file         : in_file,
+			indentWidth  : 1,
+			indentType   : 'tab',
+			outputStyle  : 'compact'
+		}, (error, result)=>{
+			if(error){
+				console.log(error);
+				console.log(error.status);
+				console.log(error.column);
+				console.log(error.message);
+				console.log(error.line);
+				return next&&next();
+			}else{
+				postcss([
+					// require('postcss-sprites')({
+					// 	stylesheetPath:path.dirname(out_file),
+					// 	spritePath:out_file+'.sprite.png'
+					// }),
+					require('postcss-image-inliner')({
+						assetPaths:[path.dirname(out_file)],
+						maxFileSize:20480
+					}),
+					require('precss')({}),
+					require('postcss-urlrev')({})
+				]).process(result.css, {
+					from:in_file, to:out_file
+				}).then(result=>{
+					// console.log(result.css);
+					fs.writeFile(out_file, result.css, {mode:'777'}, ()=>{
+						console.log(`Compile ${out_file} success`);
+						// return next();
 					});
-				}
-			});
-		}
+					defer.resolve(result.css);
+				});
+			}
+		});
 	},
 	compile_list_to_writer: (list, res, next) => {
 		Promise.all(list.map(css_path=>{
@@ -243,7 +221,7 @@ var extension  = {
 				var scss_dir  = css_dir.replace(/([\\\/])css([\\\/])/, "$1scss$2");
 				var scss_path = scss_dir + path.basename(css_path, '.css') + '.scss';
 				extension.mkdirRecursive(css_dir, 777, ()=>{
-					extension.sass.node(scss_path, css_path, {resolve, reject}, next);
+					extension.nodeSass(scss_path, css_path, {resolve, reject}, next);
 				});
 			});
 		})).then(css_ret => {
