@@ -39,8 +39,8 @@ $.fn.layout = function(options){
 			$(box).addClass('layout-container');
 			this.userOptions = options;
 			this.panels = {
-				north  : $('>.layout-north' , box).get(0),
-				south  : $('>.layout-south' , box).get(0),
+				north  : $('>.layout-north', box).get(0),
+				south  : $('>.layout-south', box).get(0),
 				west   : $('>.layout-middle-container>.layout-west'  , box).get(0),
 				east   : $('>.layout-middle-container>.layout-east'  , box).get(0),
 				center : $('>.layout-middle-container>.layout-center', box).get(0)
@@ -51,8 +51,8 @@ $.fn.layout = function(options){
 			this.panelBars = {
 				north : $('.bar-north', box).css({height:bars.north.height||size}).get(0),
 				south : $('.bar-south', box).css({height:bars.south.height||size}).get(0),
-				west  : $('>.layout-middle-container>.bar-west' , box).css({width:bars.west.width||size}).get(0),
-				east  : $('>.layout-middle-container>.bar-east' , box).css({width:bars.east.width||size}).get(0)
+				west  : $('>.layout-middle-container>.bar-west', box).css({width:bars.west.width||size}).get(0),
+				east  : $('>.layout-middle-container>.bar-east', box).css({width:bars.east.width||size}).get(0)
 			};
 			var that = this;
 			$(['Height', 'Width']).each(function(i, one){
@@ -68,7 +68,7 @@ $.fn.layout = function(options){
 				};
 			});
 			if(options.panel.resize) this.panelResize();
-			if(options.panel.toggle) this.panelToggle();
+			if(options.panel.toggle) this.init_toggle();
 			$(window).resize(function(){that.resize();});
 			this.resize();
 		},
@@ -84,7 +84,7 @@ $.fn.layout = function(options){
 				that = this;
 			$('>.resize-bar,>.layout-middle-container>.resize-bar', box).on({
 				'mousedown': function(e){
-					if($(e.target).hasClass('imge')) return false;
+					if($(e.target).hasClass('ib-col')) return false;
 					var pops = that.userOptions.panel.each;
 					var bar = this,
 						$bar = $(bar);
@@ -93,7 +93,7 @@ $.fn.layout = function(options){
 						|| $bar.hasClass('bar-west')&&pops.west.resize===false
 						|| $bar.hasClass('bar-east')&&pops.east.resize===false ) return false;
 					var resize_box = $bar.hasClass('bar-south') ? $bar.next() : $bar.prev();
-					if(resize_box.get(0).style.display==='none') return false;
+					if(!resize_box.is(':visible')) resize_box.show();
 					var $cover = box.cover ? $(box.cover).show() : $('<div></div>').appendTo(document.body);
 					box.cover = $cover.get(0);
 					$cover.css({
@@ -131,7 +131,6 @@ $.fn.layout = function(options){
 							$([bar.proxy, box.cover]).hide();
 							var x = e.pageX, y = e.pageY;
 							var box_bounding = that.box.getBoundingClientRect();
-							// console.log(box_bounding);
 							x = x - box_bounding.left;
 							y = y - box_bounding.top;
 							var barSize = that.userOptions.panelBar.size;
@@ -145,10 +144,10 @@ $.fn.layout = function(options){
 							}else if($bar.hasClass('bar-south')){
 								resize_box.css({height:that.getElementHeight(that.box)-y-(barOps.south.height||barSize)});
 							}
-							if(!resize_box.get(0).offsetHeight || !resize_box.get(0).offsetWidth){
-								resize_box.hide();
-								$bar.get(0).style.cursor = 'auto';
-							}
+							// if(!resize_box.get(0).offsetHeight || !resize_box.get(0).offsetWidth){
+							// 	resize_box.hide();
+							// 	$bar.get(0).style.cursor = 'auto';
+							// }
 							$(document).off('mousemove', document_events.mousemove);
 							$(document).off('mouseup', document_events.mouseup);
 							// that.resize();
@@ -160,32 +159,35 @@ $.fn.layout = function(options){
 				}
 			});
 		},
-		panelToggle: function(){
+		init_toggle: function(){
 			var that = this;
-			$('>.layout-middle-container>.resize-bar .imge, >.resize-bar .imge', this.box).click(function(e){
-				var $bar = $(this).parent(),
-					$toggle_box = $bar.hasClass('bar-south') ? $bar.next() : $bar.prev(),
-					pops = that.userOptions.panel.each;
-				if( $bar.hasClass('bar-north')&&pops.north.toggle===false
-					|| $bar.hasClass('bar-south')&&pops.south.toggle===false
-					|| $bar.hasClass('bar-west')&&pops.west.toggle===false
-					|| $bar.hasClass('bar-east')&&pops.east.toggle===false ) return false;
-				var style = $toggle_box.get(0).style;
-				if(style.display!=='none'){
-					$bar.get(0).style.cursor = 'auto';
-					$toggle_box.hide();
-				}else{
-					$bar.get(0).style.cursor = '';
-					if(style.width==='0px') style.width = '';
-					if(style.height==='0px') style.height = '';
-					$toggle_box.show();
-				}
-				// that.resize();
-				$(window).trigger('resize');
-				e.stopPropagation();
-				e.preventDefault();
+			$('>.layout-middle-container>.resize-bar .ib-col, >.resize-bar .ib-col', this.box).click(function(e){
+				that.panelToggle($(this).parent());
+				// $(window).trigger('resize');
+				// e.stopPropagation();
+				// e.preventDefault();
 				return false;
 			});
+		},
+		panelToggle: function($bar){
+			var $toggle_box = $bar.hasClass('bar-south') ? $bar.next() : $bar.prev(),
+				pops        = this.userOptions.panel.each;
+			if( $bar.hasClass('bar-north')&&pops.north.toggle===false
+				|| $bar.hasClass('bar-south')&&pops.south.toggle===false
+				|| $bar.hasClass('bar-west')&&pops.west.toggle===false
+				|| $bar.hasClass('bar-east')&&pops.east.toggle===false ) return false;
+			var style = $toggle_box.get(0).style;
+			if(style.display!=='none'){
+				// $bar.get(0).style.cursor = 'auto';
+				$toggle_box.width('0px');
+				$toggle_box.hide();
+			}else{
+				$bar.get(0).style.cursor = '';
+				if(style.width==='0px') style.width = '';
+				if(style.height==='0px') style.height = '';
+				$toggle_box.show();
+			}
+			this.resize();
 		},
 		resize: function(){
 			var getElementHeight    = this.getElementHeight,

@@ -8,14 +8,14 @@
 .layout-west,.layout-east,.layout-center{overflow:auto;_float:left;}
 .resize-bar{
 	background:#cecece;cursor:n-resize;text-align:center;
-	.imge{
+	.ib-col{
 		background:#333;@include size(20px,100%);
 		&:hover{background:darken(#333,50%);}
 	}
 }
 .bar-west,.bar-east{
 	cursor:e-resize;
-	.imge{@include size(100%,20px);}
+	.ib-col{@include size(100%,20px);}
 }
 .layout-south,.layout-north{height:25px;}
 .layout-west,.layout-east{width:180px;}

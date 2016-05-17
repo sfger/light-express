@@ -4,7 +4,7 @@
 
 .cf:after { clear: both; overflow: hidden; }
 
-.imgc:before, .imgc .iecp, .imgc img, audio, canvas, video { display: inline-block; *display: inline; *zoom: 1; vertical-align: middle; }
+.imgc:before, .imgc .iecp, .imgc img, audio, canvas, video, .ib, .img-tight:before, .img-tight .iecp, .img-tight img, .ib-row:before, .ib-row .iecp { display: inline-block; *display: inline; *zoom: 1; vertical-align: middle; }
 
 .imge { display: inline-block; *display: inline; *zoom: 1; vertical-align: middle; font-size: 12px; font-size: 1rem; line-height: normal; }
 
@@ -30,6 +30,34 @@ fieldset, img { border: none; }
 
 article, aside, details, figcaption, figure, footer, header, hgroup, main, nav, section, summary { display: block; }
 
+.img-tight { font-size: 0; text-align: center; }
+
+.img-tight:before, .img-tight .iecp { content: ""; height: 100%; font-size: 0; line-height: 0; width: 0; }
+
+.img-tight img { max-width: 100%; max-height: 100%; }
+
+.ib-row { font-size: 0; }
+
+.ib-row:before, .ib-row .iecp { content: ""; height: 100%; font-size: 0; line-height: 0; width: 0; }
+
+.ib-col, .ib-col-full { display: inline-block; *display: inline; *zoom: 1; vertical-align: middle; font-size: 12px; font-size: 1rem; line-height: normal; }
+
+.ib-col-full { width: 100%; }
+
+.ib-row.ib-col, .ib-row.ib-col-full { font-size: 0; }
+
+.txt-lt { text-align: left; }
+
+.txt-rt { text-align: right; }
+
+.txt-ct { text-align: center; }
+
+.vt-top { vertical-align: top; }
+
+.vt-mid { vertical-align: middle; }
+
+.vt-btm { vertical-align: bottom; }
+
 .layout-container { height: 100%; }
 
 .layout-middle-container .resize-bar, .layout-middle-container .layout-west, .layout-middle-container .layout-center, .layout-middle-container .layout-east { height: 100%; }
@@ -42,13 +70,13 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, nav, 
 
 .resize-bar { background: #cecece; cursor: n-resize; text-align: center; }
 
-.resize-bar .imge { background: #333; width: 20px; height: 100%; }
+.resize-bar .ib-col { background: #333; width: 20px; height: 100%; }
 
-.resize-bar .imge:hover { background: black; }
+.resize-bar .ib-col:hover { background: black; }
 
 .bar-west, .bar-east { cursor: e-resize; }
 
-.bar-west .imge, .bar-east .imge { width: 100%; height: 20px; }
+.bar-west .ib-col, .bar-east .ib-col { width: 100%; height: 20px; }
 
 .layout-south, .layout-north { height: 25px; }
 
