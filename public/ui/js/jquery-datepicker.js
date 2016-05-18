@@ -61,14 +61,14 @@
 				var abd;
 				if(op.minDate){
 					switch(typeof op.minDate){
-					case 'string':
-						abd = op.minDate;
-						break;
-					case 'function':
-						abd = op.minDate();
-						break;
-					default:
-						break;
+						case 'string':
+							abd = op.minDate;
+							break;
+						case 'function':
+							abd = op.minDate();
+							break;
+						default:
+							break;
 					}
 				}
 				var sdate = dh.get_first_date_of_month(); // First date

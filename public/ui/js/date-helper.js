@@ -202,32 +202,32 @@
 			var $year, $timestamp;
 			$offset = parseInt($offset);
 			switch($type){
-			case 'Y':
-				$year = parseInt(this.php_date('Y')) + $offset;
-				return this.set_current_date( this.php_date($year+"-m-d H:i:s") );
-			case 'm':
-				var $tmonth = parseInt(this.php_date('Y')*12) + parseInt(this.php_date('m')) + parseInt($offset);
-				$year   = Math.floor($tmonth / 12);
-				var $month = Math.floor($tmonth % 12);
-				$month = $month===0 ? 12 : $month;
-				if($month<10) $month = '0' + $month;
-				var $other  = this.php_date('d H:i:s');
-				return this.set_current_date([$year, $month, $other].join('-'));
-			case 'w':
-				$timestamp = $offset * 7 * 86400;
-				break;
-			case 'H':
-				$timestamp = $offset * 3600;
-				break;
-			case 'i':
-				$timestamp = $offset * 60;
-				break;
-			case 's':
-				$timestamp = $offset;
-				break;
-			default://d
-				$timestamp = $offset * 86400;
-				break;
+				case 'Y':
+					$year = parseInt(this.php_date('Y')) + $offset;
+					return this.set_current_date( this.php_date($year+"-m-d H:i:s") );
+				case 'm':
+					var $tmonth = parseInt(this.php_date('Y')*12) + parseInt(this.php_date('m')) + parseInt($offset);
+					$year   = Math.floor($tmonth / 12);
+					var $month = Math.floor($tmonth % 12);
+					$month = $month===0 ? 12 : $month;
+					if($month<10) $month = '0' + $month;
+					var $other  = this.php_date('d H:i:s');
+					return this.set_current_date([$year, $month, $other].join('-'));
+				case 'w':
+					$timestamp = $offset * 7 * 86400;
+					break;
+				case 'H':
+					$timestamp = $offset * 3600;
+					break;
+				case 'i':
+					$timestamp = $offset * 60;
+					break;
+				case 's':
+					$timestamp = $offset;
+					break;
+				default://d
+					$timestamp = $offset * 86400;
+					break;
 			}
 			return this.set_current_date(this.current_timestamp + $timestamp);
 		},

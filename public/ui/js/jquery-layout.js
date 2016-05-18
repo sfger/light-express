@@ -161,7 +161,7 @@ $.fn.layout = function(options){
 		},
 		init_toggle: function(){
 			var that = this;
-			$('>.layout-middle-container>.resize-bar .ib-col, >.resize-bar .ib-col', this.box).click(function(e){
+			$('>.layout-middle-container>.resize-bar .ib-col, >.resize-bar .ib-col', this.box).click(function(){
 				that.panelToggle($(this).parent());
 				// $(window).trigger('resize');
 				// e.stopPropagation();
