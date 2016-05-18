@@ -29,7 +29,7 @@ module.exports = {
 	},
     "rules": {
 		"no-console"      : [ "off" ],
-        "indent"          : [ "warn", "tab" ],
+        "indent"          : [ "warn", "tab", {"SwitchCase":1} ],
         "linebreak-style" : [ "error", "unix" ],
         "semi"            : [ "warn", "always" ]
     }
