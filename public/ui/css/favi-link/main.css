@@ -70,13 +70,13 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, nav, 
 
 .resize-bar { background: #cecece; cursor: n-resize; text-align: center; }
 
-.resize-bar .imge { background: #333; width: 20px; height: 100%; }
+.resize-bar .ib-col { background: #333; width: 20px; height: 100%; }
 
-.resize-bar .imge:hover { background: black; }
+.resize-bar .ib-col:hover { background: black; }
 
 .bar-west, .bar-east { cursor: e-resize; }
 
-.bar-west .imge, .bar-east .imge { width: 100%; height: 20px; }
+.bar-west .ib-col, .bar-east .ib-col { width: 100%; height: 20px; }
 
 .layout-south, .layout-north { height: 25px; }
 

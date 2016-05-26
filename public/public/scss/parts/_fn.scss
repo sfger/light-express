@@ -131,9 +131,7 @@ $is_modern:0 !default; // 兼容低版本ie
 	background-color:$rgba;
 	@if($is_modern==0){
 		filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#{$ie-hex-str},endColorstr=#{$ie-hex-str});
-		@media screen and (min-width:0px){
-			filter:none;
-		}
+		@media screen and (min-width:0px){filter:none;}
 	}
 }
 
@@ -148,15 +146,8 @@ $is_modern:0 !default; // 兼容低版本ie
 @mixin box-sizing($mode:content-box){
 	@include prefix((box-sizing:$mode), webkit moz);
 }
-@mixin boxSizing($mode:content-box){
-	@include box-sizing($mode);
-}
-
 @mixin border-radius($n:0){
 	@include prefix((border-radius:$n));
-}
-@mixin borderRadius($n:0){
-	@include border-radius($n);
 }
 @mixin border-top-left-radius($n:0){
 	@include prefix((border-top-left-radius:$n));
@@ -211,18 +202,10 @@ $is_modern:0 !default; // 兼容低版本ie
 }
 
 @mixin placeholder{
-	&::-webkit-input-placeholder {
-		@content // Chrome, Safari, Opera
-	}
-	&:-moz-placeholder{
-		@content // Mozilla Firefox 4-18使用伪类
-	}
-	&::-moz-placeholder {
-		@content // Firefox 19+
-	}
-	&:-ms-input-placeholder {
-		@content // IE 10+
-	}
+	&::-webkit-input-placeholder{@content} // Chrome, Safari, Opera
+	&:-moz-placeholder{@content} // Mozilla Firefox 4-18使用伪类
+	&::-moz-placeholder{@content} // Firefox 19+
+	&:-ms-input-placeholder{@content} // IE 10+
 }
 
 // Returns the opposite direction of each direction in a list
