@@ -39,6 +39,7 @@ data          : gen_data(),
 rowNum        : true,
 autoRowHeight : true,
 autoColWidth  : true,
+/* sortable      : true, */
 sort          : {field : 'col-2', order : 'desc'},
 /* width         : 100, */
 /* remoteSort    : true, */
@@ -51,12 +52,12 @@ frozenColumns : [
 {name:'冻结列组2', colspan:2},
 ],
 [
-{field:'col-1', name:'冻结第一列',
+{field:'col-1', name:'冻结第一列', sortable: true,
 formatter:function(val, row, key){
 return '格式化: ' + val;
 }
 },
-{field:'col-2', sort:fieldSortFns.sortNum, name:'冻结第二列',
+{field:'col-2', name:'冻结第二列', sortable:true, sort:fieldSortFns.sortNum,
 formatter: function(val, row, key){
 var cls = val<60 ? 'warn' : 'normal';
 return '<span class="'+cls+'">' + val + '</span>';

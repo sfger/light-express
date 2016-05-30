@@ -112,11 +112,20 @@ $.fn.datagrid = function(options){
 						var isField = colspan==1&&(i==il||rows.length==(i+(option.rowspan||1)));
 						if(isField){
 							that[colsType].unshift(option);
-							td_attr['class'] = 'field';
+							var class_name = ['field'];
+							if(options.sortable && option.sortable!==false || option.sortable==true){
+								class_name.push('sortable');
+							}
+							td_attr['class'] = class_name.join(' ');
 						}
 						nodes.unshift(createElement({
 							name:'td', attr:td_attr, children:{
-								name:'div', attr:{'class':'cell', style:{width:width}, "data-field":option.field}, children: [
+								name: 'div',
+								attr: {
+									'class'      : 'cell',
+									'style'      : {width:width},
+									"data-field" : option.field
+								}, children: [
 									markChars.empty,
 									{name:'span', attr:{'class':'field-title'}, children:title},
 									{name:'span', attr:{'class':'sort-mark'}}, markChars.empty
@@ -367,7 +376,7 @@ $.fn.datagrid = function(options){
 				$box.on(hover_binds, '.head td').on(hover_binds, '.body tr');
 			} */
 			if(!options.remoteSort){
-				$box.on('click', '.field .cell', function(){
+				$box.on('click', '.field.sortable .cell', function(){
 					that.sortBy({
 						field: $(this).data('field'),
 						order: !this.order||this.defaultOrder

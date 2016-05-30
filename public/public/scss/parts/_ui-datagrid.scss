@@ -19,7 +19,7 @@
 		&.desc:before{content:"↓"}
 		&.asc:before{content:"↑"}
 	}
-	.field{cursor:pointer;}
+	.sortable{cursor:pointer;}
 	.autoRowHeight .cell{height:auto;}
 	.head .cell{font-family:"MicroSoft Yahei";color:#000;}
 }

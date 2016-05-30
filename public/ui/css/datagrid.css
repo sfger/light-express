@@ -89,7 +89,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, nav, 
 
 .datagrid-ctn .sort-mark.asc:before { content: "↑"; }
 
-.datagrid-ctn .field { cursor: pointer; }
+.datagrid-ctn .sortable { cursor: pointer; }
 
 .datagrid-ctn .autoRowHeight .cell { height: auto; }
 
