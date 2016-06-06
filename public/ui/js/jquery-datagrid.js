@@ -20,7 +20,6 @@
 	}
 }());
 // }}}
-// var $ = function(){};
 $.fn.datagrid = function(options){
 	var type = $.type(options);
 	if(type==='string'){
@@ -40,9 +39,13 @@ $.fn.datagrid = function(options){
 		else return ret;
 	}
 	options = $.extend(true, {
-		colWidth    : 80,
-		startRowNum : 1,
-		data        : []
+		colWidth      : 80,
+		startRowNum   : 1,
+		data          : [],
+		frozenColumns : [],
+		sortable      : false,
+		sort          : false,
+		columns       : []
 	}, options);
 	var handler   = function(box, options){ return new handler.prototype.init(box, options); };
 	var markChars = {up: '↑', down : '↓', empty:'&nbsp;'};
@@ -93,37 +96,33 @@ $.fn.datagrid = function(options){
 	// fn get_table{{{
 	var get_table = function(options, that){
 		var get_head_rows = function(rows, isFrozen){
-			var ret = [];
+			if(!rows || isFrozen&&!options.frozenColumns.length) return [];
 			var colsType = isFrozen ? 'frozenColumns' : 'columns';
-			if(!rows) return ret;
 			var il = rows.length - 1;
-			// var fieldElements = [];
-			for(var i=il; i>=0; i--){
-				ret.unshift(createElement({name:'tr', children:(function(){
-					var nodes = [];
-					for(var j=rows[i].length-1; j>=0; j--){
-						var option = rows[i][j];
+			return rows.map(function(row, i){
+				return createElement({name:'tr', children:(function(){
+					var nodes = row.map(function(option/*, j*/){
 						var title = (option.name || option.field || '');
 						var width = (options.autoColWidth||option.colspan) ? 'auto' : ((option.width||options.colWidth) + 'px');
 						var td_attr = {};
 						if(option.rowspan) td_attr.rowspan = option.rowspan;
 						if(option.colspan) td_attr.colspan = option.colspan;
 						var colspan = option.colspan || 1;
-						var isField = colspan==1&&(i==il||rows.length==(i+(option.rowspan||1)));
+						var isField = colspan==1&&((i==il)||((il+1)==(i+(option.rowspan||1))));
 						if(isField){
-							that[colsType].unshift(option);
+							that[colsType].push(option);
 							var class_name = ['field'];
 							if(options.sortable && option.sortable!==false || option.sortable==true){
 								class_name.push('sortable');
 							}
 							td_attr['class'] = class_name.join(' ');
 						}
-						nodes.unshift(createElement({
+						return createElement({
 							name:'td', attr:td_attr, children:{
 								name: 'div',
 								attr: {
-									'class'      : 'cell',
-									'style'      : {width:width},
+									"class"      : 'cell',
+									"style"      : {width:width},
 									"data-field" : option.field
 								}, children: [
 									markChars.empty,
@@ -131,27 +130,27 @@ $.fn.datagrid = function(options){
 									{name:'span', attr:{'class':'sort-mark'}}, markChars.empty
 								]
 							}
-						}));
-					}
-					if(isFrozen && i===0 && options.rowNum){
+						});
+					});
+					if(options.frozenColumns.length && isFrozen && i===0 && options.rowNum || !options.frozenColumns.length && i===0 && options.rowNum){
+						console.log('test');
 						nodes.unshift(createElement({
-							name:'td', attr:{rowspan:options.frozenColumns.length, 'class':'field'}, children:{
+							name:'td', attr:{rowspan:(options.frozenColumns.length||options.columns.length), 'class':'field'}, children:{
 								name:'div', attr:{'class':'cell'}
 							}
 						}));
 					}
 					return nodes;
-				})()}));
-			}
-			return ret;
+				})()});
+			});
 		};
 		var get_data_rows = function(data, cols, isLeft){
-			var ret = [];
-			data.forEach(function(row, i){
-				ret.push(createElement({
+			if(isLeft && !options.frozenColumns.length) return [];
+			return data.map(function(row, i){
+				return createElement({
 					name:'tr', children:(function(){
 						var nodes = [];
-						if(options.rowNum && isLeft){
+						if(options.frozenColumns.length && isLeft && options.rowNum){
 							nodes.push(createElement({
 								name:'td', children:{
 									name:'div', attr:{'class':'cell'}, children:i+options.startRowNum
@@ -160,8 +159,8 @@ $.fn.datagrid = function(options){
 						}
 						cols && cols.forEach(function(option){
 							if(!option) return true;
-							var field = option.field,
-								val = row[field],
+							var field     = option.field,
+								val       = row[field],
 								formatter = option.formatter;
 							nodes.push(createElement({
 								name:'td', children:{
@@ -175,9 +174,8 @@ $.fn.datagrid = function(options){
 						});
 						return nodes;
 					})()
-				}));
+				});
 			});
-			return ret;
 		};
 		return createElement({
 			name:'div', attr:{'class':'view-wrapper' + (options.autoRowHeight ? ' autoRowHeight' : '')}, children:[{
@@ -288,16 +286,6 @@ $.fn.datagrid = function(options){
 			$box.addClass('datagrid-ctn cf');
 
 			this.render = box;
-			// if(options.pagination && options.localData){
-			// 	box.innerHTML = '<div class="datagrid-pagination"></div>';
-			// 	var $pbox = $('.datagrid-pagination', box)
-			// 	var pbox = $pbox.get(0);
-			// 	options.pagination.renders = [pbox];
-			// 	options.pagination.dataSize = options.localData.length;
-			// 	(options.pagination);
-			// 	var po = pbox.ui.iPagination.userOptions;
-			// 	options.data = options.localData.slice((po.pageNumber-1)*po.pageSize, po.pageNumber*po.pageSize);
-			// }
 			this.update(options);
 			// this.update(options);
 			this.init_event();
