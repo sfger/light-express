@@ -133,7 +133,6 @@ $.fn.datagrid = function(options){
 						});
 					});
 					if(options.frozenColumns.length && isFrozen && i===0 && options.rowNum || !options.frozenColumns.length && i===0 && options.rowNum){
-						console.log('test');
 						nodes.unshift(createElement({
 							name:'td', attr:{rowspan:(options.frozenColumns.length||options.columns.length), 'class':'field'}, children:{
 								name:'div', attr:{'class':'cell'}

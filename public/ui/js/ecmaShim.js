@@ -108,7 +108,7 @@ Array.prototype.filter = Array.prototype.filter || function(fn, context){
 	}
 	return arr;
 };
-Array.prototype.some = Array.prototype.som || function(fn, context){
+Array.prototype.some = Array.prototype.some || function(fn, context){
 	var passed = false;
 	if(typeof fn === "function"){
 		for (var k=0, length=this.length; k<length; k++) {
