@@ -17,7 +17,7 @@
 <style type="text/css" media="all">
 *{padding:0;margin:0;font-size:14px;}
 #my_datagrid{width:auto;_width:100%;border:1px solid green;}
-.datagrid-ctn .body-wrapper{height:320px;overflow:auto;}
+.datagrid-ctn .body-wrapper{max-height:320px;overflow:auto;}
 .warn{color:#ff0101;}
 .normal{color:#008f1f;}
 </style>
@@ -57,7 +57,7 @@ var fieldSortFns = {
 	sortNum: function(a, b){ // this指{field:field, order:order}
 		var field = this.field;
 		var m = this.order ? -1 : 1;
-		return m*(a[this.field] - b[this.field]);
+		return m*(a[field] - b[field]);
 	}
 };
 var options = {

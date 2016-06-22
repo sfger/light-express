@@ -416,11 +416,11 @@ $.fn.datagrid = function(options){
 					trDoc.appendChild(tr);
 				}
 			});
-			if(frozenTrDoc.children || frozenTrDoc.childNodes){
+			if(frozenTbody && (frozenTrDoc.children || frozenTrDoc.childNodes)){
 				frozenTbody.appendChild(frozenTrDoc);
 				frozenTbody.style.display = '';
 			}
-			if(trDoc.children || trDoc.childNodes){
+			if(tbody && (trDoc.children || trDoc.childNodes)){
 				tbody.appendChild(trDoc);
 				tbody.style.display = '';
 			}
