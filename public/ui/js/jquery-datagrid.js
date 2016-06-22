@@ -178,7 +178,7 @@ $.fn.datagrid = function(options){
 		};
 		return createElement({
 			name:'div', attr:{'class':'view-wrapper' + (options.autoRowHeight ? ' autoRowHeight' : '')}, children:[{
-				name:'div', attr:{'class':'view frozen'}, children:[{
+				name:'div', attr:{'class':'view frozen-view'}, children:[{
 					name:'div', attr:{'class':'head-wrapper'}, children:{
 						name:'table', attr:{'class':'frozen head'}, children:{
 							name:'tbody', children:get_head_rows(options.frozenColumns, true)
@@ -193,7 +193,7 @@ $.fn.datagrid = function(options){
 					}
 				}
 			]}, {
-				name:'div', attr:{'class': 'view'}, children:[{
+				name:'div', attr:{'class': 'view auto-view'}, children:[{
 					name:'div', attr:{style:'overflow:hidden'}, children:{
 						name:'div', attr:{'class': 'head-wrapper'}, children:{
 							name:'table', attr:{'class': 'head'}, children:{
@@ -304,19 +304,12 @@ $.fn.datagrid = function(options){
 			this.fieldElements = $('.field .cell', box);
 			adjust_table($('table', box), that);
 
-			/* if(document.documentMode===5 || /MSIE 6/.test(navigator.userAgent)){
-				$('.view', box).css({height: $('.head-wrapper').get(0).offsetHeight + $('.body-wrapper').get(0).offsetHeight})// css height:100% fix,
-					.eq(0).css({width:$('.view', box).eq(0).find('table').eq(0).width()});// css display:inline fix
-
-				// css selector fix
-				$('.body-wrapper table, .body-wrapper table tr:first-child td', box).css({borderTop:'none'});
-			} */
-			(function(){ // css selector fix
-				var fie = navigator.userAgent.match(/MSIE (\d*)/);
-				if(fie && fie[1]<9){
-					$('.view', box).eq(1).find('table, table td:first-child').css({borderLeft:'none'});
-				}
-			})();
+			// if(document.documentMode===5 || /MSIE 6/.test(navigator.userAgent)){
+			// 	$('.view', box).css({height: $('.head-wrapper').get(0).offsetHeight + $('.body-wrapper').get(0).offsetHeight})// css height:100% fix,
+			// 		.eq(0).css({width:$('.view', box).eq(0).find('table').eq(0).width()});// css display:inline fix
+			// 	$('.body-wrapper table, .body-wrapper table tr:first-child td', box).css({borderTop:'none'});
+			// 	$('.view', box).eq(1).find('table, table td:first-child').css({borderLeft:'none'});
+			// }
 			var allColumns = [];
 			push.apply(allColumns, this.frozenColumns);
 			push.apply(allColumns, this.columns);
@@ -342,32 +335,34 @@ $.fn.datagrid = function(options){
 		fix_size: function(){
 			var that = this;
 			that.resize(); //修改样式
-			setTimeout(function(){ that.resize(); }, 0); // 再次计算样式，消除滚动条的影响
+			// setTimeout(function(){ that.resize(); }, 0); // 再次计算样式，消除滚动条的影响
 		},
 		resize: function(){
-			var dataViews = $('.view', this.render);
+			var that = this;
+			var dataViews = $('.view', that.render);
 			var tables = $('table', dataViews);
 			tables.eq(1).parent().css({height:tables.get(3).parentNode.clientHeight});
-			dataViews.eq(1).css({width: this.render.clientWidth - 1 - dataViews.get(0).offsetWidth});
+			dataViews.eq(1).css({width: that.render.clientWidth - 1 - dataViews.get(0).offsetWidth});
+			dataViews.eq(1).css({width: that.render.clientWidth - 1 - dataViews.get(0).offsetWidth});  // 再次计算样式，消除滚动条的影响
 		},
 		init_event: function(){
 			var that    = this;
 			var options = this.userOptions;
 			var $box    = $(this.render);
 			$(window).on('resize', function(){ that.resize(); });
-			/* if(document.documentMode===5 || /MSIE 6/.test(navigator.userAgent)){
-				var hover_binds = {// css tr:hover fix
-					mouseenter: function(){ this.style.backgroundColor = '#e6e6e6'; },
-					mouseleave: function(){ this.style.backgroundColor = 'transparent'; }
-				};
-				$box.on(hover_binds, '.head td').on(hover_binds, '.body tr');
-			} */
+			// if(document.documentMode===5 || /MSIE 6/.test(navigator.userAgent)){
+			// 	var hover_binds = {// css tr:hover fix
+			// 		mouseenter: function(){ this.style.backgroundColor = '#e6e6e6'; },
+			// 		mouseleave: function(){ this.style.backgroundColor = 'transparent'; }
+			// 	};
+			// 	$box.on(hover_binds, '.head td').on(hover_binds, '.body tr');
+			// }
 			if(!options.remoteSort){
 				$box.on('click', '.field.sortable .cell', function(){
 					that.sortBy({
 						field: $(this).data('field'),
 						order: !this.order||this.defaultOrder
-					});
+					}, this);
 				});
 			}
 		},
@@ -379,10 +374,11 @@ $.fn.datagrid = function(options){
 		getColumnSortFunction: function(fieldName){
 			return this.getColumnOption(fieldName).sort || defaultSortFn;
 		},
-		sortBy: function(option){
+		sortBy: function(option, sortElement){
 			//order: (true||'desc')->desc, (false||not 'desc')->asc
 			option.order = (-1===[true,'desc'].indexOf(option.order)) ? false : true;
-			var sortElement = $('.head-wrapper [data-field='+option.field+']', this.render).get(0);
+			// var sortElement = $('.head-wrapper [data-field='+option.field+']', this.render).get(0);
+			sortElement = sortElement || $('.head-wrapper [data-field='+option.field+']', this.render).get(0);
 			var preSortElement = this.sortElement;
 			var options = this.userOptions;
 			this.sortElement = sortElement;

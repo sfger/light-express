@@ -5,7 +5,7 @@
 
 .cf:after { clear: both; overflow: hidden; }
 
-.imgc:before, .imgc .iecp, .imgc img, audio, canvas, video, .ib, .img-tight:before, .img-tight .iecp, .img-tight img, .ib-row:before, .ib-row .iecp, .datagrid-ctn .view, .datagrid-ctn .field-title, .datagrid-ctn .sort-mark { display: inline-block; *display: inline; *zoom: 1; vertical-align: middle; }
+.imgc:before, .imgc .iecp, .imgc img, audio, canvas, video, .ib, .img-tight:before, .img-tight .iecp, .img-tight img, .ib-row:before, .ib-row .iecp, .datagrid-ctn .field-title { display: inline-block; *display: inline; *zoom: 1; vertical-align: middle; }
 
 .imge { display: inline-block; *display: inline; *zoom: 1; vertical-align: middle; font-size: 12px; font-size: 1rem; line-height: normal; }
 
@@ -41,11 +41,11 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, nav, 
 
 .ib-row:before, .ib-row .iecp { content: ""; height: 100%; font-size: 0; line-height: 0; width: 0; }
 
-.ib-col, .ib-col-full { display: inline-block; *display: inline; *zoom: 1; vertical-align: middle; font-size: 12px; font-size: 1rem; line-height: normal; }
+.ib-col, .datagrid-ctn .view, .ib-col-full { display: inline-block; *display: inline; *zoom: 1; vertical-align: top; font-size: 12px; font-size: 1rem; line-height: normal; }
 
 .ib-col-full { width: 100%; }
 
-.ib-row.ib-col, .ib-row.ib-col-full { font-size: 0; }
+.ib-row.ib-col, .datagrid-ctn .ib-row.view, .ib-row.ib-col-full { font-size: 0; }
 
 .txt-lt { text-align: left; }
 
@@ -63,19 +63,17 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, nav, 
 
 .datagrid-ctn .view-wrapper { position: relative; }
 
-.datagrid-ctn .view { vertical-align: top; font-size: 14px; font-size: 1rem; line-height: normal; }
-
 .datagrid-ctn .head-wrapper { overflow: hidden; }
 
 .datagrid-ctn .body-wrapper { /*height:320px;*height:250px;*/ overflow: auto; }
 
-.datagrid-ctn table, .datagrid-ctn td { border: 1px solid #ccc; }
-
 .datagrid-ctn table { border-collapse: collapse; }
+
+.datagrid-ctn table, .datagrid-ctn table td { border: 1px solid #ccc; }
 
 .datagrid-ctn .body-wrapper table, .datagrid-ctn .body-wrapper tr:first-child td { border-top: none; }
 
-.datagrid-ctn .view:last-child table, .datagrid-ctn .view:last-child td:first-child { border-left: none; }
+.datagrid-ctn .auto-view table, .datagrid-ctn .auto-view td:first-child { border-left: none; }
 
 .datagrid-ctn .head td:hover, .datagrid-ctn .body tr:hover { background: #e6e6e6; }
 
@@ -83,13 +81,17 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, nav, 
 
 .datagrid-ctn .field-title { margin-left: 12px; }
 
-.datagrid-ctn .sort-mark { width: 12px; text-align: center; font-family: SimSun; color: #b90; }
-
-.datagrid-ctn .sort-mark.desc:before { content: "↓"; }
-
-.datagrid-ctn .sort-mark.asc:before { content: "↑"; }
-
 .datagrid-ctn .sortable { cursor: pointer; }
+
+.datagrid-ctn .sortable .cell { filter: progid:DXImageTransform.Microsoft.Gradient(gradientType=0, startColorStr=#f3f3f3, endColorStr=#d1d1d1); background: gradient(top, #f3f3f3, #d1d1d1, #f3f3f3); background: -moz-linear-gradient(top, #f3f3f3, #d1d1d1, #f3f3f3); background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #f3f3f3), color-stop(50%, #d1d1d1), color-stop(100%, #f3f3f3)); background: -webkit-linear-gradient(top, #f3f3f3 0%, #d1d1d1 50%, #f3f3f3 100%); background: -o-linear-gradient(top, #f3f3f3 0%, #d1d1d1 50%, #f3f3f3 100%); background: -ms-linear-gradient(top, #f3f3f3 0%, #d1d1d1 50%, #f3f3f3 100%); background: linear-gradient(to bottom, #f3f3f3 0%, #d1d1d1 50%, #f3f3f3 100%); }
+
+.datagrid-ctn .sortable .cell:hover { background: #e6e6e6; }
+
+.datagrid-ctn .sort-mark { display: inline-block; *display: inline; *zoom: 1; vertical-align: middle; width: 12px; text-align: center; font-family: SimSun; color: #b90; }
+
+.datagrid-ctn .sort-mark.desc:before { content: "↓"; color: #b90; }
+
+.datagrid-ctn .sort-mark.asc:before { content: "↑"; color: #b90; }
 
 .datagrid-ctn .autoRowHeight .cell { height: auto; }
 

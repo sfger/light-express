@@ -4,7 +4,7 @@
 
 .cf:after { clear: both; overflow: hidden; }
 
-.imgc:before, .imgc .iecp, .imgc img, audio, canvas, video { display: inline-block; *display: inline; *zoom: 1; vertical-align: middle; }
+.imgc:before, .imgc .iecp, .imgc img, audio, canvas, video, .ib, .img-tight:before, .img-tight .iecp, .img-tight img, .ib-row:before, .ib-row .iecp { display: inline-block; *display: inline; *zoom: 1; vertical-align: middle; }
 
 .imge { display: inline-block; *display: inline; *zoom: 1; vertical-align: middle; font-size: 12px; font-size: 1rem; line-height: normal; }
 
@@ -29,6 +29,34 @@ fieldset, img { border: none; }
 :focus { outline: none; }
 
 article, aside, details, figcaption, figure, footer, header, hgroup, main, nav, section, summary { display: block; }
+
+.img-tight { font-size: 0; text-align: center; }
+
+.img-tight:before, .img-tight .iecp { content: ""; height: 100%; font-size: 0; line-height: 0; width: 0; }
+
+.img-tight img { max-width: 100%; max-height: 100%; }
+
+.ib-row { font-size: 0; }
+
+.ib-row:before, .ib-row .iecp { content: ""; height: 100%; font-size: 0; line-height: 0; width: 0; }
+
+.ib-col, .ib-col-full { display: inline-block; *display: inline; *zoom: 1; vertical-align: top; font-size: 12px; font-size: 1rem; line-height: normal; }
+
+.ib-col-full { width: 100%; }
+
+.ib-row.ib-col, .ib-row.ib-col-full { font-size: 0; }
+
+.txt-lt { text-align: left; }
+
+.txt-rt { text-align: right; }
+
+.txt-ct { text-align: center; }
+
+.vt-top { vertical-align: top; }
+
+.vt-mid { vertical-align: middle; }
+
+.vt-btm { vertical-align: bottom; }
 
 .state-list { width: 200px; display: inline-block; *display: inline; *zoom: 1; vertical-align: middle; }
 

@@ -9,7 +9,7 @@
 .img-tight{@include imgc(1);}
 
 .ib-row{@include imgc(0,'',left);}
-.ib-col,.ib-col-full{@include imge;}
+.ib-col,.ib-col-full{@include imge(top);}
 .ib-col-full{width:100%;}
 .ib-row{
 	&.ib-col,&.ib-col-full{font-size:0;}
