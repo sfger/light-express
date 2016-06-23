@@ -4,7 +4,7 @@
 
 .cf:after { clear: both; overflow: hidden; }
 
-.imgc:before, .imgc .iecp, .imgc img, .ib-row:before, .ib-row .iecp { display: inline-block; *display: inline; *zoom: 1; vertical-align: middle; }
+.imgc:before, .imgc .iecp, .imgc img, .ib, .img-tight:before, .img-tight .iecp, .img-tight img, .ib-row:before, .ib-row .iecp { display: inline-block; *display: inline; *zoom: 1; vertical-align: middle; }
 
 .imge { display: inline-block; *display: inline; *zoom: 1; vertical-align: middle; font-size: 12px; font-size: 1rem; line-height: normal; }
 
@@ -14,19 +14,33 @@
 
 .imgc img { max-width: 100%; max-height: 100%; }
 
+.img-tight { font-size: 0; text-align: center; }
+
+.img-tight:before, .img-tight .iecp { content: ""; height: 100%; font-size: 0; line-height: 0; width: 0; }
+
+.img-tight img { max-width: 100%; max-height: 100%; }
+
 .ib-row { font-size: 0; }
 
 .ib-row:before, .ib-row .iecp { content: ""; height: 100%; font-size: 0; line-height: 0; width: 0; }
 
-.ib-col, .ib-col-full { display: inline-block; *display: inline; *zoom: 1; vertical-align: middle; font-size: 12px; font-size: 1rem; line-height: normal; }
+.ib-col, .ib-col-full { display: inline-block; *display: inline; *zoom: 1; vertical-align: top; font-size: 12px; font-size: 1rem; line-height: normal; }
 
 .ib-col-full { width: 100%; }
 
-.ib-top { vertical-align: top; }
+.ib-row.ib-col, .ib-row.ib-col-full { font-size: 0; }
 
-.ib-middle { vertical-align: middle; }
+.txt-lt { text-align: left; }
 
-.ib-bottom { vertical-align: bottom; }
+.txt-rt { text-align: right; }
+
+.txt-ct { text-align: center; }
+
+.vt-top { vertical-align: top; }
+
+.vt-mid { vertical-align: middle; }
+
+.vt-btm { vertical-align: bottom; }
 
 /* Original style from softwaremaniacs.org (c) Ivan Sagalaev <Maniac@SoftwareManiacs.Org> */
 .hljs { display: block; overflow-x: auto; padding: 0.5em; background: #f0f0f0; -webkit-text-size-adjust: none; }

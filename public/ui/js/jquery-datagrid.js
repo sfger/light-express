@@ -237,27 +237,24 @@ $.fn.datagrid = function(options){
 				t2  = getHW(field, type);
 			if(t1===t2) return;
 			var t = t1<t2 ? t2 : t1;
-			$([this, field])[type](t+5);
+			$([this, field])[type](t+3);
 		});
 	};
 	var adjust_table = function(tables, that){
 		if(tables.length==4){
-			var tp0 = tables.eq(2).parent(),
-				tp1 = tables.eq(3).parent();
+			var tp0 = tables.eq(2).parent();
+			var tp1 = tables.eq(3).parent();
 			tp0.css({width:500000});
 			tp1.css({width:500000});
 			var options = that.userOptions;
-			if(options.rowNum || options.frozenColumns)
+			align_td(tables.filter('table:odd').find('tr:first-child td .cell'), 'width', that.fieldElements);
+			if(options.rowNum || options.frozenColumns){
 				align_table($([tables[0], tables[1]]), $([tables[2], tables[3]]), 'height');
-			if(options.autoColWidth){
-				align_td(tables.filter('table:odd').find('tr:first-child td .cell'), 'width', that.fieldElements);
-			}else if(options.rowNum){
-				align_td(tables.filter('table:odd').find('td .cell:first'), 'width', that.fieldElements);
+				align_table($([tables[0], tables[2]]), $([tables[1], tables[3]]), 'width');
 			}
-			if(options.rowNum || options.frozenColumns)
-				align_table($([tables[0], tables[2]]), $([tables[1], tables[3]]), 'width', that.fieldElements);
 
-			var width_full = (document.compatMode === "CSS1Compat"&&!/msie 6/i.test(navigator.userAgent)) ? 'auto' : '100%';
+			// var width_full = (document.compatMode === "CSS1Compat"&&!/msie 6/i.test(navigator.userAgent)) ? 'auto' : '100%';
+			var width_full = 'auto';
 			tp1.css({width:width_full});
 			tp0.parent().css({width:width_full, overflow:'hidden'});
 			var update_scroll_offset = function(){

@@ -18,22 +18,19 @@
 	.head td:hover,.body tr:hover{background:#e6e6e6;}
 	.cell{padding:2px 0px;overflow:hidden;line-height:20px;text-align:center;white-space:nowrap;color:#333;}
 	.field-title{@extend %ib;margin-left:12px;}
+	.cell{height:100%;}
 	.sortable{
 		cursor:pointer;
-		.cell{
-			filter:progid:DXImageTransform.Microsoft.Gradient(gradientType=0, startColorStr=#f3f3f3, endColorStr=#d1d1d1);
-			// background:-webkit-gradient(linear, left top, left bottom, from(#f3f3f3), to(#f3f3f3), color-stop(0.5, #d1d1d1), color-stop(0.5, #d1d1d1));
-			// background:-ms-gradient(linear, left top, left bottom, from(#f3f3f3), to(#f3f3f3), color-stop(0.5, #d1d1d1), color-stop(0.5, #d1d1d1));
-			// background:-moz-linear-gradient(top, #f3f3f3, #d1d1d1, #f3f3f3);
-			background:gradient(top, #f3f3f3, #d1d1d1, #f3f3f3);
-			background:-moz-linear-gradient(top, #f3f3f3, #d1d1d1, #f3f3f3);
-			background:-webkit-gradient(linear, left top, left bottom, color-stop(0%,#f3f3f3), color-stop(50%,#d1d1d1), color-stop(100%,#f3f3f3));
-			background:-webkit-linear-gradient(top, #f3f3f3 0%, #d1d1d1 50%,#f3f3f3 100%);
-			background:-o-linear-gradient(top, #f3f3f3 0%, #d1d1d1 50%,#f3f3f3 100%);
-			background:-ms-linear-gradient(top, #f3f3f3 0%, #d1d1d1 50%,#f3f3f3 100%);
-			background:linear-gradient(to bottom, #f3f3f3 0%, #d1d1d1 50%,#f3f3f3 100%);
-			&:hover{background:#e6e6e6;}
-		}
+		// filter:progid:DXImageTransform.Microsoft.Gradient(gradientType=0, startColorStr=#f3f3f3, endColorStr=#d1d1d1);
+		// background:gradient(top, #f3f3f3, #d1d1d1, #f3f3f3);
+		// background:-moz-linear-gradient(top, #f3f3f3, #d1d1d1, #f3f3f3);
+		// background:-webkit-gradient(linear, left top, left bottom, color-stop(0%,#f3f3f3), color-stop(50%,#d1d1d1), color-stop(100%,#f3f3f3));
+		// background:-webkit-linear-gradient(top, #f3f3f3 0%, #d1d1d1 50%,#f3f3f3 100%);
+		// background:-o-linear-gradient(top, #f3f3f3 0%, #d1d1d1 50%,#f3f3f3 100%);
+		// background:-ms-linear-gradient(top, #f3f3f3 0%, #d1d1d1 50%,#f3f3f3 100%);
+		// background:linear-gradient(to bottom, #f3f3f3 0%, #d1d1d1 50%,#f3f3f3 100%);
+		background:#f3f3f3;
+		&:hover{background:#e6e6e6;}
 		// .sort-mark:before{content:"↓";color:#eee;}
 	}
 	.sort-mark{

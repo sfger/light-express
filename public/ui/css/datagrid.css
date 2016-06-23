@@ -81,11 +81,11 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, nav, 
 
 .datagrid-ctn .field-title { margin-left: 12px; }
 
-.datagrid-ctn .sortable { cursor: pointer; }
+.datagrid-ctn .cell { height: 100%; }
 
-.datagrid-ctn .sortable .cell { filter: progid:DXImageTransform.Microsoft.Gradient(gradientType=0, startColorStr=#f3f3f3, endColorStr=#d1d1d1); background: gradient(top, #f3f3f3, #d1d1d1, #f3f3f3); background: -moz-linear-gradient(top, #f3f3f3, #d1d1d1, #f3f3f3); background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #f3f3f3), color-stop(50%, #d1d1d1), color-stop(100%, #f3f3f3)); background: -webkit-linear-gradient(top, #f3f3f3 0%, #d1d1d1 50%, #f3f3f3 100%); background: -o-linear-gradient(top, #f3f3f3 0%, #d1d1d1 50%, #f3f3f3 100%); background: -ms-linear-gradient(top, #f3f3f3 0%, #d1d1d1 50%, #f3f3f3 100%); background: linear-gradient(to bottom, #f3f3f3 0%, #d1d1d1 50%, #f3f3f3 100%); }
+.datagrid-ctn .sortable { cursor: pointer; background: #f3f3f3; }
 
-.datagrid-ctn .sortable .cell:hover { background: #e6e6e6; }
+.datagrid-ctn .sortable:hover { background: #e6e6e6; }
 
 .datagrid-ctn .sort-mark { display: inline-block; *display: inline; *zoom: 1; vertical-align: middle; width: 12px; text-align: center; font-family: SimSun; color: #b90; }
 

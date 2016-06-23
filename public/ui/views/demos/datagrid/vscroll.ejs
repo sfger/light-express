@@ -18,6 +18,7 @@
 *{padding:0;margin:0;font-size:14px;}
 #my_datagrid{width:auto;_width:100%;border:1px solid green;}
 .datagrid-ctn .body-wrapper{max-height:320px;overflow:auto;}
+//.datagrid-ctn .body-wrapper .cell{padding:0 10px;text-align:right;}
 .warn{color:#ff0101;}
 .normal{color:#008f1f;}
 </style>
@@ -67,16 +68,18 @@ var options = {
 	autoColWidth  : true,
 	/* sortable      : true, */
 	sort          : {field : 'col-2', order : 'desc'},
-	/* width         : 100, */
+	width         : 200,
 	/* remoteSort    : true, */
 	frozenColumns : [
 		[
 			{name:'冻结列', colspan:4}
 		],
+			/*
 		[
 			{name:'冻结列组1', colspan:2},
 			{name:'冻结列组2', colspan:2},
 		],
+		*/
 		[
 			{field:'col-1', name:'冻结第一列', sortable: true,
 				formatter:function(val, row, key){
