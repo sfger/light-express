@@ -8,6 +8,7 @@
 	table{
 		border-collapse:collapse;
 		&,td{border:1px solid #ccc;}
+		.cell-wrapper{padding:2px 5px;}
 	}
 	.body-wrapper{
 		table,tr:first-child td{border-top:none;}
@@ -16,7 +17,11 @@
 		table,td:first-child{border-left:none;}
 	}
 	.head td:hover,.body tr:hover{background:#e6e6e6;}
-	.cell{padding:2px 0px;overflow:hidden;line-height:20px;text-align:center;white-space:nowrap;color:#333;}
+	.cell{
+		overflow:hidden;line-height:20px;text-align:center;white-space:nowrap;color:#333;
+		&.txt-rt{text-align:right;}
+		&.txt-lt{text-align:left;}
+	}
 	.field-title{@extend %ib;margin-left:12px;}
 	.cell{height:100%;}
 	.sortable{

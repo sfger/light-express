@@ -60,7 +60,7 @@ formatter:function(val, row, key){
 return '格式化: ' + val;
 }
 },
-{field:'col-2', name:'冻结第二列', sortable:true, sort:fieldSortFns.sortNum,
+{field:'col-2', name:'冻结第二列', align:'right', sortable:true, sort:fieldSortFns.sortNum,
 formatter: function(val, row, key){
 var cls = val<60 ? 'warn' : 'normal';
 return '<span class="'+cls+'">' + val + '</span>';

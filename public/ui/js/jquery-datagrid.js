@@ -48,7 +48,7 @@ $.fn.datagrid = function(options){
 		columns       : []
 	}, options);
 	var handler   = function(box, options){ return new handler.prototype.init(box, options); };
-	var markChars = {up: '↑', down : '↓', empty:'&nbsp;'};
+	var markChars = {empty:' '};
 	var push      = Array.prototype.push;
 	var toString  = Object.prototype.toString;
 	var getType   = function(obj){ return toString.call(obj).slice(8, -1); };
@@ -109,6 +109,10 @@ $.fn.datagrid = function(options){
 						if(option.colspan) td_attr.colspan = option.colspan;
 						var colspan = option.colspan || 1;
 						var isField = colspan==1&&((i==il)||((il+1)==(i+(option.rowspan||1))));
+						var cell_attr = {
+							"class"      : 'cell',
+							"style"      : {width:width}
+						};
 						if(isField){
 							that[colsType].push(option);
 							var class_name = ['field'];
@@ -116,26 +120,32 @@ $.fn.datagrid = function(options){
 								class_name.push('sortable');
 							}
 							td_attr['class'] = class_name.join(' ');
+							cell_attr['data-field'] = option.field;
 						}
 						return createElement({
 							name:'td', attr:td_attr, children:{
-								name: 'div',
-								attr: {
-									"class"      : 'cell',
-									"style"      : {width:width},
-									"data-field" : option.field
-								}, children: [
-									markChars.empty,
-									{name:'span', attr:{'class':'field-title'}, children:title},
-									{name:'span', attr:{'class':'sort-mark'}}, markChars.empty
-								]
+								name : 'div',
+								attr : {
+									"class" : 'cell-wrapper'
+								}, children: {
+									name: 'div',
+									attr: cell_attr,
+									children: [
+										markChars.empty,
+										{name:'span', attr:{'class':'field-title'}, children:title},
+										{name:'span', attr:{'class':'sort-mark'}},
+										markChars.empty
+									]
+								}
 							}
 						});
 					});
 					if(options.frozenColumns.length && isFrozen && i===0 && options.rowNum || !options.frozenColumns.length && i===0 && options.rowNum){
 						nodes.unshift(createElement({
 							name:'td', attr:{rowspan:(options.frozenColumns.length||options.columns.length), 'class':'field'}, children:{
-								name:'div', attr:{'class':'cell'}
+								name:'div', attr:{'class':'cell-wrapper'}, children: {
+									name:'div', attr:{'class':'cell'}
+								}
 							}
 						}));
 					}
@@ -152,7 +162,9 @@ $.fn.datagrid = function(options){
 						if(options.frozenColumns.length && isLeft && options.rowNum){
 							nodes.push(createElement({
 								name:'td', children:{
-									name:'div', attr:{'class':'cell'}, children:i+options.startRowNum
+									name:'div', attr:{'class':'cell-wrapper'}, children:{
+										name:'div', attr:{'class':'cell'}, children:i+options.startRowNum
+									}
 								}
 							}));
 						}
@@ -160,14 +172,19 @@ $.fn.datagrid = function(options){
 							if(!option) return true;
 							var field     = option.field,
 								val       = row[field],
-								formatter = option.formatter;
+								formatter = option.formatter,
+								cls_list  = ['cell'],
+								align     = ({'left':'txt-lt', 'right':'txt-rt'})[option.align]||'';
+							align && cls_list.push(align);
 							nodes.push(createElement({
 								name:'td', children:{
-									name:'div', attr:{
-										'class':'cell',
-										style:{width:options.autoColWidth ? 'auto' : ((option.width||options.colWidth) + 'px')}
-									}, children:
-										$.type(formatter)==='function' ? formatter(val, row, field) : val
+									name:'div', attr:{'class':'cell-wrapper'}, children:{
+										name:'div', attr:{
+											'class': cls_list.join(' '),
+											style:{width:options.autoColWidth ? 'auto' : ((option.width||options.colWidth) + 'px')}
+										}, children:
+											$.type(formatter)==='function' ? formatter(val, row, field) : val
+									}
 								}
 							}));
 						});

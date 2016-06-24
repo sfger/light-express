@@ -71,13 +71,19 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, nav, 
 
 .datagrid-ctn table, .datagrid-ctn table td { border: 1px solid #ccc; }
 
+.datagrid-ctn table .cell-wrapper { padding: 2px 5px; }
+
 .datagrid-ctn .body-wrapper table, .datagrid-ctn .body-wrapper tr:first-child td { border-top: none; }
 
 .datagrid-ctn .auto-view table, .datagrid-ctn .auto-view td:first-child { border-left: none; }
 
 .datagrid-ctn .head td:hover, .datagrid-ctn .body tr:hover { background: #e6e6e6; }
 
-.datagrid-ctn .cell { padding: 2px 0px; overflow: hidden; line-height: 20px; text-align: center; white-space: nowrap; color: #333; }
+.datagrid-ctn .cell { overflow: hidden; line-height: 20px; text-align: center; white-space: nowrap; color: #333; }
+
+.datagrid-ctn .cell.txt-rt { text-align: right; }
+
+.datagrid-ctn .cell.txt-lt { text-align: left; }
 
 .datagrid-ctn .field-title { margin-left: 12px; }
 
