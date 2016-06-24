@@ -55,18 +55,18 @@ var fieldSortFns = {
 	sortNum: function(a, b){//this指{field:field, order:order}
 		var field = this.field, c;
 		a = a[field], b = b[field];
-		if(!this.order) c = a, a = b, b = c;
-		return a==b ? 0 :(b-a>0 ? 1: -1);
+		return b-a;
 	}
 };
 $('#my_datagrid').datagrid({
 	data:data,
-	/* localData:data, */
 	rowNum:true,
 	autoRowHeight:true,
 	autoColWidth:true,
 	//remoteSort:true,
+	sortable:true,
 	sort:{field:'col-2', order:'desc'},
+	sortType:'number',
 	pagination:{
 		useAjax:true,
 		pageNumber:2,

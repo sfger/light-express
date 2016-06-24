@@ -42,14 +42,14 @@ $.fn.datagrid = function(options){
 		colWidth      : 80,
 		startRowNum   : 1,
 		data          : [],
-		frozenColumns : [],
 		sortable      : false,
-		sort          : false,
+		sort          : null,
+		sortType      : 'string',
+		remoteSort    : false,
+		frozenColumns : [],
 		columns       : []
 	}, options);
 	var handler   = function(box, options){ return new handler.prototype.init(box, options); };
-	var markChars = {empty:' '};
-	var push      = Array.prototype.push;
 	var toString  = Object.prototype.toString;
 	var getType   = function(obj){ return toString.call(obj).slice(8, -1); };
 	// createElement{{{
@@ -109,10 +109,7 @@ $.fn.datagrid = function(options){
 						if(option.colspan) td_attr.colspan = option.colspan;
 						var colspan = option.colspan || 1;
 						var isField = colspan==1&&((i==il)||((il+1)==(i+(option.rowspan||1))));
-						var cell_attr = {
-							"class"      : 'cell',
-							"style"      : {width:width}
-						};
+						var cell_attr = {"class":'cell', "style":{width:width}};
 						if(isField){
 							that[colsType].push(option);
 							var class_name = ['field'];
@@ -131,10 +128,10 @@ $.fn.datagrid = function(options){
 									name: 'div',
 									attr: cell_attr,
 									children: [
-										markChars.empty,
+										' ',
 										{name:'span', attr:{'class':'field-title'}, children:title},
 										{name:'span', attr:{'class':'sort-mark'}},
-										markChars.empty
+										' '	
 									]
 								}
 							}
@@ -286,24 +283,14 @@ $.fn.datagrid = function(options){
 		}
 	};
 	//}}}
-	var defaultSortFn = function(a, b){
-		var field = this.field;
-		var m = this.order ? -1 : 1;
-		if(a[field]==b[field]) return 0;
-		return m*(a[field]>b[field] ? 1 : -1);
-	};
 	handler.prototype = {
 		defaultOrder: false, //true:desc, false:asc
 		init: function(box, options){
-			var $box = $(box);
-			$box.addClass('datagrid-ctn cf');
-
+			$(box).addClass('datagrid-ctn cf');
 			this.render = box;
 			this.update(options);
-			// this.update(options);
 			this.init_event();
-			this.fix_size();
-
+			this.resize();
 			options.onCreate.bind(this)();
 		},
 		update: function(options){
@@ -316,7 +303,7 @@ $.fn.datagrid = function(options){
 			this.userOptions   = options;
 			$(get_table(options, that)).prependTo(box);
 			this.fieldElements = $('.field .cell', box);
-			adjust_table($('table', box), that);
+			this.reAlign();
 
 			// if(document.documentMode===5 || /MSIE 6/.test(navigator.userAgent)){
 			// 	$('.view', box).css({height: $('.head-wrapper').get(0).offsetHeight + $('.body-wrapper').get(0).offsetHeight})// css height:100% fix,
@@ -324,10 +311,7 @@ $.fn.datagrid = function(options){
 			// 	$('.body-wrapper table, .body-wrapper table tr:first-child td', box).css({borderTop:'none'});
 			// 	$('.view', box).eq(1).find('table, table td:first-child').css({borderLeft:'none'});
 			// }
-			var allColumns = [];
-			push.apply(allColumns, this.frozenColumns);
-			push.apply(allColumns, this.columns);
-			this.allColumns = allColumns;
+			this.allColumns = [].concat(this.frozenColumns, this.columns);
 			this.dataTbodys = $('.body tbody', box);
 			// if(!(options.data[0].tr && options.data[0].frozenTr)|| isReplaceRow){
 			options.data.forEach(function(rowData, rowNum){
@@ -338,26 +322,25 @@ $.fn.datagrid = function(options){
 			// }
 			var sort = options.sort;
 			if(options.remoteSort){
-				var sort_order = (-1===[true,'desc'].indexOf(sort.order)) ? 'asc' : 'desc';
+				var sort_order = (~[true,'desc'].indexOf(sort.order)) ? 'desc' : 'asc';
 				$('.head-wrapper [data-field='+sort.field+'] .sort-mark', box).addClass(sort_order);
 			}else if(options.sort){
 				this.sortBy({field:sort.field, order:sort.order});
 			}
-			this.fix_size();
-			return true;
+			return this.resize();
 		},
-		fix_size: function(){
-			var that = this;
-			that.resize(); //修改样式
-			// setTimeout(function(){ that.resize(); }, 0); // 再次计算样式，消除滚动条的影响
+		reAlign: function(){
+			adjust_table($('table', this.render), this);
+			return this;
 		},
 		resize: function(){
-			var that = this;
-			var dataViews = $('.view', that.render);
+			var render = this.render;
+			var dataViews = $('.view', render);
 			var tables = $('table', dataViews);
 			tables.eq(1).parent().css({height:tables.get(3).parentNode.clientHeight});
-			dataViews.eq(1).css({width: that.render.clientWidth - 1 - dataViews.get(0).offsetWidth});
-			dataViews.eq(1).css({width: that.render.clientWidth - 1 - dataViews.get(0).offsetWidth});  // 再次计算样式，消除滚动条的影响
+			dataViews.eq(1).css({width: render.clientWidth - 1 - dataViews.get(0).offsetWidth});
+			dataViews.eq(1).css({width: render.clientWidth - 1 - dataViews.get(0).offsetWidth}); // 再次计算样式，消除滚动条的影响
+			return this;
 		},
 		init_event: function(){
 			var that    = this;
@@ -380,33 +363,52 @@ $.fn.datagrid = function(options){
 				});
 			}
 		},
-		getColumnOption: function(fieldName){
+		sortType: {
+			'string': function(a, b){ // this指{field:field, order:order}
+				var field = this.field;
+				var x = a[field];
+				var y = b[field];
+				if(x==y) return 0;
+				return x>y ? 1 : -1;
+			},
+			'number': function(a, b){
+				var field = this.field;
+				return a[field] - b[field];
+			}
+		},
+		getFieldOption: function(fieldName){
 			return this.allColumns.filter(function(one){
 				return one.field===fieldName;
 			})[0];
 		},
-		getColumnSortFunction: function(fieldName){
-			return this.getColumnOption(fieldName).sort || defaultSortFn;
+		getColumnSortFunction: function(option){
+			var field_option = this.getFieldOption(option.field); // 列的选项
+			var sort_type    = field_option.sortType || this.userOptions.sortType || 'string'; // 排序的类型
+			var fn           = field_option.sort || this.sortType[sort_type]; // 排序的函数
+			return function(a, b){
+				return fn.call(option, a, b) * (option.order ? -1 : 1);
+			};
 		},
 		sortBy: function(option, sortElement){
 			//order: (true||'desc')->desc, (false||not 'desc')->asc
-			option.order = (-1===[true,'desc'].indexOf(option.order)) ? false : true;
-			// var sortElement = $('.head-wrapper [data-field='+option.field+']', this.render).get(0);
-			sortElement = sortElement || $('.head-wrapper [data-field='+option.field+']', this.render).get(0);
+			var options        = this.userOptions;
 			var preSortElement = this.sortElement;
-			var options = this.userOptions;
-			this.sortElement = sortElement;
+			option.order = (~[true,'desc'].indexOf(option.order)) ? true : false;
+			this.sortElement = sortElement = sortElement || $('.head-wrapper [data-field='+option.field+']', this.render).get(0);
 			if(preSortElement){
-				if(sortElement===preSortElement){
-					if(option.order===preSortElement.order) return false;
-					else options.data = options.data.reverse();
+				if(sortElement===preSortElement){ // 同一列
+					if(option.order===preSortElement.order) return this; // 排序没变中断
+					options.data = options.data.reverse();
 				}
 				$('.sort-mark', preSortElement).removeClass('asc desc');
 			}
 			$('.sort-mark', sortElement).addClass(option.order?'desc':'asc');
-			options.data.sort(this.getColumnSortFunction(option.field).bind(option));
+			options.data.sort(this.getColumnSortFunction(option));
 			sortElement.order = option.order;
 			sortElement.field = option.field;
+			return this.sort_table_dom(options);
+		},
+		sort_table_dom: function(options){
 			var frozenTrDoc   = document.createDocumentFragment(),
 				trDoc         = document.createDocumentFragment(),
 				frozenTbody   = null,
@@ -439,7 +441,7 @@ $.fn.datagrid = function(options){
 				tbody.style.display = '';
 			}
 			frozenTrDoc = null, trDoc = null, frozenTbody = null, tbody = null;
-			return true;
+			return this;
 		}
 	};
 	handler.prototype.init.prototype = handler.prototype;

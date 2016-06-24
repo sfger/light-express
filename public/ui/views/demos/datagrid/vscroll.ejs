@@ -57,8 +57,7 @@ var fieldSortFns = {
 	sortStr: null, // default
 	sortNum: function(a, b){ // this指{field:field, order:order}
 		var field = this.field;
-		var m = this.order ? -1 : 1;
-		return m*(a[field] - b[field]);
+		return a[field] - b[field];
 	}
 };
 var options = {
@@ -68,6 +67,7 @@ var options = {
 	autoColWidth  : true,
 	/* sortable      : true, */
 	sort          : {field : 'col-2', order : 'desc'},
+	/* sortType      : 'number', */
 	width         : 200,
 	/* remoteSort    : true, */
 	frozenColumns : [
@@ -81,7 +81,7 @@ var options = {
 		],
 		*/
 		[
-			{field:'col-1', name:'冻结第一列', sortable: true,
+			{field:'col-1', name:'冻结第一列', sortable: true, sortable: true, // sortType: 'number', // 'string',
 				formatter:function(val, row, key){
 					return '格式化: ' + val;
 				}
