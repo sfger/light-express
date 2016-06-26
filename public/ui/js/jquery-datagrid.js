@@ -22,23 +22,23 @@
 // }}}
 $.fn.datagrid = function(options){
 	var type = $.type(options);
-	if(type==='string'){
+	if(type==='string'){//{{{
 		var args = Array.prototype.slice.call(arguments).slice(1);
 		var ret = [];
-		for(var oi=0,oil=this.length; oi<oil; oi++){
-			var ui = $(this[oi]).data('ui');
+		this.each(function(element){
+			var ui = $(element).data('ui');
 			if(ui && ui.iDatagrid){
 				ret.push(ui.iDatagrid[options].apply(ui.iDatagrid, args));
 			}else{
 				throw new Error('UI:datagrid does not init...');
 			}
-		}
+		});
 		var len = ret.length;
 		if(0===len) return this;
 		if(1===len) return ret[0];
 		else return ret;
-	}
-	options = $.extend(true, {
+	}//}}}
+	options = $.extend(true, {//{{{
 		colWidth      : 80,
 		startRowNum   : 1,
 		data          : [],
@@ -48,7 +48,7 @@ $.fn.datagrid = function(options){
 		remoteSort    : false,
 		frozenColumns : [],
 		columns       : []
-	}, options);
+	}, options);//}}}
 	var handler   = function(box, options){ return new handler.prototype.init(box, options); };
 	var toString  = Object.prototype.toString;
 	var getType   = function(obj){ return toString.call(obj).slice(8, -1); };
@@ -276,7 +276,7 @@ $.fn.datagrid = function(options){
 				tables.get(1).parentNode.scrollTop = this.scrollTop;
 			};
 			var scroll_id = null;
-			$(tp1).on('scroll', function(){
+			$(tp1).off('scroll').on('scroll', function(){
 				cancelAnimationFrame(scroll_id);
 				scroll_id = requestAnimationFrame(update_scroll_offset.bind(this));
 			});
@@ -285,15 +285,15 @@ $.fn.datagrid = function(options){
 	//}}}
 	handler.prototype = {
 		defaultOrder: false, //true:desc, false:asc
-		init: function(box, options){
+		init: function(box, options){//{{{
 			$(box).addClass('datagrid-ctn cf');
 			this.render = box;
 			this.update(options);
 			this.init_event();
 			this.resize();
 			options.onCreate.bind(this)();
-		},
-		update: function(options){
+		},//}}}
+		update: function(options){//{{{
 			var that = this;
 			var box  = this.render;
 			options  = $.extend(true, {}, this.userOptions, options);
@@ -328,12 +328,12 @@ $.fn.datagrid = function(options){
 				this.sortBy({field:sort.field, order:sort.order});
 			}
 			return this.resize();
-		},
-		reAlign: function(){
+		},//}}}
+		reAlign: function(){//{{{
 			adjust_table($('table', this.render), this);
 			return this;
-		},
-		resize: function(){
+		},//}}}
+		resize: function(){//{{{
 			var render = this.render;
 			var dataViews = $('.view', render);
 			var tables = $('table', dataViews);
@@ -341,8 +341,8 @@ $.fn.datagrid = function(options){
 			dataViews.eq(1).css({width: render.clientWidth - 1 - dataViews.get(0).offsetWidth});
 			dataViews.eq(1).css({width: render.clientWidth - 1 - dataViews.get(0).offsetWidth}); // 再次计算样式，消除滚动条的影响
 			return this;
-		},
-		init_event: function(){
+		},//}}}
+		init_event: function(){//{{{
 			var that    = this;
 			var options = this.userOptions;
 			var $box    = $(this.render);
@@ -362,8 +362,8 @@ $.fn.datagrid = function(options){
 					}, this);
 				});
 			}
-		},
-		sortType: {
+		},//}}}
+		sortType: {//{{{
 			'string': function(a, b){ // this指{field:field, order:order}
 				var field = this.field;
 				var x = a[field];
@@ -375,21 +375,21 @@ $.fn.datagrid = function(options){
 				var field = this.field;
 				return a[field] - b[field];
 			}
-		},
-		getFieldOption: function(fieldName){
+		},//}}}
+		getFieldOption: function(fieldName){//{{{
 			return this.allColumns.filter(function(one){
 				return one.field===fieldName;
 			})[0];
-		},
-		getColumnSortFunction: function(option){
+		},//}}}
+		getColumnSortFunction: function(option){//{{{
 			var field_option = this.getFieldOption(option.field); // 列的选项
 			var sort_type    = field_option.sortType || this.userOptions.sortType || 'string'; // 排序的类型
 			var fn           = field_option.sort || this.sortType[sort_type]; // 排序的函数
 			return function(a, b){
 				return fn.call(option, a, b) * (option.order ? -1 : 1);
 			};
-		},
-		sortBy: function(option, sortElement){
+		},//}}}
+		sortBy: function(option, sortElement){//{{{
 			//order: (true||'desc')->desc, (false||not 'desc')->asc
 			var options        = this.userOptions;
 			var preSortElement = this.sortElement;
@@ -407,8 +407,8 @@ $.fn.datagrid = function(options){
 			sortElement.order = option.order;
 			sortElement.field = option.field;
 			return this.sort_table_dom(options);
-		},
-		sort_table_dom: function(options){
+		},//}}}
+		sort_table_dom: function(options){//{{{
 			var frozenTrDoc   = document.createDocumentFragment(),
 				trDoc         = document.createDocumentFragment(),
 				frozenTbody   = null,
@@ -442,15 +442,15 @@ $.fn.datagrid = function(options){
 			}
 			frozenTrDoc = null, trDoc = null, frozenTbody = null, tbody = null;
 			return this;
-		}
+		}//}}}
 	};
 	handler.prototype.init.prototype = handler.prototype;
-	return this.each(function(){
+	return this.each(function(){//{{{
 		var $this = $(this);
 		var instance = handler(this, $.extend(true, {}, options));
 		var ui = $this.data('ui');
 		if(ui) ui.iDatagrid = instance;
 		else $this.data('ui', {iDatagrid:instance});
-	});
+	});//}}}
 };
 // vim: fdm=marker
