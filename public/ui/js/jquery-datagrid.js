@@ -44,7 +44,7 @@ $.fn.datagrid = function(options){
 		data          : [],
 		sortable      : false,
 		sort          : null,
-		sortType      : 'string',
+		dataType      : 'string',
 		remoteSort    : false,
 		frozenColumns : [],
 		columns       : []
@@ -95,7 +95,7 @@ $.fn.datagrid = function(options){
 
 	// fn get_table{{{
 	var get_table = function(options, that){
-		var get_head_rows = function(rows, isFrozen){
+		var get_head_rows = function(rows, isFrozen){//{{{
 			if(!rows || isFrozen&&!options.frozenColumns.length) return [];
 			var colsType = isFrozen ? 'frozenColumns' : 'columns';
 			var il = rows.length - 1;
@@ -149,8 +149,8 @@ $.fn.datagrid = function(options){
 					return nodes;
 				})()});
 			});
-		};
-		var get_data_rows = function(data, cols, isLeft){
+		};//}}}
+		var get_data_rows = function(data, cols, isLeft){//{{{
 			if(isLeft && !options.frozenColumns.length) return [];
 			return data.map(function(row, i){
 				return createElement({
@@ -189,8 +189,8 @@ $.fn.datagrid = function(options){
 					})()
 				});
 			});
-		};
-		return createElement({
+		};//}}}
+		return createElement({//{{{
 			name:'div', attr:{'class':'view-wrapper' + (options.autoRowHeight ? ' autoRowHeight' : '')}, children:[{
 				name:'div', attr:{'class':'view frozen-view'}, children:[{
 					name:'div', attr:{'class':'head-wrapper'}, children:{
@@ -224,17 +224,17 @@ $.fn.datagrid = function(options){
 					}
 				}]
 			}]
-		});
+		});//}}}
 	};
 	// }}}
 
 	//fn adjust_table{{{
-	var getHW = function(el, type){
+	var getHW = function(el, type){//{{{
 		return (document.documentMode<7 || /MSIE 6/.test(navigator.userAgent))
 			? el['offset'+('width'==type ? 'Width' : 'Height')]
 			: $(el)[type]();
-	};
-	var align_table = function(a, b, type){
+	};//}}}
+	var align_table = function(a, b, type){//{{{
 		var st = type==='width' ? 'Width' : 'Height';
 		$(a).each(function(i){
 			var t1 = this['offset' + st];
@@ -242,9 +242,9 @@ $.fn.datagrid = function(options){
 			var t = t1<t2 ? t2 : t1;
 			$([this, b[i]])[type](t);
 		});
-	};
+	};//}}}
 	// var align_tr = align_table;
-	var align_td = function(a, type, fieldElements){
+	var align_td = function(a, type, fieldElements){//{{{
 		$.each(a, function(i){
 			var field = fieldElements[i];
 			var t1  = getHW(this, type),
@@ -253,8 +253,8 @@ $.fn.datagrid = function(options){
 			var t = t1<t2 ? t2 : t1;
 			$([this, field])[type](t+3);
 		});
-	};
-	var adjust_table = function(tables, that){
+	};//}}}
+	var adjust_table = function(tables, that){//{{{
 		if(tables.length==4){
 			var tp0 = tables.eq(2).parent();
 			var tp1 = tables.eq(3).parent();
@@ -281,7 +281,7 @@ $.fn.datagrid = function(options){
 				scroll_id = requestAnimationFrame(update_scroll_offset.bind(this));
 			});
 		}
-	};
+	};//}}}
 	//}}}
 	handler.prototype = {
 		defaultOrder: false, //true:desc, false:asc
@@ -355,11 +355,12 @@ $.fn.datagrid = function(options){
 			// 	$box.on(hover_binds, '.head td').on(hover_binds, '.body tr');
 			// }
 			if(!options.remoteSort){
-				$box.on('click', '.field.sortable .cell', function(){
+				$box.on('click', '.field.sortable', function(){
+					var cell = $('.cell', this).get(0);
 					that.sortBy({
-						field: $(this).data('field'),
-						order: !this.order||this.defaultOrder
-					}, this);
+						field: $(cell).data('field'),
+						order: !cell.order||that.defaultOrder
+					}, cell);
 				});
 			}
 		},//}}}
@@ -383,7 +384,7 @@ $.fn.datagrid = function(options){
 		},//}}}
 		getColumnSortFunction: function(option){//{{{
 			var field_option = this.getFieldOption(option.field); // 列的选项
-			var sort_type    = field_option.sortType || this.userOptions.sortType || 'string'; // 排序的类型
+			var sort_type    = field_option.dataType || this.userOptions.dataType || 'string'; // 排序的类型
 			var fn           = field_option.sort || this.sortType[sort_type]; // 排序的函数
 			return function(a, b){
 				return fn.call(option, a, b) * (option.order ? -1 : 1);

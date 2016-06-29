@@ -67,7 +67,7 @@ var options = {
 	autoColWidth  : true,
 	/* sortable      : true, */
 	sort          : {field : 'col-2', order : 'desc'},
-	/* sortType      : 'number', */
+	/* dataType      : 'number', */
 	width         : 200,
 	/* remoteSort    : true, */
 	frozenColumns : [
@@ -81,7 +81,7 @@ var options = {
 		],
 		*/
 		[
-			{field:'col-1', name:'冻结第一列', sortable: true, sortable: true, // sortType: 'number', // 'string',
+			{field:'col-1', name:'冻结第一列', sortable: true, sortable: true, // dataType: 'number', // 'string',
 				formatter:function(val, row, key){
 					return '格式化: ' + val;
 				}

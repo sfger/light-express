@@ -1,3 +1,9 @@
+/* eslint comma-dangle:1 */
+/* eslint-disable */
+/* eslint-enable */
+/* eslint-disable comma-dangle */
+/* eslint-enable comma-dangle */
+
 var express    = require('express');
 var app        = express();
 var logger     = require('morgan');
@@ -8,11 +14,6 @@ var webpackDev = require("webpack-dev-middleware");
 var webpack    = require("webpack");
 var compiler   = webpack(require('./webpack.config.js'));
 var Extension  = require('./extension');
-/* eslint comma-dangle:1 */
-/* eslint-disable */
-/* eslint-enable */
-/* eslint-disable comma-dangle */
-/* eslint-enable comma-dangle */
 app.use(webpackDev(compiler, {
 	stats:{colors:true}
 }));
@@ -27,13 +28,11 @@ app.use(cookie());
 app.use(session({name:'_SSID_', keys:['skey1', 'skey2']}));
 
 new Promise((resolve, reject) => {
-	var defer = {resolve, reject};
-	// if(!("development"===app.get('env'))) defer.resolve();
 	app.use(logger('dev'));
 	app.use(Extension.CompileSCSS);
 	app.use(Extension.Compile2JS);
 	app.use(Extension.staticHttpCombo);
-	Extension.autoAddRoutes(app, Extension.route_dir, '/', defer);
+	Extension.autoAddRoutes(app, Extension.route_dir, '/', {resolve, reject});
 }).then(() => {
 	app.use(express.static(Extension.static_dir, {
 		index:'index.html'
