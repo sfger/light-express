@@ -46,6 +46,8 @@ $.fn.datagrid = function(options){
 		sort          : null,
 		dataType      : 'string',
 		remoteSort    : false,
+		autoRowHeight : true,
+		autoColWidth  : true,
 		frozenColumns : [],
 		columns       : []
 	}, options);//}}}
@@ -263,6 +265,9 @@ $.fn.datagrid = function(options){
 			var options = that.userOptions;
 			align_td(tables.filter('table:odd').find('tr:first-child td .cell'), 'width', that.fieldElements);
 			if(options.rowNum || options.frozenColumns){
+				if(options.autoRowHeight){
+					align_td($('table:eq(1) td:first-child'), 'height', $('table:eq(3) td:first-child'));
+				}
 				align_table($([tables[0], tables[1]]), $([tables[2], tables[3]]), 'height');
 				align_table($([tables[0], tables[2]]), $([tables[1], tables[3]]), 'width');
 			}
@@ -290,6 +295,7 @@ $.fn.datagrid = function(options){
 			this.render = box;
 			this.update(options);
 			this.init_event();
+			this.reAlign();
 			this.resize();
 			options.onCreate.bind(this)();
 		},//}}}
@@ -303,7 +309,6 @@ $.fn.datagrid = function(options){
 			this.userOptions   = options;
 			$(get_table(options, that)).prependTo(box);
 			this.fieldElements = $('.field .cell', box);
-			this.reAlign();
 
 			// if(document.documentMode===5 || /MSIE 6/.test(navigator.userAgent)){
 			// 	$('.view', box).css({height: $('.head-wrapper').get(0).offsetHeight + $('.body-wrapper').get(0).offsetHeight})// css height:100% fix,
