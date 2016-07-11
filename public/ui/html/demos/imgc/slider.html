@@ -1,0 +1,15 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8" /><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" /><title>Title</title><meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimal-ui" /><meta name="apple-mobile-web-app-capable" content="yes" /><meta name="apple-mobile-web-app-status-bar-style" content="black" /><meta name="format-detection" content="telephone=no" /><meta name="author" content="" /><meta name="revisit-after" content="1 days" /><meta name="keywords" content="" /><meta name="description" content="" /><link rel="icon" href="../../../../favicon.ico" type="image/x-icon" /><link rel="shortcut icon" href="../../../../favicon.ico" type="image/x-icon" /><link rel="stylesheet" type="text/css" href="../../../../public/css/base.css?__version__" /><link rel="stylesheet" type="text/css" href="../../../../ui/css/slider.css?__version__" /></head><body><div id="page"><div class="view default">test<button>test</button></div><div class="view slider"><header><span>test</span></header><section><ul><li>0000000000</li><li>1111111111</li><li>2222222222</li><li>3333333333</li><li>4444444444</li><li>5555555555</li><li>6666666666</li><li>7777777777</li><li>8888888888</li><li>9999999999</li><li>10101010101010101010</li><li>11111111111111111111</li><li>12121212121212121212</li><li>13131313131313131313</li><li>14141414141414141414</li><li>15151515151515151515</li><li>16161616161616161616</li><li>17171717171717171717</li><li>18181818181818181818</li><li>19191919191919191919</li></ul></section><footer><span>Cancel</span><span>Ok</span></footer></div></div><script id="requirejs" data-version="__version__" src="../../../../public/js/require.js?__version__"></script><script>require.config({
+baseUrl:'../../../../',
+urlArgs:document.getElementById("requirejs").getAttribute("data-version"),
+map:{"*":{css:"require-css"}},
+paths:{
+jquery:'public/js/jquery'
+},
+shim:{
+}
+});
+require(['jquery'],function($){
+$('button').click(function(){
+$('.slider').addClass('slider-in');
+});
+});</script></body></html>

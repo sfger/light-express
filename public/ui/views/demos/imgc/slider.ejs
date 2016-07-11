@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<title>Title</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimal-ui" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+<meta name="format-detection" content="telephone=no" />
+<meta name="author" content="" />
+<meta name="revisit-after" content="1 days" />
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<link rel="icon" href="../../../../favicon.ico" type="image/x-icon" />
+<link rel="shortcut icon" href="../../../../favicon.ico" type="image/x-icon" />
+<link rel="stylesheet" type="text/css" href="../../../../public/css/base.css?<%- __version__ %>" />
+<link rel="stylesheet" type="text/css" href="../../../../ui/css/slider.css?<%- __version__ %>" />
+</head>
+<body>
+<div id="page">
+	<div class="view default">
+		test
+		<button>test</button>
+	</div>
+	<div class="view slider">
+		<header>
+			<span>test</span>
+		</header>
+		<section>
+			<ul>
+				<% for(let i=0; i<20; i++){ %>
+				<li><%- String(i).repeat(10) %></li>
+				<% } %>
+			</ul>
+		</section>
+		<footer>
+			<span>Cancel</span>
+			<span>Ok</span>
+		</footer>
+	</div>
+</div>
+<script id="requirejs" data-version="<%- __version__ %>" src="../../../../public/js/require.js?<%- __version__ %>"></script>
+<script>
+require.config({
+	baseUrl:'../../../../',
+	urlArgs:document.getElementById("requirejs").getAttribute("data-version"),
+	map:{"*":{css:"require-css"}},
+	paths:{
+		jquery:'public/js/jquery'
+	},
+	shim:{
+	}
+});
+require(['jquery'],function($){
+	$('button').click(function(){
+		$('.slider').addClass('slider-in');
+	});
+});
+</script>
+</body>
+</html>

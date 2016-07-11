@@ -1,0 +1,19 @@
+@charset "utf-8";
+
+.slider{
+	@include prefix((transform:translateZ(0)));
+	@include prefix((transform:translate(101%,0)));
+	@include prefix((transition:all 0.25s ease 0s));
+	@include fixed(top 0 left 0);
+	@include size(100%);
+	background:blue;
+	&.slider-in{
+		@include prefix((transform:translate(0,0)));
+	}
+}
+
+.slider-in{
+	@include flexbox();@include flex-direction(column);
+	header,footer{@include flex(0,0,54px);}
+	section{@include flex(1,0,auto);}
+}
