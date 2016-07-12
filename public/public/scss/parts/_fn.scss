@@ -5,7 +5,7 @@ $is_modern:0 !default; // 兼容低版本ie
 
 // css3 -webkit-,-moz-,-ms-,-o- 的前缀简写
 // 第一个参数为属性和值，第二个参数则是前缀
-@mixin prefix($map, $vendors: webkit moz ms o){
+@mixin prefix($map, $vendors:webkit moz ms o){
 	@each $prop, $value in $map{
 		@if $vendors {
 			@each $vendor in $vendors {
@@ -165,23 +165,26 @@ $is_modern:0 !default; // 兼容低版本ie
 
 // position
 // 使用：@include relative(top 1px left 1px)--->position:relative;left:1px;top:1px;
-@mixin position($position,$args){
+@mixin position($position, $args, $index:null){
+	position:unquote($position);
 	@each $o in top right bottom left {
 		$i: index($args, $o);
 		@if $i and $i + 1 <= length($args) and type-of(nth($args, $i + 1)) == number {
 			#{$o}: nth($args, $i + 1);
 		}
 	}
-	position:unquote($position);
+	@if($index){
+		z-index:$index;
+	}
 }
-@mixin absolute($args:null){
-	@include position("absolute", $args);
+@mixin absolute($args:null, $index:null){
+	@include position("absolute", $args, $index);
 }
-@mixin fixed($args:null){
-	@include position("fixed", $args);
+@mixin fixed($args:null, $index:null){
+	@include position("fixed", $args, $index);
 }
-@mixin relative($args:null){
-	@include position("relative", $args);
+@mixin relative($args:null, $index:null){
+	@include position("relative", $args, $index);
 }
 // 例：
 // sass
