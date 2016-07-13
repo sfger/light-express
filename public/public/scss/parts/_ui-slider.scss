@@ -9,8 +9,10 @@
 	header,footer{@include flex(0,0,44px);}
 	section{
 		@include flex(1,1,auto);
-		overflow-x:hidden;overflow-y:scroll;
-		-webkit-overflow-scrolling:touch;
+		@include relative;overflow:hidden;
+		// overflow-x:hidden;overflow-y:scroll;
+		// -webkit-overflow-scrolling:touch;
+		ul{height:100%;}
 	}
 	header{
 		@include flexbox();

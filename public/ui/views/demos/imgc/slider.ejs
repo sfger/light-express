@@ -29,11 +29,13 @@
 		<span>test</span>
 	</header>
 	<section>
-		<ul>
-			<% for(let i=0; i<100; i++){ %>
-			<li><%- String(i).repeat(30) %></li>
-			<% } %>
-		</ul>
+		<div class="iscroller">
+			<ul>
+				<% for(let i=0; i<100; i++){ %>
+				<li><%- String(i).repeat(30) %></li>
+				<% } %>
+			</ul>
+		</div>
 	</section>
 	<footer class="btn-group-ctn">
 		<span class="btn-cancel">Cancel</span>
@@ -47,12 +49,13 @@ require.config({
 	urlArgs:document.getElementById("requirejs").getAttribute("data-version"),
 	map:{"*":{css:"require-css"}},
 	paths:{
-		jquery:'public/js/jquery'
+		jquery:'public/js/jquery',
+		IScroll:'public/js/iscroll'
 	},
 	shim:{
 	}
 });
-require(['jquery'],function($){
+require(['jquery', 'IScroll'],function($, IScroll){
 	$('button').click(function(){
 		$('.slide-ctn').addClass('slide-in');
 	});
@@ -61,6 +64,13 @@ require(['jquery'],function($){
 	});
 	$('.btn-submit').click(function(){
 		$('.slide-ctn').removeClass('slide-in');
+	});
+	myScroll = new IScroll('section', {
+		mouseWheel:true,
+		scrollbars:true,
+		fadeScrollbars:true,
+		interactiveScrollbars: true,
+		shrinkScrollbars: 'scale',
 	});
 });
 </script>
