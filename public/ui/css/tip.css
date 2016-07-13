@@ -4,7 +4,7 @@
 
 .cf:after { clear: both; overflow: hidden; }
 
-.imgc:before, .imgc .iecp, .imgc img, audio, canvas, video, .tip { display: inline-block; *display: inline; *zoom: 1; vertical-align: middle; }
+.imgc:before, .imgc .iecp, .imgc img, audio, canvas, video, .ib, .img-tight:before, .img-tight .iecp, .img-tight img, .ib-row:before, .ib-row .iecp, .tip { display: inline-block; *display: inline; *zoom: 1; vertical-align: middle; }
 
 .imge { display: inline-block; *display: inline; *zoom: 1; vertical-align: middle; font-size: 12px; font-size: 1rem; line-height: normal; }
 
@@ -30,36 +30,64 @@ fieldset, img { border: none; }
 
 article, aside, details, figcaption, figure, footer, header, hgroup, main, nav, section, summary { display: block; }
 
-.tip { width: 100px; margin-top: 15px; margin-right: 15px; word-break: break-all; word-wrap: break-word; top: 10px; left: 14px; position: relative; line-height: 16px; color: #ff8144; }
+.img-tight { font-size: 0; text-align: center; }
+
+.img-tight:before, .img-tight .iecp { content: ""; height: 100%; font-size: 0; line-height: 0; width: 0; }
+
+.img-tight img { max-width: 100%; max-height: 100%; }
+
+.ib-row { font-size: 0; }
+
+.ib-row:before, .ib-row .iecp { content: ""; height: 100%; font-size: 0; line-height: 0; width: 0; }
+
+.ib-col, .ib-col-full { display: inline-block; *display: inline; *zoom: 1; vertical-align: top; font-size: 12px; font-size: 1rem; line-height: normal; }
+
+.ib-col-full { width: 100%; }
+
+.ib-row.ib-col, .ib-row.ib-col-full { font-size: 0; }
+
+.txt-lt { text-align: left; }
+
+.txt-rt { text-align: right; }
+
+.txt-ct { text-align: center; }
+
+.vt-top { vertical-align: top; }
+
+.vt-mid { vertical-align: middle; }
+
+.vt-btm { vertical-align: bottom; }
+
+.tip { width: 100px; margin-top: 15px; margin-right: 15px; word-break: break-all; word-wrap: break-word; position: relative; top: 10px; left: 14px; line-height: 16px; color: #ff8144; }
 
 .tip0 { padding-top: 10px; }
 
 .tip0 .tool-tip-inner { position: relative; padding: 5px; background: yellow; border-radius: 8px; border: 1px solid red; }
 
-.tip0 .tool-tip-inner:before, .tip0 .tool-tip-inner:after, .tip0 .tool-tip-inner .before, .tip0 .tool-tip-inner .after { top: -13px; left: 13px; position: absolute; width: 0; height: 0; content: ''; border-style: solid; border-color: transparent; border-bottom: 10px solid red; border-left-width: 10px; border-right-width: 10px; }
+.tip0 .tool-tip-inner:before, .tip0 .tool-tip-inner:after, .tip0 .tool-tip-inner .before, .tip0 .tool-tip-inner .after { position: absolute; top: -13px; left: 13px; width: 0; height: 0; content: ''; border-style: solid; border-color: transparent; border-bottom: 10px solid red; border-left-width: 10px; border-right-width: 10px; }
 
-.tip0 .tool-tip-inner:after, .tip0 .tool-tip-inner .after { top: -12px; position: absolute; border-bottom-color: yellow; }
+.tip0 .tool-tip-inner:after, .tip0 .tool-tip-inner .after { position: absolute; top: -12px; border-bottom-color: yellow; }
 
 .tip1 { padding-right: 10px; }
 
 .tip1 .tool-tip-inner { position: relative; padding: 5px; background: white; border-radius: 8px; border: 1px solid black; }
 
-.tip1 .tool-tip-inner:before, .tip1 .tool-tip-inner:after, .tip1 .tool-tip-inner .before, .tip1 .tool-tip-inner .after { top: 13px; right: -13px; position: absolute; width: 0; height: 0; content: ''; border-style: solid; border-color: transparent; border-left: 10px solid black; border-top-width: 10px; border-bottom-width: 10px; }
+.tip1 .tool-tip-inner:before, .tip1 .tool-tip-inner:after, .tip1 .tool-tip-inner .before, .tip1 .tool-tip-inner .after { position: absolute; top: 13px; right: -13px; width: 0; height: 0; content: ''; border-style: solid; border-color: transparent; border-left: 10px solid black; border-top-width: 10px; border-bottom-width: 10px; }
 
-.tip1 .tool-tip-inner:after, .tip1 .tool-tip-inner .after { right: -12px; position: absolute; border-left-color: white; }
+.tip1 .tool-tip-inner:after, .tip1 .tool-tip-inner .after { position: absolute; right: -12px; border-left-color: white; }
 
 .tip2 { padding-bottom: 10px; }
 
 .tip2 .tool-tip-inner { position: relative; padding: 5px; background: white; border-radius: 8px; border: 1px solid black; }
 
-.tip2 .tool-tip-inner:before, .tip2 .tool-tip-inner:after, .tip2 .tool-tip-inner .before, .tip2 .tool-tip-inner .after { bottom: -13px; left: 13px; position: absolute; width: 0; height: 0; content: ''; border-style: solid; border-color: transparent; border-top: 10px solid black; border-left-width: 10px; border-right-width: 10px; }
+.tip2 .tool-tip-inner:before, .tip2 .tool-tip-inner:after, .tip2 .tool-tip-inner .before, .tip2 .tool-tip-inner .after { position: absolute; bottom: -13px; left: 13px; width: 0; height: 0; content: ''; border-style: solid; border-color: transparent; border-top: 10px solid black; border-left-width: 10px; border-right-width: 10px; }
 
-.tip2 .tool-tip-inner:after, .tip2 .tool-tip-inner .after { bottom: -12px; position: absolute; border-top-color: white; }
+.tip2 .tool-tip-inner:after, .tip2 .tool-tip-inner .after { position: absolute; bottom: -12px; border-top-color: white; }
 
 .tip3 { padding-left: 10px; }
 
 .tip3 .tool-tip-inner { position: relative; padding: 5px; background: white; border-radius: 8px; border: 1px solid black; }
 
-.tip3 .tool-tip-inner:before, .tip3 .tool-tip-inner:after, .tip3 .tool-tip-inner .before, .tip3 .tool-tip-inner .after { top: 13px; left: -13px; position: absolute; width: 0; height: 0; content: ''; border-style: solid; border-color: transparent; border-right: 10px solid black; border-top-width: 10px; border-bottom-width: 10px; }
+.tip3 .tool-tip-inner:before, .tip3 .tool-tip-inner:after, .tip3 .tool-tip-inner .before, .tip3 .tool-tip-inner .after { position: absolute; top: 13px; left: -13px; width: 0; height: 0; content: ''; border-style: solid; border-color: transparent; border-right: 10px solid black; border-top-width: 10px; border-bottom-width: 10px; }
 
-.tip3 .tool-tip-inner:after, .tip3 .tool-tip-inner .after { left: -12px; position: absolute; border-right-color: white; }
+.tip3 .tool-tip-inner:after, .tip3 .tool-tip-inner .after { position: absolute; left: -12px; border-right-color: white; }
