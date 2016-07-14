@@ -17,6 +17,17 @@
 .txt-lt{text-align:left;}
 .txt-rt{text-align:right;}
 .txt-ct{text-align:center;}
+.txt-justify{
+	text-align:justify;
+	&.ie-pure-txt{text-justify:distribute-all-lines;}
+	&:after{content:'';}
+	&:after,.iecp{
+		@include ib;@include size(100%,0px);
+		overflow:hidden;line-height:0;padding:0;border:none;
+	}
+	.i{@include ib;font-style:normal;}
+}
+
 .vt-top{vertical-align:top;}
 .vt-mid{vertical-align:middle;}
 .vt-btm{vertical-align:bottom;}

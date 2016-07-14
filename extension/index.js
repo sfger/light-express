@@ -134,7 +134,7 @@ var extension  = {
 			return false;
 		}
 		// console.log(extension);
-		ret = extension.minifyHTML(ret);
+		if(req.query.minify!=='0') ret = extension.minifyHTML(ret);
 		if(req.query.dist!=='0'){
 			extension.writeStaticCache(this.distPath || req.route.path, ret);
 		}
