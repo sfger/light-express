@@ -3,17 +3,21 @@ $Eheight:28px;
 $Epadding:10px;
 .pagination-ctn{
 	padding:1px;text-align:center;
-	.pn,.current{font-family:SimSun,微软雅黑,Microsoft YaHei;}
+	.pn,.current{font-family:SimSun,Microsoft YaHei;}
 	.pc,a,.form,.desc{@extend %ib;}
-	.pn,.current{padding:0 $Epadding;background-color:#fff;color:#666;border:1px solid #d3d3d3;@include border-radius(3px);margin:0 2px;}
+	.pn,.current{
+		@include border-radius(3px);padding:0 $Epadding;margin:0 2px;
+		background-color:#fff;color:#666;border:1px solid #d3d3d3;
+	}
 	.current{border-color:#ff9c0f;background:#ff9c0f;color:white;cursor:default;}
 	.pn{@include button(auto, $Eheight, #fff);}
 	.pn:hover{background:#ff9c0f;color:white;}
 	.pn:active{background:darken(#ff9c0f,5%);color:white;}
 	a{
-		color:#fff;text-decoration:none;cursor:pointer;height:$Eheight;line-height:$Eheight;
+		height:$Eheight;line-height:$Eheight;
+		color:#fff;text-decoration:none;cursor:pointer;
 	}
-	.plain{border:none;color:#666;cursor:default;padding:0 8px;}
+	.plain{padding:0 8px;border:none;color:#666;cursor:default;}
 	.plain,.current{
 		cursor:default;
 		&:focus{outline:none;}
@@ -25,11 +29,16 @@ $Epadding:10px;
 	.form{
 		// margin-top:-1px;
 		span,input,.go{@extend %ib;height:$Eheight - 2px;line-height:$Eheight - 2px;}
-		input{width:45px;text-align:center;border:1px solid #eb8226;border-right:none;@include border-radius(3px 0 0 3px);}
+		input{
+			width:45px;@include border-radius(3px 0 0 3px);
+			border:1px solid #eb8226;border-right:none;text-align:center;
+		}
 		.go{
-			padding:0 10px;margin:0;margin-right:2px;line-height:$Eheight - 2px;border:1px solid #ff9c0f;
 			@include button(auto, auto, #ff9c0f);
-			@include border-radius(0 3px 3px 0);background:#ff9c0f;color:white;
+			@include border-radius(0 3px 3px 0);
+			padding:0 10px;margin:0;margin-right:2px;
+			border:1px solid #ff9c0f;line-height:$Eheight - 2px;
+			background:#ff9c0f;color:white;
 		}
 	}
 	.desc{}

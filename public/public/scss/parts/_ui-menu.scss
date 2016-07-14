@@ -19,13 +19,13 @@
 	span{@extend %ib;width:16px;cursor:pointer;line-height:22px;}
 	.icon{height:16px;}
 	.sub-tag{
-		position:absolute;width:0px;height:0px;right:4px;top:50%;margin-top:-3px;
+		@include absolute(right 4px top 50%);@include size(0);margin-top:-3px;
 		border-left:5px solid black;border-bottom:5px solid transparent;border-top:5px solid transparent;
 		font-size:0;line-height:0;
 	}
 	.text{width:auto;padding:2px 0 0 5px;white-space:nowrap;}
 	.separate{
 		padding:0;height:1px;overflow:hidden;*font-size:0;*line-height:0;
-		span{display:block;width:auto;height:0px;overflow:hidden;border-top:1px solid #bbb;/*margin:0 4px 0 26px;*/}
+		span{display:block;@include size(auto,0px);overflow:hidden;border-top:1px solid #bbb;/*margin:0 4px 0 26px;*/}
 	}
 }
