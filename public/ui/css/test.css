@@ -68,7 +68,9 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, nav, 
 
 .vt-btm { vertical-align: bottom; }
 
-.circle { width: 100px; height: 100px; line-height: 100px; position: relative; z-index: 1; text-align: center; }
+.circle { line-height: 100px; }
+
+.circle { width: 100px; height: 100px; position: relative; z-index: -1; text-align: center; }
 
 .circle:before { content: ""; *content: normal; position: absolute; top: 0; left: 0; z-index: -1; border-left: 100px dotted red; border-top: 100px dotted red; }
 

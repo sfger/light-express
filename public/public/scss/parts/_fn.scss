@@ -152,8 +152,9 @@ $is_modern:0 !default; // 兼容低版本ie
 }
 @mixin background-circle($size, $color){
 	&{
-		width:$size;height:$size;line-height:$size;
-		position:relative;z-index:1;text-align:center;
+		@include size($size);
+		@include relative(null,-1);
+		text-align:center;
 		// *overflow:hidden;
 	}
 	// &:before,.iecp{

@@ -3,4 +3,5 @@
 
 .circle{
 	@include background-circle(100px,red);
+	line-height:100px;
 }
