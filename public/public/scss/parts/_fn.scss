@@ -153,7 +153,7 @@ $is_modern:0 !default; // 兼容低版本ie
 @mixin background-circle($size, $color){
 	&{
 		@include size($size);
-		@include relative(null,-1);
+		@include relative(null,1);
 		text-align:center;
 		// *overflow:hidden;
 	}
