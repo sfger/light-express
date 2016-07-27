@@ -150,6 +150,28 @@ $is_modern:0 !default; // 兼容低版本ie
 @mixin border-radius($n:0){
 	@include prefix((border-radius:$n));
 }
+@mixin background-circle($size, $color){
+	&{
+		width:$size;height:$size;line-height:$size;
+		position:relative;z-index:1;text-align:center;
+		// *overflow:hidden;
+	}
+	// &:before,.iecp{
+	&:before{
+		content:"";*content:normal;
+		@include absolute(left 0 top 0, -1);
+		// *width:$size;*height:$size;
+		border-left:$size dotted $color;
+		border-top:$size dotted $color;
+		// *border-right:$size dotted $color;
+	}
+	@media screen and (min-width:0px){
+		#{&}{border-radius:50%;background:$color;}
+		// #{&}:before#{&} .iecp{content:normal;}
+		#{&}:before{content:normal;}
+	}
+}
+
 @mixin border-top-left-radius($n:0){
 	@include prefix((border-top-left-radius:$n));
 }
