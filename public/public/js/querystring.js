@@ -1,4 +1,4 @@
-var querystring = {
+var queryString = {
 	encode : function(value, strict) {
 		var ret = encodeURIComponent(value);
 		var reg = /[!'()*]/g;
@@ -82,5 +82,5 @@ var querystring = {
 	}
 };
 
-// var s = query_string.stringify({a:1, b:'(2)', c:[1,2,3]}, {traditional:false});
-// console.log(s);
+var s = queryString.stringify({a:1, b:'(2)', c:[1,2,3]}, {traditional:true});
+console.log(s);
