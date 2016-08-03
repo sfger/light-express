@@ -107,9 +107,10 @@ $is_modern:0 !default; // 兼容低版本ie
 @mixin sln(){white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
 
 // webkit多行溢出省略
-%mln{
+@mixin mln($line:2){
 	overflow:hidden;text-overflow:ellipsis;
-	display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;
+	display:-webkit-box;-webkit-box-orient:vertical;
+	-webkit-line-clamp:$line;
 }
 
 %cf{@include cf();}
@@ -118,6 +119,7 @@ $is_modern:0 !default; // 兼容低版本ie
 %imge{@include imge();}
 %imgc{@include imgc();}
 %sln{@include sln();}
+%mln{@include mln;}
 
 // .test{@extend %inline-block;}
 
