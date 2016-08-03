@@ -107,7 +107,12 @@ $is_modern:0 !default; // 兼容低版本ie
 @mixin sln(){white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
 
 // webkit多行溢出省略
-%mln{overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;}
+@mixin mln($line:2){
+	overflow:hidden;text-overflow:ellipsis;
+	display:-webkit-box;-webkit-box-orient:vertical;
+	-webkit-line-clamp:$line;
+}
+%mln{@include mln;}
 
 %cf{@include cf();}
 %inline-block{@include inline-block;}
