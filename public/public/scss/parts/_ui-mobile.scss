@@ -1,5 +1,5 @@
 *,*:before,*:after,*::before,*::after{@include box-sizing(border-box);}
-html,body,#page{@include size(100%);overflow:hidden;font-size:16px;color:#666;}
+html,body,.page{@include size(100%);overflow:hidden;font-size:16px;color:#666;}
 body{position:relative;overflow-x:hidden;} // safari滚动条的问题
 .hidden{display:none;}
 
