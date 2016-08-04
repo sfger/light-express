@@ -1,6 +1,14 @@
 @charset "utf-8"; //解决中文报错
 $is_modern:0 !default; // 兼容低版本ie
 
+$color_default      :#666 !default;
+$color_dark         :#333 !default;
+$color_light        :#999 !default;
+$color_blue         :blue !default;
+$color_red          :red  !default;
+$color_green        :green !default;
+$color_bg_light     :#eee !default;
+
 @import "flex";
 
 // css3 -webkit-,-moz-,-ms-,-o- 的前缀简写

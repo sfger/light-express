@@ -1,0 +1,61 @@
+*,*:before,*:after,*::before,*::after{@include box-sizing(border-box);}
+html,body,#page{@include size(100%);overflow:hidden;font-size:16px;color:#666;}
+body{position:relative;overflow-x:hidden;} // safari滚动条的问题
+.hidden{display:none;}
+
+.arrow-left{
+	&:before{content:"";@include triangle(left, left 10px top 10px,black,13px);}
+	&:after {content:"";@include triangle(left, left 12px top 10px,white,13px);}
+}
+.checkbox{
+	@include prefix((appearance:none));@include ib;@include size(18px);@include border-radius(50%);
+	line-height:16px;color:#d6d6d6;border:1px solid;text-align:center;
+	&:after{content:"\2713";font-family:"Microsoft YaHei";}
+	&:checked{color:white;background:$color_blue;border-color:$color_blue;}
+}
+
+// 头部固定，内容滚动
+.page{
+	-webkit-tap-highlight-color:rgba(0,0,0,0);-webkit-touch-callout: none;
+	@include flexbox;@include flex-direction(column);
+}
+.header{
+	@include flex(0,0,44px);@include relative;z-index:10;background:#fff;
+	@include flexbox;@include justify-content(space-between);@include align-items(center);
+	text-align:center;
+	#{&},a{font:18px "Microsoft YaHei";color:$color_dark;}
+	.action-left,.action-right{@include size(50px,44px);display:block;line-height:44px;}
+}
+.footer{
+	@include flex(0,0,44px);
+}
+.wrapper{@include flex(1,1,auto);@include relative();overflow:hidden;font-size:14px;}
+
+.dialog-ctn{
+	@include size(100%);@include fixed(top 0 left 0);z-index:100;
+	@include flexbox();@include align-items(center);@include justify-content(center);
+	@include background-color-rgba(#444,0.68);
+	&.hidden{display:none;}
+	.dialog-content{
+		@include border-radius(3px);
+		width:85%;overflow:hidden;background:white;
+		.dialog-main{
+			padding:6px 10px;min-height:100px;
+			@include flexbox();@include justify-content(center);@include align-items(center);
+		}
+	}
+	&.dialog-tip{
+		@include background-color-rgba(white,0.01);
+		.dialog-content{
+			padding:6px 10px;
+			@include background-color-rgba(black,0.75);color:white;
+			@include flexbox();@include justify-content(center);
+		}
+	}
+}
+.btn-group{
+	@include flexbox();@include justify-content(center);
+	border-top:1px solid #e2e2e2;
+	span{@include flex(1,1,50%)@include user-select(none);text-align:center;line-height:40px;}
+	.btn-submit{color:hsl(188,72%,51%);border-left:1px solid #e2e2e2;}
+}

@@ -24,12 +24,18 @@
 		<button>test</button>
 	</div>
 </div>
-<div class="view slide-ctn">
-	<header>
+<div class="page view slide-ctn">
+	<header class="header">
+		<a class="action-left arrow-left" href=""></a>
 		<span>test</span>
+		<a class="action-right" href="">测试</a>
 	</header>
-	<section>
-		<div class="iscroller">
+	<section class="wrapper">
+		<div class="scroller">
+			<label>
+				<input class="checkbox" type="checkbox">
+				<span class="label">点击选择</span>
+			</label>
 			<ul>
 				<% for(let i=0; i<100; i++){ %>
 				<li><%- String(i).repeat(30) %></li>
@@ -37,7 +43,7 @@
 			</ul>
 		</div>
 	</section>
-	<footer class="btn-group-ctn">
+	<footer class="footer btn-group">
 		<span class="btn-cancel">Cancel</span>
 		<span class="btn-submit">Ok</span>
 	</footer>
@@ -66,11 +72,17 @@ require(['jquery', 'IScroll'],function($, IScroll){
 		$('.slide-ctn').removeClass('slide-in');
 	});
 	myScroll = new IScroll('section', {
+		top:true,
+		/* probeType:3, */
 		mouseWheel:true,
 		scrollbars:true,
 		fadeScrollbars:true,
 		interactiveScrollbars: true,
 		shrinkScrollbars: 'scale',
+		preventDefaultException : {
+			tagName:/^(INPUT|TEXTAREA|BUTTON|SELECT|LABEL)$/,
+			className:/(^|\s)label(\s|$)/
+		}
 	});
 });
 </script>
