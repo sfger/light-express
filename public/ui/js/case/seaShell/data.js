@@ -2,7 +2,7 @@ define(function(){
 	return [
 		//{{{BookMark
 		{
-			name: 'Collection',
+			name: '收藏',
 			children:[
 				//TeamBlog{{{
 				{
@@ -61,18 +61,49 @@ define(function(){
 					name: '个人博客、社区',
 					children:[
 						{name:'博客园', url:'http://www.cnblogs.com'},
+						{name:'掘金', url:'http://gold.xitu.io/welcome'},
 						{name:'36kr', url:'http://www.36kr.com/'},
 						{name:'w3cplus', url:'http://www.w3cplus.com/'},
-						{name:'Typeof', url:'http://typeof.net'},
 						{name:'IBM-CN', url:'https://www.ibm.com/developerworks/cn/'},
-						{name:'张鑫旭', url:'http://www.zhangxinxu.com'},
 						{name:'月光博客', url:'http://www.williamlong.info/'},
-						{name:'阮一峰', url:'http://www.ruanyifeng.com/blog/', target:"_blank"},
 						{name:'前端观察', url:'http://www.qianduan.net/'},
 						{name:'大前端', url:'http://www.daqianduan.com/'},
 						{name:'酷壳', url:'http://coolshell.cn/'},
+						{name:'Typeof', url:'http://typeof.net'},
+						{name:'张鑫旭', url:'http://www.zhangxinxu.com'},
+						{name:'阮一峰', url:'http://www.ruanyifeng.com/blog/', target:"_blank"},
+						{name:'cloudgamer', url:'http://www.cnblogs.com/cloudgamer/'},
+						{name:'ziyunfei', url:'http://www.cnblogs.com/ziyunfei/'},
+						{name:'imququ', url:'https://imququ.com/'},
+						{name:'ipresst', url:'http://www.ipresst.com/'},
+						{name:'hacker-scripts', url:'https://github.com/NARKOZ/hacker-scripts'},
+						{name:'js8', url:'http://js8.in/'},
 						{name:'HTML580', url:'http://www.html580.com/'},
 						{name:'CSSASS', url:'http://www.cssass.com/blog/'}
+					]
+				},
+				//}}}
+				//Standard&Tools{{{
+				{
+					name: '协议、文档、标准',
+					children:[
+						{name:'ES6', url:'http://es6.ruanyifeng.com/'}
+						{name:'MathJS', url:'http://mathjs.org/'},
+						{name:'w3help', url:'http://www.w3help.org/'},
+						{name:'JS标准参考中文', url:'http://javascript.ruanyifeng.com/'},
+						{name:'JSON', url:'http://www.json.org/'}
+					]
+				},
+				{
+					name: '组织、工具、书籍',
+					children:[
+						{name:'JavascripToo', url:'http://www.javascriptoo.com/'},
+						{name:'HTML5Rock', url:'http://www.html5rocks.com/zh/resources'},
+						{name:'Email-ToolBox', url:'http://email-toolbox.com/'},
+						{name:'Programming-Books', url:'https://github.com/vhf/free-programming-books'},
+						{name:'Javascript-Guide', url:'https://github.com/airbnb/javascript'},
+						{name:'Front-End-Collect', url:'https://github.com/foru17/front-end-collect'},
+						{name:'BestBooks', url:'http://bestcbooks.com/'}
 					]
 				},
 				//}}}
@@ -80,8 +111,15 @@ define(function(){
 				{
 					name: '软件',
 					children:[
-						{name:'Vim', url:'http://www.vim.org'},
-						{name:'Vim2', url:'http://vim.wendal.net/'},
+						{
+							name:'Vim',
+							children:[
+								{name:'Vim官网', url:'http://www.vim.org/'},
+								{name:'Vim官网代理', url:'http://vim.wendal.net/'},
+								{name:'GitHub vim-scripts', url:'https://github.com/vim-scripts?tab=repositories'},
+								{name:'vimer', url:'http://www.vimer.cn/'}
+							]
+						},
 						{name:'GIMP', url:'http://www.gimp.org'},
 						{name:'PHP', url:'http://www.php.net'},
 						{name:'Scala', url:'http://www.scala-lang.org'},
@@ -116,6 +154,9 @@ define(function(){
 						// {name:'Linr', url:'http://hi.baidu.com/vickeychen'},
 						{name:'HTML5轮廓工具', url:'http://gsnedders.html5.org/'},
 						{name:'Trello', url:'https://trello.com'},
+						{name:'ProcessOn', url:'https://www.processon.com/'},
+						{name:'马克飞象', url:'https://maxiang.io/'},
+						{name:'Dexpot', url:'http://dexpot.de/'},
 						{name:'有道笔记', url:'https://note.youdao.com'}
 					]
 				},

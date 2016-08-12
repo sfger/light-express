@@ -161,7 +161,21 @@ $color_bg_light     :#eee !default;
 	@include prefix((box-sizing:$mode), webkit moz);
 }
 @mixin border-radius($n:0){
-	@include prefix((border-radius:$n));
+	@include prefix((border-radius:$n), webkit moz);
+}
+// @include border-radius(3px);
+
+@mixin border-top-left-radius($n:0){
+	@include prefix((border-top-left-radius:$n), webkit moz);
+}
+@mixin border-top-right-radius($n:0){
+	@include prefix((border-top-right-radius:$n), webkit moz);
+}
+@mixin border-bottom-left-radius($n:0){
+	@include prefix((border-bottom-left-radius:$n), webkit moz);
+}
+@mixin border-bottom-right-radius($n:0){
+	@include prefix((border-bottom-right-radius:$n), webkit moz);
 }
 @mixin background-circle($size, $color){
 	&{
@@ -184,19 +198,6 @@ $color_bg_light     :#eee !default;
 		// #{&}:before#{&} .iecp{content:normal;}
 		#{&}:before{content:normal;}
 	}
-}
-
-@mixin border-top-left-radius($n:0){
-	@include prefix((border-top-left-radius:$n));
-}
-@mixin border-top-right-radius($n:0){
-	@include prefix((border-top-right-radius:$n));
-}
-@mixin border-bottom-left-radius($n:0){
-	@include prefix((border-bottom-left-radius:$n));
-}
-@mixin border-bottom-right-radius($n:0){
-	@include prefix((border-bottom-right-radius:$n));
 }
 
 // position
