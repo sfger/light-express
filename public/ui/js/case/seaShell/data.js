@@ -42,17 +42,10 @@ define(function(){
 								{name:'百度UED', url:'http://ued.baidu.com/'}
 							]
 						},
-						{
-							name: '新浪',
-							children:[
-								{name:'新浪UED', url:'http://ued.sina.com/'}
-							]
-						},
-						{name:'携程UED', url:'http://ued.ctrip.com/'},
-						{name:'人人FED', url:'http://fed.renren.com/'},
-						{name:'网易UEDC', url:'http://uedc.163.com/'},
 						{name:'奇虎75Team', url:'http://www.75team.com/'},
-						{name:'19楼UED', url:'http://blog.19ued.com/'}
+						{name:'携程UED', url:'http://ued.ctrip.com/'},
+						{name:'网易UEDC', url:'http://uedc.163.com/'},
+						{name:'新浪UED', url:'http://ued.sina.com/'}
 					]
 				},
 				//}}}
@@ -64,6 +57,7 @@ define(function(){
 						{name:'掘金', url:'http://gold.xitu.io/welcome'},
 						{name:'36kr', url:'http://www.36kr.com/'},
 						{name:'w3cplus', url:'http://www.w3cplus.com/'},
+						{name:'welefen', url:'http://www.welefen.com/'},
 						{name:'IBM-CN', url:'https://www.ibm.com/developerworks/cn/'},
 						{name:'月光博客', url:'http://www.williamlong.info/'},
 						{name:'前端观察', url:'http://www.qianduan.net/'},
