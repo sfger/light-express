@@ -81,7 +81,7 @@ define(function(){
 				{
 					name: '协议、文档、标准',
 					children:[
-						{name:'ES6', url:'http://es6.ruanyifeng.com/'}
+						{name:'ES6', url:'http://es6.ruanyifeng.com/'},
 						{name:'MathJS', url:'http://mathjs.org/'},
 						{name:'w3help', url:'http://www.w3help.org/'},
 						{name:'JS标准参考中文', url:'http://javascript.ruanyifeng.com/'},
