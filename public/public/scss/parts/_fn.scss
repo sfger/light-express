@@ -235,11 +235,51 @@ $color_bg_light     :#eee !default;
 // 	left: 1em;
 // }
 
-@mixin button($width, $height, $bgcolor:transparent){
-	@include size($width, $height);@include user-select(none);line-height:$height;
-	text-align:center;background:$bgcolor;border-radius:3px;cursor:pointer;
-	&:hover{background-color:lighten($bgcolor,5%);}
-	&:active{background-color:darken($bgcolor,5%);outline:thin dotted;outline-offset:-2px;}
+@include keyframes(radioOut){
+	0%{@include prefix((transform:scale(0)));/*@include opacity(0);*/}
+	30%{@include prefix((transform:scale(1)));/*@include opacity(1);*/}
+	99.999%{@include prefix((transform:scale(2)));/*@include opacity(0);*/}
+	100%{@include prefix((transform:scale(0)));/*@include opacity(0);*/}
+}
+@mixin button($width, $height, $bgcolor:transparent, $hover:1,$active:1, $animation:null){
+	@include box-sizing(border-box);
+	@include ib;@include size($width, $height);@include user-select(none);
+	font:14px/#{$height} "Microsoft YaHei";border:none;
+	// padding:5px;
+	@include border-radius(3px);color:invert($bgcolor);
+	text-align:center;background:$bgcolor;cursor:pointer;text-decoration:none;
+	@if($hover){
+		&:hover{background-color:lighten($bgcolor,5%);}
+	}
+	@if($active){
+		@if($animation){
+			@include relative;//overflow:hidden;
+			&:before{
+				content:'';
+				@include absolute(left 0 right 0 bottom 0 top 0,-1);
+				@include prefix((transform:scale(0)));
+				@include border-radius(100%);//background-color:darken($bgcolor,6%);
+				@include prefix((transform:scale(0)));
+				// @include prefix((transition:transform 0s ease-out));
+			}
+		}
+		&:active{
+			outline:thin dotted;outline-offset:-2px;
+			@if($animation){
+				background-color:darken($bgcolor,5%);
+				@include prefix((transform:translateZ(0)));
+				&:before{
+					background-image:radial-gradient(darken($bgcolor,10%),transparent 99%);;
+					@include prefix((animation:radioOut 0.35s ease-out 0s 1 normal));
+					@include prefix((animation-fill-mode:forwards));
+					// @include prefix((transition:transform 0.35s ease-out));
+					// @include prefix((transform:scale(2)));
+				}
+			}@else{
+				background-color:darken($bgcolor,5%);
+			}
+		}
+	}
 }
 
 @mixin placeholder{

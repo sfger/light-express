@@ -1,3 +1,7 @@
 @charset "utf-8";
 @import "base";
-@import "parts/ui-button";
+.btn{
+	@include button(100px,30px,#888,1,1,1);margin:5px;
+	color:white;
+	// &:before{background-color:red;}
+}
