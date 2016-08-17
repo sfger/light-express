@@ -1,8 +1,26 @@
 *,*:before,*:after,*::before,*::after{@include box-sizing(border-box);}
-html,body,.page{@include size(100%);overflow:hidden;font-size:16px;color:#666;}
+html,body,.page{
+	@include size(100%);overflow:hidden;color:#666;
+	font:16px PingFangSC-Regular,"Droid Sans Regular","Rotobo";
+}
 body{position:relative;overflow-x:hidden;} // safari滚动条的问题
 .hidden{display:none;}
 
+@keyframes stateLoading{
+    0%{transform:rotate(0deg);}
+    24%{transform:rotate(180deg);}
+    58%{transform:rotate(290deg);}
+    100%{transform:rotate(360deg);}
+}
+#stateLoading{
+	@include ib;@include size(40px);@include border-radius(100%);
+	@include prefix((animation:stateLoading 1s linear 0s infinite normal));
+	border:3px solid $color_blue;border-right-color:transparent;
+	// border-left-width:4px;
+	border-left-color:lighten($color_blue, 7.5%);
+	// border-bottom-width:2px;
+	border-bottom-color:lighten($color_blue, 25%);
+}
 .arrow-left{
 	&:before{content:"";@include triangle(left, left 10px top 10px,black,13px);}
 	&:after {content:"";@include triangle(left, left 12px top 10px,white,13px);}
@@ -44,6 +62,14 @@ body{position:relative;overflow-x:hidden;} // safari滚动条的问题
 			@include flexbox();@include justify-content(center);@include align-items(center);
 		}
 	}
+	&.loading-state{
+		@include background-color-rgba(white,0.5);
+		.dialog-content{
+			padding:6px 10px;
+			@include background-color-rgba(transparent,0);
+			@include flexbox();@include justify-content(center);
+		}
+	}
 	&.dialog-tip{
 		@include background-color-rgba(white,0.01);
 		.dialog-content{
@@ -56,6 +82,20 @@ body{position:relative;overflow-x:hidden;} // safari滚动条的问题
 .btn-group{
 	@include flexbox();@include justify-content(center);
 	border-top:1px solid #e2e2e2;
-	span{@include flex(1,1,50%)@include user-select(none);text-align:center;line-height:40px;}
+	span{
+		@include flex(1,1,50%);@include user-select(none);text-align:center;line-height:40px;
+		@include flexbox;@include justify-content(center);@include align-items(center);
+	}
 	.btn-submit{color:hsl(188,72%,51%);border-left:1px solid #e2e2e2;}
 }
+
+.slide-ctn{
+	@include fixed(top 0 left 0);z-index:10;@include size(100%);
+	@include flexbox();@include flex-direction(column);
+	@include prefix((transform:translate3d(101%,0,0),transition:all 0.35s ease 0s));
+	background:white;
+	&.slide-in{
+		@include prefix((transform:translate3d(0,0,0)));
+	}
+}
+
