@@ -10,11 +10,10 @@ paths:{
 jquery:'public/js/jquery'
 },
 shim:{
-'ui/js/jquery-datagrid': ['jquery'],
-'ui/js/jquery-pagination': ['jquery']
+'ui/js/jquery-datagrid': ['jquery', 'public/js/es5-shim']
 }
 });
-require(['jquery', 'ui/js/ecmaShim', 'ui/js/jquery-datagrid', 'ui/js/jquery-pagination'],function(){
+require(['jquery', 'ui/js/jquery-datagrid'],function(){
 var data = [];
 for(var row=0; row<45; row++){
 data[row] = {};

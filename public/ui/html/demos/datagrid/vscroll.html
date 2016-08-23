@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8" /><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" /><title>Title</title><meta name="apple-mobile-web-app-capable" content="yes" /><meta name="apple-mobile-web-app-status-bar-style" content="black" /><meta name="format-detection" content="telephone=no" /><meta name="author" content="" /><meta name="revisit-after" content="1 days" /><meta name="keywords" content="" /><meta name="description" content="" /><link rel="icon" href="../../../../favicon.ico" type="image/x-icon" /><link rel="shortcut icon" href="../../../../favicon.ico" type="image/x-icon" /><link rel="stylesheet" type="text/css" href="../../../css/datagrid.css?__version__" /><style type="text/css" media="all">*{padding:0;margin:0;font-size:14px;}
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8" /><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" /><title>Title</title><meta name="apple-mobile-web-app-capable" content="yes" /><meta name="apple-mobile-web-app-status-bar-style" content="black" /><meta name="format-detection" content="telephone=no" /><meta name="author" content="" /><meta name="revisit-after" content="1 days" /><meta name="keywords" content="" /><meta name="description" content="" /><link rel="stylesheet" type="text/css" href="../../../css/datagrid.css?__version__" /><style type="text/css" media="all">*{padding:0;margin:0;font-size:14px;}
 #my_datagrid{width:auto;_width:100%;border:1px solid green;}
 .datagrid-ctn .body-wrapper{max-height:320px;overflow:auto;}
 //.datagrid-ctn .body-wrapper .cell{padding:0 10px;text-align:right;}
@@ -11,8 +11,7 @@ paths:{
 jquery:'public/js/jquery'
 },
 shim:{
-'jquery': ['public/js/es5-shim', 'public/js/es5-shim'],
-'ui/js/jquery-datagrid': ['jquery']
+'ui/js/jquery-datagrid': ['jquery', 'public/js/es5-shim']
 }
 });
 require(['jquery', 'ui/js/jquery-datagrid'],function($){

@@ -1,8 +1,16 @@
 @charset "utf-8";
 .datagrid-ctn{
 	font-size:0;line-height:0;overflow:hidden;
-	.view-wrapper{position:relative;}
-	.view{@extend .ib-col;}
+	.view-wrapper{
+		position:relative;display:table;
+		@media screen and (min-width:0px){@include flexbox;}
+	}
+	.frozen-view{display:table-cell;}
+	.auto-view{
+		overflow:auto;*width:0px;
+		@media screen and (min-width:0px){@include flex(1,1,auto);}
+	}
+	.col-view{@extend .ib-col;}
 	.head-wrapper{overflow:hidden;}
 	.body-wrapper{/*height:320px;*height:250px;*/overflow:auto;}
 	table{
@@ -12,6 +20,7 @@
 	}
 	.body-wrapper{
 		table,tr:first-child td{border-top:none;}
+		tr:nth-child(even){background:#ffe;}
 	}
 	.auto-view{
 		table,td:first-child{border-left:none;}
@@ -25,7 +34,7 @@
 	.field-title{@extend %ib;margin-left:12px;}
 	.cell{height:100%;}
 	.sortable{
-		cursor:pointer;
+		cursor:pointer;background:#f3f3f3;
 		// filter:progid:DXImageTransform.Microsoft.Gradient(gradientType=0, startColorStr=#f3f3f3, endColorStr=#d1d1d1);
 		// background:gradient(top, #f3f3f3, #d1d1d1, #f3f3f3);
 		// background:-moz-linear-gradient(top, #f3f3f3, #d1d1d1, #f3f3f3);
@@ -34,7 +43,6 @@
 		// background:-o-linear-gradient(top, #f3f3f3 0%, #d1d1d1 50%,#f3f3f3 100%);
 		// background:-ms-linear-gradient(top, #f3f3f3 0%, #d1d1d1 50%,#f3f3f3 100%);
 		// background:linear-gradient(to bottom, #f3f3f3 0%, #d1d1d1 50%,#f3f3f3 100%);
-		background:#f3f3f3;
 		&:hover{background:#e6e6e6;}
 		// .sort-mark:before{content:"↓";color:#eee;}
 	}

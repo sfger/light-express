@@ -51,9 +51,30 @@ $.fn.datagrid = function(options){
 		frozenColumns : [],
 		columns       : []
 	}, options);//}}}
-	var handler   = function(box, options){ return new handler.prototype.init(box, options); };
-	var toString  = Object.prototype.toString;
-	var getType   = function(obj){ return toString.call(obj).slice(8, -1); };
+	var throttle = function(fn, delay, mustRunDelay){//{{{
+		var timer = null;
+		var t_start;
+		return function() {
+			var context = this,
+				args = arguments,
+				t_curr = +new Date();
+			clearTimeout(timer);
+			if (!t_start) {
+				t_start = t_curr;
+			}
+			if (t_curr - t_start >= mustRunDelay) {
+				fn.apply(context, args);
+				t_start = t_curr;
+			} else {
+				timer = setTimeout(function() {
+					fn.apply(context, args);
+				}, delay);
+			}
+		};
+	};//}}}
+	var handler  = function(box, options){ return new handler.prototype.init(box, options); };
+	var toString = Object.prototype.toString;
+	var getType  = function(obj){ return toString.call(obj).slice(8, -1); };
 	// createElement{{{
 	var createElement = function(node){
 		var cd = '',
@@ -194,7 +215,7 @@ $.fn.datagrid = function(options){
 		};//}}}
 		return createElement({//{{{
 			name:'div', attr:{'class':'view-wrapper' + (options.autoRowHeight ? ' autoRowHeight' : '')}, children:[{
-				name:'div', attr:{'class':'view frozen-view'}, children:[{
+				name:'div', attr:{'class':'col-view frozen-view'}, children:[{
 					name:'div', attr:{'class':'head-wrapper'}, children:{
 						name:'table', attr:{'class':'frozen head'}, children:{
 							name:'tbody', children:get_head_rows(options.frozenColumns, true)
@@ -209,7 +230,7 @@ $.fn.datagrid = function(options){
 					}
 				}
 			]}, {
-				name:'div', attr:{'class': 'view auto-view'}, children:[{
+				name:'div', attr:{'class': 'col-view auto-view'}, children:[{
 					name:'div', attr:{style:'overflow:hidden'}, children:{
 						name:'div', attr:{'class': 'head-wrapper'}, children:{
 							name:'table', attr:{'class': 'head'}, children:{
@@ -311,10 +332,10 @@ $.fn.datagrid = function(options){
 			this.fieldElements = $('.field .cell', box);
 
 			// if(document.documentMode===5 || /MSIE 6/.test(navigator.userAgent)){
-			// 	$('.view', box).css({height: $('.head-wrapper').get(0).offsetHeight + $('.body-wrapper').get(0).offsetHeight})// css height:100% fix,
-			// 		.eq(0).css({width:$('.view', box).eq(0).find('table').eq(0).width()});// css display:inline fix
+			// 	$('.col-view', box).css({height: $('.head-wrapper').get(0).offsetHeight + $('.body-wrapper').get(0).offsetHeight})// css height:100% fix,
+			// 		.eq(0).css({width:$('.col-view', box).eq(0).find('table').eq(0).width()});// css display:inline fix
 			// 	$('.body-wrapper table, .body-wrapper table tr:first-child td', box).css({borderTop:'none'});
-			// 	$('.view', box).eq(1).find('table, table td:first-child').css({borderLeft:'none'});
+			// 	$('.col-view', box).eq(1).find('table, table td:first-child').css({borderLeft:'none'});
 			// }
 			this.allColumns = [].concat(this.frozenColumns, this.columns);
 			this.dataTbodys = $('.body tbody', box);
@@ -340,18 +361,25 @@ $.fn.datagrid = function(options){
 		},//}}}
 		resize: function(){//{{{
 			var render = this.render;
-			var dataViews = $('.view', render);
+			var dataViews = $('.col-view', render);
 			var tables = $('table', dataViews);
 			tables.eq(1).parent().css({height:tables.get(3).parentNode.clientHeight});
-			dataViews.eq(1).css({width: render.clientWidth - 1 - dataViews.get(0).offsetWidth});
-			dataViews.eq(1).css({width: render.clientWidth - 1 - dataViews.get(0).offsetWidth}); // 再次计算样式，消除滚动条的影响
+			var ie = /MSIE (\d+)\.?/.exec(navigator.userAgent);
+			if(ie && ie.length && ie[1]){
+				ie = Number(ie[1]);
+				// console.log(ie);
+				if(ie<10) dataViews.eq(1).css({width: render.clientWidth - 1 - dataViews.get(0).offsetWidth});
+				// V1、再次计算样式，消除滚动条的影响
+				// V2、再次计算不需要了，通过css控制初始宽度为0
+				// if(ie<8) dataViews.eq(1).css({width: render.clientWidth - 1 - dataViews.get(0).offsetWidth});
+			}
 			return this;
 		},//}}}
 		init_event: function(){//{{{
 			var that    = this;
 			var options = this.userOptions;
 			var $box    = $(this.render);
-			$(window).on('resize', function(){ that.resize(); });
+			$(window).on('resize', throttle(function(){ that.resize(); }));
 			// if(document.documentMode===5 || /MSIE 6/.test(navigator.userAgent)){
 			// 	var hover_binds = {// css tr:hover fix
 			// 		mouseenter: function(){ this.style.backgroundColor = '#e6e6e6'; },
