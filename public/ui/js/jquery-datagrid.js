@@ -379,7 +379,11 @@ $.fn.datagrid = function(options){
 			var that    = this;
 			var options = this.userOptions;
 			var $box    = $(this.render);
-			$(window).on('resize', throttle(function(){ that.resize(); }));
+			var ie = /MSIE (\d+)\.?/.exec(navigator.userAgent);
+			if(ie && ie.length && ie[1]){
+				ie = Number(ie[1]);
+				if(ie<10) $(window).on('resize', throttle(function(){ that.resize(); }));
+			}
 			// if(document.documentMode===5 || /MSIE 6/.test(navigator.userAgent)){
 			// 	var hover_binds = {// css tr:hover fix
 			// 		mouseenter: function(){ this.style.backgroundColor = '#e6e6e6'; },

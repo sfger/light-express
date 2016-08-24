@@ -1,16 +1,16 @@
 @charset "utf-8";
-$Eheight:28px;
-$Epadding:10px;
+$Eheight:32px;
+$Epadding:15px;
 .pagination-ctn{
 	padding:1px;text-align:center;
 	.pn,.current{font-family:SimSun,Microsoft YaHei;}
 	.pc,a,.form,.desc{@extend %ib;}
+	.pn{@include button(auto, $Eheight, #fff);border:1px solid #d3d3d3;}
 	.pn,.current{
 		@include border-radius(3px);padding:0 $Epadding;margin:0 2px;
 		background-color:#fff;color:#666;border:1px solid #d3d3d3;
 	}
 	.current{border-color:#ff9c0f;background:#ff9c0f;color:white;cursor:default;}
-	.pn{@include button(auto, $Eheight, #fff);}
 	.pn:hover{background:#ff9c0f;color:white;}
 	.pn:active{background:darken(#ff9c0f,5%);color:white;}
 	a{
@@ -23,23 +23,19 @@ $Epadding:10px;
 		&:focus{outline:none;}
 	}
 	.disabled{
-		color:#ddd;
-		&:hover{background:white;color:#ddd;cursor:default;cursor:not-allowed;}
+		color:#999;
+		&:hover{background:white;color:#999;cursor:default;cursor:not-allowed;}
 	}
 	.form{
-		// margin-top:-1px;
-		span,input,.go{@extend %ib;height:$Eheight - 2px;line-height:$Eheight - 2px;}
+		span,input,.go{@extend %ib;height:$Eheight;line-height:$Eheight;}
 		input{
 			width:45px;@include border-radius(3px 0 0 3px);
 			border:1px solid #eb8226;border-right:none;text-align:center;
 		}
 		.go{
-			@include button(auto, auto, #ff9c0f);
-			@include border-radius(0 3px 3px 0);
-			padding:0 10px;margin:0;margin-right:2px;
-			border:1px solid #ff9c0f;line-height:$Eheight - 2px;
-			background:#ff9c0f;color:white;
+			@include button(auto, auto, #ff9c0f);@include border-radius(0 3px 3px 0);
+			height:$Eheight;padding:0 10px;margin:0;margin-right:2px;
+			border:1px solid #ff9c0f;background:#ff9c0f;color:white;
 		}
 	}
-	.desc{}
 }
