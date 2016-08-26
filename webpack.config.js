@@ -36,7 +36,10 @@ module.exports = {
 			},
 			{
 				test: /\.jsx$/,
-				loader: 'babel-loader!jsx-loader?harmony'
+				loader: 'babel-loader',
+				query:{
+					presets:['react']
+				}
 			},
 			{test:/\.scss/, loader:'style-loader!css-loader!sass-loader'},
 			{test:/\.css$/, loader:'style-loader!css-loader'},

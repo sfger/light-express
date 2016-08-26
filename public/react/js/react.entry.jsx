@@ -1,8 +1,8 @@
-var React = require('react');
-var ReactDOM = require('react-dom');
+var React      = require('react');
+var ReactDOM   = require('react-dom');
 var CommentBox = React.createClass({
-	getInitialState: function () {
-		return { count: 0 };
+	getInitialState: function(){
+		return {count: 0};
 	},
 	test: function(){
 		this.setState({
@@ -13,9 +13,9 @@ var CommentBox = React.createClass({
 		});
 		console.log(111,this.state.count);
 	},
-	render: function() {
+	render: function(){
 		return (
-			<div className="commentBox" onClick={this.test}>
+			<div className="commentBox" data-test="test" onClick={this.test}>
 				Hello, world! I am a CommentBox. Counter: {this.state.count}
 			</div>
 		);
@@ -23,6 +23,6 @@ var CommentBox = React.createClass({
 });
 var test = {a:'aaa', b:'bbb'};
 ReactDOM.render(
-	<CommentBox data-row={1} {...test} />,
+	<CommentBox row={1} {...test} />,
 	document.querySelector('#page')
 );
