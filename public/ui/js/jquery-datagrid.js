@@ -25,7 +25,7 @@ $.fn.datagrid = function(options){
 	if(type==='string'){//{{{
 		var args = Array.prototype.slice.call(arguments).slice(1);
 		var ret = [];
-		this.each(function(element){
+		this.each(function(i, element){
 			var ui = $(element).data('ui');
 			if(ui && ui.iDatagrid){
 				ret.push(ui.iDatagrid[options].apply(ui.iDatagrid, args));
@@ -314,10 +314,9 @@ $.fn.datagrid = function(options){
 		init: function(box, options){//{{{
 			$(box).addClass('datagrid-ctn cf');
 			this.render = box;
+			// this.reAlign();
+			this.init_event(options);
 			this.update(options);
-			this.init_event();
-			this.reAlign();
-			this.resize();
 			options.onCreate.bind(this)();
 		},//}}}
 		update: function(options){//{{{
@@ -353,6 +352,7 @@ $.fn.datagrid = function(options){
 			}else if(options.sort){
 				this.sortBy({field:sort.field, order:sort.order});
 			}
+			this.reAlign();
 			return this.resize();
 		},//}}}
 		reAlign: function(){//{{{
@@ -363,21 +363,16 @@ $.fn.datagrid = function(options){
 			var render = this.render;
 			var dataViews = $('.col-view', render);
 			var tables = $('table', dataViews);
-			tables.eq(1).parent().css({height:tables.get(3).parentNode.clientHeight});
 			var ie = /MSIE (\d+)\.?/.exec(navigator.userAgent);
 			if(ie && ie.length && ie[1]){
 				ie = Number(ie[1]);
-				// console.log(ie);
 				if(ie<10) dataViews.eq(1).css({width: render.clientWidth - 1 - dataViews.get(0).offsetWidth});
-				// V1、再次计算样式，消除滚动条的影响
-				// V2、再次计算不需要了，通过css控制初始宽度为0
-				// if(ie<8) dataViews.eq(1).css({width: render.clientWidth - 1 - dataViews.get(0).offsetWidth});
 			}
+			tables.eq(1).parent().css({height:tables.get(3).parentNode.clientHeight});
 			return this;
 		},//}}}
-		init_event: function(){//{{{
+		init_event: function(options){//{{{
 			var that    = this;
-			var options = this.userOptions;
 			var $box    = $(this.render);
 			var ie = /MSIE (\d+)\.?/.exec(navigator.userAgent);
 			if(ie && ie.length && ie[1]){
