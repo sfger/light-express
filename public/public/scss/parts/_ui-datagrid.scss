@@ -1,6 +1,8 @@
 @charset "utf-8";
 .datagrid-ctn{
 	font-size:0;line-height:0;overflow:hidden;
+	// @include imgc(0,'.col-view',left,top);
+	.col-view{@include ib(top);}
 	.view-wrapper{
 		position:relative;display:table;
 		@media screen and (min-width:0px){@include flexbox;}
@@ -10,7 +12,6 @@
 		overflow:auto;*width:0px;
 		@media screen and (min-width:0px){@include flex(1,1,auto);}
 	}
-	.col-view{@extend .ib-col;}
 	.head-wrapper{overflow:hidden;}
 	.body-wrapper{/*height:320px;*height:250px;*/overflow:auto;}
 	table{

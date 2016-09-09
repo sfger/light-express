@@ -356,6 +356,10 @@ $.fn.datagrid = function(options){
 			return this.resize();
 		},//}}}
 		reAlign: function(){//{{{
+			/* *
+			 * TODO::
+			 * 1、全部行、全部列、单行、单列对齐重新对齐功能
+			 * */
 			adjust_table($('table', this.render), this);
 			return this;
 		},//}}}

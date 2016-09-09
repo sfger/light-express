@@ -87,20 +87,20 @@ $color_bg_light     :#eee !default;
 @mixin imge($vertical-align:middle){
 	@include inline-block($vertical-align);font-size:12px;font-size:1rem;line-height:normal;
 }
-@mixin imgc($is_image:1, $selecor:img, $align:center){
+@mixin imgc($is_image:1, $selecor:img, $align:center, $verticalAlign:middle){
 	font-size:0;
 	@if($align!=left){
 		text-align:$align;
 	}
 	@if($is_modern==0){
-		&:before,.iecp{@extend %ib;}
+		&:before,.iecp{@include ib($verticalAlign);}
 		&:before,.iecp{content:"";height:100%;font-size:0;line-height:0;width:0;}
 	}@else{
-		&:before{@extend %ib;}
+		&:before{@include ib($verticalAlign);}
 		&:before,{content:"";height:100%;font-size:0;line-height:0;width:0;}
 	}
 	#{$selecor}{
-		@extend %ib;
+		@include ib($verticalAlign);
 		@if($is_image==1){
 			max-width:100%;max-height:100%; //大图片等比缩小至父元素大小
 		}@elseif($selecor!=img){
