@@ -18,16 +18,14 @@
 		//tpl{{{
 		var tpl =
 			'<div class="dtp-ctn">' +
-					'<a href="javascript:" class="dtp-switcher dtp-prev">&lt;</a>' +
-					'<a href="javascript:" class="dtp-switcher dtp-next">&gt;</a>' +
-				'<div class="dtp-header">' +
-					'<ul class="cf">' +
-						'<li></li>' +
-					'</ul>' +
-				'</div>' +
-				'<div class="dtp-list cf">' +
+				'<a href="javascript:" class="dtp-switcher dtp-prev">&lt;</a>' +
+				'<ul class="dtp-header">' +
+					'<li></li>' +
+				'</ul>' +
+				'<a href="javascript:" class="dtp-switcher dtp-next">&gt;</a>' +
+				'<div class="dtp-list">' +
 					'<div class="dtp-item">' +
-						'<ul class="dtp-wh cf">' +
+						'<ul class="dtp-wh">' +
 							'<li class="item day weekend">日</li>' +
 							'<li class="item day">一</li>' +
 							'<li class="item day">二</li>' +
@@ -36,7 +34,7 @@
 							'<li class="item day">五</li>' +
 							'<li class="item day weekend">六</li>' +
 						'</ul>' +
-						'<ul class="dtp-wd cf">' +
+						'<ul class="dtp-wd">' +
 						'</ul>' +
 					'</div>' +
 				'</div>' +
@@ -47,7 +45,7 @@
 			var ret = $(tpl);
 			var n;
 			if(op.monthNum>1){
-				var ul = ret.find('.dtp-header ul');
+				var ul = ret.find('.dtp-header');
 				var list = ret.find('.dtp-list');
 				for(n=0; n<op.monthNum-1; n++){
 					ul.append(ul.find('li').eq(0).clone());
@@ -86,7 +84,7 @@
 					var show = i<sday||ii>total ? date_helper.date('j', sdate.current_timestamp+(-sday+i)*86400) : ii++; // 显示日期
 					dl += '<li' + sc + '>' + show + '</li>';
 				}
-				$('.dtp-header li', ret).eq(n).html('<a href="javascript:;">'+sdate.php_date('Y')+'</a>'+'年'+'<a href="javascript:;">'+sdate.php_date('n')+'</a>'+'月');
+				$('.dtp-header li', ret).eq(n).html('<dfn>'+sdate.php_date('Y')+'</dfn>'+'<span>年</span><dfn>'+sdate.php_date('n')+'</dfn>'+'<span>月</span>');
 				$('.dtp-wd', ret).eq(n).append(dl);
 				$('.dtp-item', ret).eq(0).css({borderColor:'white'});
 				if(render && render.ui && render.ui.renderTo) render.ui.renderTo.innerHTML = ret.html();

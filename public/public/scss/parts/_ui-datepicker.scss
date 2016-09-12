@@ -1,37 +1,44 @@
 @charset "utf-8";
 .dtp-ctn{
-	@include relative;z-index:100;float:left;padding:1px;display:none;
-	border:1px solid #ddd;background:white;
+	// @include relative($index:100);
+	display:none;z-index:100;border:1px solid #ddd;background:white;
 	li{list-style:none;}
     .dtp-header{
-		height:24px;line-height:24px;background:#888;
+		@include ib;margin-left:-22px;background:#eee;
         li{
-			float:left;width:208px;text-align:center;color:white;font-weight:bold;
-			a{color:white;text-decoration:none;@include ib(top);padding:0 2px;}
+			@include ib;width:208px;line-height:27px;text-align:center;color:#333;font-weight:bold;
+			dfn,span{@include ib;}
+			dfn{padding:0 2px;color:#333;text-decoration:none;font-style:normal;}
 		}
     }
     .dtp-switcher{
-		@include absolute(top 2px);@include button(20px, 20px, #ccc);
-        text-decoration:none;color:black;font-size:20px;font-family:SimSun;
+		@include relative($index:1);@include ib;@include button(25px,25px,#999);
+        text-decoration:none;color:white;font-size:20px;font-family:SimSun;
+		&.dtp-prev{left:2px;}
+		&.dtp-next{right:2px;margin-left:-22px;}
     }
-    .dtp-prev{left:3px;}
-    .dtp-next{right:3px;}
     .dtp-list{
+		text-align:center;
         .dtp-item{
-            float:left;width:208px;padding:2px;border-left:1px solid #ddd;
-            &.first{border:none;}
+            @include ib;width:208px;padding:2px;border-left:1px solid #ddd;
+            &.first,&:first-child{border:none;}
         }
-        ul{padding:0;margin:auto;}
+        // ul{padding:0;margin:auto;}
         .dtp-wh{background:#ececec;}
         li{
-			@include button(25px,25px,#ddd);margin:2px;float:left;color:#31e;
-            &.day{font-weight:bold;color:#666;}
+			@include size(25px,22px);line-height:20px;
+			margin:2px;@include ib;text-align:center;
             &.weekend{color:#f18100;}
+        }
+		.dtp-wd li{
+			@include button(25px,22px,#ececec);color:black;
+			&:hover{background:#666;color:white;}
+            &.day{font-weight:bold;color:#666;}
             &.disabled{
-				color:#999;
+				color:#aab;
 				&:hover{background:#ddd;}
 			}
             &.selected{background:#4385e0;color:white;}
-        }
+		}
     }
 }

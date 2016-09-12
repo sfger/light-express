@@ -11,12 +11,11 @@
 <meta name="revisit-after" content="1 days" />
 <meta name="keywords" content="" />
 <meta name="description" content="" />
-<link rel="stylesheet" href="../../../css/base.css?<%- __version__ %>" />
 <link rel="stylesheet" href="../../../css/datepicker.css?<%- __version__ %>" />
 </head>
 <body>
 <div id="page">
-	<input type="text" class="sdate" value="2014-09-01" />
+	<input type="text" class="sdate" value="2016-10-01" />
 </div><!-- #page end! -->
 <script id="requirejs" data-version="<%- __version__ %>?" src="../../../../public/js/require.js?<%- __version__ %>"></script>
 <script>
@@ -34,7 +33,7 @@ require.config({
 });
 require(['ui/js/jquery-datepicker'], function(){
 	$('.sdate').datePicker({
-		monthNum:1,
+		monthNum:3,
 		proxy:$(document),
 		minDate:'2014-09-01',
 		onComplete:function(pdate){
