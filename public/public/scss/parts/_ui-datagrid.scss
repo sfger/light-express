@@ -1,6 +1,6 @@
 @charset "utf-8";
 .datagrid-ctn{
-	font-size:0;line-height:0;overflow:hidden;
+	overflow:hidden;
 	// @include imgc(0,'.col-view',left,top);
 	.col-view{@include ib(top);}
 	.view-wrapper{

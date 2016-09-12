@@ -182,7 +182,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, nav, 
 
 .vt-btm { vertical-align: bottom; }
 
-.datagrid-ctn { font-size: 0; line-height: 0; overflow: hidden; }
+.datagrid-ctn { overflow: hidden; }
 
 .datagrid-ctn .col-view { display: inline-block; *display: inline; *zoom: 1; vertical-align: top; }
 

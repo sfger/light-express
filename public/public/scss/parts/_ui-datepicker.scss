@@ -4,21 +4,21 @@
 	border:1px solid #ddd;background:white;
 	li{list-style:none;}
     .dtp-header{
-		height:18px;padding:3px;line-height:18px;background:#888;
+		height:24px;line-height:24px;background:#888;
         li{
-			float:left;width:203px;text-align:center;color:white;font-weight:bold;
+			float:left;width:208px;text-align:center;color:white;font-weight:bold;
 			a{color:white;text-decoration:none;@include ib(top);padding:0 2px;}
 		}
     }
     .dtp-switcher{
-		@include absolute(top 3px);@include button(20px, 20px, #ccc);
+		@include absolute(top 2px);@include button(20px, 20px, #ccc);
         text-decoration:none;color:black;font-size:20px;font-family:SimSun;
     }
     .dtp-prev{left:3px;}
     .dtp-next{right:3px;}
     .dtp-list{
         .dtp-item{
-            float:left;width:203px;padding:2px;border-left:1px solid #ddd;
+            float:left;width:208px;padding:2px;border-left:1px solid #ddd;
             &.first{border:none;}
         }
         ul{padding:0;margin:auto;}
