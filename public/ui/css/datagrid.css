@@ -184,11 +184,11 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, nav, 
 
 .datagrid-ctn { overflow: hidden; }
 
-.datagrid-ctn .col-view { display: inline-block; *display: inline; *zoom: 1; vertical-align: top; }
-
 .datagrid-ctn .view-wrapper { position: relative; display: table; }
 
 @media screen and (min-width: 0px) { .datagrid-ctn .view-wrapper { display: -webkit-box; display: -webkit-flex; display: -moz-flex; display: -ms-flexbox; display: flex; } }
+
+.datagrid-ctn .col-view { display: inline-block; *display: inline; *zoom: 1; vertical-align: top; }
 
 .datagrid-ctn .frozen-view { display: table-cell; }
 

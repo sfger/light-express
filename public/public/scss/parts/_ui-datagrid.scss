@@ -2,11 +2,11 @@
 .datagrid-ctn{
 	overflow:hidden;
 	// @include imgc(0,'.col-view',left,top);
-	.col-view{@include ib(top);}
 	.view-wrapper{
 		position:relative;display:table;
 		@media screen and (min-width:0px){@include flexbox;}
 	}
+	.col-view{@include ib(top);}
 	.frozen-view{display:table-cell;}
 	.auto-view{
 		overflow:auto;*width:0px;

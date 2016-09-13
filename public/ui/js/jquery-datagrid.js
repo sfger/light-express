@@ -75,8 +75,7 @@ $.fn.datagrid = function(options){
 	var handler  = function(box, options){ return new handler.prototype.init(box, options); };
 	var toString = Object.prototype.toString;
 	var getType  = function(obj){ return toString.call(obj).slice(8, -1); };
-	// createElement{{{
-	var createElement = function(node){
+	var createElement = function(node){//{{{
 		var cd = '',
 			at=[],
 			attr = null,
@@ -113,11 +112,9 @@ $.fn.datagrid = function(options){
 			} else cd = '';
 		}
 		return cd;
-	};
-	// }}}
+	};//}}}
 
-	// fn get_table{{{
-	var get_table = function(options, that){
+	var get_table = function(options, that){//{{{
 		var get_head_rows = function(rows, isFrozen){//{{{
 			if(!rows || isFrozen&&!options.frozenColumns.length) return [];
 			var colsType = isFrozen ? 'frozenColumns' : 'columns';
@@ -248,14 +245,14 @@ $.fn.datagrid = function(options){
 				}]
 			}]
 		});//}}}
-	};
-	// }}}
+	};//}}}
 
 	//fn adjust_table{{{
 	var getHW = function(el, type){//{{{
-		return (document.documentMode<7 || /MSIE 6/.test(navigator.userAgent))
-			? el['offset'+('width'==type ? 'Width' : 'Height')]
-			: $(el)[type]();
+		// return (document.documentMode<7 || /MSIE 6/.test(navigator.userAgent))
+		// 	? el['offset'+('width'==type ? 'Width' : 'Height')]
+		// 	: $(el)[type]();
+		return $(el)[type]();
 	};//}}}
 	var align_table = function(a, b, type){//{{{
 		var st = type==='width' ? 'Width' : 'Height';
@@ -266,7 +263,6 @@ $.fn.datagrid = function(options){
 			$([this, b[i]])[type](t);
 		});
 	};//}}}
-	// var align_tr = align_table;
 	var align_td = function(a, type, fieldElements){//{{{
 		$.each(a, function(i){
 			var field = fieldElements[i];
@@ -312,7 +308,7 @@ $.fn.datagrid = function(options){
 	handler.prototype = {
 		defaultOrder: false, //true:desc, false:asc
 		init: function(box, options){//{{{
-			$(box).addClass('datagrid-ctn cf');
+			$(box).addClass('datagrid-ctn');
 			this.render = box;
 			// this.reAlign();
 			this.init_event(options);
