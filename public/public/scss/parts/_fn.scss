@@ -13,7 +13,8 @@ $color_bg_light     :#eee !default;
 
 // css3 -webkit-,-moz-,-ms-,-o- 的前缀简写
 // 第一个参数为属性和值，第二个参数则是前缀
-@mixin prefix($map, $vendors:webkit moz ms o){
+// @mixin prefix($map, $vendors:webkit moz ms o){
+@mixin prefix($map, $vendors:webkit){
 	@each $prop, $value in $map{
 		@if $vendors {
 			@each $vendor in $vendors {
@@ -149,35 +150,17 @@ $color_bg_light     :#eee !default;
 	}
 }
 
-@mixin size($width:auto, $height:$width){
-	width:$width;height:$height;
-}
-
-@mixin user-select($val){
-	@include prefix((user-select:$val), webkit moz);
-}
-
-@mixin box-sizing($mode:content-box){
-	@include prefix((box-sizing:$mode), webkit moz);
-}
-@mixin border-radius($n:0){
-	@include prefix((border-radius:$n), webkit moz);
-}
+@mixin size($width:auto, $height:$width){width:$width;height:$height;}
+@mixin user-select($val){@include prefix((user-select:$val),webkit moz);}
+@mixin box-sizing($mode:content-box){@include prefix((box-sizing:$mode),webkit moz);}
+@mixin border-radius($n:0){@include prefix((border-radius:$n),webkit moz);}
 // @include border-radius(3px);
 
-@mixin border-top-left-radius($n:0){
-	@include prefix((border-top-left-radius:$n), webkit moz);
-}
-@mixin border-top-right-radius($n:0){
-	@include prefix((border-top-right-radius:$n), webkit moz);
-}
-@mixin border-bottom-left-radius($n:0){
-	@include prefix((border-bottom-left-radius:$n), webkit moz);
-}
-@mixin border-bottom-right-radius($n:0){
-	@include prefix((border-bottom-right-radius:$n), webkit moz);
-}
-@mixin background-circle($size, $color){
+@mixin border-top-left-radius($n:0){@include prefix((border-top-left-radius:$n),webkit moz);}
+@mixin border-top-right-radius($n:0){@include prefix((border-top-right-radius:$n),webkit moz);}
+@mixin border-bottom-left-radius($n:0){@include prefix((border-bottom-left-radius:$n),webkit moz);}
+@mixin border-bottom-right-radius($n:0){@include prefix((border-bottom-right-radius:$n),webkit moz);}
+@mixin background-circle($size, $color, $empty:null, $emptyColor:white, $borderWidth:1px){
 	&{
 		@include size($size);
 		@include relative(null,1);
@@ -186,17 +169,35 @@ $color_bg_light     :#eee !default;
 	}
 	// &:before,.iecp{
 	&:before{
-		content:"";*content:normal;
-		@include absolute(left 0 top 0, -1);
+		content:"";//*content:normal;
+		@include absolute(left 0 top 0, -2);
 		// *width:$size;*height:$size;
 		border-left:$size dotted $color;
 		border-top:$size dotted $color;
 		// *border-right:$size dotted $color;
 	}
+	@if($empty){
+		&:after{
+			content:"";//*content:normal;
+			@include absolute(left $borderWidth top $borderWidth, -1);
+			// *width:$size;*height:$size;
+			border-left:($size - $borderWidth*2) dotted $emptyColor;
+			border-top:($size - $borderWidth*2) dotted $emptyColor;
+			// *border-right:$size dotted $color;
+		}
+	}
 	@media screen and (min-width:0px){
-		#{&}{border-radius:50%;background:$color;}
+		&{
+			border-radius:50%;
+			@if($empty){
+				border:$borderWidth solid $color;
+				background:$emptyColor;
+			}@else{
+				background:$color;
+			}
+		}
 		// #{&}:before#{&} .iecp{content:normal;}
-		#{&}:before{content:normal;}
+		&:before,&:after{content:normal;}
 	}
 }
 
@@ -214,15 +215,9 @@ $color_bg_light     :#eee !default;
 		z-index:$index;
 	}
 }
-@mixin absolute($args:null, $index:null){
-	@include position("absolute", $args, $index);
-}
-@mixin fixed($args:null, $index:null){
-	@include position("fixed", $args, $index);
-}
-@mixin relative($args:null, $index:null){
-	@include position("relative", $args, $index);
-}
+@mixin absolute($args:null, $index:null){@include position("absolute", $args, $index);}
+@mixin fixed($args:null, $index:null){@include position("fixed", $args, $index);}
+@mixin relative($args:null, $index:null){@include position("relative", $args, $index);}
 // 例：
 // sass
 // .element {
@@ -236,16 +231,17 @@ $color_bg_light     :#eee !default;
 // }
 
 @include keyframes(radioOut){
-	0%{@include prefix((transform:scale(0)));/*@include opacity(0);*/}
-	30%{@include prefix((transform:scale(1)));/*@include opacity(1);*/}
-	99.999%{@include prefix((transform:scale(2)));/*@include opacity(0);*/}
-	100%{@include prefix((transform:scale(0)));/*@include opacity(0);*/}
+	0%{@include prefix((transform:scale(0)),webkit);@include opacity(1);}
+	30%{@include prefix((transform:scale(1)),webkit);@include opacity(0.7);}
+	85%{@include prefix((transform:scale(2)),webkit);@include opacity(0.5);}
+	99%{@include prefix((transform:scale(3)),webkit);@include opacity(0.1);}
+	100%{@include prefix((transform:scale(0)),webkit);@include opacity(0);}
+	// 100%{@include prefix((transform:scale(0)));/*@include opacity(0);*/}
 }
 @mixin button($width, $height, $bgcolor:transparent, $hover:1,$active:1, $animation:null){
 	@include box-sizing(border-box);
 	@include ib;@include size($width, $height);@include user-select(none);
 	font:14px/#{$height} "Microsoft YaHei";border:none;
-	// padding:5px;
 	@include border-radius(3px);color:invert($bgcolor);
 	text-align:center;background:$bgcolor;cursor:pointer;text-decoration:none;
 	@if($hover){
@@ -270,8 +266,8 @@ $color_bg_light     :#eee !default;
 				@include prefix((transform:translateZ(0)));
 				&:before{
 					background-image:radial-gradient(darken($bgcolor,10%),transparent 99%);;
-					@include prefix((animation:radioOut 0.35s ease-out 0s 1 normal));
-					@include prefix((animation-fill-mode:forwards));
+					@include prefix((animation:radioOut 0.2s ease-out 0s 1 normal),webkit);
+					@include prefix((animation-fill-mode:forwards),webkit);
 					// @include prefix((transition:transform 0.35s ease-out));
 					// @include prefix((transform:scale(2)));
 				}
@@ -441,9 +437,7 @@ $color_bg_light     :#eee !default;
     .step-position{
         @include size(28px);@include absolute(top -10px);
         margin-left:-7px;font:18px/28px "Microsoft YaHei";text-align:center;color:white;
-        @media screen and (min-width:0px){
-            @include border-radius(50%);background-color:$color;
-        }
+        @media screen and(min-width:0px){@include border-radius(50%);background-color:$color;}
         .step-arrow{
             display:block;@include size(0);margin-top:-22px;margin-left:-12px;
             border:12px solid $color;
@@ -452,9 +446,7 @@ $color_bg_light     :#eee !default;
             &.arrow-done{border-left-color:$colorDone;}
         }
         &.position-done{
-            @media screen and (min-width:0px){
-                background-color:$colorDone;
-            }
+            @media screen and(min-width:0px){background-color:$colorDone;}
             .step-arrow{border-left-color:$colorDone;}
         }
         &.first-position{
