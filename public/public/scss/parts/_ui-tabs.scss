@@ -1,11 +1,10 @@
 @charset "utf-8";
 .tab-ctn{
 	.tab-header{
-		@include imgc(0,li);text-align:left;
+		@include imgc(0,li,left);
 		li{
-			@include relative(bottom -1px);margin:-1px 1px 0 1px;
-			border:1px solid #ccc;border-bottom:none;
-			list-style:none;vertical-align:baseline;
+			@include relative(bottom -1px);margin:0px 1px;
+			border:1px solid #ccc;border-bottom:none;list-style:none;
 			&.current a{background:white;border-bottom-color:white;}
 		}
 		a{
@@ -17,7 +16,7 @@
 		.icon{@include size(16px);}
 		.title{margin:0 3px;@include sln;}
 		.closer{
-			@include size(16px);font:bold 16px/1.234 SimSun;border-radius:2px;
+			@include button(16px,16px,transparent);font:bold 16px/1.234 SimSun;color:#333;
 			&:hover{background:#ccc;}
 		}
 	}

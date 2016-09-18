@@ -1,13 +1,13 @@
 @charset "utf-8"; //解决中文报错
-$is_modern:0 !default; // 兼容低版本ie
+$is_modern:1 !default; // 兼容低版本ie
 
-$color_default      :#666 !default;
-$color_dark         :#333 !default;
-$color_light        :#999 !default;
-$color_blue         :blue !default;
-$color_red          :red  !default;
-$color_green        :green !default;
-$color_bg_light     :#eee !default;
+$color_default  :#666 !default;
+$color_dark     :#333 !default;
+$color_light    :#999 !default;
+$color_blue     :blue !default;
+$color_red      :red  !default;
+$color_green    :green !default;
+$color_bg_light :#eee !default;
 
 @import "flex";
 
@@ -49,11 +49,11 @@ $color_bg_light     :#eee !default;
 // 	transform: translate(-50%, -50%);
 // }
 @mixin keyframes($name){
-	@keyframes #{$name}{@content}
+	// @-moz-keyframes #{$name}{@content}
+	// @-o-keyframes #{$name}{@content}
+	// @-ms-keyframes #{$name}{@content}
 	@-webkit-keyframes #{$name}{@content}
-	@-moz-keyframes #{$name}{@content}
-	@-o-keyframes #{$name}{@content}
-	@-ms-keyframes #{$name}{@content}
+	@keyframes #{$name}{@content}
 }
 // @include keyframes(donghua){
 // 	0%{margin-top:0;}
@@ -151,7 +151,7 @@ $color_bg_light     :#eee !default;
 }
 
 @mixin size($width:auto, $height:$width){width:$width;height:$height;}
-@mixin user-select($val){@include prefix((user-select:$val),webkit moz);}
+@mixin user-select($val){@include prefix((user-select:$val),webkit moz ms);}
 @mixin box-sizing($mode:content-box){@include prefix((box-sizing:$mode),webkit moz);}
 @mixin border-radius($n:0){@include prefix((border-radius:$n),webkit moz);}
 // @include border-radius(3px);
@@ -186,7 +186,7 @@ $color_bg_light     :#eee !default;
 			// *border-right:$size dotted $color;
 		}
 	}
-	@media screen and (min-width:0px){
+	@media screen and(min-width:0px){
 		&{
 			border-radius:50%;
 			@if($empty){
@@ -232,11 +232,9 @@ $color_bg_light     :#eee !default;
 
 @include keyframes(radioOut){
 	0%{@include prefix((transform:scale(0)),webkit);@include opacity(1);}
-	30%{@include prefix((transform:scale(1)),webkit);@include opacity(0.7);}
-	85%{@include prefix((transform:scale(2)),webkit);@include opacity(0.5);}
-	99%{@include prefix((transform:scale(3)),webkit);@include opacity(0.1);}
+	70%{@include prefix((transform:scale(2)),webkit);@include opacity(0.5);}
+	90%{@include prefix((transform:scale(2.5)),webkit);@include opacity(0.1);}
 	100%{@include prefix((transform:scale(0)),webkit);@include opacity(0);}
-	// 100%{@include prefix((transform:scale(0)));/*@include opacity(0);*/}
 }
 @mixin button($width, $height, $bgcolor:transparent, $hover:1,$active:1, $animation:null){
 	@include box-sizing(border-box);
@@ -265,9 +263,9 @@ $color_bg_light     :#eee !default;
 				background-color:darken($bgcolor,5%);
 				@include prefix((transform:translateZ(0)));
 				&:before{
-					background-image:radial-gradient(darken($bgcolor,10%),transparent 99%);;
+					background-image:radial-gradient(darken($bgcolor,25%),transparent 99%);;
 					@include prefix((animation:radioOut 0.2s ease-out 0s 1 normal),webkit);
-					@include prefix((animation-fill-mode:forwards),webkit);
+					// @include prefix((animation-fill-mode:forwards),webkit);
 					// @include prefix((transition:transform 0.35s ease-out));
 					// @include prefix((transform:scale(2)));
 				}

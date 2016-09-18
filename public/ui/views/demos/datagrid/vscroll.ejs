@@ -80,7 +80,7 @@ var options = {
 		[
 			{field:'col-1', name:'冻结第一列', sortable: true, sortable: true, // dataType: 'number', // 'string',
 				formatter:function(val, row, key){
-							  return '格式化: ' + (Math.random()>0.5 ? '<br />' : '') + val;
+					return '格式化: ' + (Math.random()>0.5 ? '<br />' : '') + val;
 				}
 			},
 			{field:'col-2', name:'冻结第二列', align:'right', sortable:true, sort:fieldSortFns.sortNum,
@@ -135,8 +135,7 @@ var options = {
 			{field:'col-35'}
 		]
 	],
-	onCreate:function(){
-	}
+	onCreate:function(){}
 };
 window.$grid = $('#my_datagrid');
 $grid.datagrid(options);

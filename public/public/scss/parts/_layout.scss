@@ -1,11 +1,11 @@
 @charset "utf-8";
 // @import "fn";
 // *,*:before,*:after,*::before,*::after{@include box-sizing(border-box);}
-.cf{@extend %cf;}
-.imge{@extend %imge;}
-.imgc{@extend %imgc;}
+.cf{@include cf;}
+.imge{@include imge;}
+.imgc{@include imgc;}
 
-.ib{@extend %ib;}
+.ib{@include ib;}
 .img-tight{@include imgc(1);}
 
 .ib-row{@include imgc(0,'',left);}

@@ -8,4 +8,4 @@ fieldset,img{border:none;}
 [hidden]{display:none;}
 :focus{outline:none;}
 article,aside,details,figcaption,figure,footer,header,hgroup,main,nav,section,summary{display:block;}
-audio,canvas,video{@extend %ib;}
+audio,canvas,video{@include ib;}
