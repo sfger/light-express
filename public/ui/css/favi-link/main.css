@@ -176,7 +176,7 @@ audio, canvas, video { display: inline-block; vertical-align: middle; }
 
 .tree-draging-proxy { display: none; position: absolute; padding: 2px 8px; border: 1px solid #ccc; background: #eee; border-radius: 3px; }
 
-.tab-ctn .tab-header { font-size: 0; text-align: center; text-align: left; }
+.tab-ctn .tab-header { font-size: 0; }
 
 .tab-ctn .tab-header:before { display: inline-block; vertical-align: middle; }
 
@@ -188,7 +188,7 @@ audio, canvas, video { display: inline-block; vertical-align: middle; }
 
 .tab-ctn .tab-header li.current a { background: white; border-bottom-color: white; }
 
-.tab-ctn .tab-header a { -webkit-user-select: none; -moz-user-select: none; user-select: none; font-size: 0; text-align: center; padding: 1px 5px; display: block; border-bottom: 1px solid #ccc; line-height: 20px; background: #e6e6e6; color: black; text-decoration: none; cursor: pointer; }
+.tab-ctn .tab-header a { -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; font-size: 0; text-align: center; padding: 1px 5px; display: block; border-bottom: 1px solid #ccc; line-height: 20px; background: #e6e6e6; color: black; text-decoration: none; cursor: pointer; }
 
 .tab-ctn .tab-header a:before { display: inline-block; vertical-align: middle; }
 
@@ -202,7 +202,11 @@ audio, canvas, video { display: inline-block; vertical-align: middle; }
 
 .tab-ctn .tab-header .title { margin: 0 3px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
-.tab-ctn .tab-header .closer { width: 16px; height: 16px; font: bold 16px/1.234 SimSun; border-radius: 2px; }
+.tab-ctn .tab-header .closer { -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; display: inline-block; vertical-align: middle; width: 16px; height: 16px; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; font: 14px/16px "Microsoft YaHei"; border: none; -webkit-border-radius: 3px; -moz-border-radius: 3px; border-radius: 3px; color: rgba(255, 255, 255, 0); text-align: center; background: transparent; cursor: pointer; text-decoration: none; font: bold 16px/1.234 SimSun; color: #333; }
+
+.tab-ctn .tab-header .closer:hover { background-color: rgba(13, 13, 13, 0); }
+
+.tab-ctn .tab-header .closer:active { outline: thin dotted; outline-offset: -2px; background-color: transparent; }
 
 .tab-ctn .tab-header .closer:hover { background: #ccc; }
 

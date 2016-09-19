@@ -9,6 +9,10 @@ var entryMap = {};
 entrysArray.forEach((one) => {
 	entryMap[one.replace(/\.entry\.jsx?$/, '')] = './' + one;
 });
+// entryMap.bundle = [
+// 	'webpack/hot/dev-server',
+// 	'webpack-dev-server/client?http://localhost',
+// ];
 // console.log(entryMap);
 
 module.exports = {
@@ -28,19 +32,19 @@ module.exports = {
 		loaders:[
 			{
 				exclude:/(node_modules|bower_components)/,
-				test:/\.js$/,
-				loader:'babel-loader',
+				test:/\.jsx?$/,
+				loader:'babel',
 				query:{
-					presets:['es2015', 'stage-0']
+					presets:['es2015', 'react']
 				}
 			},
-			{
-				test: /\.jsx$/,
-				loader: 'babel-loader',
-				query:{
-					presets:['react']
-				}
-			},
+			// {
+			// 	test: /\.jsx$/,
+			// 	loader: 'babel',
+			// 	query:{
+			// 		presets:['es2015', 'react']
+			// 	}
+			// },
 			{test:/\.scss/, loader:'style-loader!css-loader!sass-loader'},
 			{test:/\.css$/, loader:'style-loader!css-loader'},
 			{test:/\.(png|jpg)$/, loader:'url-loader?limit=8192'}

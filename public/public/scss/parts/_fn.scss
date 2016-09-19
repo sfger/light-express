@@ -1,6 +1,7 @@
 @charset "utf-8"; //解决中文报错
 $is_modern:1 !default; // 兼容低版本ie
 
+$base_font_size :12px !default;
 $color_default  :#666 !default;
 $color_dark     :#333 !default;
 $color_light    :#999 !default;
@@ -64,9 +65,7 @@ $color_bg_light :#eee !default;
 // }
 
 @mixin cf(){
-	@if($is_modern==0){
-		*zoom:1;
-	}
+	@if($is_modern==0){*zoom:1;}
 	&:before,&:after{content:"";display:table;}
 	&:after{clear:both;overflow:hidden;}
 }
@@ -74,9 +73,7 @@ $color_bg_light :#eee !default;
 // inline-block
 @mixin inline-block($vertical-align:middle){
 	display:inline-block;
-	@if($is_modern==0){
-		*display:inline;*zoom:1;
-	}
+	@if($is_modern==0){*display:inline;*zoom:1;}
 	vertical-align:$vertical-align;//*vertical-align:auto;
 }
 @mixin ib($valign:middle){
@@ -85,8 +82,12 @@ $color_bg_light :#eee !default;
 
 // 通用居中样式
 // 使用见_layout.scss
+@mixin reset_font_size(){
+	font-size:$base_font_size;font-size:1rem;line-height:normal;
+}
 @mixin imge($vertical-align:middle){
-	@include inline-block($vertical-align);font-size:12px;font-size:1rem;line-height:normal;
+	@include inline-block($vertical-align);
+	@include reset_font_size();
 }
 @mixin imgc($is_image:1, $selecor:img, $align:center, $verticalAlign:middle){
 	font-size:0;
@@ -105,7 +106,7 @@ $color_bg_light :#eee !default;
 		@if($is_image==1){
 			max-width:100%;max-height:100%; //大图片等比缩小至父元素大小
 		}@elseif($selecor!=img){
-			font-size:12px;font-size:1rem;line-height:normal;
+			@include reset_font_size();
 		}
 	}
 }
