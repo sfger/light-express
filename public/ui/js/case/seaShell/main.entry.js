@@ -76,10 +76,10 @@ __non_webpack_require__([
 		border     : true,
 		position   : 'north'
 	});
-	var default_tab = '<div class="imgc" style="height:100%;">'+
-		'<div class="imge">欢迎来朴水做客！</div>'+
-		'<!--[if lt IE 8]><p class="iecp"></p><![endif]-->'+
-	'</div>';
+	var default_tab = `<div class="imgc" style="height:100%;">
+		<div class="imge">欢迎来朴水做客！</div>
+		<!--[if lt IE 8]><p class="iecp"></p><![endif]-->
+	</div>`;
 	$mainTab.tabs('add', {
 		title    : '主页',
 		content  : default_tab,
