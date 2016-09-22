@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {createStore, combineReducers} from 'redux';
-import * as reducers from './reducers';
+import * as reducers from './parts/reducers';
 
 // function reducer(s, t){
 // 	let num = s.num;
@@ -32,7 +32,6 @@ dispatch({type:'PUSH', text:'list'});
 console.log(getState());
 dispatch({type:'POP'});
 console.log(getState());
-
 
 let CommentBox = React.createClass({
 	getInitialState: function(){
