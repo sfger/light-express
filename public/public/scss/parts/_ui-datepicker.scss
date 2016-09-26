@@ -41,4 +41,27 @@
             &.selected{background:#4385e0;color:white;}
 		}
     }
+	.dtp-time{
+		// display:none;
+		padding:2px 0 2px 8px;border-top:1px solid #ddd;
+		span,input{@include ib;}
+		input{@include size(30px,24px);margin:0 3px;border:1px solid #dedede;text-align:center;}
+		label{
+			@include relative;@include ib;
+			ul{
+				display:none;@include absolute(left 3px bottom 24px);
+				border:1px solid #ddd;border-radius:6px;background:white;
+			}
+			li{
+				@include ib;@include size(25px);line-height:25px;text-align:center;
+				&:hover{background:#dedede;cursor:pointer;}
+			}
+		}
+		.dtp-hour{
+			ul{width:152px;display:none;}
+		}
+		.dtp-minute{
+			ul{width:252px;}
+		}
+	}
 }

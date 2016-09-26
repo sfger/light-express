@@ -10,11 +10,11 @@
 	}
 }(this, function($, date_helper){
 	$.fn.datePicker = function(o){
-		var op = $.extend(true, {
+		var op = $.extend(true, {//{{{
 			monthNum:1,
 			proxy:$('body'),
 			onComplete:function(){}
-		}, o);
+		}, o);//}}}
 		//tpl{{{
 		var tpl =
 			'<div class="dtp-ctn">' +
@@ -38,6 +38,17 @@
 						'</ul>' +
 					'</div>' +
 				'</div>' +
+				'<div class="dtp-time">' +
+					'<span>时间: </span>' +
+					'<label class="dtp-hour">' +
+						'<input type="text" value="" />' +
+						'<ul></ul>' +
+					'</label> : ' +
+					'<label class="dtp-minute">' +
+						'<input type="text" value="" />' +
+						'<ul></ul>' +
+					'</label>' +
+				'</div>' +
 			'</div>';
 		//}}}
 		var draw_ui = function(val, selected, render){//{{{
@@ -45,13 +56,25 @@
 			var ret = $(tpl);
 			var n;
 			if(op.monthNum>1){
-				var ul = ret.find('.dtp-header');
-				var list = ret.find('.dtp-list');
+				var $ul = ret.find('.dtp-header');
+				var $list = ret.find('.dtp-list');
 				for(n=0; n<op.monthNum-1; n++){
-					ul.append(ul.find('li').eq(0).clone());
-					list.append(list.find('.dtp-item').eq(0).clone());
+					$ul.append($ul.find('li').eq(0).clone());
+					$list.append($list.find('.dtp-item').eq(0).clone());
 				}
 			}
+
+			$('.dtp-hour ul', ret).append(function(){
+				var s = '';
+				for(var i=0; i<24; i++) s += '<li>'+date_helper.pad(i,2)+'</li>';
+				return s;
+			});
+			$('.dtp-minute ul', ret).append(function(){
+				var s = '';
+				for(var i=0; i<60; i++) s += '<li>'+date_helper.pad(i,2)+'</li>';
+				return s;
+			});
+
 			var dh = date_helper();
 			dh.set_date(val);
 			for(n=0; n<op.monthNum; n++){
@@ -99,6 +122,8 @@
 			var val = this.value;
 			this.ui = {
 				hovered: false,
+				hour_hovered: false,
+				minute_hovered: false,
 				skipdate: val,
 				renderTo: draw_ui(val)
 			};
