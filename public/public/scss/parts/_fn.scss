@@ -82,14 +82,14 @@ $color_bg_light :#eee !default;
 
 // 通用居中样式
 // 使用见_layout.scss
-@mixin reset_font_size(){
-	font-size:$base_font_size;font-size:1rem;line-height:normal;
+@mixin reset_font_size($rem:1rem){
+	font-size:$base_font_size;font-size:$rem;line-height:normal;
 }
-@mixin imge($vertical-align:middle){
+@mixin imge($vertical-align:middle,$rem:1rem){
 	@include inline-block($vertical-align);
-	@include reset_font_size();
+	@include reset_font_size($rem);
 }
-@mixin imgc($is_image:1, $selecor:img, $align:center, $verticalAlign:middle){
+@mixin imgc($is_image:1, $selecor:img, $align:center, $verticalAlign:middle,$rem:1rem){
 	font-size:0;
 	@if($align!=left){
 		text-align:$align;
@@ -106,7 +106,7 @@ $color_bg_light :#eee !default;
 		@if($is_image==1){
 			max-width:100%;max-height:100%; //大图片等比缩小至父元素大小
 		}@elseif($selecor!=img){
-			@include reset_font_size();
+			@include reset_font_size($rem);
 		}
 	}
 }

@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8" /><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" /><title>Title</title><meta name="apple-mobile-web-app-capable" content="yes" /><meta name="apple-mobile-web-app-status-bar-style" content="black" /><meta name="format-detection" content="telephone=no" /><meta name="author" content="" /><meta name="revisit-after" content="1 days" /><meta name="keywords" content="" /><meta name="description" content="" /><link rel="stylesheet" href="../../../css/datepicker.css?__version__" /></head><body><div id="page"><input type="text" class="sdate" value="2016-10-01" /></div><!-- #page end! --><script id="requirejs" data-version="__version__?" src="../../../../public/js/require.js?__version__"></script><script>require.config({
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8" /><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" /><title>Title</title><meta name="apple-mobile-web-app-capable" content="yes" /><meta name="apple-mobile-web-app-status-bar-style" content="black" /><meta name="format-detection" content="telephone=no" /><meta name="author" content="" /><meta name="revisit-after" content="1 days" /><meta name="keywords" content="" /><meta name="description" content="" /><link rel="stylesheet" href="../../../css/datepicker.css?__version__" /></head><body><div id="page"><input type="text" class="sdate" value="2016-10-03 10:14" /><input type="text" class="edate" value="2016-10-10 11:20" /></div><!-- #page end! --><script id="requirejs" data-version="__version__?" src="../../../../public/js/require.js?__version__"></script><script>require.config({
 baseUrl:'../../../../',
 urlArgs:"v=" + document.getElementById("requirejs").getAttribute("data-version"),
 map:{"*":{css:"require-css.js"}},
@@ -11,7 +11,8 @@ shim:{
 }
 });
 require(['ui/js/jquery-datepicker'], function(){
-$('.sdate').datePicker({
+$('.sdate,.edate').datePicker({
+type:'dateTime',
 monthNum:3,
 proxy:$(document),
 minDate:'2014-09-01',

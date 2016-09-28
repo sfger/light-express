@@ -25,11 +25,13 @@
         }
         // ul{padding:0;margin:auto;}
         .dtp-wh{background:#ececec;}
-        li{
-			@include size(25px,22px);line-height:20px;
-			margin:2px;@include ib;text-align:center;
-            &.weekend{color:#f18100;}
-        }
+		.dtp-item ul{
+			@include imgc(0,'li');
+			li{
+				@include size(25px,22px);line-height:22px;margin:2px;
+				&.weekend{color:#f18100;}
+			}
+		}
 		.dtp-wd li{
 			@include button(25px,22px,#ececec);color:black;
 			&:hover{background:#666;color:white;}
@@ -42,19 +44,20 @@
 		}
     }
 	.dtp-time{
-		// display:none;
-		padding:2px 0 2px 8px;border-top:1px solid #ddd;
+		display:none;padding:2px 0 2px 8px;border-top:1px solid #ddd;
 		span,input{@include ib;}
-		input{@include size(30px,24px);margin:0 3px;border:1px solid #dedede;text-align:center;}
+		input{@include size(30px,24px);line-height:22px;margin:0 3px;border:1px solid #dedede;text-align:center;}
 		label{
 			@include relative;@include ib;
 			ul{
 				display:none;@include absolute(left 3px bottom 24px);
+				@include imgc(0,'li');
 				border:1px solid #ddd;border-radius:6px;background:white;
-			}
-			li{
-				@include ib;@include size(25px);line-height:25px;text-align:center;
-				&:hover{background:#dedede;cursor:pointer;}
+				li{
+					@include size(25px);line-height:25px;
+					&:hover{background:#dedede;cursor:pointer;}
+					&.selected{background:#4385e0;color:white;}
+				}
 			}
 		}
 		.dtp-hour{

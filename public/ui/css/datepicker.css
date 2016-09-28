@@ -140,9 +140,17 @@ audio, canvas, video { display: inline-block; vertical-align: middle; }
 
 .dtp-ctn .dtp-list .dtp-wh { background: #ececec; }
 
-.dtp-ctn .dtp-list li { width: 25px; height: 22px; line-height: 20px; margin: 2px; display: inline-block; vertical-align: middle; text-align: center; }
+.dtp-ctn .dtp-list .dtp-item ul { font-size: 0; text-align: center; }
 
-.dtp-ctn .dtp-list li.weekend { color: #f18100; }
+.dtp-ctn .dtp-list .dtp-item ul:before { display: inline-block; vertical-align: middle; }
+
+.dtp-ctn .dtp-list .dtp-item ul:before { content: ""; height: 100%; font-size: 0; line-height: 0; width: 0; }
+
+.dtp-ctn .dtp-list .dtp-item ul li { display: inline-block; vertical-align: middle; font-size: 12px; font-size: 1rem; line-height: normal; }
+
+.dtp-ctn .dtp-list .dtp-item ul li { width: 25px; height: 22px; line-height: 22px; margin: 2px; }
+
+.dtp-ctn .dtp-list .dtp-item ul li.weekend { color: #f18100; }
 
 .dtp-ctn .dtp-list .dtp-wd li { -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; display: inline-block; vertical-align: middle; width: 25px; height: 22px; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; font: 14px/22px "Microsoft YaHei"; border: none; -webkit-border-radius: 3px; -moz-border-radius: 3px; border-radius: 3px; color: #131313; text-align: center; background: #ececec; cursor: pointer; text-decoration: none; color: black; }
 
@@ -160,19 +168,27 @@ audio, canvas, video { display: inline-block; vertical-align: middle; }
 
 .dtp-ctn .dtp-list .dtp-wd li.selected { background: #4385e0; color: white; }
 
-.dtp-ctn .dtp-time { padding: 2px 0 2px 8px; border-top: 1px solid #ddd; }
+.dtp-ctn .dtp-time { display: none; padding: 2px 0 2px 8px; border-top: 1px solid #ddd; }
 
 .dtp-ctn .dtp-time span, .dtp-ctn .dtp-time input { display: inline-block; vertical-align: middle; }
 
-.dtp-ctn .dtp-time input { width: 30px; height: 24px; margin: 0 3px; border: 1px solid #dedede; text-align: center; }
+.dtp-ctn .dtp-time input { width: 30px; height: 24px; line-height: 22px; margin: 0 3px; border: 1px solid #dedede; text-align: center; }
 
 .dtp-ctn .dtp-time label { position: relative; display: inline-block; vertical-align: middle; }
 
-.dtp-ctn .dtp-time label ul { position: absolute; bottom: 24px; left: 3px; border-radius: 6px; border: 1px solid #ddd; background: white; }
+.dtp-ctn .dtp-time label ul { display: none; position: absolute; bottom: 24px; left: 3px; font-size: 0; text-align: center; border: 1px solid #ddd; border-radius: 6px; background: white; }
 
-.dtp-ctn .dtp-time label li { display: inline-block; vertical-align: middle; width: 25px; height: 25px; line-height: 25px; text-align: center; }
+.dtp-ctn .dtp-time label ul:before { display: inline-block; vertical-align: middle; }
 
-.dtp-ctn .dtp-time label li:hover { background: #dedede; cursor: pointer; }
+.dtp-ctn .dtp-time label ul:before { content: ""; height: 100%; font-size: 0; line-height: 0; width: 0; }
+
+.dtp-ctn .dtp-time label ul li { display: inline-block; vertical-align: middle; font-size: 12px; font-size: 1rem; line-height: normal; }
+
+.dtp-ctn .dtp-time label ul li { width: 25px; height: 25px; line-height: 25px; }
+
+.dtp-ctn .dtp-time label ul li:hover { background: #dedede; cursor: pointer; }
+
+.dtp-ctn .dtp-time label ul li.selected { background: #4385e0; color: white; }
 
 .dtp-ctn .dtp-time .dtp-hour ul { width: 152px; display: none; }
 
