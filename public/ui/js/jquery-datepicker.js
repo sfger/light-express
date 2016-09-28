@@ -35,8 +35,7 @@
 							'<li class="item day">五</li>' +
 							'<li class="item day weekend">六</li>' +
 						'</ul>' +
-						'<ul class="dtp-wd">' +
-						'</ul>' +
+						'<ul class="dtp-wd"></ul>' +
 					'</div>' +
 				'</div>' +
 				'<div class="dtp-time">' +
@@ -64,32 +63,35 @@
 			}
 			var init_date = new date_helper(render.value ? Date.UTC.apply(null,parse_timer_array)/1000 : '');
 
-			if('dateTime'===op.type || 'dateHour'===op.type){
+			if('dateTime'===op.type || 'dateHour'===op.type){//{{{
 				$('.dtp-time', ret).show();
 				$('.dtp-hour input', ret).attr('value', init_date.php_date('H'));
 				$('.dtp-minute input', ret).attr('value', init_date.php_date('i'));
-			}
-			if(op.monthNum>1){
+
+				$('.dtp-hour ul', ret).append(function(){
+					var s = '';
+					for(var i=0; i<24; i++) s += '<li>'+date_helper.pad(i,2)+'</li>';
+					return s;
+				});
+
+				$('.dtp-minute ul', ret).append(function(){
+					var s = '';
+					for(var i=0; i<60; i++) s += '<li>'+date_helper.pad(i,2)+'</li>';
+					return s;
+				});
+
+			}//}}}
+
+			if(op.monthNum>1){//{{{
 				var $ul = ret.find('.dtp-header');
 				var $list = ret.find('.dtp-list');
 				for(n=0; n<op.monthNum-1; n++){
 					$ul.append($ul.find('li').eq(0).clone());
 					$list.append($list.find('.dtp-item').eq(0).clone());
 				}
-			}
+			}//}}}
 
-			$('.dtp-hour ul', ret).append(function(){
-				var s = '';
-				for(var i=0; i<24; i++) s += '<li>'+date_helper.pad(i,2)+'</li>';
-				return s;
-			});
-			$('.dtp-minute ul', ret).append(function(){
-				var s = '';
-				for(var i=0; i<60; i++) s += '<li>'+date_helper.pad(i,2)+'</li>';
-				return s;
-			});
-
-			for(n=0; n<op.monthNum; n++){
+			for(n=0; n<op.monthNum; n++){//{{{
 				var abd;
 				if(op.minDate){
 					switch(typeof op.minDate){
@@ -124,7 +126,7 @@
 				if(render && render.ui && render.ui.renderTo) render.ui.renderTo.innerHTML = ret.html();
 				else ret.appendTo('body');
 				dh.get_offset_date(1, 'm');
-			}
+			}//}}}
 			return ret.get(0);
 		};//}}}
 		return this.each(function(){

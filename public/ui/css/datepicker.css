@@ -110,13 +110,19 @@ audio, canvas, video { display: inline-block; vertical-align: middle; }
 
 .vt-btm { vertical-align: bottom; }
 
-.dtp-ctn { display: none; z-index: 100; border: 1px solid #ddd; background: white; }
+.dtp-ctn { display: none; z-index: 100; border: 1px solid #ddd; background: white; font-size: 0; }
 
 .dtp-ctn li { list-style: none; }
 
-.dtp-ctn .dtp-header { display: inline-block; vertical-align: middle; margin-left: -22px; background: #eee; }
+.dtp-ctn .dtp-header { display: inline-block; vertical-align: middle; font-size: 0; text-align: center; margin-left: -22px; background: #eee; }
 
-.dtp-ctn .dtp-header li { display: inline-block; vertical-align: middle; width: 208px; line-height: 27px; text-align: center; color: #333; font-weight: bold; }
+.dtp-ctn .dtp-header:before { display: inline-block; vertical-align: middle; }
+
+.dtp-ctn .dtp-header:before { content: ""; height: 100%; font-size: 0; line-height: 0; width: 0; }
+
+.dtp-ctn .dtp-header li { display: inline-block; vertical-align: middle; font-size: 12px; font-size: 1rem; line-height: normal; }
+
+.dtp-ctn .dtp-header li { width: 208px; line-height: 27px; color: #333; font-weight: bold; }
 
 .dtp-ctn .dtp-header li dfn, .dtp-ctn .dtp-header li span { display: inline-block; vertical-align: middle; }
 
@@ -132,7 +138,7 @@ audio, canvas, video { display: inline-block; vertical-align: middle; }
 
 .dtp-ctn .dtp-switcher.dtp-next { right: 2px; margin-left: -22px; }
 
-.dtp-ctn .dtp-list { text-align: center; }
+.dtp-ctn .dtp-list { text-align: center; font-size: 0; }
 
 .dtp-ctn .dtp-list .dtp-item { display: inline-block; vertical-align: middle; width: 208px; padding: 2px; border-left: 1px solid #ddd; }
 

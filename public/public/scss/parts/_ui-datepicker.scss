@@ -1,12 +1,12 @@
 @charset "utf-8";
 .dtp-ctn{
 	// @include relative($index:100);
-	display:none;z-index:100;border:1px solid #ddd;background:white;
+	display:none;z-index:100;border:1px solid #ddd;background:white;font-size:0;
 	li{list-style:none;}
     .dtp-header{
-		@include ib;margin-left:-22px;background:#eee;
+		@include ib;@include imgc(0,'li',center);margin-left:-22px;background:#eee;
         li{
-			@include ib;width:208px;line-height:27px;text-align:center;color:#333;font-weight:bold;
+			width:208px;line-height:27px;color:#333;font-weight:bold;
 			dfn,span{@include ib;}
 			dfn{padding:0 2px;color:#333;text-decoration:none;font-style:normal;}
 		}
@@ -18,7 +18,7 @@
 		&.dtp-next{right:2px;margin-left:-22px;}
     }
     .dtp-list{
-		text-align:center;
+		text-align:center;font-size:0;
         .dtp-item{
             @include ib;width:208px;padding:2px;border-left:1px solid #ddd;
             &.first,&:first-child{border:none;}
