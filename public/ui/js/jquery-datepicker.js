@@ -11,57 +11,59 @@
 }(this, function($, date_helper){
 	$.fn.datePicker = function(o){
 		var op = $.extend(true, {//{{{
-			type: 'date', // date|dateHour|dateTime
+			type: 'date', // date|dateTime
 			monthNum:1,
 			proxy:$('body'),
 			onComplete:function(){}
 		}, o);//}}}
 		//tpl{{{
-		var tpl =
-			'<div class="dtp-ctn">' +
-				'<a href="javascript:" class="dtp-switcher dtp-prev">&lt;</a>' +
-				'<ul class="dtp-header">' +
-					'<li></li>' +
-				'</ul>' +
-				'<a href="javascript:" class="dtp-switcher dtp-next">&gt;</a>' +
-				'<div class="dtp-list">' +
-					'<div class="dtp-item">' +
-						'<ul class="dtp-wh">' +
-							'<li class="item day weekend">日</li>' +
-							'<li class="item day">一</li>' +
-							'<li class="item day">二</li>' +
-							'<li class="item day">三</li>' +
-							'<li class="item day">四</li>' +
-							'<li class="item day">五</li>' +
-							'<li class="item day weekend">六</li>' +
-						'</ul>' +
-						'<ul class="dtp-wd"></ul>' +
-					'</div>' +
+		var tpl = '<div class="dtp-ctn">' +
+			'<a href="javascript:" class="dtp-switcher dtp-prev">&lt;</a>' +
+			'<ul class="dtp-header">' +
+				'<li></li>' +
+			'</ul>' +
+			'<a href="javascript:" class="dtp-switcher dtp-next">&gt;</a>' +
+			'<div class="dtp-list">' +
+				'<div class="dtp-item">' +
+					'<ul class="dtp-wh">' +
+						'<li class="item day weekend">日</li>' +
+						'<li class="item day">一</li>' +
+						'<li class="item day">二</li>' +
+						'<li class="item day">三</li>' +
+						'<li class="item day">四</li>' +
+						'<li class="item day">五</li>' +
+						'<li class="item day weekend">六</li>' +
+					'</ul>' +
+					'<ul class="dtp-wd"></ul>' +
 				'</div>' +
-				'<div class="dtp-time">' +
-					'<span>时间: </span>' +
-					'<label class="dtp-hour">' +
-						'<input type="text" value="" />' +
-						'<ul></ul>' +
-					'</label>'+
-					'<span> : </span>' +
-					'<label class="dtp-minute">' +
-						'<input type="text" value="" />' +
-						'<ul></ul>' +
-					'</label>' +
-				'</div>' +
-			'</div>';
+			'</div>' +
+			'<div class="dtp-time">' +
+				'<span>时间: </span>' +
+				'<label class="dtp-hour">' +
+					'<input type="text" value="" />' +
+					'<ul></ul>' +
+				'</label>'+
+				'<span> : </span>' +
+				'<label class="dtp-minute">' +
+					'<input type="text" value="" />' +
+					'<ul></ul>' +
+				'</label>' +
+			'</div>' +
+		'</div>';
 		//}}}
-		var draw_ui = function(val, render){//{{{
-			var n;
-			var ret  = $(tpl);
-			var dh   = date_helper().set_date(val);
-			var parse_timer_array = render.value.split(/[\ \-\:]/);
+		function date_parser(str){
+			var parse_timer_array = str.split(/[\ \-\:]/);
 			for(var x =0; x<parse_timer_array.length; x++){
 				parse_timer_array[x] = Number(parse_timer_array[x]);
 				if(x==1) parse_timer_array[x] = parse_timer_array[x] - 1;
 			}
-			var init_date = new date_helper(render.value ? Date.UTC.apply(null,parse_timer_array)/1000 : '');
+			return Date.UTC.apply(null, parse_timer_array)/1000;
+		}
+		var draw_ui = function(val, render){//{{{
+			var n;
+			var ret  = $(tpl);
+			var dh   = date_helper().set_date(val);
+			var init_date = new date_helper(render.value ? date_parser(render.value) : '');
 
 			if('dateTime'===op.type || 'dateHour'===op.type){//{{{
 				$('.dtp-time', ret).show();
@@ -131,7 +133,6 @@
 		};//}}}
 		return this.each(function(){
 			var that = this;
-			// var $this = $(this);
 			var val = this.value;
 			this.ui = {
 				hovered: false,
