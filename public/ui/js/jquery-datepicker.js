@@ -10,52 +10,90 @@
 	}
 }(this, function($, date_helper){
 	$.fn.datePicker = function(o){
-		var op = $.extend(true, {
+		var op = $.extend(true, {//{{{
+			type: 'date', // date|dateTime
 			monthNum:1,
 			proxy:$('body'),
 			onComplete:function(){}
-		}, o);
+		}, o);//}}}
 		//tpl{{{
-		var tpl =
-			'<div class="dtp-ctn">' +
-				'<a href="javascript:" class="dtp-switcher dtp-prev">&lt;</a>' +
-				'<ul class="dtp-header">' +
-					'<li></li>' +
-				'</ul>' +
-				'<a href="javascript:" class="dtp-switcher dtp-next">&gt;</a>' +
-				'<div class="dtp-list">' +
-					'<div class="dtp-item">' +
-						'<ul class="dtp-wh">' +
-							'<li class="item day weekend">日</li>' +
-							'<li class="item day">一</li>' +
-							'<li class="item day">二</li>' +
-							'<li class="item day">三</li>' +
-							'<li class="item day">四</li>' +
-							'<li class="item day">五</li>' +
-							'<li class="item day weekend">六</li>' +
-						'</ul>' +
-						'<ul class="dtp-wd">' +
-						'</ul>' +
-					'</div>' +
+		var tpl = '<div class="dtp-ctn">' +
+			'<a href="javascript:" class="dtp-switcher dtp-prev">&lt;</a>' +
+			'<ul class="dtp-header">' +
+				'<li></li>' +
+			'</ul>' +
+			'<a href="javascript:" class="dtp-switcher dtp-next">&gt;</a>' +
+			'<div class="dtp-list">' +
+				'<div class="dtp-item">' +
+					'<ul class="dtp-wh">' +
+						'<li class="item day weekend">日</li>' +
+						'<li class="item day">一</li>' +
+						'<li class="item day">二</li>' +
+						'<li class="item day">三</li>' +
+						'<li class="item day">四</li>' +
+						'<li class="item day">五</li>' +
+						'<li class="item day weekend">六</li>' +
+					'</ul>' +
+					'<ul class="dtp-wd"></ul>' +
 				'</div>' +
-			'</div>';
+			'</div>' +
+			'<div class="dtp-time">' +
+				'<span>时间: </span>' +
+				'<label class="dtp-hour">' +
+					'<input type="text" value="" />' +
+					'<ul></ul>' +
+				'</label>'+
+				'<span> : </span>' +
+				'<label class="dtp-minute">' +
+					'<input type="text" value="" />' +
+					'<ul></ul>' +
+				'</label>' +
+			'</div>' +
+		'</div>';
 		//}}}
-		var draw_ui = function(val, selected, render){//{{{
-			selected = selected!==undefined ? selected : true;
-			var ret = $(tpl);
-			var n;
-			if(op.monthNum>1){
-				var ul = ret.find('.dtp-header');
-				var list = ret.find('.dtp-list');
-				for(n=0; n<op.monthNum-1; n++){
-					ul.append(ul.find('li').eq(0).clone());
-					list.append(list.find('.dtp-item').eq(0).clone());
-				}
+		function date_parser(str){
+			var parse_timer_array = str.split(/[\ \-\:]/);
+			for(var x =0; x<parse_timer_array.length; x++){
+				parse_timer_array[x] = Number(parse_timer_array[x]);
+				if(x==1) parse_timer_array[x] = parse_timer_array[x] - 1;
 			}
-			var dh = date_helper();
-			dh.set_date(val);
-			for(n=0; n<op.monthNum; n++){
-				var dd = dh.current_date;
+			return Date.UTC.apply(null, parse_timer_array)/1000;
+		}
+		var draw_ui = function(val, render){//{{{
+			var n;
+			var ret  = $(tpl);
+			var dh   = date_helper().set_date(val);
+			var init_date = new date_helper(render.value ? date_parser(render.value) : '');
+
+			if('dateTime'===op.type || 'dateHour'===op.type){//{{{
+				$('.dtp-time', ret).show();
+				$('.dtp-hour input', ret).attr('value', init_date.php_date('H'));
+				$('.dtp-minute input', ret).attr('value', init_date.php_date('i'));
+
+				$('.dtp-hour ul', ret).append(function(){
+					var s = '';
+					for(var i=0; i<24; i++) s += '<li>'+date_helper.pad(i,2)+'</li>';
+					return s;
+				});
+
+				$('.dtp-minute ul', ret).append(function(){
+					var s = '';
+					for(var i=0; i<60; i++) s += '<li>'+date_helper.pad(i,2)+'</li>';
+					return s;
+				});
+
+			}//}}}
+
+			if(op.monthNum>1){//{{{
+				var $ul = ret.find('.dtp-header');
+				var $list = ret.find('.dtp-list');
+				for(n=0; n<op.monthNum-1; n++){
+					$ul.append($ul.find('li').eq(0).clone());
+					$list.append($list.find('.dtp-item').eq(0).clone());
+				}
+			}//}}}
+
+			for(n=0; n<op.monthNum; n++){//{{{
 				var abd;
 				if(op.minDate){
 					switch(typeof op.minDate){
@@ -78,9 +116,9 @@
 				for(var i =0; i<42; i++){
 					var sc = ''; // element class
 					var fd = sdate.php_date('Y-m-'+date_helper.pad(ii, 2));
-					if(fd<abd) sc = ' class="disabled"';
+					if(abd && fd<abd) sc = ' class="disabled"';
 					else if(i<sday||ii>total) sc = ' class="disabled"';
-					else if(fd==dd && selected || render && fd==render.value) sc = ' class="selected"';
+					else if(fd==init_date.current_date) sc = ' class="selected"';
 					var show = i<sday||ii>total ? date_helper.date('j', sdate.current_timestamp+(-sday+i)*86400) : ii++; // 显示日期
 					dl += '<li' + sc + '>' + show + '</li>';
 				}
@@ -90,17 +128,16 @@
 				if(render && render.ui && render.ui.renderTo) render.ui.renderTo.innerHTML = ret.html();
 				else ret.appendTo('body');
 				dh.get_offset_date(1, 'm');
-			}
+			}//}}}
 			return ret.get(0);
 		};//}}}
 		return this.each(function(){
 			var that = this;
-			// var $this = $(this);
 			var val = this.value;
 			this.ui = {
 				hovered: false,
 				skipdate: val,
-				renderTo: draw_ui(val)
+				renderTo: draw_ui(val, that)
 			};
 			$(this.ui.renderTo).css({
 				position:'absolute',
@@ -110,16 +147,18 @@
 			$(this.ui.renderTo).on({
 				click: function(){
 					that.ui.skipdate = date_helper(that.ui.skipdate).get_offset_date(-Number(op.monthNum), 'm').current_date;
-					draw_ui(that.ui.skipdate, false, that);
+					draw_ui(that.ui.skipdate, that);
 				}
 			}, '.dtp-prev').on({
 				click: function(){
 					that.ui.skipdate = date_helper(that.ui.skipdate).get_offset_date(Number(op.monthNum), 'm').current_date;
-					draw_ui(that.ui.skipdate, false, that);
+					draw_ui(that.ui.skipdate, that);
 				}
 			}, '.dtp-next').on({
 				click: function(){
-					that.value = date_helper(that.ui.skipdate).get_first_date_of_month().get_offset_date($(this).closest('.dtp-item').index(), 'm').get_offset_date(Number(this.innerHTML - 1)).current_date;
+					var value = date_helper(that.ui.skipdate).get_first_date_of_month().get_offset_date($(this).closest('.dtp-item').index(), 'm').get_offset_date(Number(this.innerHTML - 1)).current_date;
+					if(op.type==='dateTime') value += ' ' + $(that.ui.renderTo).find('.dtp-hour input').val() + ':' + $(that.ui.renderTo).find('.dtp-minute input').val();
+					that.value = value;
 					$(that.ui.renderTo).hide();
 					op.onComplete && op.onComplete.call(that, that.value);
 				}
@@ -132,9 +171,9 @@
 				}
 			});
 			$(this).on({
-				'click focus': function(){
+				'focus click': function(){
 					op.proxy.trigger('click');
-					draw_ui(that.value, false, that);
+					draw_ui(this.value, this);
 					this.ui.hovered = true;
 					this.ui.skipdate = this.value;
 					$(this.ui.renderTo).show();
@@ -143,13 +182,13 @@
 					this.ui.hovered = false;
 				}
 			});
-			$(this).next().on({
-				click: function(){
-					$(that.ui.renderTo).show();
-					that.ui.hovered = true;
-					return false;
-				}
-			});
+			// $(this.ui.renderTo).on({
+			// 	click: function(){
+			// 		$(that.ui.renderTo).show();
+			// 		that.ui.hovered = true;
+			// 		return false;
+			// 	}
+			// });
 			op.proxy.on({
 				click: function(){
 					if(!that.ui.hovered){
@@ -157,6 +196,27 @@
 					}
 				}
 			});
+
+			$(this.ui.renderTo).on({
+				'focus click': function(){
+					var $this = $(this);
+					var $ul = $this.next();
+					$ul.find('li').removeClass('selected').eq(this.value).addClass('selected');
+					$ul.show().closest('label').siblings().find('ul').hide();
+				},
+				'blur': function(){
+					var $ul = $(this).next();
+					setTimeout(function(){ $ul.hide(); }, 230);
+				}
+			}, '.dtp-time input').on({
+				'click': function(){
+					var $li = $(this);
+					var $ul = $li.closest('ul');
+					var $input = $ul.prev();
+					$input.val( $.trim($li.text()) );
+					setTimeout(function(){ $ul.hide(); }, 1);
+				}
+			}, '.dtp-time li');
 		});
 	};
 }));

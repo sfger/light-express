@@ -1,12 +1,12 @@
 @charset "utf-8";
 .dtp-ctn{
 	// @include relative($index:100);
-	display:none;z-index:100;border:1px solid #ddd;background:white;
+	display:none;z-index:100;border:1px solid #ddd;background:white;font-size:0;
 	li{list-style:none;}
     .dtp-header{
-		@include ib;margin-left:-22px;background:#eee;
+		@include ib;@include imgc(0,'li',center);margin-left:-22px;background:#eee;
         li{
-			@include ib;width:208px;line-height:27px;text-align:center;color:#333;font-weight:bold;
+			width:208px;line-height:27px;color:#333;font-weight:bold;
 			dfn,span{@include ib;}
 			dfn{padding:0 2px;color:#333;text-decoration:none;font-style:normal;}
 		}
@@ -18,18 +18,20 @@
 		&.dtp-next{right:2px;margin-left:-22px;}
     }
     .dtp-list{
-		text-align:center;
+		text-align:center;font-size:0;
         .dtp-item{
             @include ib;width:208px;padding:2px;border-left:1px solid #ddd;
             &.first,&:first-child{border:none;}
         }
         // ul{padding:0;margin:auto;}
         .dtp-wh{background:#ececec;}
-        li{
-			@include size(25px,22px);line-height:20px;
-			margin:2px;@include ib;text-align:center;
-            &.weekend{color:#f18100;}
-        }
+		.dtp-item ul{
+			@include imgc(0,'li');
+			li{
+				@include size(25px,22px);line-height:22px;margin:2px;
+				&.weekend{color:#f18100;}
+			}
+		}
 		.dtp-wd li{
 			@include button(25px,22px,#ececec);color:black;
 			&:hover{background:#666;color:white;}
@@ -41,4 +43,28 @@
             &.selected{background:#4385e0;color:white;}
 		}
     }
+	.dtp-time{
+		display:none;padding:2px 0 2px 8px;border-top:1px solid #ddd;
+		span,input{@include ib;}
+		input{@include size(30px,24px);line-height:22px;margin:0 3px;border:1px solid #dedede;text-align:center;}
+		label{
+			@include relative;@include ib;
+			ul{
+				display:none;@include absolute(left 3px bottom 24px);
+				@include imgc(0,'li');
+				border:1px solid #ddd;border-radius:6px;background:white;
+				li{
+					@include size(25px);line-height:25px;
+					&:hover{background:#dedede;cursor:pointer;}
+					&.selected{background:#4385e0;color:white;}
+				}
+			}
+		}
+		.dtp-hour{
+			ul{width:152px;display:none;}
+		}
+		.dtp-minute{
+			ul{width:252px;}
+		}
+	}
 }
