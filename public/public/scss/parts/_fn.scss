@@ -237,7 +237,7 @@ $color_bg_light :#eee !default;
 	90%{@include prefix((transform:scale(2.5)),webkit);@include opacity(0.1);}
 	100%{@include prefix((transform:scale(0)),webkit);@include opacity(0);}
 }
-@mixin button($width, $height, $bgcolor:transparent, $hover:1,$active:1, $animation:null){
+@mixin button($width, $height, $bgcolor:transparent, $hover:1, $active:1, $animation:null){
 	@include box-sizing(border-box);
 	@include ib;@include size($width, $height);@include user-select(none);
 	font:14px/#{$height} "Microsoft YaHei";border:none;

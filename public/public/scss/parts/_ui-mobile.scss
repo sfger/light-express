@@ -7,13 +7,19 @@ body{position:relative;overflow-x:hidden;} // safari滚动条的问题
 .hidden{display:none;}
 a{color:$color_default;}
 
-@keyframes stateLoading{
-    0%{transform:rotate(0deg);}
-    24%{transform:rotate(180deg);}
-    58%{transform:rotate(290deg);}
-    100%{transform:rotate(360deg);}
+@include keyframes(stateLoading){
+    0%{@include prefix((transform:rotate(0deg)));}
+    24%{@include prefix((transform:rotate(180deg)));}
+    58%{@include prefix((transform:rotate(290deg)));}
+    100%{@include prefix((transform:rotate(360deg)));}
 }
-#stateLoading{
+// @keyframes stateLoading{
+//     0%{transform:rotate(0deg);}
+//     24%{transform:rotate(180deg);}
+//     58%{transform:rotate(290deg);}
+//     100%{transform:rotate(360deg);}
+// }
+.icon-loading,#stateLoading{
 	@include ib;@include size(40px);@include border-radius(100%);
 	@include prefix((animation:stateLoading 1s linear 0s infinite normal));
 	border:3px solid $color_blue;border-right-color:transparent;
@@ -22,6 +28,7 @@ a{color:$color_default;}
 	// border-bottom-width:2px;
 	border-bottom-color:lighten($color_blue, 25%);
 }
+
 .arrow-left{
 	&:before{content:"";@include triangle(left, left 10px top 11px,#666,11px);}
 	&:after {content:"";@include triangle(left, left 12px top 11px,white,11px);}
@@ -97,5 +104,22 @@ a{color:$color_default;}
 	background:white;
 	&.slide-in{
 		@include prefix((transform:translate3d(0,0,0)));
+	}
+}
+
+.load-more{
+	display:none;font:16px SimHei;color:$color_blue;
+	height:40px;line-height:40px;
+	text-align:center;
+	.icon-loading{display:none;}
+	&.state-preloading{
+		&:before{content:'松开加载更多……';@include ib;}
+	}
+	&.state-loading,&.state-preloading{
+		display:block;
+	}
+	&.state-loading{
+		&:before{content:normal;}
+		span{display:inline-block;}
 	}
 }

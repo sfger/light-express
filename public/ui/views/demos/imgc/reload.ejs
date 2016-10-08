@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<title>Title</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimal-ui" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+<meta name="format-detection" content="telephone=no" />
+<meta name="author" content="" />
+<meta name="revisit-after" content="1 days" />
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<link rel="stylesheet" type="text/css" href="../../../../public/css/base.css?<%- __version__ %>" />
+<link rel="stylesheet" type="text/css" href="../../../../ui/css/reload.css?<%- __version__ %>" />
+</head>
+<body>
+<div class="page">
+	<header class="header">
+		<a class="action-left arrow-left" href=""></a>
+		<span>test</span>
+		<a class="action-right" href="">测试</a>
+	</header>
+	<section class="wrapper">
+		<div class="scroller">
+			<label>
+				<input class="checkbox" type="checkbox">
+				<span class="label">点击选择</span>
+			</label>
+			<ul>
+				<% for(let i=0; i<100; i++){ %>
+				<li><%- String(i).repeat(30) %></li>
+				<% } %>
+			</ul>
+		</div>
+	</section>
+	<footer class="footer btn-group">
+		<span class="btn-cancel">Cancel</span>
+		<span class="btn-submit">Ok</span>
+	</footer>
+</div>
+<script id="requirejs" data-version="<%- __version__ %>" src="../../../../public/js/require.js?<%- __version__ %>"></script>
+<script>
+// requestAnimationFrame {{{
+(function() {
+	'use strict';
+	var vendors = ['webkit', 'moz'];
+	for (var i = 0; i < vendors.length && !window.requestAnimationFrame; ++i) {
+		var vp = vendors[i];
+		window.requestAnimationFrame = window[vp+'RequestAnimationFrame'];
+		window.cancelAnimationFrame = (window[vp+'CancelAnimationFrame']
+			|| window[vp+'CancelRequestAnimationFrame']);
+	}
+	if (/iP(ad|hone|od).*OS 6/.test(window.navigator.userAgent) // iOS6 is buggy
+	|| !window.requestAnimationFrame || !window.cancelAnimationFrame) {
+		var lastTime = 0;
+		window.requestAnimationFrame = function(callback) {
+			var now = Date.now();
+			var nextTime = Math.max(lastTime + 16, now);
+			return setTimeout(function() { callback(lastTime = nextTime); }, nextTime - now);
+		};
+		window.cancelAnimationFrame = clearTimeout;
+	}
+}());
+// }}}
+require.config({
+	baseUrl:'../../../../',
+	urlArgs:document.getElementById("requirejs").getAttribute("data-version"),
+	map:{"*":{css:"require-css"}},
+	paths:{
+		jquery:'public/js/jquery',
+		IScroll:'public/js/iscroll-probe'
+	},
+	shim:{
+	}
+});
+require(['jquery', 'IScroll'],function($, IScroll){
+	myScroll = new IScroll('section', {
+		top:true,
+		probeType:3,
+		mouseWheel:true,
+		scrollbars:true,
+		fadeScrollbars:true,
+		interactiveScrollbars: true,
+		shrinkScrollbars: 'scale',
+		preventDefaultException : {
+			tagName:/^(INPUT|TEXTAREA|SELECT|LABEL|A|IMG)$/,
+			className:/(^|\s)(label|clickable)(\s|$)/
+		}
+	});
+	var $scroller = $('.scroller');
+	$scroller.append('<div class="load-more"><span class="icon-loading"></span></div>');
+	var $loadMore = $('.load-more');
+	var scroll_timer = null;
+	var over_height = 0;
+	var pre_over_height = 0;
+	var loading_limit = 50;
+	myScroll.on('scroll', function(){//{{{
+		var that = this;
+		scroll_timer && cancelAnimationFrame(scroll_timer);
+		scroll_timer = requestAnimationFrame(function(){
+			pre_over_height = over_height;
+			over_height = -that.y + that.wrapperHeight - that.scrollerHeight;
+			if(over_height>=loading_limit/* && over_height>pre_over_height*/){
+				$loadMore.addClass('state-preloading');
+			}else{
+				$loadMore.removeClass('state-preloading');
+			}
+		});
+	});//}}}
+	var refresh_timer = null;
+	function refresh_page(){/*{{{*/
+		refresh_timer && cancelAnimationFrame(refresh_timer);
+		requestAnimationFrame(function(){
+			myScroll.refresh();
+		});
+	}/*}}}*/
+	function recover_loading_stage(){//{{{
+		$loadMore.removeClass('state-preloading state-loading');
+		setTimeout(function(){
+			setTimeout(function(){
+				refresh_page();
+			}, myScroll.options.bounceTime*2);
+		}, 10);
+	}//}}}
+
+	$scroller.get(0).addEventListener('touchend', function(){//{{{
+		if(over_height>loading_limit){
+			myScroll.maxScrollY -= loading_limit;
+			$loadMore.removeClass('state-preloading').addClass('state-loading');
+			setTimeout(function(data){
+				myScroll.maxScrollY += loading_limit;
+				myScroll.resetPosition(myScroll.options.bounceTime);
+				recover_loading_stage();
+			}, 800);
+		}
+	}, false);//}}}
+});
+</script>
+</body>
+</html>
