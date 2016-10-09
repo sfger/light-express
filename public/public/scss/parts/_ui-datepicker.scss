@@ -49,6 +49,7 @@
 		input{@include size(30px,24px);line-height:22px;margin:0 3px;border:1px solid #dedede;text-align:center;}
 		label{
 			@include relative;@include ib;
+			span{@include imge;}
 			ul{
 				display:none;@include absolute(left 3px bottom 24px);
 				@include imgc(0,'li');

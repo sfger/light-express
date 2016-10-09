@@ -40,11 +40,13 @@
 			'<div class="dtp-time">' +
 				'<span>时间: </span>' +
 				'<label class="dtp-hour">' +
+					'<span>小时:</span>' +
 					'<input type="text" value="" />' +
 					'<ul></ul>' +
 				'</label>'+
 				'<span> : </span>' +
 				'<label class="dtp-minute">' +
+					'<span>分钟:</span>' +
 					'<input type="text" value="" />' +
 					'<ul></ul>' +
 				'</label>' +
@@ -57,12 +59,12 @@
 				parse_timer_array[x] = Number(parse_timer_array[x]);
 				if(x==1) parse_timer_array[x] = parse_timer_array[x] - 1;
 			}
-			return Date.UTC.apply(null, parse_timer_array)/1000;
+			return Date.UTC.apply(null, parse_timer_array)/1000 + (new Date().getTimezoneOffset()*60);
 		}
-		var draw_ui = function(val, render){//{{{
+		function draw_ui(val, render){//{{{
 			var n;
-			var ret  = $(tpl);
-			var dh   = date_helper().set_date(val);
+			var ret = $(tpl);
+			var dh  = date_helper().set_date(val);
 			var init_date = new date_helper(render.value ? date_parser(render.value) : '');
 
 			if('dateTime'===op.type || 'dateHour'===op.type){//{{{
@@ -130,7 +132,12 @@
 				dh.get_offset_date(1, 'm');
 			}//}}}
 			return ret.get(0);
-		};//}}}
+		}
+		function set_date_val(input, li){
+			var value = li ? date_helper(input.ui.skipdate).get_first_date_of_month().get_offset_date($(li).closest('.dtp-item').index(), 'm').get_offset_date(Number(li.innerHTML - 1)).current_date : input.value.split(' ')[0];
+			if(op.type==='dateTime') value += ' ' + $(input.ui.renderTo).find('.dtp-hour input').val() + ':' + $(input.ui.renderTo).find('.dtp-minute input').val();
+			input.value = value;
+		}
 		return this.each(function(){
 			var that = this;
 			var val = this.value;
@@ -156,9 +163,7 @@
 				}
 			}, '.dtp-next').on({
 				click: function(){
-					var value = date_helper(that.ui.skipdate).get_first_date_of_month().get_offset_date($(this).closest('.dtp-item').index(), 'm').get_offset_date(Number(this.innerHTML - 1)).current_date;
-					if(op.type==='dateTime') value += ' ' + $(that.ui.renderTo).find('.dtp-hour input').val() + ':' + $(that.ui.renderTo).find('.dtp-minute input').val();
-					that.value = value;
+					set_date_val(that, this);
 					$(that.ui.renderTo).hide();
 					op.onComplete && op.onComplete.call(that, that.value);
 				}
@@ -206,14 +211,20 @@
 				},
 				'blur': function(){
 					var $ul = $(this).next();
-					setTimeout(function(){ $ul.hide(); }, 230);
+					this._not_to_hide || setTimeout(function(){ $ul.hide(); }, 230);
+					delete this._not_to_hide;
 				}
 			}, '.dtp-time input').on({
+				'mousedown': function(){
+					var $input = $(this).closest('ul').prev();
+					$input.get(0)._not_to_hide = true;
+				},
 				'click': function(){
 					var $li = $(this);
 					var $ul = $li.closest('ul');
 					var $input = $ul.prev();
 					$input.val( $.trim($li.text()) );
+					set_date_val(that);
 					setTimeout(function(){ $ul.hide(); }, 1);
 				}
 			}, '.dtp-time li');

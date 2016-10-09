@@ -182,6 +182,8 @@ audio, canvas, video { display: inline-block; vertical-align: middle; }
 
 .dtp-ctn .dtp-time label { position: relative; display: inline-block; vertical-align: middle; }
 
+.dtp-ctn .dtp-time label span { display: inline-block; vertical-align: middle; font-size: 12px; font-size: 1rem; line-height: normal; }
+
 .dtp-ctn .dtp-time label ul { display: none; position: absolute; bottom: 24px; left: 3px; font-size: 0; text-align: center; border: 1px solid #ddd; border-radius: 6px; background: white; }
 
 .dtp-ctn .dtp-time label ul:before { display: inline-block; vertical-align: middle; }
