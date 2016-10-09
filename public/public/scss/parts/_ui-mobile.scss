@@ -20,7 +20,7 @@ a{color:$color_default;}
 //     100%{transform:rotate(360deg);}
 // }
 .icon-loading,#stateLoading{
-	@include ib;@include size(40px);@include border-radius(100%);
+	@include ib;@include size(40px);border-radius:100%;
 	@include prefix((animation:stateLoading 1s linear 0s infinite normal));
 	border:3px solid $color_blue;border-right-color:transparent;
 	// border-left-width:4px;
@@ -34,7 +34,7 @@ a{color:$color_default;}
 	&:after {content:"";@include triangle(left, left 12px top 11px,white,11px);}
 }
 .checkbox{
-	@include prefix((appearance:none));@include ib;@include size(18px);@include border-radius(50%);
+	@include prefix((appearance:none));@include ib;@include size(18px);border-radius:50%;
 	line-height:16px;color:#d6d6d6;border:1px solid;text-align:center;
 	&:after{content:"\2713";}
 	&:checked{color:white;background:$color_blue;border-color:$color_blue;}
@@ -42,11 +42,11 @@ a{color:$color_default;}
 
 // 头部固定，内容滚动
 .page{
-	-webkit-tap-highlight-color:rgba(0,0,0,0);-webkit-touch-callout:none;
+	-webkit-tap-highlight-color:rgba(#000,0);-webkit-touch-callout:none;
 	@include flexbox;@include flex-direction(column);
 }
 .header{
-	@include flex(0,0,44px);@include relative;z-index:10;background:#fff;
+	@include flex(0,0,44px);@include relative;z-index:10;background-color:rgba(#fff,0.8);
 	@include flexbox;@include justify-content(space-between);@include align-items(center);
 	text-align:center;
 	#{&},#{&} a{font-size:18px;color:$color_dark;}
@@ -54,7 +54,10 @@ a{color:$color_default;}
 	.action-left,.action-right{@include size(50px,44px);display:block;line-height:44px;}
 }
 .footer{@include flex(0,0,44px);}
-.wrapper{@include flex(1,1,auto);@include relative();overflow:hidden;font-size:14px;}
+.wrapper{
+	@include flex(1,1,auto);@include relative();font-size:14px;overflow:hidden;
+	&.webkit-scroll{-webkit-overflow-scrolling:touch;overflow-y:scroll;overflow-x:hidden;}
+}
 
 .dialog-ctn{
 	@include size(100%);@include fixed(top 0 left 0);z-index:100;
@@ -62,15 +65,14 @@ a{color:$color_default;}
 	@include background-color-rgba(#444,0.68);
 	&.hidden{display:none;}
 	.dialog-content{
-		@include border-radius(3px);
-		width:85%;overflow:hidden;background:white;
+		width:85%;overflow:hidden;background:white;border-radius:3px;
 		.dialog-main{
 			padding:6px 10px;min-height:100px;
 			@include flexbox();@include justify-content(center);@include align-items(center);
 		}
 	}
 	&.loading-state{
-		@include background-color-rgba(white,0.5);
+		background-color:rgba(white,0.5);
 		.dialog-content{
 			padding:6px 10px;
 			@include background-color-rgba(transparent,0);

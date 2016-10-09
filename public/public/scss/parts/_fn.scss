@@ -56,7 +56,7 @@ $color_bg_light :#eee !default;
 	@-webkit-keyframes #{$name}{@content}
 	@keyframes #{$name}{@content}
 }
-// @include keyframes(donghua){
+// @include keyframes(name){
 // 	0%{margin-top:0;}
 // 	25%{margin-top:-10px;}
 // 	50%{margin-top:-20px;}
@@ -89,20 +89,20 @@ $color_bg_light :#eee !default;
 	@include inline-block($vertical-align);
 	@include reset_font_size($rem);
 }
-@mixin imgc($is_image:1, $selecor:img, $align:center, $verticalAlign:middle,$rem:1rem){
+@mixin imgc($is_image:1, $selecor:img, $align:center, $vertical-align:middle, $rem:1rem){
 	font-size:0;
 	@if($align!=left){
 		text-align:$align;
 	}
 	@if($is_modern==0){
-		&:before,.iecp{@include ib($verticalAlign);}
+		&:before,.iecp{@include ib($vertical-align);}
 		&:before,.iecp{content:"";height:100%;font-size:0;line-height:0;width:0;}
 	}@else{
-		&:before{@include ib($verticalAlign);}
+		&:before{@include ib($vertical-align);}
 		&:before,{content:"";height:100%;font-size:0;line-height:0;width:0;}
 	}
 	#{$selecor}{
-		@include ib($verticalAlign);
+		@include ib($vertical-align);
 		@if($is_image==1){
 			max-width:100%;max-height:100%; //大图片等比缩小至父元素大小
 		}@elseif($selecor!=img){
@@ -355,10 +355,7 @@ $color_bg_light :#eee !default;
 @mixin toolTip($direction, $position, $arrSize, $bgColor:white, $borderColor:black, $innerClass:'tool-tip-inner'){
 	$dirMap : ('top':'bottom', 'right':'left', 'bottom':'top', 'left':'right');
 	$od     : map-get($dirMap, $direction);// 反方向
-	$n      : 1;
-	@if index(right bottom, $direction){
-		$n:2;
-	}
+	$n      : if(index(right bottom, $direction),2,1);
 	padding-#{$direction}:nth($arrSize, $n);// padding使用相应宽/高的值，使可以hover到tip上显示
 	.#{$innerClass}{
 		position:relative;padding:5px;background:$bgColor;border-radius:8px;border:1px solid $borderColor;

@@ -32,12 +32,15 @@ shim:{
 }
 });
 require(['jquery', 'IScroll'],function($, IScroll){
-myScroll = new IScroll('section', {
+/* return false; */
+function init_iscroll(selector){
+return new IScroll(selector, {
 top:true,
 probeType:3,
 mouseWheel:true,
 scrollbars:true,
 fadeScrollbars:true,
+deceleration:0.0025,
 interactiveScrollbars: true,
 shrinkScrollbars: 'scale',
 preventDefaultException : {
@@ -45,50 +48,50 @@ tagName:/^(INPUT|TEXTAREA|SELECT|LABEL|A|IMG)$/,
 className:/(^|\s)(label|clickable)(\s|$)/
 }
 });
-var $scroller = $('.scroller');
-$scroller.append('<div class="load-more"><span class="icon-loading"></span></div>');
-var $loadMore = $('.load-more');
-var scroll_timer = null;
+}
+var myScroll = init_iscroll('.wrapper');
+console.log(myScroll);
+var $scroller = $(myScroll.wrapper.children[0]);
+var $loadMore = $('<div class="load-more"><span class="icon-loading"></span></div>');
+$scroller.append($loadMore)
 var over_height = 0;
-var pre_over_height = 0;
 var loading_limit = 50;
+var recover_time = 200;
 myScroll.on('scroll', function(){//{{{
 var that = this;
+var scroll_timer = this._scroll_timer;
 scroll_timer && cancelAnimationFrame(scroll_timer);
-scroll_timer = requestAnimationFrame(function(){
-pre_over_height = over_height;
+this._scroll_timer = requestAnimationFrame(function(){
 over_height = -that.y + that.wrapperHeight - that.scrollerHeight;
-if(over_height>=loading_limit/* && over_height>pre_over_height*/){
+if(over_height>=loading_limit){
 $loadMore.addClass('state-preloading');
 }else{
 $loadMore.removeClass('state-preloading');
 }
 });
 });//}}}
-var refresh_timer = null;
-function refresh_page(){/*{{{*/
+function refresh_page(iscroll){/*{{{*/
+var refresh_timer = iscroll._refresh_timer;
 refresh_timer && cancelAnimationFrame(refresh_timer);
-requestAnimationFrame(function(){
-myScroll.refresh();
+iscroll._refresh_timer = requestAnimationFrame(function(){
+iscroll.refresh();
 });
 }/*}}}*/
-function recover_loading_stage(){//{{{
+function recover_loading_stage(iscroll){//{{{
+iscroll.maxScrollY += loading_limit;
+iscroll.resetPosition(recover_time);
 $loadMore.removeClass('state-preloading state-loading');
-setTimeout(function(){
-setTimeout(function(){
-refresh_page();
-}, myScroll.options.bounceTime*2);
-}, 10);
+/* setTimeout(function(){ */
+/* 	refresh_page(iscroll); */
+/* }, recover_time); */
 }//}}}
 $scroller.get(0).addEventListener('touchend', function(){//{{{
 if(over_height>loading_limit){
 myScroll.maxScrollY -= loading_limit;
 $loadMore.removeClass('state-preloading').addClass('state-loading');
 setTimeout(function(data){
-myScroll.maxScrollY += loading_limit;
-myScroll.resetPosition(myScroll.options.bounceTime);
-recover_loading_stage();
-}, 800);
+recover_loading_stage(myScroll);
+}, 1200);
 }
 }, false);//}}}
 });</script></body></html>
