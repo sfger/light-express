@@ -74,20 +74,20 @@ $.fn.datagrid = function(options){
 	};//}}}
 	var handler  = function(box, options){ return new handler.prototype.init(box, options); };
 	var toString = Object.prototype.toString;
-	var getType  = function(obj){ return toString.call(obj).slice(8, -1); };
+	var getType  = function(obj){ return toString.call(obj).slice(8, -1).toLowerCase(); };
 	var createElement = function(node){//{{{
-		var cd = '',
-			at=[],
-			attr = null,
-			children = null,
-			fn = createElement,
+		var cd        = '',
+			at        = [],
+			attr      = null,
+			children  = null,
+			fn        = createElement,
 			node_type = getType(node);
-		if(node_type === 'Array'){
+		if(node_type === 'array'){
 			for(var j in node) cd += fn(node[j]);
 		}else{
-			if(node_type==="String" || node_type=="Number"){
+			if(node_type==="string" || node_type=="number"){
 				cd = node;
-			}else if(node_type==='Object' && node.name){
+			}else if(node_type==='object' && node.name){
 				attr = node.attr, children = node.children, at = [];
 				if(attr){
 					for(var key in attr){
@@ -95,11 +95,11 @@ $.fn.datagrid = function(options){
 							var style = attr[key];
 							var ot = getType(style);
 							attr[key] = '';
-							if(ot=='Object'){
+							if(ot=='object'){
 								for(var sk in style){
 									attr[key] += sk + ':' + style[sk] + ';';
 								}
-							}else if(ot=='String'){
+							}else if(ot=='string'){
 								attr[key] = style;
 							}
 						}
@@ -107,7 +107,7 @@ $.fn.datagrid = function(options){
 					}
 				}
 				if(at.length) at.unshift('');
-				if(children && getType(children) !== 'Array') children = [children];
+				if(children && getType(children) !== 'array') children = [children];
 				cd = '<' + node.name + at.join(' ') + '>' + (children ? fn(children) : '') + '</' + node.name + '>';
 			} else cd = '';
 		}
@@ -160,7 +160,7 @@ $.fn.datagrid = function(options){
 					if(options.frozenColumns.length && isFrozen && i===0 && options.rowNum || !options.frozenColumns.length && i===0 && options.rowNum){
 						nodes.unshift(createElement({
 							name:'td', attr:{rowspan:(options.frozenColumns.length||options.columns.length), 'class':'field'}, children:{
-								name:'div', attr:{'class':'cell-wrapper'}, children: {
+								name:'div', attr:{'class':'cell-wrapper'}, children:{
 									name:'div', attr:{'class':'cell'}
 								}
 							}
