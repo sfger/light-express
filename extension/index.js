@@ -1,10 +1,30 @@
-var fs         = require('fs');
-var path       = require('path');
-var sass       = require('node-sass');
-var postcss    = require('postcss');
+var path = require('path');
 var static_dir = path.normalize(process.cwd() + '/public');
 var view_dir   = static_dir;
 var route_dir  = path.normalize(process.cwd() + '/routes');
+
+function read_json_file(p, cache=false){
+	var path = require('path');
+	var json = {};
+	p = path.normalize(p);
+	try{
+		// var ret = fs.readFileSync(p, {encoding:'utf8', flag: 'r'});
+		// json = JSON.parse(ret);
+		if(!cache) delete require.cache[require.resolve(p)];
+		json = require(p);
+	}catch(e){
+		console.log(e);
+	}
+	return json;
+}
+function minify_html(str){
+	str = (str||'').replace(/(\/?>)\s+|\s+(?=<)/g, '$1');
+	// str = str.replace(/\\/g, "\\\\");
+	str = str.replace(/\s*([\r\n]+)\s*/g, '$1');
+	// str = str.replace(/([^\\])(')/g, "$1\\$2"); // '
+	return str;
+}
+
 var extension  = {
 	static_dir,
 	route_dir,
@@ -13,26 +33,14 @@ var extension  = {
 		'/ui/js/case/seaShell/_test_.js' : 'data.js,data.js'
 	},
 	get_combo_file_list: file => {
+		var path = require('path');
 		return extension.map_combo_file[file].split(',').map(one => {
 			return path.normalize(extension.static_dir + path.dirname(file) + '/' + one);
 		});
 	},
 
-	readJSONFile: (p) => {
-		var json = {};
-		try{
-			p = path.normalize(p);
-			// var ret = fs.readFileSync(p, {encoding:'utf8', flag: 'r'});
-			// json = JSON.parse(ret);
-			delete require.cache[require.resolve(p)];
-			json = require(p);
-		}catch(e){
-			console.log(e);
-		}
-		return json;
-	},
-
 	get_read_stream_iterator: function*(list){
+		var fs = require('fs');
 		for(var i=0,il=list.length; i<il; i++){
 			yield fs.createReadStream(list[i], {autoClose:false});
 		}
@@ -59,6 +67,7 @@ var extension  = {
 	},
 
 	staticHttpCombo: (req, res, next) => {
+		var path = require('path');
 		if(req.path in extension.map_combo_file){
 			extension.pipe_stream_list_to_writer(extension.get_combo_file_list(req.path), res, next());
 			return false;
@@ -104,6 +113,7 @@ var extension  = {
 	},
 
 	autoAddRoutes: (app, dirPath, routePath, defer) => {
+		var fs = require('fs');
 		Promise.all(fs.readdirSync(dirPath).map(file=>{
 			return new Promise((resolve, reject)=>{
 				fs.stat(dirPath+'/'+file, (err, stats)=>{
@@ -134,20 +144,15 @@ var extension  = {
 			return false;
 		}
 		// console.log(extension);
-		if(req.query.minify!=='0') ret = extension.minifyHTML(ret);
+		if(req.query.minify!=='0') ret = minify_html(ret);
 		if(req.query.dist!=='0'){
 			extension.writeStaticCache(this.distPath || req.route.path, ret);
 		}
 		this.res.send(ret);
 	},
-	minifyHTML: (str) => {
-		str = (str||'').replace(/(\/?>)\s+|\s+(?=<)/g, '$1');
-		// str = str.replace(/\\/g, "\\\\");
-		str = str.replace(/\s*([\r\n]+)\s*/g, '$1');
-		// str = str.replace(/([^\\])(')/g, "$1\\$2"); // '
-		return str;
-	},
 	writeStaticCache: (url, ret) => {
+		var fs = require('fs');
+		var path = require('path');
 		// console.log(url);
 		if(typeof url == 'object' && url.length) url = url[0];
 		var url_path = url.replace(/^\/|\/$/g, '');
@@ -162,6 +167,8 @@ var extension  = {
 		});
 	},
 	mkdirRecursive: (dirpath, mode, callback)=>{
+		var fs = require('fs');
+		var path = require('path');
 		fs.exists(dirpath, (exists)=>{
 			if(exists){
 				callback(dirpath);
@@ -173,6 +180,10 @@ var extension  = {
 		});
 	},
 	nodeSass: (in_file, out_file, defer, next)=>{
+		var fs      = require('fs');
+		var path    = require('path');
+		var sass    = require('node-sass');
+		var postcss = require('postcss');
 		sass.render({
 			// data      : 'body{background:blue; a{color:black;}}',
 			includePaths : [path.normalize(static_dir+'/public/scss')],
@@ -215,6 +226,7 @@ var extension  = {
 		});
 	},
 	compile_list_to_writer: (list, res, next) => {
+		var path = require('path');
 		Promise.all(list.map(css_path=>{
 			return new Promise((resolve, reject)=>{
 				var css_dir   = path.normalize(path.dirname(css_path) + '/');
@@ -242,12 +254,14 @@ var extension  = {
 		return true;
 	},
 	merge_tpl_list: (list, out_file, next) => {
+		var fs = require('fs');
+		var path = require('path');
 		var data = {};
 		try{
 			list.forEach((one) => {
 				var s = fs.readFileSync(one, {encoding:'utf8', flag:'r'});
 				if(~['tpl', 'ejs', 'html', 'htm'].indexOf(path.extname(one).slice(1))){
-					s = extension.minifyHTML(s);
+					s = minify_html(s);
 				}
 				data[path.basename(one)] = s;
 			});
@@ -269,6 +283,8 @@ var extension  = {
 		});
 	},
 	dir_compile: (dir, defer) => {
+		var fs = require('fs');
+		var path = require('path');
 		fs.readdir(extension.static_dir + dir, (err, files)=>{
 			files.length && Promise.all(files.map((one)=>{
 				return new Promise((resolve, reject)=>{
@@ -281,8 +297,7 @@ var extension  = {
 								var req = {path:path.normalize(file_path.replace(/([\\\/])htpl([\\\/])/, "$1tpl$2")+'.js').replace(/\\/g, '/')};
 								extension.Compile2JS(req, {});
 								resolve(path.normalize(extension.static_dir + file_path));
-							}
-							resolve(null);
+							}else resolve(null);
 						}
 					});
 				});
@@ -294,6 +309,7 @@ var extension  = {
 	 * 具有合并多个模块文件为一个的功能
 	 * */
 	Compile2JS: (req, res, next) => {
+		var path = require('path');
 		if(!/\/tpl\/.*\.js$/.test(req.path)) return next&&next();
 		var out_file   = path.normalize(extension.static_dir + req.path);
 		var out_path   = path.normalize(path.dirname(out_file) + '/');
@@ -303,7 +319,7 @@ var extension  = {
 		path_patch.push('map.json');
 		extension.mkdirRecursive(out_path, 777, ()=>{
 			var list = [];
-			var map  = extension.readJSONFile(path_patch.join(''));
+			var map  = read_json_file(path_patch.join(''));
 			var stpl = map[req.path.replace(/\.js$/,'').slice(1)];
 			if( stpl ){ // 多模块合并
 				stpl.split(',').forEach((one) => {
