@@ -23,7 +23,7 @@ $.fn.pagination = function(options){
 		showPreNextOnEdge   : true,             // 最后一页是否显示不能点击的下一页
 		prePageAlias        : '上一页',         // 上一页文字
 		nextPageAlias       : '下一页',         // 下一页文字
-		pageSizeList        : [10, 25, 50, 100] // 保留功能，选择每页数据数
+		pageSizeList        : [10, 25, 50, 100] // TODO:选择每页数据数
 	}, options);
 	var handler = function(box, options){ return new handler.prototype.init(box, options); };
 	handler.prototype = {
