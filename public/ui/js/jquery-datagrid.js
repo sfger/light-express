@@ -294,7 +294,7 @@ $.fn.datagrid = function(options){
 			tp1.css({width:width_full});
 			tp0.parent().css({width:width_full, overflow:'hidden'});
 			var update_scroll_offset = function(){
-				tp0.get(0).parentNode.scrollLeft = this.scrollLeft;
+				tp0.get(0).parentNode.scrollLeft   = this.scrollLeft;
 				tables.get(1).parentNode.scrollTop = this.scrollTop;
 			};
 			$(tp1).off('scroll').on('scroll', function(){
@@ -376,7 +376,7 @@ $.fn.datagrid = function(options){
 			var ie = /MSIE (\d+)\.?/.exec(navigator.userAgent);
 			if(ie && ie.length && ie[1]){
 				ie = Number(ie[1]);
-				if(ie<10) $(window).on('resize', throttle(function(){ that.resize(); }));
+				if(ie<10) $(window).on('resize.datagrid', throttle(function(){ that.resize(); }));
 			}
 			// if(document.documentMode===5 || /MSIE 6/.test(navigator.userAgent)){
 			// 	var hover_binds = {// css tr:hover fix

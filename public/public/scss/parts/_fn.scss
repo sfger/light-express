@@ -16,7 +16,7 @@ $color_bg_light :#eee !default;
 // 第一个参数为属性和值，第二个参数则是前缀
 // @mixin prefix($map, $vendors:webkit moz ms o){
 @mixin prefix($map, $vendors:webkit){
-	@each $prop, $value in $map{
+	@each $prop,$value in $map{
 		@if $vendors {
 			@each $vendor in $vendors {
 				#{'-' + $vendor + '-' + $prop}:$value;
@@ -57,7 +57,6 @@ $color_bg_light :#eee !default;
 }
 %cf{@include cf();}
 
-// inline-block
 @mixin inline-block($vertical-align:middle){
 	display:inline-block;
 	@if($is_modern==0){*display:inline;*zoom:1;}
@@ -84,8 +83,7 @@ $color_bg_light :#eee !default;
 // webkit多行溢出省略
 @mixin mln($line:2){
 	overflow:hidden;text-overflow:ellipsis;
-	display:-webkit-box;-webkit-box-orient:vertical;
-	-webkit-line-clamp:$line;
+	display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:$line;
 }
 %mln{@include mln;}
 
@@ -94,7 +92,7 @@ $color_bg_light :#eee !default;
 @mixin reset_font_size($rem:1rem){
 	font-size:$base_font_size;font-size:$rem;line-height:normal;
 }
-@mixin imge($vertical-align:middle,$rem:1rem){
+@mixin imge($vertical-align:middle, $rem:1rem){
 	@include inline-block($vertical-align);
 	@include reset_font_size($rem);
 }
@@ -124,22 +122,19 @@ $color_bg_light :#eee !default;
 // $is_modern:0;
 // .test{@include imgc;}
 
-@mixin opacity($val:0.5){
-	opacity:$val;
-	filter:alpha(opacity=$val*100);
-}
+@mixin opacity($val:0.5){opacity:$val;filter:alpha(opacity=$val*100);}
 
 // @param
 // $color - 普通的十六进制颜色值 #123456
 // $alpha - 透明度0 ~ 1
 @mixin background-color-rgba($color, $alpha){
-	$rgba:rgba($color,$alpha);
-	$ie-hex-str:ie-hex-str($rgba);
+	$rgba       : rgba($color,$alpha);
+	$ie-hex-str : ie-hex-str($rgba);
 	background-color:$rgba;
-	@if($is_modern==0){
-		filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#{$ie-hex-str},endColorstr=#{$ie-hex-str});
-		@media screen and (min-width:0px){filter:none;}
-	}
+	// @if($is_modern==0){
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#{$ie-hex-str},endColorstr=#{$ie-hex-str});
+	@media screen and (min-width:0px){filter:none;}
+	// }
 }
 @mixin user-select($val){@include prefix((user-select:$val),webkit moz ms);}
 @mixin box-sizing($mode:content-box){@include prefix((box-sizing:$mode),webkit moz);}
@@ -191,14 +186,12 @@ $color_bg_light :#eee !default;
 	}
 }
 
-// position
-// 使用：@include relative(top 1px left 1px)--->position:relative;left:1px;top:1px;
 @mixin position($position, $args, $index:null){
 	position:unquote($position);
-	@each $o in top right bottom left {
+	@each $o in top right bottom left{
 		$i: index($args, $o);
-		@if $i and $i + 1 <= length($args) and type-of(nth($args, $i + 1)) == number {
-			#{$o}: nth($args, $i + 1);
+		@if $i and $i+1<=length($args) and type-of(nth($args,$i+1))==number{
+			#{$o}:nth($args,$i+1);
 		}
 	}
 	@if($index){
@@ -208,16 +201,8 @@ $color_bg_light :#eee !default;
 @mixin absolute($args:null, $index:null){@include position("absolute", $args, $index);}
 @mixin fixed($args:null, $index:null){@include position("fixed", $args, $index);}
 @mixin relative($args:null, $index:null){@include position("relative", $args, $index);}
-// 例：
-// sass
 // .element {
 // 	@include absolute(top 0 left 1em);
-// }
-// Ouput
-// .element {
-// 	position: absolute;
-// 	top: 0;
-// 	left: 1em;
 // }
 
 @include keyframes(radioOut){
