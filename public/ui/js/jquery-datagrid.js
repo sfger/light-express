@@ -294,13 +294,12 @@ $.fn.datagrid = function(options){
 			tp1.css({width:width_full});
 			tp0.parent().css({width:width_full, overflow:'hidden'});
 			var update_scroll_offset = function(){
-				tp0.parent().get(0).scrollLeft = this.scrollLeft;
+				tp0.get(0).parentNode.scrollLeft = this.scrollLeft;
 				tables.get(1).parentNode.scrollTop = this.scrollTop;
 			};
-			var scroll_id = null;
 			$(tp1).off('scroll').on('scroll', function(){
-				cancelAnimationFrame(scroll_id);
-				scroll_id = requestAnimationFrame(update_scroll_offset.bind(this));
+				this._scroll_id && cancelAnimationFrame(this._scroll_id);
+				this.scroll_id = requestAnimationFrame(update_scroll_offset.bind(this));
 			});
 		}
 	};//}}}

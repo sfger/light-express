@@ -19,35 +19,21 @@ $color_bg_light :#eee !default;
 	@each $prop, $value in $map{
 		@if $vendors {
 			@each $vendor in $vendors {
-				#{'-' + $vendor + '-' + $prop}:#{$value};
+				#{'-' + $vendor + '-' + $prop}:$value;
 			}
 		}
-		// Dump regular property anyway
 		#{$prop}:#{$value};
 	}
 }
 // sass:
-// .lits{
+// .list{
 // 	@include prefix((transform:rotate(0deg),transition:all .2s ease-out));
 // }
 // .test{
 // 	@include prefix((transition:#{top 1s,transform 1s,left 1s}));
 // }
 // .element {
-// 	@include prefix((transform: translate(-50%, -50%)), webkit ms);
-// }
-// Ouput:
-// .test {
-// 	-webkit-transition: top 1s, transform 1s, left 1s;
-// 	-moz-transition: top 1s, transform 1s, left 1s;
-// 	-ms-transition: top 1s, transform 1s, left 1s;
-// 	-o-transition: top 1s, transform 1s, left 1s;
-// 	transition: top 1s, transform 1s, left 1s;
-// }
-// .element {
-// 	-webkit-transform: translate(-50%, -50%);
-// 	-ms-transform: translate(-50%, -50%);
-// 	transform: translate(-50%, -50%);
+// 	@include prefix((transform:translate(-50%, -50%) rotate(45deg)), webkit ms);
 // }
 @mixin keyframes($name){
 	// @-moz-keyframes #{$name}{@content}
@@ -69,6 +55,7 @@ $color_bg_light :#eee !default;
 	&:before,&:after{content:"";display:table;}
 	&:after{clear:both;overflow:hidden;}
 }
+%cf{@include cf();}
 
 // inline-block
 @mixin inline-block($vertical-align:middle){
@@ -76,9 +63,31 @@ $color_bg_light :#eee !default;
 	@if($is_modern==0){*display:inline;*zoom:1;}
 	vertical-align:$vertical-align;//*vertical-align:auto;
 }
-@mixin ib($valign:middle){
-	@include inline-block($valign);
+%inline-block{@include inline-block;}
+@mixin ib($vertical-align:middle){
+	@include inline-block($vertical-align);
 }
+%ib{@include ib;}
+@mixin size($width:auto, $height:$width, $prefix:null){
+	@if $prefix and not index(min max, $prefix){
+		@warn "If there is a prefix, it must be:[min|max]`, but got:`#{$direction}`.";
+	}@else{
+		$prefix: if($prefix, $prefix+'-', '');
+		#{$prefix + 'width'}:$width;
+		#{$prefix + 'height'}:$height;
+	}
+}
+// 单行溢出省略
+@mixin sln(){white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+%sln{@include sln();}
+
+// webkit多行溢出省略
+@mixin mln($line:2){
+	overflow:hidden;text-overflow:ellipsis;
+	display:-webkit-box;-webkit-box-orient:vertical;
+	-webkit-line-clamp:$line;
+}
+%mln{@include mln;}
 
 // 通用居中样式
 // 使用见_layout.scss
@@ -89,6 +98,7 @@ $color_bg_light :#eee !default;
 	@include inline-block($vertical-align);
 	@include reset_font_size($rem);
 }
+%imge{@include imge();}
 @mixin imgc($is_image:1, $selecor:img, $align:center, $vertical-align:middle, $rem:1rem){
 	font-size:0;
 	@if($align!=left){
@@ -104,34 +114,15 @@ $color_bg_light :#eee !default;
 	#{$selecor}{
 		@include ib($vertical-align);
 		@if($is_image==1){
-			max-width:100%;max-height:100%; //大图片等比缩小至父元素大小
+			@include size(100%,100%,max);
 		}@elseif($selecor!=img){
 			@include reset_font_size($rem);
 		}
 	}
 }
-// $is_modern:1;
-// .test{@include imgc;}
-
-// 单行溢出省略
-@mixin sln(){white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-
-// webkit多行溢出省略
-@mixin mln($line:2){
-	overflow:hidden;text-overflow:ellipsis;
-	display:-webkit-box;-webkit-box-orient:vertical;
-	-webkit-line-clamp:$line;
-}
-
-%cf{@include cf();}
-%inline-block{@include inline-block;}
-%ib{@include inline-block;}
-%imge{@include imge();}
 %imgc{@include imgc();}
-%sln{@include sln();}
-%mln{@include mln;}
-
-// .test{@extend %inline-block;}
+// $is_modern:0;
+// .test{@include imgc;}
 
 @mixin opacity($val:0.5){
 	opacity:$val;
@@ -150,8 +141,6 @@ $color_bg_light :#eee !default;
 		@media screen and (min-width:0px){filter:none;}
 	}
 }
-
-@mixin size($width:auto, $height:$width){width:$width;height:$height;}
 @mixin user-select($val){@include prefix((user-select:$val),webkit moz ms);}
 @mixin box-sizing($mode:content-box){@include prefix((box-sizing:$mode),webkit moz);}
 @mixin border-radius($n:0){@include prefix((border-radius:$n),webkit moz);}
@@ -299,7 +288,7 @@ $color_bg_light :#eee !default;
 		'ltr'    : 'rtl',
 		'rtl'    : 'ltr'
 	);
-	@each $direction in $directions {
+	@each $direction in $directions{
 		$direction: to-lower-case($direction);
 		@if map-has-key($direction-map, $direction) {
 			$opposite-directions: append($opposite-directions, unquote(map-get($direction-map, $direction)));
@@ -320,18 +309,17 @@ $color_bg_light :#eee !default;
 
 //生成 三角
 @mixin triangle($direction, $position, $color:currentcolor, $size:1em) {
-	$direction: if(function-exists("to-lower-case") == true, to-lower-case($direction), $direction);
-	@if not index(top right bottom left, $direction) {
+	$direction:if(function-exists("to-lower-case")==true,to-lower-case($direction),$direction);
+	@if not index(top right bottom left, $direction){
 		@warn "Direction must be one of `top`, `right`, `bottom` or `left`; currently `#{$direction}`.";
-	} @else {
-		// Core stuff
+	}@else{
 		@include absolute($position);@include size(0);
-		border-#{opposite-direction($direction)}: $size solid $color;
+		border-#{opposite-direction($direction)}:$size solid $color;
 		$perpendicular-border: $size solid transparent;
-		@if $direction == top or $direction == bottom {
+		@if index(top bottom,$direction){
 			border-left:   $perpendicular-border;
 			border-right:  $perpendicular-border;
-		} @else if $direction == right or $direction == left {
+		}@else if index(right left,$direction){
 			border-bottom: $perpendicular-border;
 			border-top:    $perpendicular-border;
 		}
@@ -436,18 +424,15 @@ $color_bg_light :#eee !default;
         @media screen and(min-width:0px){@include border-radius(50%);background-color:$color;}
         .step-arrow{
             display:block;@include size(0);margin-top:-22px;margin-left:-12px;
-            border:12px solid $color;
+            border:12px solid $color;border-right:0px solid white;
 			border-top:8px solid white;border-bottom:8px solid white;
-			border-right:0px solid white;
             &.arrow-done{border-left-color:$colorDone;}
         }
         &.position-done{
             @media screen and(min-width:0px){background-color:$colorDone;}
             .step-arrow{border-left-color:$colorDone;}
         }
-        &.first-position{
-            .step-arrow{border-color:transparent;}
-        }
+        &.first-position .step-arrow{border-color:transparent;}
         .step-label{font:12px/normal NSimSun;color:#999;margin-top:20px;width:500%;margin-left:-200%;}
     }
 }
