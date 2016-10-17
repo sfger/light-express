@@ -25,7 +25,7 @@ var light = {
 		isPlainObject : function(obj){
 			if(light.util.getType(obj)!=="object" || obj.nodeType || light.util.isWindow(obj)) return false;
 			try{
-				if(obj.constructor && !light.util.call(obj.constructor.prototype, "isPrototypeOf")) return false;
+				if(obj.constructor && !light.util.hasOwnProperty.call(obj.constructor.prototype, "isPrototypeOf")) return false;
 			}catch(e){
 				return false;
 			}
