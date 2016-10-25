@@ -221,8 +221,7 @@ $.fn.datagrid = function(options){
 				}, {
 					name:'div', attr:{'class':'body-wrapper', style:'overflow:hidden;'}, children:{
 						name:'table', attr:{'class':'frozen body'}, children:{
-							name:'tbody', children:
-								get_data_rows(options.data, that.frozenColumns, true)
+							name:'tbody', children:get_data_rows(options.data, that.frozenColumns, true)
 						}
 					}
 				}
@@ -238,8 +237,7 @@ $.fn.datagrid = function(options){
 				}, {
 					name:'div', attr:{'class': 'body-wrapper'}, children:{
 						name:'table', attr:{'class': 'body'}, children:{
-							name:'tbody', children:
-								get_data_rows(options.data, that.columns)
+							name:'tbody', children:get_data_rows(options.data, that.columns)
 						}
 					}
 				}]

@@ -1,14 +1,17 @@
 var path = require('path');
 var glob = require('glob');
-var entrysArray = glob.sync("*/js/**/*.@(entry).js?(x)", {
+var entrysArray = glob.sync("*/js/**/*.@(entry).@(js?(x)|ts)", {
 	cwd:'./public/',
 	nobrace:true
 });
 // console.log(entrysArray);
+// process.exit();
 var entryMap = {};
 entrysArray.forEach((one) => {
-	entryMap[one.replace(/\.entry\.jsx?$/, '')] = './' + one;
+	entryMap[one.replace(/\.entry\.(jsx|ts)?$/, '')] = './' + one;
 });
+// console.log(entryMap);
+// process.exit();
 // entryMap.bundle = [
 // 	'webpack/hot/dev-server',
 // 	'webpack-dev-server/client?http://localhost',
@@ -27,9 +30,11 @@ module.exports = {
 		publicPath:'../dist/'
 	},
 	resolve:{
+		 // extensions:['', '.ts', '.js', '.jsx']
 	},
 	module:{
 		loaders:[
+			{test:/\.ts$/, loader:'ts-loader'},
 			{
 				exclude:/(node_modules|bower_components)/,
 				test:/\.jsx?$/,
