@@ -202,8 +202,35 @@ function number_format(n, x, c){//{{{
 function number_from_format(str){//{{{
 	return Number(str.replace(/,/g, ''));
 }//}}}
+function dom_count_down(option){//{{{
+	var that = this;
+	var get_timestamp = function(){ return parseInt(+new Date()/1000, 10); };
+	var etime = get_timestamp() + option.time;
+	var timer_fn = function(){
+		clearTimeout(that.__count_down_timer__);
+		var second = etime - get_timestamp();
+		option.render.innerHTML = option.formatter(second);
+		if(second>0){
+			that.__count_down_timer__ = setTimeout(timer_fn, 1000);
+		}else{
+			option.onCountComplete();
+		}
+	};
+	that.__count_down_timer__ = setTimeout(function(){timer_fn();}, 0);
+	return true;
+}//}}}
+// var instance = new dom_count_down({//{{{
+// 	render: dom_node,
+// 	time: 5,
+// 	formatter: function(second){
+// 		return '还有'+second+'秒开始下单';
+// 	},
+// 	onCountComplete: function(){
+// 		dom_node.innerHTML = '结束';
+// 	}
+// });//}}}
 
-function isPlainObject(obj){
+function isPlainObject(obj){//{{{
 	if(getType(obj)!=="object" || obj.nodeType || isWindow(obj)) return false;
 	try{
 		if(obj.constructor && !Object.prototype.hasOwnProperty.call(obj.constructor.prototype, "isPrototypeOf")) return false;
@@ -211,7 +238,7 @@ function isPlainObject(obj){
 		return false;
 	}
 	return true;
-}
+}//}}}
 /* Object */
 function extend(){//{{{
 	var i = 1,
