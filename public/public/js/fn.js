@@ -195,8 +195,10 @@ function number_format(n, x, c){//{{{
 	if(isNaN(n)) return n;
 	n = n||0, x = x||0, c = c||3;
 	n = Number(n).toFixed(x);
-	return n.replace(new RegExp("\\B(?=(\\d{"+c+"})+(?=[\.]|$))", 'g'), ',');
+	var end = x===0 ? '$' : '[\\.]';
+	return n.replace(new RegExp("\\B(?=(\\d{"+c+"})+(?="+end+"))", 'g'), ',');
 }//}}}
+// console.log(number_format(22222222.22222, 5, 3));
 function number_from_format(str){//{{{
 	return Number(str.replace(/,/g, ''));
 }//}}}
@@ -273,7 +275,8 @@ function getCurrentScript(){//{{{
 	var nodes = document.getElementsByTagName("script");
 	for(var i=0,node; (node=nodes[i++]);) {
 		if(node.readyState === "interactive") {
-			return node.className = node;
+			// return node.className = node;
+			return node;
 		}
 	}
 }//}}}
