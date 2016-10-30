@@ -131,15 +131,12 @@ $color_bg_light :#eee !default;
 	$rgba       : rgba($color,$alpha);
 	$ie-hex-str : ie-hex-str($rgba);
 	background-color:$rgba;
-	// @if($is_modern==0){
 	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#{$ie-hex-str},endColorstr=#{$ie-hex-str});
 	@media screen and (min-width:0px){filter:none;}
-	// }
 }
 @mixin user-select($val){@include prefix((user-select:$val),webkit moz ms);}
 @mixin box-sizing($mode:content-box){@include prefix((box-sizing:$mode),webkit moz);}
 @mixin border-radius($n:0){@include prefix((border-radius:$n),webkit moz);}
-// @include border-radius(3px);
 
 @mixin border-top-left-radius($n:0){@include prefix((border-top-left-radius:$n),webkit moz);}
 @mixin border-top-right-radius($n:0){@include prefix((border-top-right-radius:$n),webkit moz);}

@@ -3,7 +3,7 @@ var static_dir = path.normalize(process.cwd() + '/public');
 var view_dir   = static_dir;
 var route_dir  = path.normalize(process.cwd() + '/routes');
 
-function read_json_file(p, cache=false){
+function read_json_file(p, cache=false){//{{{
 	var path = require('path');
 	var json = {};
 	p = path.normalize(p);
@@ -16,14 +16,14 @@ function read_json_file(p, cache=false){
 		console.log(e);
 	}
 	return json;
-}
-function minify_html(str){
+}//}}}
+function minify_html(str){//{{{
 	str = (str||'').replace(/(\/?>)\s+|\s+(?=<)/g, '$1');
 	// str = str.replace(/\\/g, "\\\\");
 	str = str.replace(/\s*([\r\n]+)\s*/g, '$1');
 	// str = str.replace(/([^\\])(')/g, "$1\\$2"); // '
 	return str;
-}
+}//}}}
 
 var extension  = {
 	static_dir,
