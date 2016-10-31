@@ -191,18 +191,34 @@ function createElement(node){//{{{
 	}
 	return cd;
 }//}}}
-function number_format(n, x, c){//{{{
+function numberFormat(n, x, c){//{{{
 	if(isNaN(n)) return n;
 	n = n||0, x = x||0, c = c||3;
 	n = Number(n).toFixed(x);
 	var end = x===0 ? '$' : '[\\.]';
 	return n.replace(new RegExp("\\B(?=(\\d{"+c+"})+(?="+end+"))", 'g'), ',');
 }//}}}
-// console.log(number_format(22222222.22222, 5, 3));
-function number_from_format(str){//{{{
+// console.log(numberFormat(22222222.22222, 5, 3));
+function numberFromFormat(str){//{{{
 	return Number(str.replace(/,/g, ''));
 }//}}}
-function dom_count_down(option){//{{{
+function buildRegString(s){//{{{
+    if(!s) return s;
+    return String(s).replace(/[\(\)\^\$\*\?\+\\.\\-]/g, function(i){
+        return '\\' + i;
+    });
+}//}}}
+function hasTrunk(trunk, str, delimeter){//{{{
+    trunk = buildRegString(trunk);
+    if(delimeter){
+        delimeter = buildRegString(delimeter);
+        return new RegExp('(['+delimeter+']|^)'+trunk+'(['+delimeter+']|$)').test(str);
+    } else return new RegExp(trunk).test(str);
+}//}}}
+// var title = "ECCO Men's Darren High Moonless 43 (US Men's 9-9.5) D - Medium";
+// var one = "43 (US Men's 9-9.5)";
+// console.log( hasTrunk(one, title, ' ') );
+function domCountDown(option){//{{{
 	var that = this;
 	var get_timestamp = function(){ return parseInt(+new Date()/1000, 10); };
 	var etime = get_timestamp() + option.time;
@@ -219,7 +235,7 @@ function dom_count_down(option){//{{{
 	that.__count_down_timer__ = setTimeout(function(){timer_fn();}, 0);
 	return true;
 }//}}}
-// var instance = new dom_count_down({//{{{
+// var instance = new domCountDown({//{{{
 // 	render: dom_node,
 // 	time: 5,
 // 	formatter: function(second){
