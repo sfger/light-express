@@ -418,3 +418,18 @@ $color_bg_light :#eee !default;
         .step-label{font:12px/normal NSimSun;color:#999;margin-top:20px;width:500%;margin-left:-200%;}
     }
 }
+
+@mixin grid(){
+	display:table;width:100%;@include flexbox;
+}
+@mixin col($width:auto){
+	display:table-cell;
+	@media screen and(-ms-high-contrast:active),(-ms-high-contrast:none){display:block;}
+	@include flex(0,0,$width);
+	&:before{content:"";display:none;display:block\0;width:$width;height:0;line-height:0;font-size:0;}
+}
+@mixin col-auto(){
+	display:table-cell;width:100%;
+	@media screen and(-ms-high-contrast:active),(-ms-high-contrast:none){display:block;}
+	@include flex(1,1,auto);
+}

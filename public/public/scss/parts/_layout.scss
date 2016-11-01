@@ -31,3 +31,9 @@
 .vt-top{vertical-align:top;}
 .vt-mid{vertical-align:middle;}
 .vt-btm{vertical-align:bottom;}
+
+.grid{
+	@include grid;
+	.col{@include col(auto);}
+	.col-auto{@include col-auto;}
+}
