@@ -423,13 +423,11 @@ $color_bg_light :#eee !default;
 	display:table;width:100%;@include flexbox;
 }
 @mixin col($width:auto){
-	display:table-cell;
+	@include flex(0,0,$width);display:table-cell\9;
 	@media screen and(-ms-high-contrast:active),(-ms-high-contrast:none){display:block;}
-	@include flex(0,0,$width);
-	&:before{content:"";display:none;display:block\0;width:$width;height:0;line-height:0;font-size:0;}
+	>.grid-iecp{content:"";display:none;display:block;width:$width;height:0;line-height:0;font-size:0;}
 }
 @mixin col-auto(){
-	display:table-cell;width:100%;
+	display:table-cell\9;width:100%\9;@include flex(1,1,auto);
 	@media screen and(-ms-high-contrast:active),(-ms-high-contrast:none){display:block;}
-	@include flex(1,1,auto);
 }

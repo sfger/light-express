@@ -15,7 +15,7 @@
 <style type="text/css" media="all">
 #page{display:table;width:100%;}
 .grid>div{height:300px;}
-.grid .col,.grid .col:before{width:200px;}
+.grid .col,.grid .col>.grid-iecp{width:200px;}
 .col-auto{background:#999;color:white;}
 </style>
 </head>
@@ -23,9 +23,11 @@
 <div id="page">
 	<div class="grid">
 		<div class="col">
+			<!--[if lte IE 9]><p class="grid-iecp"></p><![endif]-->
 			test
 		</div>
 		<div class="col">
+			<!--[if lte IE 9]><p class="grid-iecp"></p><![endif]-->
 			test
 		</div>
 		<div class="col-auto">list</div>
