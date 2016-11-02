@@ -42,7 +42,7 @@ $.fn.datagrid = function(options){
 		colWidth      : 80,
 		startRowNum   : 1,
 		data          : [],
-		sortable      : false,
+		sortable      : true,
 		sort          : null,
 		dataType      : 'string',
 		remoteSort    : false,
