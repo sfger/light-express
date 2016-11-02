@@ -252,15 +252,17 @@ $.fn.datagrid = function(options){
 		// return (document.documentMode<7 || /MSIE 6/.test(navigator.userAgent))
 		// 	? el['offset'+('width'==type ? 'Width' : 'Height')]
 		// 	: $(el)[type]();
-		return $(el)[type]();
+		// return $(el)[type]();
+		return el['offset'+(type==='width'?'Width':'Height')];
 	};//}}}
 	var align_table = function(a, b, type){//{{{
-		var st = type==='width' ? 'Width' : 'Height';
+		var st = 'offset'+(type==='width' ? 'Width' : 'Height');
 		$(a).each(function(i){
-			var t1 = this['offset' + st];
-			var t2 = b[i]['offset' + st];
+			var t1 = this[st];
+			var t2 = b[i][st];
 			var t = t1<t2 ? t2 : t1;
-			$([this, b[i]])[type](t);
+			this.style[type] = b[i].style[type] = t + 'px';
+			// $([this, b[i]])[type](t);
 		});
 	};//}}}
 	var align_td = function(a, type, fieldElements){//{{{
@@ -270,7 +272,8 @@ $.fn.datagrid = function(options){
 				t2  = getHW(field, type);
 			if(t1===t2) return;
 			var t = t1<t2 ? t2 : t1;
-			$([this, field])[type](t+3);
+			this.style[type] = field.style[type] = (t + 3) + 'px';
+			// $([this, field])[type](t+3);
 		});
 	};//}}}
 	var adjust_table = function(tables, that){//{{{
