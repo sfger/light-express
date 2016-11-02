@@ -118,6 +118,6 @@ audio, canvas, video { display: inline-block; vertical-align: middle; }
 
 .grid .col > .grid-iecp { content: ""; display: none; display: block; width: auto; height: 0; line-height: 0; font-size: 0; }
 
-.grid .col-auto { display: table-cell\9; width: 100%\9; -webkit-box-flex: 1; -webkit-flex: 1 1 auto; -moz-box-flex: 1; -moz-flex: 1 1 auto; -ms-flex: 1 1 auto; flex: 1 1 auto; }
+.grid .col-rest { display: table-cell\9; width: 100%\9; -webkit-box-flex: 1; -webkit-flex: 1 1 auto; -moz-box-flex: 1; -moz-flex: 1 1 auto; -ms-flex: 1 1 auto; flex: 1 1 auto; }
 
-@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) { .grid .col-auto { display: block; } }
+@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) { .grid .col-rest { display: block; } }

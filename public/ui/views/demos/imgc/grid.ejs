@@ -13,8 +13,6 @@
 <meta name="description" content="" />
 <link rel="stylesheet" type="text/css" href="../../../../public/css/base.css?<%- __version__ %>" />
 <style type="text/css" media="all">
-#page{display:table;width:100%;}
-.grid>div{height:300px;}
 .grid .col,.grid .col>.grid-iecp{width:200px;}
 .col-auto{background:#999;color:white;}
 </style>
@@ -30,7 +28,7 @@
 			<!--[if lte IE 9]><p class="grid-iecp"></p><![endif]-->
 			test
 		</div>
-		<div class="col-auto">list</div>
+		<div class="col-rest" style="word-break:break-all;word-wrap:break-word;"><%= 'list'.repeat(1000) %></div>
 	</div>
 </div>
 </body>

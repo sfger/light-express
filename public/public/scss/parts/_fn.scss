@@ -391,7 +391,7 @@ $color_bg_light :#eee !default;
 			&:after{border-color:$activeColor;box-shadow:0 0 $shadow $activeColor;}
 		}
 		@if(1==$hoverActive){
-			&:hover{@extend .#{$stateActiveClass}}
+			&:hover{@extend .#{$stateActiveClass};}
 		}
 	}
 }
@@ -427,7 +427,11 @@ $color_bg_light :#eee !default;
 	@media screen and(-ms-high-contrast:active),(-ms-high-contrast:none){display:block;}
 	>.grid-iecp{content:"";display:none;display:block;width:$width;height:0;line-height:0;font-size:0;}
 }
-@mixin col-auto(){
-	display:table-cell\9;width:100%\9;@include flex(1,1,auto);
+@mixin col-width($width:auto){
+	&,&>.grid-iecp{width:$width;}
+}
+@mixin col-auto($grow:0,$shrink:0,$basis:auto){
+	$width:if($grow==1 and $basis==auto,100%,$basis);
+	display:table-cell\9;width:#{$width}\9;@include flex($grow,$shrink,$basis);
 	@media screen and(-ms-high-contrast:active),(-ms-high-contrast:none){display:block;}
 }
