@@ -51,27 +51,27 @@ $.fn.datagrid = function(options){
 		frozenColumns : [],
 		columns       : []
 	}, options);//}}}
-	var throttle = function(fn, delay, mustRunDelay){//{{{
-		var timer = null;
-		var t_start;
-		return function() {
-			var context = this,
-				args = arguments,
-				t_curr = +new Date();
-			clearTimeout(timer);
-			if (!t_start) {
-				t_start = t_curr;
-			}
-			if (t_curr - t_start >= mustRunDelay) {
-				fn.apply(context, args);
-				t_start = t_curr;
-			} else {
-				timer = setTimeout(function() {
-					fn.apply(context, args);
-				}, delay);
-			}
-		};
-	};//}}}
+	// var throttle = function(fn, delay, mustRunDelay){//{{{
+	// 	var timer = null;
+	// 	var t_start;
+	// 	return function() {
+	// 		var context = this,
+	// 			args = arguments,
+	// 			t_curr = +new Date();
+	// 		clearTimeout(timer);
+	// 		if (!t_start) {
+	// 			t_start = t_curr;
+	// 		}
+	// 		if (t_curr - t_start >= mustRunDelay) {
+	// 			fn.apply(context, args);
+	// 			t_start = t_curr;
+	// 		} else {
+	// 			timer = setTimeout(function() {
+	// 				fn.apply(context, args);
+	// 			}, delay);
+	// 		}
+	// 	};
+	// };//}}}
 	var handler  = function(box, options){ return new handler.prototype.init(box, options); };
 	var toString = Object.prototype.toString;
 	var getType  = function(obj){ return toString.call(obj).slice(8, -1).toLowerCase(); };
@@ -211,35 +211,37 @@ $.fn.datagrid = function(options){
 			});
 		};//}}}
 		return createElement({//{{{
-			name:'div', attr:{'class':'view-wrapper' + (options.autoRowHeight ? ' autoRowHeight' : '')}, children:[{
-				name:'div', attr:{'class':'col-view frozen-view'}, children:[{
+			name:'div', attr:{'class':'view-wrapper grid' + (options.autoRowHeight ? ' autoRowHeight' : '')}, children:[{
+				name:'div', attr:{'class':'col col-view frozen-view'}, children:[{
 					name:'div', attr:{'class':'head-wrapper'}, children:{
 						name:'table', attr:{'class':'frozen head'}, children:{
 							name:'tbody', children:get_head_rows(options.frozenColumns, true)
 						}
 					}
 				}, {
-					name:'div', attr:{'class':'body-wrapper', style:'overflow:hidden;'}, children:{
+					name:'div', attr:{'class':'body-wrapper'}, children:{
 						name:'table', attr:{'class':'frozen body'}, children:{
 							name:'tbody', children:get_data_rows(options.data, that.frozenColumns, true)
 						}
 					}
 				}
 			]}, {
-				name:'div', attr:{'class': 'col-view auto-view'}, children:[{
-					name:'div', attr:{style:'overflow:hidden'}, children:{
-						name:'div', attr:{'class': 'head-wrapper'}, children:{
-							name:'table', attr:{'class': 'head'}, children:{
-								name:'tbody', children:get_head_rows(options.columns)
+				name:'div', attr:{'class':'col-rest col-view auto-view'}, children:[{
+					name:'div', children:[{
+						name:'div', attr:{style:'overflow:hidden'}, children:{
+							name:'div', attr:{'class': 'head-wrapper'}, children:{
+								name:'table', attr:{'class': 'head'}, children:{
+									name:'tbody', children:get_head_rows(options.columns)
+								}
 							}
 						}
-					}
-				}, {
-					name:'div', attr:{'class': 'body-wrapper'}, children:{
-						name:'table', attr:{'class': 'body'}, children:{
-							name:'tbody', children:get_data_rows(options.data, that.columns)
+					}, {
+						name:'div', attr:{'class': 'body-wrapper'}, children:{
+							name:'table', attr:{'class': 'body'}, children:{
+								name:'tbody', children:get_data_rows(options.data, that.columns)
+							}
 						}
-					}
+					}]
 				}]
 			}]
 		});//}}}
@@ -346,7 +348,8 @@ $.fn.datagrid = function(options){
 				this.sortBy({field:sort.field, order:sort.order});
 			}
 			this.reAlign();
-			return this.resize();
+			// return this.resize();
+			return this;
 		},//}}}
 		reAlign: function(){//{{{
 			/* *
@@ -357,25 +360,25 @@ $.fn.datagrid = function(options){
 			return this;
 		},//}}}
 		resize: function(){//{{{
-			var render = this.render;
-			var dataViews = $('.col-view', render);
-			var tables = $('table', dataViews);
-			var ie = /MSIE (\d+)\.?/.exec(navigator.userAgent);
-			if(ie && ie.length && ie[1]){
-				ie = Number(ie[1]);
-				if(ie<10) dataViews.eq(1).css({width: render.clientWidth - 1 - dataViews.get(0).offsetWidth});
-			}
-			tables.eq(1).parent().css({height:tables.get(3).parentNode.clientHeight});
+			// var render = this.render;
+			// var dataViews = $('.col-view', render);
+			// var tables = $('table', dataViews);
+			// var ie = /MSIE (\d+)\.?/.exec(navigator.userAgent);
+			// if(ie && ie.length && ie[1]){
+			// 	ie = Number(ie[1]);
+			// 	if(ie<10) dataViews.eq(1).css({width: render.clientWidth - 1 - dataViews.get(0).offsetWidth});
+			// }
+			// tables.eq(1).parent().css({height:tables.get(3).parentNode.clientHeight});
 			return this;
 		},//}}}
 		init_event: function(options){//{{{
 			var that    = this;
 			var $box    = $(this.render);
-			var ie = /MSIE (\d+)\.?/.exec(navigator.userAgent);
-			if(ie && ie.length && ie[1]){
-				ie = Number(ie[1]);
-				if(ie<10) $(window).on('resize.datagrid', throttle(function(){ that.resize(); }));
-			}
+			// var ie = /MSIE (\d+)\.?/.exec(navigator.userAgent);
+			// if(ie && ie.length && ie[1]){
+			// 	ie = Number(ie[1]);
+			// 	if(ie<10) $(window).on('resize.datagrid', throttle(function(){ that.resize(); }));
+			// }
 			// if(document.documentMode===5 || /MSIE 6/.test(navigator.userAgent)){
 			// 	var hover_binds = {// css tr:hover fix
 			// 		mouseenter: function(){ this.style.backgroundColor = '#e6e6e6'; },

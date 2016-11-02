@@ -2,19 +2,15 @@
 $is_modern:0;
 .datagrid-ctn{
 	overflow:hidden;
-	// @include imgc(0,'.col-view',left,top);
-	.view-wrapper{
-		position:relative;display:table;
-		@media screen and (min-width:0px){@include flexbox;}
-	}
-	.col-view{@include ib(top);}
-	.frozen-view{display:table-cell;}
-	.auto-view{
-		overflow:auto;*width:0px;
-		@media screen and (min-width:0px){@include flex(1,1,auto);}
-	}
+	.view-wrapper{position:relative;}
 	.head-wrapper{overflow:hidden;}
 	.body-wrapper{/*height:320px;*height:250px;*/overflow:auto;}
+	.frozen-view{
+		.body-wrapper{
+			overflow:hidden;
+			table{margin-bottom:50px;}
+		}
+	}
 	table{
 		border-collapse:collapse;
 		&,td{border:1px solid #ccc;}
@@ -25,6 +21,8 @@ $is_modern:0;
 		tr:nth-child(even){background:#ffe;}
 	}
 	.auto-view{
+		overflow:hidden;*width:0px;position:relative\0;
+		>div{position:absolute\0;left:0\0;right:0\0;top:0\0;bottom:0\0;}
 		table,td:first-child{border-left:none;}
 	}
 	.head td:hover,.body tr:hover{background:#e6e6e6;}
