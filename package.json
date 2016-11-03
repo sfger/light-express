@@ -37,7 +37,7 @@
     "gulp-util": "^3.0.7",
     "html-loader": "^0.4.0",
     "jsx-loader": "^0.13.2",
-    "node-sass": "^3.11.0",
+    "node-sass": "^3.11.1",
     "postcss-image-inliner": "^0.2.0",
     "postcss-sprites": "^2.0.2",
     "postcss-urlrev": "^1.2.0",
