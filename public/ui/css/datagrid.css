@@ -113,23 +113,29 @@ audio, canvas, video { display: inline-block; vertical-align: middle; }
 
 .vt-btm { vertical-align: bottom; }
 
+.grid { display: table; width: 100%; display: -webkit-box; display: -webkit-flex; display: -moz-flex; display: -ms-flexbox; display: flex; }
+
+.grid .col { -webkit-box-flex: 0; -webkit-flex: 0 0 auto; -moz-box-flex: 0; -moz-flex: 0 0 auto; -ms-flex: 0 0 auto; flex: 0 0 auto; display: table-cell\9; }
+
+@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) { .grid .col { display: block; } }
+
+.grid .col > .grid-iecp { content: ""; display: none; display: block; width: auto; height: 0; line-height: 0; font-size: 0; }
+
+.grid .col-rest { display: table-cell\9; width: 100%\9; -webkit-box-flex: 1; -webkit-flex: 1 1 auto; -moz-box-flex: 1; -moz-flex: 1 1 auto; -ms-flex: 1 1 auto; flex: 1 1 auto; }
+
+@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) { .grid .col-rest { display: block; } }
+
 .datagrid-ctn { overflow: hidden; }
 
-.datagrid-ctn .view-wrapper { position: relative; display: table; }
-
-@media screen and (min-width: 0px) { .datagrid-ctn .view-wrapper { display: -webkit-box; display: -webkit-flex; display: -moz-flex; display: -ms-flexbox; display: flex; } }
-
-.datagrid-ctn .col-view { display: inline-block; *display: inline; *zoom: 1; vertical-align: top; }
-
-.datagrid-ctn .frozen-view { display: table-cell; }
-
-.datagrid-ctn .auto-view { overflow: auto; *width: 0px; }
-
-@media screen and (min-width: 0px) { .datagrid-ctn .auto-view { -webkit-box-flex: 1; -webkit-flex: 1 1 auto; -moz-box-flex: 1; -moz-flex: 1 1 auto; -ms-flex: 1 1 auto; flex: 1 1 auto; } }
+.datagrid-ctn .view-wrapper { position: relative; }
 
 .datagrid-ctn .head-wrapper { overflow: hidden; }
 
 .datagrid-ctn .body-wrapper { /*height:320px;*height:250px;*/ overflow: auto; }
+
+.datagrid-ctn .frozen-view .body-wrapper { overflow: hidden; }
+
+.datagrid-ctn .frozen-view .body-wrapper table { margin-bottom: 50px; }
 
 .datagrid-ctn table { border-collapse: collapse; }
 
@@ -140,6 +146,10 @@ audio, canvas, video { display: inline-block; vertical-align: middle; }
 .datagrid-ctn .body-wrapper table, .datagrid-ctn .body-wrapper tr:first-child td { border-top: none; }
 
 .datagrid-ctn .body-wrapper tr:nth-child(even) { background: #ffe; }
+
+.datagrid-ctn .auto-view { overflow: hidden; *width: 0px; position: relative\0; }
+
+.datagrid-ctn .auto-view > div { position: absolute\0; left: 0\0; right: 0\0; top: 0\0; bottom: 0\0; }
 
 .datagrid-ctn .auto-view table, .datagrid-ctn .auto-view td:first-child { border-left: none; }
 

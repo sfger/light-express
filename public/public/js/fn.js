@@ -195,7 +195,7 @@ function numberFormat(n, x, c){//{{{
 	if(isNaN(n)) return n;
 	n = n||0, x = x||0, c = c||3;
 	n = Number(n).toFixed(x);
-	var end = x===0 ? '$' : '[\\.]';
+	var end = x===0 ? '$' : '\\.';
 	return n.replace(new RegExp("\\B(?=(\\d{"+c+"})+(?="+end+"))", 'g'), ',');
 }//}}}
 // console.log(numberFormat(22222222.22222, 5, 3));

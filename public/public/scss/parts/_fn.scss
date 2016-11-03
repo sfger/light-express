@@ -391,7 +391,7 @@ $color_bg_light :#eee !default;
 			&:after{border-color:$activeColor;box-shadow:0 0 $shadow $activeColor;}
 		}
 		@if(1==$hoverActive){
-			&:hover{@extend .#{$stateActiveClass}}
+			&:hover{@extend .#{$stateActiveClass};}
 		}
 	}
 }
@@ -417,4 +417,21 @@ $color_bg_light :#eee !default;
         &.first-position .step-arrow{border-color:transparent;}
         .step-label{font:12px/normal NSimSun;color:#999;margin-top:20px;width:500%;margin-left:-200%;}
     }
+}
+
+@mixin grid(){
+	display:table;width:100%;@include flexbox;
+}
+@mixin col($width:auto){
+	@include flex(0,0,$width);display:table-cell\9;
+	@media screen and(-ms-high-contrast:active),(-ms-high-contrast:none){display:block;}
+	>.grid-iecp{content:"";display:none;display:block;width:$width;height:0;line-height:0;font-size:0;}
+}
+@mixin col-width($width:auto){
+	&,&>.grid-iecp{width:$width;}
+}
+@mixin col-auto($grow:0,$shrink:0,$basis:auto){
+	$width:if($grow==1 and $basis==auto,100%,$basis);
+	display:table-cell\9;width:#{$width}\9;@include flex($grow,$shrink,$basis);
+	@media screen and(-ms-high-contrast:active),(-ms-high-contrast:none){display:block;}
 }

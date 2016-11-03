@@ -39,10 +39,11 @@ $.fn.datagrid = function(options){
 		else return ret;
 	}//}}}
 	options = $.extend(true, {//{{{
+		rowNum        : false,
 		colWidth      : 80,
 		startRowNum   : 1,
 		data          : [],
-		sortable      : false,
+		sortable      : true,
 		sort          : null,
 		dataType      : 'string',
 		remoteSort    : false,
@@ -51,27 +52,27 @@ $.fn.datagrid = function(options){
 		frozenColumns : [],
 		columns       : []
 	}, options);//}}}
-	var throttle = function(fn, delay, mustRunDelay){//{{{
-		var timer = null;
-		var t_start;
-		return function() {
-			var context = this,
-				args = arguments,
-				t_curr = +new Date();
-			clearTimeout(timer);
-			if (!t_start) {
-				t_start = t_curr;
-			}
-			if (t_curr - t_start >= mustRunDelay) {
-				fn.apply(context, args);
-				t_start = t_curr;
-			} else {
-				timer = setTimeout(function() {
-					fn.apply(context, args);
-				}, delay);
-			}
-		};
-	};//}}}
+	// var throttle = function(fn, delay, mustRunDelay){//{{{
+	// 	var timer = null;
+	// 	var t_start;
+	// 	return function() {
+	// 		var context = this,
+	// 			args = arguments,
+	// 			t_curr = +new Date();
+	// 		clearTimeout(timer);
+	// 		if (!t_start) {
+	// 			t_start = t_curr;
+	// 		}
+	// 		if (t_curr - t_start >= mustRunDelay) {
+	// 			fn.apply(context, args);
+	// 			t_start = t_curr;
+	// 		} else {
+	// 			timer = setTimeout(function() {
+	// 				fn.apply(context, args);
+	// 			}, delay);
+	// 		}
+	// 	};
+	// };//}}}
 	var handler  = function(box, options){ return new handler.prototype.init(box, options); };
 	var toString = Object.prototype.toString;
 	var getType  = function(obj){ return toString.call(obj).slice(8, -1).toLowerCase(); };
@@ -211,35 +212,37 @@ $.fn.datagrid = function(options){
 			});
 		};//}}}
 		return createElement({//{{{
-			name:'div', attr:{'class':'view-wrapper' + (options.autoRowHeight ? ' autoRowHeight' : '')}, children:[{
-				name:'div', attr:{'class':'col-view frozen-view'}, children:[{
+			name:'div', attr:{'class':'view-wrapper grid' + (options.autoRowHeight ? ' autoRowHeight' : '')}, children:[{
+				name:'div', attr:{'class':'col col-view frozen-view'}, children:[{
 					name:'div', attr:{'class':'head-wrapper'}, children:{
 						name:'table', attr:{'class':'frozen head'}, children:{
 							name:'tbody', children:get_head_rows(options.frozenColumns, true)
 						}
 					}
 				}, {
-					name:'div', attr:{'class':'body-wrapper', style:'overflow:hidden;'}, children:{
+					name:'div', attr:{'class':'body-wrapper'}, children:{
 						name:'table', attr:{'class':'frozen body'}, children:{
 							name:'tbody', children:get_data_rows(options.data, that.frozenColumns, true)
 						}
 					}
 				}
 			]}, {
-				name:'div', attr:{'class': 'col-view auto-view'}, children:[{
-					name:'div', attr:{style:'overflow:hidden'}, children:{
-						name:'div', attr:{'class': 'head-wrapper'}, children:{
-							name:'table', attr:{'class': 'head'}, children:{
-								name:'tbody', children:get_head_rows(options.columns)
+				name:'div', attr:{'class':'col-rest col-view auto-view'}, children:[{
+					name:'div', children:[{
+						name:'div', attr:{style:'overflow:hidden'}, children:{
+							name:'div', attr:{'class': 'head-wrapper'}, children:{
+								name:'table', attr:{'class': 'head'}, children:{
+									name:'tbody', children:get_head_rows(options.columns)
+								}
 							}
 						}
-					}
-				}, {
-					name:'div', attr:{'class': 'body-wrapper'}, children:{
-						name:'table', attr:{'class': 'body'}, children:{
-							name:'tbody', children:get_data_rows(options.data, that.columns)
+					}, {
+						name:'div', attr:{'class': 'body-wrapper'}, children:{
+							name:'table', attr:{'class': 'body'}, children:{
+								name:'tbody', children:get_data_rows(options.data, that.columns)
+							}
 						}
-					}
+					}]
 				}]
 			}]
 		});//}}}
@@ -250,15 +253,17 @@ $.fn.datagrid = function(options){
 		// return (document.documentMode<7 || /MSIE 6/.test(navigator.userAgent))
 		// 	? el['offset'+('width'==type ? 'Width' : 'Height')]
 		// 	: $(el)[type]();
-		return $(el)[type]();
+		// return $(el)[type]();
+		return el['offset'+(type==='width'?'Width':'Height')];
 	};//}}}
 	var align_table = function(a, b, type){//{{{
-		var st = type==='width' ? 'Width' : 'Height';
+		var st = 'offset'+(type==='width' ? 'Width' : 'Height');
 		$(a).each(function(i){
-			var t1 = this['offset' + st];
-			var t2 = b[i]['offset' + st];
+			var t1 = this[st];
+			var t2 = b[i][st];
 			var t = t1<t2 ? t2 : t1;
-			$([this, b[i]])[type](t);
+			this.style[type] = b[i].style[type] = t + 'px';
+			// $([this, b[i]])[type](t);
 		});
 	};//}}}
 	var align_td = function(a, type, fieldElements){//{{{
@@ -268,7 +273,8 @@ $.fn.datagrid = function(options){
 				t2  = getHW(field, type);
 			if(t1===t2) return;
 			var t = t1<t2 ? t2 : t1;
-			$([this, field])[type](t+3);
+			this.style[type] = field.style[type] = (t + 3) + 'px';
+			// $([this, field])[type](t+3);
 		});
 	};//}}}
 	var adjust_table = function(tables, that){//{{{
@@ -297,7 +303,7 @@ $.fn.datagrid = function(options){
 			};
 			$(tp1).off('scroll').on('scroll', function(){
 				this._scroll_id && cancelAnimationFrame(this._scroll_id);
-				this.scroll_id = requestAnimationFrame(update_scroll_offset.bind(this));
+				this._scroll_id = requestAnimationFrame(update_scroll_offset.bind(this));
 			});
 		}
 	};//}}}
@@ -315,7 +321,14 @@ $.fn.datagrid = function(options){
 		update: function(options){//{{{
 			var that = this;
 			var box  = this.render;
+			var data = options.data;
 			options  = $.extend(true, {}, this.userOptions, options);
+			if(data[0].tr || data[0].frozenTr){
+				data.forEach(function(rowData){
+					rowData.tr = null;
+					if(options.frozenColumns.length) rowData.frozenTr = null;
+				});
+			}
 			$(box).empty(); // 清空内容取消绑定的事件
 			this.columns       = [];
 			this.frozenColumns = [];
@@ -331,22 +344,25 @@ $.fn.datagrid = function(options){
 			// }
 			this.allColumns = [].concat(this.frozenColumns, this.columns);
 			this.dataTbodys = $('.body tbody', box);
-			// if(!(options.data[0].tr && options.data[0].frozenTr)|| isReplaceRow){
-			options.data.forEach(function(rowData, rowNum){
+			// if(!(data[0].tr && data[0].frozenTr)|| isReplaceRow){
+			data.forEach(function(rowData, rowNum){
 				if(options.frozenColumns.length)
 					rowData.frozenTr = that.dataTbodys[0].rows[rowNum];
 				rowData.tr = that.dataTbodys[1].rows[rowNum];
 			});
 			// }
+			options.data = data;
+			data = null;
 			var sort = options.sort;
 			if(options.remoteSort){
 				var sort_order = (~[true,'desc'].indexOf(sort.order)) ? 'desc' : 'asc';
 				$('.head-wrapper [data-field='+sort.field+'] .sort-mark', box).addClass(sort_order);
-			}else if(options.sort){
+			}else if(sort){
 				this.sortBy({field:sort.field, order:sort.order});
 			}
 			this.reAlign();
-			return this.resize();
+			// return this.resize();
+			return this;
 		},//}}}
 		reAlign: function(){//{{{
 			/* *
@@ -357,25 +373,25 @@ $.fn.datagrid = function(options){
 			return this;
 		},//}}}
 		resize: function(){//{{{
-			var render = this.render;
-			var dataViews = $('.col-view', render);
-			var tables = $('table', dataViews);
-			var ie = /MSIE (\d+)\.?/.exec(navigator.userAgent);
-			if(ie && ie.length && ie[1]){
-				ie = Number(ie[1]);
-				if(ie<10) dataViews.eq(1).css({width: render.clientWidth - 1 - dataViews.get(0).offsetWidth});
-			}
-			tables.eq(1).parent().css({height:tables.get(3).parentNode.clientHeight});
+			// var render = this.render;
+			// var dataViews = $('.col-view', render);
+			// var tables = $('table', dataViews);
+			// var ie = /MSIE (\d+)\.?/.exec(navigator.userAgent);
+			// if(ie && ie.length && ie[1]){
+			// 	ie = Number(ie[1]);
+			// 	if(ie<10) dataViews.eq(1).css({width: render.clientWidth - 1 - dataViews.get(0).offsetWidth});
+			// }
+			// tables.eq(1).parent().css({height:tables.get(3).parentNode.clientHeight});
 			return this;
 		},//}}}
 		init_event: function(options){//{{{
 			var that    = this;
 			var $box    = $(this.render);
-			var ie = /MSIE (\d+)\.?/.exec(navigator.userAgent);
-			if(ie && ie.length && ie[1]){
-				ie = Number(ie[1]);
-				if(ie<10) $(window).on('resize.datagrid', throttle(function(){ that.resize(); }));
-			}
+			// var ie = /MSIE (\d+)\.?/.exec(navigator.userAgent);
+			// if(ie && ie.length && ie[1]){
+			// 	ie = Number(ie[1]);
+			// 	if(ie<10) $(window).on('resize.datagrid', throttle(function(){ that.resize(); }));
+			// }
 			// if(document.documentMode===5 || /MSIE 6/.test(navigator.userAgent)){
 			// 	var hover_binds = {// css tr:hover fix
 			// 		mouseenter: function(){ this.style.backgroundColor = '#e6e6e6'; },
