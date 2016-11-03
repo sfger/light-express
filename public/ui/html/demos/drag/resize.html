@@ -1,0 +1,82 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="UTF-8" /><meta name="renderer" content="webkit"><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" /><title>Title</title><meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimal-ui" /><meta name="apple-mobile-web-app-capable" content="yes" /><meta name="apple-mobile-web-app-status-bar-style" content="black" /><meta name="apple-touch-fullscreen" content="yes" /><meta name="format-detection" content="telephone=no, email=no" /><meta name="screen-orientation" content="portrait"><meta name="full-screen" content="yes"><meta name="browsermode" content="application"><meta name="x5-orientation" content="portrait"><meta name="x5-fullscreen" content="true"><meta name="x5-page-mode" content="app"><meta name="author" content="" /><meta name="revisit-after" content="1 days" /><meta name="keywords" content="" /><meta name="description" content="" /><style type="text/css">html,body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,form,fieldset,legend,input,button,textarea,hr,pre,code,p,blockquote,th,td{margin:0;padding:0;}
+html,button,input,select,textarea{font:14px/normal "\5b8b\4f53","Microsoft YaHei";color:#000;}
+html{-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;}
+fieldset,img{border:none;}
+[hidden]{display:none;}
+:focus{outline:none;}
+article,aside,details,figcaption,figure,footer,header,hgroup,main,nav,section,summary{display:block;}
+.cf{*zoom:1;}
+.cf:before,.cf:after{content:"";display:table;}
+.cf:after{clear:both;overflow:hidden;}
+.imgc:before,.imgc .iecp,.imgc img,audio,canvas,video{display:inline-block;*display:inline;*zoom:1;vertical-align:middle;}
+.imge{display:inline-block;*display:inline;*zoom:1;vertical-align:middle;font-size:12px;font-size:1rem;line-height:normal;}
+.imgc{font-size:0;text-align:center;}
+.imgc:before,.imgc .iecp{content:"";height:100%;font-size:0;line-height:0;width:0;}
+.imgc img{max-width:100%;max-height:100%;}
+.a{background:red;}
+.b{padding-top:50%;width:50%;background:blue;position:relative;}
+.b .ssss{position:absolute;top:0;left:0;width:100%;height:100%;}
+.b span{font-size:4rem;background:yellow;}</style></head><body><div id="page"><div class="a"><div class="b"><div class="ssss imgc"><span class="imge">test</span></div></div></div></div><script>// requestAnimationFrame {{{
+(function() {
+'use strict';
+var vendors = ['webkit', 'moz'];
+for (var i = 0; i< vendors.length && !window.requestAnimationFrame; ++i) {
+var vp = vendors[i];
+window.requestAnimationFrame = window[vp+'RequestAnimationFrame'];
+window.cancelAnimationFrame = (window[vp+'CancelAnimationFrame']
+|| window[vp+'CancelRequestAnimationFrame']);
+}
+if (/iP(ad|hone|od).*OS 6/.test(window.navigator.userAgent) // iOS6 is buggy
+|| !window.requestAnimationFrame || !window.cancelAnimationFrame) {
+var lastTime = 0;
+window.requestAnimationFrame = function(callback) {
+var now = Date.now();
+var nextTime = Math.max(lastTime + 16, now);
+return setTimeout(function() { callback(lastTime = nextTime); }, nextTime - now);
+};
+window.cancelAnimationFrame = clearTimeout;
+}
+}());
+// }}}
+var html = document.documentElement;
+var span = document.querySelector('span');
+/*
+window.addEventListener('resize', function(){
+requestAnimationFrame(function(){
+span.style.fontSize = html.clientWidth/375*14*4 + 'px';
+// span.style.transform = 'scale('+(html.clientWidth/375)+')';
+});
+});
+*/
+window.onresize = function(){
+requestAnimationFrame(function(){
+span.style.fontSize = html.clientWidth/375*14*4 + 'px';
+// span.style.transform = 'scale('+(html.clientWidth/375)+')';
+});
+};
+(function(){
+var type = typeof CustomEvent;
+if('function'===type) return false;
+window.CustomEvent = function(eventName, defaultInitDict){
+function CustomEvent(type, eventInitDict){
+var event = document.createEvent(eventName);
+if(typeof type != 'string'){
+throw new Error('An event name must be provided');
+}
+if(eventName=='Event') event.initCustomEvent = initCustomEvent;
+if(eventInitDict==null) eventInitDict = defaultInitDict;
+event.initCustomEvent(type, eventInitDict.bubbles, eventInitDict.cancelable, eventInitDict.detail);
+return event;
+}
+function initCustomEvent(type, bubbles, cancelable, detail){
+this.initEvent(type, bubbles, cancelable);
+this.detail = detail;
+}
+return CustomEvent;
+}(window.CustomEvent ? 'CustomEvent' : 'Event', {
+bubbles: false,
+cancelable: false,
+detail: null
+});
+})();
+window.dispatchEvent(new CustomEvent('resize'));</script></body></html>
