@@ -136,13 +136,13 @@ var options = {
 };
 window.$grid = $('#my_datagrid');
 $grid.datagrid(options);
+/*
 setInterval(function(){
 	$grid.datagrid('update', {data:gen_data()});
 	setTimeout(function(){
 		$grid.datagrid('sortBy', {field : 'col-2', order : 'asc'});
 	}, 3000);
 }, 5000);
-/*
 */
 });
 </script>

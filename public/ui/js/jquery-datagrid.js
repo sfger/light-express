@@ -351,6 +351,8 @@ $.fn.datagrid = function(options){
 				rowData.tr = that.dataTbodys[1].rows[rowNum];
 			});
 			// }
+			options.data = data;
+			data = null;
 			var sort = options.sort;
 			if(options.remoteSort){
 				var sort_order = (~[true,'desc'].indexOf(sort.order)) ? 'desc' : 'asc';
