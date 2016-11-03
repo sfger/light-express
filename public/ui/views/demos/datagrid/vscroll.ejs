@@ -62,7 +62,7 @@ var options = {
 	autoRowHeight : true,
 	autoColWidth  : true,
 	/* sortable      : true, */
-	sort          : {field : 'col-2', order : 'desc'},
+	sort          : {field:'col-2', order:'desc'},
 	/* dataType      : 'number', */
 	width         : 200,
 	/* remoteSort    : true, */
@@ -75,7 +75,7 @@ var options = {
 			{name:'冻结列组2', colspan:2},
 		],
 		[
-			{field:'col-1', name:'冻结第一列', sortable: true, sortable: true, // dataType: 'number', // 'string',
+			{field:'col-1', name:'冻结第一列', sortable:true, sortable:true, // dataType: 'number', // 'string',
 				formatter:function(val, row, key){
 					return '格式化: ' + (Math.random()>0.5 ? '<br />' : '') + val;
 				}
@@ -136,13 +136,13 @@ var options = {
 };
 window.$grid = $('#my_datagrid');
 $grid.datagrid(options);
-/*
 setInterval(function(){
 	$grid.datagrid('update', {data:gen_data()});
 	setTimeout(function(){
 		$grid.datagrid('sortBy', {field : 'col-2', order : 'asc'});
 	}, 3000);
 }, 5000);
+/*
 */
 });
 </script>

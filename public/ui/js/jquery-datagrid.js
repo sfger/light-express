@@ -39,6 +39,7 @@ $.fn.datagrid = function(options){
 		else return ret;
 	}//}}}
 	options = $.extend(true, {//{{{
+		rowNum        : false,
 		colWidth      : 80,
 		startRowNum   : 1,
 		data          : [],
@@ -302,7 +303,7 @@ $.fn.datagrid = function(options){
 			};
 			$(tp1).off('scroll').on('scroll', function(){
 				this._scroll_id && cancelAnimationFrame(this._scroll_id);
-				this.scroll_id = requestAnimationFrame(update_scroll_offset.bind(this));
+				this._scroll_id = requestAnimationFrame(update_scroll_offset.bind(this));
 			});
 		}
 	};//}}}
@@ -320,7 +321,14 @@ $.fn.datagrid = function(options){
 		update: function(options){//{{{
 			var that = this;
 			var box  = this.render;
+			var data = options.data;
 			options  = $.extend(true, {}, this.userOptions, options);
+			if(data[0].tr || data[0].frozenTr){
+				data.forEach(function(rowData){
+					rowData.tr = null;
+					if(options.frozenColumns.length) rowData.frozenTr = null;
+				});
+			}
 			$(box).empty(); // 清空内容取消绑定的事件
 			this.columns       = [];
 			this.frozenColumns = [];
@@ -336,8 +344,8 @@ $.fn.datagrid = function(options){
 			// }
 			this.allColumns = [].concat(this.frozenColumns, this.columns);
 			this.dataTbodys = $('.body tbody', box);
-			// if(!(options.data[0].tr && options.data[0].frozenTr)|| isReplaceRow){
-			options.data.forEach(function(rowData, rowNum){
+			// if(!(data[0].tr && data[0].frozenTr)|| isReplaceRow){
+			data.forEach(function(rowData, rowNum){
 				if(options.frozenColumns.length)
 					rowData.frozenTr = that.dataTbodys[0].rows[rowNum];
 				rowData.tr = that.dataTbodys[1].rows[rowNum];
@@ -347,7 +355,7 @@ $.fn.datagrid = function(options){
 			if(options.remoteSort){
 				var sort_order = (~[true,'desc'].indexOf(sort.order)) ? 'desc' : 'asc';
 				$('.head-wrapper [data-field='+sort.field+'] .sort-mark', box).addClass(sort_order);
-			}else if(options.sort){
+			}else if(sort){
 				this.sortBy({field:sort.field, order:sort.order});
 			}
 			this.reAlign();
