@@ -8,7 +8,7 @@ var entrysArray = glob.sync("*/js/**/*.@(entry).@(js?(x)|ts)", {
 // process.exit();
 var entryMap = {};
 entrysArray.forEach((one) => {
-	entryMap[one.replace(/\.entry\.(jsx|ts)?$/, '')] = './' + one;
+	entryMap[one.replace(/\.entry\.(jsx?|ts)?$/, '')] = './' + one;
 });
 // console.log(entryMap);
 // process.exit();
