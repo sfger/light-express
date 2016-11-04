@@ -90,6 +90,18 @@
 
 .vt-btm { vertical-align: bottom; }
 
+.grid { display: table; width: 100%; display: -webkit-box; display: -webkit-flex; display: -moz-flex; display: -ms-flexbox; display: flex; }
+
+.grid .col { -webkit-box-flex: 0; -webkit-flex: 0 0 auto; -moz-box-flex: 0; -moz-flex: 0 0 auto; -ms-flex: 0 0 auto; flex: 0 0 auto; display: table-cell\9; }
+
+@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) { .grid .col { display: block; } }
+
+.grid .col > .grid-iecp { content: ""; display: none; display: block; width: auto; height: 0; line-height: 0; font-size: 0; }
+
+.grid .col-rest { display: table-cell\9; width: 100%\9; -webkit-box-flex: 1; -webkit-flex: 1 1 auto; -moz-box-flex: 1; -moz-flex: 1 1 auto; -ms-flex: 1 1 auto; flex: 1 1 auto; }
+
+@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) { .grid .col-rest { display: block; } }
+
 /* Original style from softwaremaniacs.org (c) Ivan Sagalaev <Maniac@SoftwareManiacs.Org> */
 .hljs { display: block; overflow-x: auto; padding: 0.5em; background: #f0f0f0; -webkit-text-size-adjust: none; }
 
@@ -135,9 +147,11 @@ html.full-screen #page, html.full-screen .home-page { height: 100%; }
 	95% { transform: translateY(18%); }
 	100% { transform: translateY(0); } }
 
-.navi-box { width: 505px; animation: dropDown 0.5s; -webkit-border-radius: 8px; -moz-border-radius: 8px; border-radius: 8px; background-color: rgba(0, 0, 0, 0.3); text-align: center; _background: #22701e; overflow: hidden; padding: 20px; color: white; }
+.navi-box { width: 505px; animation: dropDown 0.5s; -webkit-border-radius: 8px; -moz-border-radius: 8px; border-radius: 8px; background-color: rgba(0, 0, 0, 0.3); filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#4D000000,endColorstr=#4D000000); text-align: center; _background: #22701e; overflow: hidden; padding: 20px; color: white; }
 
 @media screen and (max-width: 640px) { .navi-box { width: 80%; } }
+
+@media screen and (min-width: 0px) { .navi-box { filter: none; } }
 
 .navi-box h1, .navi-box h3 { font-size: 25px; margin-bottom: 10px; text-align: center; font-weight: normal; }
 

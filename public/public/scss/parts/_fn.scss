@@ -1,5 +1,5 @@
 @charset "utf-8"; //解决中文报错
-$is_modern:1 !default; // 兼容低版本ie
+$is_modern:0 !default; // 兼容低版本ie
 
 $base_font_size :12px !default;
 $color_default  :#666 !default;
@@ -26,15 +26,9 @@ $color_bg_light :#eee !default;
 	}
 }
 // sass:
-// .list{
-// 	@include prefix((transform:rotate(0deg),transition:all .2s ease-out));
-// }
-// .test{
-// 	@include prefix((transition:#{top 1s,transform 1s,left 1s}));
-// }
-// .element {
-// 	@include prefix((transform:translate(-50%, -50%) rotate(45deg)), webkit ms);
-// }
+// .list{@include prefix((transform:rotate(0deg),transition:all .2s ease-out));}
+// .test{@include prefix((transition:#{top 1s,transform 1s,left 1s}));}
+// .element{@include prefix((transform:translate(-50%, -50%) rotate(45deg)), webkit ms);}
 @mixin keyframes($name){
 	// @-moz-keyframes #{$name}{@content}
 	// @-o-keyframes #{$name}{@content}
@@ -56,7 +50,6 @@ $color_bg_light :#eee !default;
 	&:after{clear:both;overflow:hidden;}
 }
 %cf{@include cf();}
-
 @mixin inline-block($vertical-align:middle){
 	display:inline-block;
 	@if($is_modern==0){*display:inline;*zoom:1;}
@@ -71,9 +64,9 @@ $color_bg_light :#eee !default;
 	@if $prefix and not index(min max, $prefix){
 		@warn "If there is a prefix, it must be:[min|max]`, but got:`#{$direction}`.";
 	}@else{
-		$prefix: if($prefix, $prefix+'-', '');
-		#{$prefix + 'width'}:$width;
-		#{$prefix + 'height'}:$height;
+		$prefix:if($prefix,$prefix+'-','');
+		#{$prefix+'width'}:$width;
+		#{$prefix+'height'}:$height;
 	}
 }
 // 单行溢出省略
@@ -89,9 +82,7 @@ $color_bg_light :#eee !default;
 
 // 通用居中样式
 // 使用见_layout.scss
-@mixin reset_font_size($rem:1rem){
-	font-size:$base_font_size;font-size:$rem;line-height:normal;
-}
+@mixin reset_font_size($rem:1rem){font-size:$base_font_size;font-size:$rem;line-height:normal;}
 @mixin imge($vertical-align:middle, $rem:1rem){
 	@include inline-block($vertical-align);
 	@include reset_font_size($rem);
@@ -137,54 +128,35 @@ $color_bg_light :#eee !default;
 @mixin user-select($val){@include prefix((user-select:$val),webkit moz ms);}
 @mixin box-sizing($mode:content-box){@include prefix((box-sizing:$mode),webkit moz);}
 @mixin border-radius($n:0){@include prefix((border-radius:$n),webkit moz);}
-
 @mixin border-top-left-radius($n:0){@include prefix((border-top-left-radius:$n),webkit moz);}
 @mixin border-top-right-radius($n:0){@include prefix((border-top-right-radius:$n),webkit moz);}
 @mixin border-bottom-left-radius($n:0){@include prefix((border-bottom-left-radius:$n),webkit moz);}
 @mixin border-bottom-right-radius($n:0){@include prefix((border-bottom-right-radius:$n),webkit moz);}
 @mixin background-circle($size, $color, $empty:null, $emptyColor:white, $borderWidth:1px){
-	&{
-		@include size($size);
-		@include relative(null,1);
-		text-align:center;
-		// *overflow:hidden;
-	}
-	// &:before,.iecp{
+	@include size($size);@include relative(null,1);text-align:center;// *overflow:hidden;
 	&:before{
-		content:"";//*content:normal;
-		@include absolute(left 0 top 0, -2);
-		// *width:$size;*height:$size;
-		border-left:$size dotted $color;
-		border-top:$size dotted $color;
-		// *border-right:$size dotted $color;
+		content:"";@include absolute(left 0 top 0, -2);
+		border-left:$size dotted $color;border-top:$size dotted $color;
 	}
 	@if($empty){
 		&:after{
-			content:"";//*content:normal;
-			@include absolute(left $borderWidth top $borderWidth, -1);
-			// *width:$size;*height:$size;
+			content:"";@include absolute(left $borderWidth top $borderWidth, -1);
 			border-left:($size - $borderWidth*2) dotted $emptyColor;
 			border-top:($size - $borderWidth*2) dotted $emptyColor;
-			// *border-right:$size dotted $color;
 		}
 	}
 	@media screen and(min-width:0px){
-		&{
-			border-radius:50%;
-			@if($empty){
-				border:$borderWidth solid $color;
-				background:$emptyColor;
-			}@else{
-				background:$color;
-			}
+		border-radius:50%;
+		@if($empty){
+			border:$borderWidth solid $color;background:$emptyColor;
+		}@else{
+			background:$color;
 		}
-		// #{&}:before#{&} .iecp{content:normal;}
 		&:before,&:after{content:normal;}
 	}
 }
-
 @mixin position($position, $args, $index:null){
-	position:unquote($position);
+	position:$position;
 	@each $o in top right bottom left{
 		$i: index($args, $o);
 		@if $i and $i+1<=length($args) and type-of(nth($args,$i+1))==number{
@@ -195,12 +167,10 @@ $color_bg_light :#eee !default;
 		z-index:$index;
 	}
 }
-@mixin absolute($args:null, $index:null){@include position("absolute", $args, $index);}
-@mixin fixed($args:null, $index:null){@include position("fixed", $args, $index);}
-@mixin relative($args:null, $index:null){@include position("relative", $args, $index);}
-// .element {
-// 	@include absolute(top 0 left 1em);
-// }
+@mixin absolute($args:null, $index:null){@include position(absolute, $args, $index);}
+@mixin fixed($args:null, $index:null){@include position(fixed, $args, $index);}
+@mixin relative($args:null, $index:null){@include position(relative, $args, $index);}
+// .element{@include absolute(top 0 left 1em);}
 
 @include keyframes(radioOut){
 	0%{@include prefix((transform:scale(0)),webkit);@include opacity(1);}
@@ -247,7 +217,6 @@ $color_bg_light :#eee !default;
 		}
 	}
 }
-
 @mixin placeholder{
 	&::-webkit-input-placeholder{@content} // Chrome, Safari, Opera
 	&:-moz-placeholder{@content} // Mozilla Firefox 4-18使用伪类
@@ -281,13 +250,7 @@ $color_bg_light :#eee !default;
 	@return $opposite-directions;
 }
 // 例：scss
-// .selector {
-//   background-position: opposite-direction(top right);
-// }
-// css
-// .selector {
-//   background-position: bottom left;
-// }
+// .selector{background-position:opposite-direction(top right);}
 
 //生成 三角
 @mixin triangle($direction, $position, $color:currentcolor, $size:1em) {
@@ -307,20 +270,8 @@ $color_bg_light :#eee !default;
 		}
 	}
 }
-
 // 列：scss
 // .selector{@include triangle(right,top 5px right -5px,#EA3434,5px);}
-// css
-// .selector {
-// 	top: 5px;
-// 	right: -5px;
-// 	position: absolute;
-// 	width: 0;
-// 	height: 0;
-// 	border-left: 5px solid #EA3434;
-// 	border-bottom: 5px solid transparent;
-// 	border-top: 5px solid transparent
-// }
 
 @mixin toolTip($direction, $position, $arrSize, $bgColor:white, $borderColor:black, $innerClass:'tool-tip-inner'){
 	$dirMap : ('top':'bottom', 'right':'left', 'bottom':'top', 'left':'right');
@@ -395,7 +346,6 @@ $color_bg_light :#eee !default;
 		}
 	}
 }
-
 @mixin stateStep($width:100%, $color:#ccc, $colorDone:#0dffaf){
     width:$width;padding:50px 150px 80px;margin:auto;
     .step-progress{position:relative;height:8px;background:$color;}
@@ -418,9 +368,10 @@ $color_bg_light :#eee !default;
         .step-label{font:12px/normal NSimSun;color:#999;margin-top:20px;width:500%;margin-left:-200%;}
     }
 }
-
 @mixin grid(){
-	display:table;width:100%;@include flexbox;
+	@include flexbox;display:table\9;width:100%\9;
+	@media screen and(-ms-high-contrast:active),(-ms-high-contrast:none){@include flexbox;}
+	&.grid-column{@include flex-direction(column);}
 }
 @mixin col($width:auto){
 	@include flex(0,0,$width);display:table-cell\9;

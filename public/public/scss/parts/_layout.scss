@@ -35,5 +35,8 @@
 .grid{
 	@include grid;
 	.col{@include col;}
-	.col-rest{@include col-auto(1,1,auto);}
+	.col-rest{
+		@include col-auto(1,1,auto);
+		&.grid{@include grid;}
+	}
 }

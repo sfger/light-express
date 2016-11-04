@@ -122,9 +122,7 @@ audio, canvas, video { display: inline-block; vertical-align: middle; }
 
 @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) { .grid .col-rest { display: block; } }
 
-.circle { line-height: 100px; }
-
-.circle { width: 100px; height: 100px; position: relative; z-index: 1; text-align: center; }
+.circle { width: 100px; height: 100px; position: relative; z-index: 1; text-align: center; line-height: 100px; }
 
 .circle:before { content: ""; position: absolute; top: 0; left: 0; z-index: -2; border-left: 100px dotted red; border-top: 100px dotted red; }
 
@@ -133,9 +131,7 @@ audio, canvas, video { display: inline-block; vertical-align: middle; }
 @media screen and (min-width: 0px) { .circle { border-radius: 50%; border: 1px solid red; background: white; }
 	.circle:before, .circle:after { content: normal; } }
 
-.circle2 { line-height: 100px; }
-
-.circle2 { width: 100px; height: 100px; position: relative; z-index: 1; text-align: center; }
+.circle2 { width: 100px; height: 100px; position: relative; z-index: 1; text-align: center; line-height: 100px; }
 
 .circle2:before { content: ""; position: absolute; top: 0; left: 0; z-index: -2; border-left: 100px dotted red; border-top: 100px dotted red; }
 
