@@ -35,11 +35,16 @@ console.log(getState());
 
 let CommentBox = React.createClass({
 	getInitialState: function(){
-		return {count: 0};
+		return {count:0};
+	},
+	getDefaultProps : function () {
+		return {
+			title:'Hello World'
+		};
 	},
 	test: function(){
 		this.setState({
-			count: this.state.count + 1,
+			count:this.state.count + 1,
 		}, function(){
 			console.log(222,this.state.count);
 			console.log(this.props.a);
@@ -49,7 +54,7 @@ let CommentBox = React.createClass({
 	render: function(){
 		return (
 			<div className="commentBox" data-test="test" onClick={this.test}>
-				Hello, world! I am a CommentBox. Counter: {this.state.count}
+				{this.props.title}! I am a CommentBox. Counter: {this.state.count}
 			</div>
 		);
 	}

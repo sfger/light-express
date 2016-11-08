@@ -32,6 +32,10 @@ module.exports = {
 	resolve:{
 		 // extensions:['', '.ts', '.js', '.jsx']
 	},
+	// externals: {
+	// 	'react':'React',
+	// 	'react-dom':'ReactDOM'
+	// },
 	module:{
 		loaders:[
 			{test:/\.ts$/, loader:'ts-loader'},
