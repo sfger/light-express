@@ -2,16 +2,16 @@
 (function() {
 	'use strict';
 	var vendors = ['webkit', 'moz'];
-	for (var i = 0; i < vendors.length && !window.requestAnimationFrame; ++i) {
+	for(var i=0; i<vendors.length && !window.requestAnimationFrame; ++i){
 		var vp = vendors[i];
 		window.requestAnimationFrame = window[vp+'RequestAnimationFrame'];
 		window.cancelAnimationFrame = (window[vp+'CancelAnimationFrame']
 			|| window[vp+'CancelRequestAnimationFrame']);
 	}
-	if (/iP(ad|hone|od).*OS 6/.test(window.navigator.userAgent) // iOS6 is buggy
-	|| !window.requestAnimationFrame || !window.cancelAnimationFrame) {
+	if( /iP(ad|hone|od).*OS 6/.test(window.navigator.userAgent) // iOS6 is buggy
+		|| !window.requestAnimationFrame || !window.cancelAnimationFrame ){
 		var lastTime = 0;
-		window.requestAnimationFrame = function(callback) {
+		window.requestAnimationFrame = function(callback){
 			var now = Date.now();
 			var nextTime = Math.max(lastTime + 16, now);
 			return setTimeout(function() { callback(lastTime = nextTime); }, nextTime - now);
@@ -20,6 +20,59 @@
 	}
 }());
 // }}}
+Function.prototype.bind = Function.prototype.bind || function(oThis){//{{{
+	if(typeof this!=="function"){
+		throw new TypeError("Function.prototype.bind - what is trying to be bound is not callable");
+	}
+	var aArgs = Array.prototype.slice.call(arguments, 1), 
+		fToBind = this, 
+		fNOP    = function(){},
+		fBound  = function(){
+			return fToBind.apply(
+				this instanceof fNOP && oThis ? this : oThis || window,
+				aArgs.concat(Array.prototype.slice.call(arguments))
+			);
+		};
+	fNOP.prototype   = this.prototype;
+	fBound.prototype = new fNOP();
+	return fBound;
+};
+Array.prototype.forEach = Array.prototype.forEach || function(fn, scope){
+	for(var i=0,len=this.length; i<len; ++i){
+		if(i in this){
+			fn.call(scope, this[i], i, this);
+		}
+	}
+};
+Array.prototype.indexOf = Array.prototype.indexOf || function(searchElement, fromIndex){
+	var index = -1;
+	fromIndex = fromIndex*1 || 0;
+	for (var k=0, length=this.length; k<length; k++) {
+		if(k>=fromIndex && this[k]===searchElement){
+			index = k;
+			break;
+		}
+	}
+	return index;
+};
+Array.prototype.map = Array.prototype.map || function(fn, context){
+	var arr = [];
+	if(typeof fn === "function"){
+		for(var k=0, length=this.length; k<length; k++) {
+			arr.push(fn.call(context, this[k], k, this));
+		}
+	}
+	return arr;
+};
+Array.prototype.filter = Array.prototype.filter || function(fn, context){
+	var arr = [];
+	if(typeof fn === "function"){
+		for(var k=0, length=this.length; k<length; k++){
+			fn.call(context, this[k], k, this) && arr.push(this[k]);
+		}
+	}
+	return arr;
+};//}}}
 $.fn.datagrid = function(options){
 	var type = $.type(options);
 	if(type==='string'){//{{{
@@ -258,39 +311,36 @@ $.fn.datagrid = function(options){
 	};//}}}
 	var align_table = function(a, b, type){//{{{
 		var st = 'offset'+(type==='width' ? 'Width' : 'Height');
-		$(a).each(function(i){
-			var t1 = this[st];
+		for(var i=0; i<a.length; i++){
+			var t1 = a[i][st];
 			var t2 = b[i][st];
 			var t = t1<t2 ? t2 : t1;
-			this.style[type] = b[i].style[type] = t + 'px';
-			// $([this, b[i]])[type](t);
-		});
+			a[i].style[type] = b[i].style[type] = t+'px';
+		}
 	};//}}}
 	var align_td = function(a, type, fieldElements){//{{{
-		$.each(a, function(i){
+		for(var i=0; i<a.length; i++){
 			var field = fieldElements[i];
-			var t1  = getHW(this, type),
+			var t1  = getHW(a[i], type),
 				t2  = getHW(field, type);
-			if(t1===t2) return;
+			if(t1===t2) continue;
 			var t = t1<t2 ? t2 : t1;
-			this.style[type] = field.style[type] = (t + 3) + 'px';
-			// $([this, field])[type](t+3);
-		});
+			a[i].style[type] = field.style[type] = (t+6)+'px';
+		}
 	};//}}}
 	var adjust_table = function(tables, that){//{{{
 		if(tables.length==4){
 			var tp0 = tables.eq(2).parent();
 			var tp1 = tables.eq(3).parent();
-			tp0.css({width:500000});
-			tp1.css({width:500000});
+			$([tp0, tp1]).css({width:500000});
 			var options = that.userOptions;
-			align_td(tables.filter('table:odd').find('tr:first-child td .cell'), 'width', that.fieldElements);
+			align_td(tables.filter('table:odd').find('tr:first-child td .cell').toArray(), 'width', that.fieldElements.toArray());
 			if(options.rowNum || options.frozenColumns){
 				if(options.autoRowHeight){
-					align_td($('table:eq(1) td:first-child'), 'height', $('table:eq(3) td:first-child'));
+					align_td($('table:eq(1) td:first-child').toArray(), 'height', $('table:eq(3) td:first-child').toArray());
 				}
-				align_table($([tables[0], tables[1]]), $([tables[2], tables[3]]), 'height');
-				align_table($([tables[0], tables[2]]), $([tables[1], tables[3]]), 'width');
+				align_table([tables[0], tables[1]], [tables[2], tables[3]], 'height');
+				align_table([tables[0], tables[2]], [tables[1], tables[3]], 'width');
 			}
 
 			// var width_full = (document.compatMode === "CSS1Compat"&&!/msie 6/i.test(navigator.userAgent)) ? 'auto' : '100%';
@@ -346,8 +396,7 @@ $.fn.datagrid = function(options){
 			this.dataTbodys = $('.body tbody', box);
 			// if(!(data[0].tr && data[0].frozenTr)|| isReplaceRow){
 			data.forEach(function(rowData, rowNum){
-				if(options.frozenColumns.length)
-					rowData.frozenTr = that.dataTbodys[0].rows[rowNum];
+				if(options.frozenColumns.length) rowData.frozenTr = that.dataTbodys[0].rows[rowNum];
 				rowData.tr = that.dataTbodys[1].rows[rowNum];
 			});
 			// }
