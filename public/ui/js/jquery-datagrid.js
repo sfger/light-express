@@ -332,12 +332,12 @@ $.fn.datagrid = function(options){
 		if(tables.length==4){
 			var tp0 = tables.eq(2).parent();
 			var tp1 = tables.eq(3).parent();
-			$([tp0, tp1]).css({width:500000});
+			$([tp0.get(0), tp1.get(0)]).css({width:500000});
 			var options = that.userOptions;
 			align_td(tables.filter('table:odd').find('tr:first-child td .cell').toArray(), 'width', that.fieldElements.toArray());
 			if(options.rowNum || options.frozenColumns){
 				if(options.autoRowHeight){
-					align_td($('table:eq(1) td:first-child').toArray(), 'height', $('table:eq(3) td:first-child').toArray());
+					align_td($('table:eq(1) td:first-child', that.render).toArray(), 'height', $('table:eq(3) td:first-child', that.render).toArray());
 				}
 				align_table([tables[0], tables[1]], [tables[2], tables[3]], 'height');
 				align_table([tables[0], tables[2]], [tables[1], tables[3]], 'width');
