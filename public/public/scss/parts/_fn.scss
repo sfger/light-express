@@ -1,5 +1,6 @@
 @charset "utf-8"; //解决中文报错
 $is_modern:1 !default; // 兼容低版本ie
+$is_mobile:0 !default; // 兼容PC
 
 $base_font_size :12px !default;
 $color_default  :#666 !default;
@@ -369,20 +370,31 @@ $color_bg_light :#eee !default;
     }
 }
 @mixin grid(){
-	@include flexbox;display:table\9;width:100%\9;
-	@media screen and(-ms-high-contrast:active),(-ms-high-contrast:none){@include flexbox;}
+	@include flexbox;
+	@if($is_mobile==0){
+		display:table\9;width:100%\9;
+		@media screen and(-ms-high-contrast:active),(-ms-high-contrast:none){@include flexbox;}
+	}
 	&.grid-column{@include flex-direction(column);}
 }
 @mixin col($width:auto){
-	@include flex(0,0,$width);display:table-cell\9;
-	@media screen and(-ms-high-contrast:active),(-ms-high-contrast:none){display:block;}
-	>.grid-iecp{content:"";display:none;display:block;width:$width;height:0;line-height:0;font-size:0;}
+	@include flex(0,0,$width);
+	@if($is_mobile==0){
+		display:table-cell\9;
+		@media screen and(-ms-high-contrast:active),(-ms-high-contrast:none){display:block;}
+		>.grid-iecp{content:"";display:none;display:block;width:$width;height:0;line-height:0;font-size:0;}
+	}
 }
 @mixin col-width($width:auto){
 	&,&>.grid-iecp{width:$width;}
 }
 @mixin col-auto($grow:0,$shrink:0,$basis:auto){
-	$width:if($grow==1 and $basis==auto,100%,$basis);
-	display:table-cell\9;width:#{$width}\9;@include flex($grow,$shrink,$basis);
-	@media screen and(-ms-high-contrast:active),(-ms-high-contrast:none){display:block;}
+	@if($is_mobile==0){
+		$width:if($grow==1 and $basis==auto,100%,$basis);
+		display:table-cell\9;width:#{$width}\9;
+	}
+	@include flex($grow,$shrink,$basis);
+	@if($is_mobile==0){
+		@media screen and(-ms-high-contrast:active),(-ms-high-contrast:none){display:block;}
+	}
 }
