@@ -3,6 +3,7 @@ $basePath:'../' !default;
 .tree-container{
 	width:auto;overflow:auto;background:white;
 	ul{
+		&[data-deep="1"]{@include ib(top);min-width:100%;}
 		li{
 			ul{
 				width:auto;height:auto;_line-height:0;_font-size:0;
