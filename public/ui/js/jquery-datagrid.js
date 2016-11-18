@@ -352,7 +352,10 @@ $.fn.datagrid = function(options){
 				tables.get(1).parentNode.scrollTop = this.scrollTop;
 			};
 			$(tp1).off('scroll').on('scroll', function(){
-				this._scroll_id && cancelAnimationFrame(this._scroll_id);
+				if(this._scroll_id){
+					cancelAnimationFrame(this._scroll_id);
+					this._scroll_id = null;
+				}
 				this._scroll_id = requestAnimationFrame(update_scroll_offset.bind(this));
 			});
 		}
@@ -504,15 +507,15 @@ $.fn.datagrid = function(options){
 			return this.sort_table_dom(options);
 		},//}}}
 		sort_table_dom: function(options){//{{{
-			var frozenTrDoc   = document.createDocumentFragment(),
-				trDoc         = document.createDocumentFragment(),
-				frozenTbody   = null,
-				tbody         = null;
+			var frozenTrDoc = document.createDocumentFragment(),
+				trDoc       = document.createDocumentFragment(),
+				frozenTbody = null,
+				tbody       = null;
 			options.data.forEach(function(rowData, rowNum){
 				var frozenTr = rowData.frozenTr;
 				var tr       = rowData.tr;
 				if(frozenTr){
-					frozenTbody || (function(){
+					frozenTbody||(function(){
 						frozenTbody = frozenTr.parentNode;
 						frozenTbody.style.display = 'none';
 					})();
@@ -520,7 +523,7 @@ $.fn.datagrid = function(options){
 					if(options.rowNum) $('td:eq(0) .cell', frozenTr).text(rowNum+1);
 				}
 				if(tr){
-					tbody || (function(){
+					tbody||(function(){
 						tbody = tr.parentNode;
 						tbody.style.display = 'none';
 					})();
