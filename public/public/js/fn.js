@@ -203,21 +203,21 @@ function numberFromFormat(str){//{{{
 	return Number(str.replace(/,/g, ''));
 }//}}}
 function buildRegString(s){//{{{
-    if(!s) return s;
-    return String(s).replace(/[\(\)\^\$\*\?\+\\.\\-]/g, function(i){
-        return '\\' + i;
-    });
+	if(!s) return s;
+	return String(s).replace(/[\(\)\^\$\*\?\+\\.\\-]/g, function(i){
+		return '\\' + i;
+	});
 }//}}}
-function hasTrunk(trunk, str, delimeter){//{{{
-    trunk = buildRegString(trunk);
-    if(delimeter){
-        delimeter = buildRegString(delimeter);
-        return new RegExp('(['+delimeter+']|^)'+trunk+'(['+delimeter+']|$)').test(str);
-    } else return new RegExp(trunk).test(str);
+function isStrHasTrunkWith(str, trunk, delimeter){//{{{
+	trunk = buildRegString(trunk);
+	if(delimeter){
+		delimeter = buildRegString(delimeter);
+		return new RegExp('(['+delimeter+']|^)'+trunk+'(['+delimeter+']|$)').test(str);
+	}else return new RegExp(trunk).test(str);
 }//}}}
 // var title = "ECCO Men's Darren High Moonless 43 (US Men's 9-9.5) D - Medium";
 // var one = "43 (US Men's 9-9.5)";
-// console.log( hasTrunk(one, title, ' ') );
+// console.log( isStrHasTrunkWith(title, title, ' ') );
 function domCountDown(option){//{{{
 	var that = this;
 	var get_timestamp = function(){ return parseInt(+new Date()/1000, 10); };
