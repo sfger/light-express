@@ -172,7 +172,12 @@ $color_bg_light :#eee !default;
 @mixin fixed($args:null, $index:null){@include position(fixed, $args, $index);}
 @mixin relative($args:null, $index:null){@include position(relative, $args, $index);}
 // .element{@include absolute(top 0 left 1em);}
-
+@include keyframes(radioOut){
+	0%{@include prefix((transform:scale(0)),webkit);@include opacity(1);}
+	70%{@include prefix((transform:scale(2)),webkit);@include opacity(0.5);}
+	90%{@include prefix((transform:scale(2.5)),webkit);@include opacity(0.1);}
+	100%{@include prefix((transform:scale(0)),webkit);@include opacity(0);}
+}
 @mixin button($width, $height, $bgcolor:transparent, $hover:1, $active:1, $animation:null){
 	@include box-sizing(border-box);
 	@include ib;@include size($width, $height);@include user-select(none);

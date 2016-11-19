@@ -18,8 +18,12 @@
 .slideInUp{animation:slideInUp .3s;}
 
 @keyframes slideInUp{
-    from{@include prefix((transform:translate3d(0,100%,0)));}
-    to{@include prefix((transform:translate3d(0,0,0)));}
+    from{
+		@include prefix((transform:translate3d(0,100%,0)));
+	}
+    to{
+		@include prefix((transform:translate3d(0,0,0)));
+	}
 }
 
 .area_roll{

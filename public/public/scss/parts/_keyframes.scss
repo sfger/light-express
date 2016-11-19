@@ -1,6 +1,0 @@
-@include keyframes(radioOut){
-	0%{@include prefix((transform:scale(0)),webkit);@include opacity(1);}
-	70%{@include prefix((transform:scale(2)),webkit);@include opacity(0.5);}
-	90%{@include prefix((transform:scale(2.5)),webkit);@include opacity(0.1);}
-	100%{@include prefix((transform:scale(0)),webkit);@include opacity(0);}
-}

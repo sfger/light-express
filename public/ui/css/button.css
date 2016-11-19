@@ -1,3 +1,37 @@
+@-webkit-keyframes radioOut { 0% { -webkit-transform: scale(0);
+		transform: scale(0);
+		opacity: 1;
+		filter: alpha(opacity=100); }
+	70% { -webkit-transform: scale(2);
+		transform: scale(2);
+		opacity: 0.5;
+		filter: alpha(opacity=50); }
+	90% { -webkit-transform: scale(2.5);
+		transform: scale(2.5);
+		opacity: 0.1;
+		filter: alpha(opacity=10); }
+	100% { -webkit-transform: scale(0);
+		transform: scale(0);
+		opacity: 0;
+		filter: alpha(opacity=0); } }
+
+@keyframes radioOut { 0% { -webkit-transform: scale(0);
+		transform: scale(0);
+		opacity: 1;
+		filter: alpha(opacity=100); }
+	70% { -webkit-transform: scale(2);
+		transform: scale(2);
+		opacity: 0.5;
+		filter: alpha(opacity=50); }
+	90% { -webkit-transform: scale(2.5);
+		transform: scale(2.5);
+		opacity: 0.1;
+		filter: alpha(opacity=10); }
+	100% { -webkit-transform: scale(0);
+		transform: scale(0);
+		opacity: 0;
+		filter: alpha(opacity=0); } }
+
 * { box-sizing: border-box; }
 
 html, body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, form, fieldset, legend, input, button, textarea, hr, pre, code, p, blockquote, th, td { margin: 0; padding: 0; }
@@ -97,40 +131,6 @@ audio, canvas, video { display: inline-block; vertical-align: middle; }
 @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) { .grid .col-rest.grid { display: -webkit-box; display: -webkit-flex; display: -moz-flex; display: -ms-flexbox; display: flex; } }
 
 .grid .col-rest.grid.grid-column { -webkit-box-direction: normal; -webkit-box-orient: vertical; -webkit-flex-direction: column; -moz-flex-direction: column; -ms-flex-direction: column; flex-direction: column; }
-
-@-webkit-keyframes radioOut { 0% { -webkit-transform: scale(0);
-		transform: scale(0);
-		opacity: 1;
-		filter: alpha(opacity=100); }
-	70% { -webkit-transform: scale(2);
-		transform: scale(2);
-		opacity: 0.5;
-		filter: alpha(opacity=50); }
-	90% { -webkit-transform: scale(2.5);
-		transform: scale(2.5);
-		opacity: 0.1;
-		filter: alpha(opacity=10); }
-	100% { -webkit-transform: scale(0);
-		transform: scale(0);
-		opacity: 0;
-		filter: alpha(opacity=0); } }
-
-@keyframes radioOut { 0% { -webkit-transform: scale(0);
-		transform: scale(0);
-		opacity: 1;
-		filter: alpha(opacity=100); }
-	70% { -webkit-transform: scale(2);
-		transform: scale(2);
-		opacity: 0.5;
-		filter: alpha(opacity=50); }
-	90% { -webkit-transform: scale(2.5);
-		transform: scale(2.5);
-		opacity: 0.1;
-		filter: alpha(opacity=10); }
-	100% { -webkit-transform: scale(0);
-		transform: scale(0);
-		opacity: 0;
-		filter: alpha(opacity=0); } }
 
 .btn { -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; display: inline-block; vertical-align: middle; width: 100px; height: 30px; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; font: 14px/30px "Microsoft YaHei"; border: none; -webkit-border-radius: 3px; -moz-border-radius: 3px; border-radius: 3px; color: #777777; text-align: center; background: #888; cursor: pointer; text-decoration: none; position: relative; margin: 5px; color: white; }
 
