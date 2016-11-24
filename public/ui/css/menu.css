@@ -140,15 +140,15 @@ audio, canvas, video { display: inline-block; vertical-align: middle; }
 
 .icon-money { background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABEAAAARCAYAAAA7bUf6AAAACXBIWXMAAAsTAAALEwEAmpwYAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAANNJREFUeNpi/P//PwOlgAXGMEmfJQCkDKDcC2dmpn1AV4ym5gFQzQMQgwlJDUjBBiDeD6WxgQao/H4kwxCGQE1tgHLtgbYGoLkCpCkfyt0IVL8BwxCoQROA1EEodwHU+TCwAEp/BOICZH1MWJwMU8APxBOgrgCJ6cO8BAsLGGDEFjtATSBv1UO5gVBXgAw9CDTAAV09NpeAvAUy5CKUux5qAAgkYFOP4hI0F+ADKC5iYqACYMSXYpFchjUshql3qOISqhjCQkAelFIPAPEHfIoAAgwA47BX9ZX/0IQAAAAASUVORK5CYII='); }
 
-.menu-ctn { position: absolute; }
+.menu-ctn { position: absolute; min-width: 98px; *width: 98px; }
 
-.menu-ctn .wraper { border: 1px solid #aaa; background: white; width: 98px; }
+.menu-ctn .wraper { border: 1px solid #aaa; background: white; }
 
 .menu-ctn ul { width: auto; }
 
 .menu-ctn li { position: relative; /*float:left;width:100%;*/ height: 24px; padding: 1px; list-style: none; }
 
-.menu-ctn a { display: block; overflow: hidden; -webkit-border-radius: 2px; -moz-border-radius: 2px; border-radius: 2px; color: black; white-space: nowrap; text-decoration: none; }
+.menu-ctn a { display: block; overflow: hidden; -webkit-border-radius: 2px; -moz-border-radius: 2px; border-radius: 2px; padding-right: 8px; color: black; white-space: nowrap; text-decoration: none; }
 
 .menu-ctn a:hover { background: #e1e1e1; border-color: #bbb; }
 
@@ -158,7 +158,7 @@ audio, canvas, video { display: inline-block; vertical-align: middle; }
 
 .menu-ctn .icon { height: 16px; }
 
-.menu-ctn .sub-tag { position: absolute; top: 50%; right: 4px; width: 0; height: 0; margin-top: -3px; border-left: 5px solid black; border-bottom: 5px solid transparent; border-top: 5px solid transparent; font-size: 0; line-height: 0; }
+.menu-ctn .sub-tag { position: absolute; top: 50%; right: 2px; width: 0; height: 0; margin-top: -3px; border-left: 5px solid black; border-bottom: 5px solid transparent; border-top: 5px solid transparent; font-size: 0; line-height: 0; }
 
 .menu-ctn .text { width: auto; padding: 2px 0 0 5px; white-space: nowrap; }
 

@@ -24,24 +24,23 @@ $.fn.menu = function(method, op){
 			var document = window.document;
 			// var getType = function(obj){ return toString.call(obj).slice(8, -1); };
 			var $box = $(box);
-			$box.addClass('menu-ctn cf').hide();
+			$box.addClass('menu-ctn').hide();
 			this.container = box;
 			this.menuitems = {};
 			var createMenu = function(option){
 				var data = option.data;
 				var wraper = document.createElement('div');
 				wraper.className = 'wraper';
-				if(option.width){
-					if(document.documentMode===5 || /MSIE 6/.test(navigator.userAgent)){
-						wraper.style.width = option.width + 2 + 'px';
-					}else{
-						wraper.style.width = option.width + 'px';
-					}
-				}
+				// if(option.width){
+				// 	if(document.documentMode===5 || /MSIE 6/.test(navigator.userAgent)){
+				// 		wraper.style.width = option.width + 2 + 'px';
+				// 	}else{
+				// 		wraper.style.width = option.width + 'px';
+				// 	}
+				// }
 				wraper.style.position = 'relative';
 				// wraper.innerHTML = '<div class="menu-vertical-line"></div>';
 				var ul = document.createElement('ul');
-				ul.className = 'cf';
 				for(var i=0,ii=data.length-1; i<=ii; i++){
 					var li = document.createElement('li');
 					var line;
@@ -62,7 +61,8 @@ $.fn.menu = function(method, op){
 						text.innerHTML = data[i].text||'';
 						text.className = 'text';
 						line.appendChild(text);
-						line.setAttribute('href', 'javascript:;');
+						line.href = 'javascript:';
+						// line.title = data[i].text||'';
 						if(data[i].disabled) line.className = 'disabled';
 						if(data[i]['class']) li.className = data[i]['class'];
 						that.menuitems[data[i].name] = li;
@@ -76,12 +76,13 @@ $.fn.menu = function(method, op){
 							sub_container.style.position = 'absolute';
 							sub_container.style.marginTop = '-22px';
 						}else{
-							sub_container.style.position = 'relative';
-							sub_container.style.top = '-22px';
+							// sub_container.style.position = 'relative';
+							sub_container.style.marginTop = '-24px';
+							sub_container.style.marginLeft = '-2px';
 						}
-						sub_container.style.left = option.width - 2 + 'px';
+						// sub_container.style.left = option.width - 2 + 'px';
 						sub_container.appendChild(createMenu(data[i].sub));
-						sub_container.className = 'menu-ctn cf';
+						sub_container.className = 'menu-ctn';
 						li.appendChild(sub_container);
 					}
 					ul.appendChild(li);
@@ -115,6 +116,8 @@ $.fn.menu = function(method, op){
 					if(sub){
 						if(sub.showMenuTimer) clearTimeout(sub.showMenuTimer);
 						sub.showMenu = true;
+						var parent = $(sub.parentNode).closest('.menu-ctn').get(0);
+						sub.style.left = parent.offsetWidth + 'px';
 						sub.style.display = '';
 						sub.showMenuTimer = null;
 					}
@@ -192,8 +195,9 @@ $.fn.menu = function(method, op){
 				text.innerHTML = option.text||'';
 				text.className = 'text';
 				line.appendChild(text);
-				line.setAttribute('href', 'javascript:;');
+				line.href = 'javascript:';
 				line.option = option;
+				// line.title = option.text;
 				if(option.disabled) line.className = 'disabled';
 				if(option['class']) li.className = option['class'];
 				this.menuitems[option.name] = li;

@@ -52,7 +52,7 @@ var menu_data = [
 	}},
 	{name:'user2', icon:'user', text:'用户2'},
 	{name:'test2', text:'测试2', sub:{
-		width: 300,
+		/* width: 300, */
 		data: [
 			{name:'chart3', icon:'chart', text:'流量333333333333333333333333333333333333'},
 			{name:'takein3', icon:'money', text:'收入3'},
@@ -67,14 +67,14 @@ var menu_data = [
 ];
 var $myMenu = $('#my_menu');
 $('#my_menu').menu({
-	width: 100,
+	/* width: 100, */
 	autoHide: false,
 	data: [
 		{name:'chart', icon:'chart', text:'流量'},
 		{name:'takein', icon:'money', text:'收入'},
 		{name:'user', icon:'user', disabled:true, text:'用户'},
-		{name:'sub', text:'Sub', sub:{
-			width: 200,
+		{name:'sub', text:'Sub222222222222222222222222222', sub:{
+			/* width: 200, */
 			data: menu_data
 		}},
 		{'class':'separate'},
