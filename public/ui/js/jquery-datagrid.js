@@ -96,7 +96,7 @@ $.fn.datagrid = function(options){
 		colWidth      : 80,
 		startRowNum   : 1,
 		data          : [],
-		sortable      : true,
+		sortable      : false,
 		sort          : null,
 		dataType      : 'string',
 		remoteSort    : false,
@@ -230,7 +230,7 @@ $.fn.datagrid = function(options){
 				return createElement({
 					name:'tr', children:(function(){
 						var nodes = [];
-						if(options.frozenColumns.length && isLeft && options.rowNum){
+						if(options.frozenColumns.length && isLeft && options.rowNum || !options.frozenColumns.length && options.rowNum){
 							nodes.push(createElement({
 								name:'td', children:{
 									name:'div', attr:{'class':'cell-wrapper'}, children:{
@@ -481,6 +481,9 @@ $.fn.datagrid = function(options){
 		},//}}}
 		getColumnSortFunction: function(option){//{{{
 			var field_option = this.getFieldOption(option.field); // 列的选项
+			if(!field_option){
+				return console.log(option, 'Field not found......');
+			}
 			var sort_type    = field_option.dataType || this.userOptions.dataType || 'string'; // 排序的类型
 			var fn           = field_option.sort || this.sortType[sort_type]; // 排序的函数
 			return function(a, b){
@@ -528,6 +531,7 @@ $.fn.datagrid = function(options){
 						tbody.style.display = 'none';
 					})();
 					trDoc.appendChild(tr);
+					if(!frozenTr && options.rowNum) $('td:eq(0) .cell', tr).text(rowNum+1);
 				}
 			});
 			if(frozenTbody && (frozenTrDoc.children || frozenTrDoc.childNodes)){
