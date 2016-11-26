@@ -139,6 +139,10 @@ audio, canvas, video { display: inline-block; vertical-align: middle; }
 
 .datagrid-ctn .view-wrapper { position: relative; }
 
+.datagrid-ctn .col-view { *display: inline; *zoom: 1; *vertical-align: top; }
+
+.datagrid-ctn .auto-view { *position: absolute; *top: 0; *right: 0; }
+
 .datagrid-ctn .head-wrapper { overflow: hidden; }
 
 .datagrid-ctn .body-wrapper { /*height:320px;*height:250px;*/ overflow: auto; }
@@ -187,4 +191,4 @@ audio, canvas, video { display: inline-block; vertical-align: middle; }
 
 .datagrid-ctn .autoRowHeight .cell { height: auto; }
 
-.datagrid-ctn .head .cell { font-family: "MicroSoft Yahei"; color: #000; }
+.datagrid-ctn .head .cell { font-family: MicroSoft Yahei; color: #000; }
