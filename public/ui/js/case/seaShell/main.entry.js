@@ -46,7 +46,7 @@ __non_webpack_require__([
 			if(!$leftMenu.tree('isLeaf', this)){
 				return false;
 			}
-			if(option.url.slice(0, 8)==='https://'){
+			if(option.url.slice(0, 8)==='https://' || option.target=="_blank"){
 				var win = window.open(option.url);
 				win.opener = null;
 			}else{

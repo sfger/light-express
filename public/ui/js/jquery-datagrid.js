@@ -422,9 +422,19 @@ $.fn.datagrid = function(options){
 			 * 1、全部行、全部列、单行、单列对齐重新对齐功能
 			 * */
 			adjust_table($('table', this.render), this);
+			var ie = /MSIE (\d+)\.?/.exec(navigator.userAgent);
+			if(ie && ie.length && ie[1]){
+				ie = Number(ie[1]);
+				if(ie<8){
+					$('.auto-view', this.render).css({
+						'width': 'auto',
+						'margin-left': $('.frozen-view', this.render).get(0).offsetWidth
+					}).find('.body-wrapper').css({'margin-top':'-2px'});
+				}
+			}
 			return this;
 		},//}}}
-		resize: function(){//{{{
+		// resize: function(){//{{{
 			// var render = this.render;
 			// var dataViews = $('.col-view', render);
 			// var tables = $('table', dataViews);
@@ -434,8 +444,8 @@ $.fn.datagrid = function(options){
 			// 	if(ie<10) dataViews.eq(1).css({width: render.clientWidth - 1 - dataViews.get(0).offsetWidth});
 			// }
 			// tables.eq(1).parent().css({height:tables.get(3).parentNode.clientHeight});
-			return this;
-		},//}}}
+			// return this;
+		// },//}}}
 		init_event: function(options){//{{{
 			var that    = this;
 			var $box    = $(this.render);

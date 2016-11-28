@@ -3,6 +3,8 @@ $is_modern:0;
 .datagrid-ctn{
 	overflow:hidden;
 	.view-wrapper{position:relative;}
+	.col-view{*display:inline;*zoom:1;*vertical-align:top;}
+	.auto-view{*position:absolute;*top:0;*right:0;}
 	.head-wrapper{overflow:hidden;}
 	.body-wrapper{/*height:320px;*height:250px;*/overflow:auto;}
 	.frozen-view{
@@ -52,5 +54,5 @@ $is_modern:0;
 		&.asc:before{content:"↑";color:#b90;}
 	}
 	.autoRowHeight .cell{height:auto;}
-	.head .cell{font-family:"MicroSoft Yahei";color:#000;}
+	.head .cell{font-family:MicroSoft Yahei;color:#000;}
 }

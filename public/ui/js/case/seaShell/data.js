@@ -55,8 +55,12 @@ define(function(){
 					children:[
 						{name:'博客园', url:'http://www.cnblogs.com'},
 						{name:'掘金', url:'http://gold.xitu.io/welcome'},
-						{name:'36kr', url:'http://www.36kr.com/'},
+						{name:'众成翻译', url:'http://www.zcfy.cc/'},
+						{name:'Geek.CSDN', url:'http://geek.csdn.net/'},
+						{name:'阮一峰', url:'http://www.ruanyifeng.com/blog/', target:"_blank"},
+						{name:'张鑫旭', url:'http://www.zhangxinxu.com'},
 						{name:'w3cplus', url:'http://www.w3cplus.com/'},
+						{name:'36kr', url:'http://www.36kr.com/'},
 						{name:'welefen', url:'http://www.welefen.com/'},
 						{name:'IBM-CN', url:'https://www.ibm.com/developerworks/cn/'},
 						{name:'月光博客', url:'http://www.williamlong.info/'},
@@ -64,8 +68,6 @@ define(function(){
 						{name:'大前端', url:'http://www.daqianduan.com/'},
 						{name:'酷壳', url:'http://coolshell.cn/'},
 						{name:'Typeof', url:'http://typeof.net'},
-						{name:'张鑫旭', url:'http://www.zhangxinxu.com'},
-						{name:'阮一峰', url:'http://www.ruanyifeng.com/blog/', target:"_blank"},
 						{name:'cloudgamer', url:'http://www.cnblogs.com/cloudgamer/'},
 						{name:'ziyunfei', url:'http://www.cnblogs.com/ziyunfei/'},
 						{name:'imququ', url:'https://imququ.com/'},
@@ -77,6 +79,29 @@ define(function(){
 					]
 				},
 				//}}}
+				//UI{{{
+				{
+					name: 'Web-UI',
+					children:[
+						{name:'Material', url:'http://www.material-ui.com/#/'},
+						{name:'Bootstrap', url:'http://getbootstrap.com/'},
+						{name:'AntDesign', url:'https://ant.design/'},
+						{name:'AntV', url:'http://antv.alipay.com/', target:'_blank'},
+						{name:'G2', url:'https://g2.alipay.com/'},
+						{name:'Fit', url:'http://fit.baidu.com/components/pc/menu'},
+						{name:'qunee', url:'http://qunee.com/'},
+						{name:'SUI', url:'http://m.sui.taobao.org/'},
+						{name:'React-web', url:'https://github.com/taobaofed/react-web'},
+						{name:'Polymer', url:'https://github.com/Polymer/polymer'},
+						{name:'Dragula', url:'https://github.com/bevacqua/dragula'},
+						{name:'zi-han', url:'http://www.zi-han.net/'},
+						{name:'AdminLTE', url:'https://github.com/almasaeed2010/AdminLTE'},
+						{name:'FitVidsJS', url:'http://fitvidsjs.com/'},
+						{name:'Kendo-UI', url:'http://www.telerik.com/kendo-ui'},
+						{name:'HT', url:'http://www.hightopo.com/demos/index.html'}
+					]
+				},
+				//}}}
 				//Standard&Tools{{{
 				{
 					name: '协议、文档、标准',
@@ -85,7 +110,9 @@ define(function(){
 						{name:'MathJS', url:'http://mathjs.org/'},
 						{name:'w3help', url:'http://www.w3help.org/'},
 						{name:'JS标准参考中文', url:'http://javascript.ruanyifeng.com/'},
-						{name:'JSON', url:'http://www.json.org/'}
+						{name:'JSON', url:'http://www.json.org/'},
+						{name:'Git Magic', url:'http://www-cs-students.stanford.edu/~blynn/gitmagic/intl/zh_cn/ch09.html'},
+						{name:'WXOpen', url:'http://wxopen.notedown.cn/'}
 					]
 				},
 				{
@@ -117,6 +144,7 @@ define(function(){
 						{name:'GIMP', url:'http://www.gimp.org'},
 						{name:'PHP', url:'http://www.php.net'},
 						{name:'Scala', url:'http://www.scala-lang.org'},
+						{name:'JSDom', url:'https://github.com/tmpvar/jsdom'},
 						{name:'Fiddler', url:'http://www.fiddler2.com/fiddler2/'},
 						{name:'BitBucket', url:'https://bitbucket.org/'},
 						{
@@ -145,7 +173,6 @@ define(function(){
 						{name:'Emmet', url:'http://docs.emmet.io/'},
 						{name:'Less', url:'https://github.com/groenewege/vim-less', target:'_blank'},
 						{name:'Vim Zencoding', url:'https://github.com/mattn/zencoding-vim', target:'_blank'},
-						// {name:'Linr', url:'http://hi.baidu.com/vickeychen'},
 						{name:'HTML5轮廓工具', url:'http://gsnedders.html5.org/'},
 						{name:'Trello', url:'https://trello.com'},
 						{name:'ProcessOn', url:'https://www.processon.com/'},
@@ -202,13 +229,16 @@ define(function(){
 				{
 					name: '应用',
 					children: [
-						{name: 'JQuery', url: 'http://jquery.com/'},
-						{name: 'Underscore', url: 'https://github.com/documentcloud/underscore/'},
-						{name: 'Backbone', url: 'https://github.com/documentcloud/backbone/'},
-						{name: 'seajs', url: 'http://seajs.org/'},
-						{name: 'WindJS', url: 'http://windjs.org/cn/'},
-						{name: 'Impress', url: 'http://bartaz.github.io/impress.js/#/bored'},
-						{name: 'MessengerJS', url: 'http://biqing.github.io/MessengerJS/'}
+						{name:'JQuery', url: 'http://jquery.com/'},
+						{name:'Underscore', url: 'https://github.com/documentcloud/underscore/'},
+						{name:'Backbone', url: 'https://github.com/documentcloud/backbone/'},
+						{name:'iscroll', url:'http://iscrolljs.com/'},
+						{name:'x-tag', url:'http://x-tag.github.io/overview'},
+						{name:'SnapSVG', url:'http://snapsvg.io/'},
+						{name:'JSDoc', url:'https://github.com/jsdoc3/jsdoc'},
+						{name:'WindJS', url: 'http://windjs.org/cn/'},
+						{name:'Impress', url: 'http://bartaz.github.io/impress.js/#/bored'},
+						{name:'MessengerJS', url: 'http://biqing.github.io/MessengerJS/'}
 					]
 				},
 				{

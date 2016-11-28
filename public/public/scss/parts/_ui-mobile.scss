@@ -1,9 +1,11 @@
 @charset "utf-8";
 $is_mobile:1 !default; // 兼容PC
 *,*:before,*:after,*::before,*::after{@include box-sizing(border-box);}
+html{font-size:100px;font-size:calc(100vw/3.75);}
+body,.page{font-size:0.14rem;}
 html,body,.page{
 	@include size(100%);overflow:hidden;color:#666;
-	font:14px PingFangSC-Regular,"Droid Sans Regular","Rotobo";
+	font-family:PingFangSC-Regular,"Droid Sans Regular","Rotobo";
 }
 body{position:relative;overflow-x:hidden;} // safari滚动条的问题
 .hidden{display:none;}
@@ -22,22 +24,20 @@ a{color:$color_default;}
 //     100%{transform:rotate(360deg);}
 // }
 .icon-loading,#stateLoading{
-	@include ib;@include size(40px);border-radius:100%;
+	@include ib;@include size(0.4rem);border-radius:100%;
 	@include prefix((animation:stateLoading 1s linear 0s infinite normal));
-	border:3px solid $color_blue;border-right-color:transparent;
-	// border-left-width:4px;
+	border:0.03rem solid $color_blue;border-right-color:transparent;
 	border-left-color:lighten($color_blue, 7.5%);
-	// border-bottom-width:2px;
 	border-bottom-color:lighten($color_blue, 25%);
 }
 
 .arrow-left{
-	&:before{content:"";@include triangle(left, left 10px top 11px,#666,11px);}
-	&:after {content:"";@include triangle(left, left 12px top 11px,white,11px);}
+	&:before{content:"";@include triangle(left, left 0.10rem top 0.11rem,#666,0.11rem);}
+	&:after {content:"";@include triangle(left, left 0.12rem top 0.11rem,white,0.11rem);}
 }
 .checkbox{
-	@include prefix((appearance:none));@include ib;@include size(18px);border-radius:50%;
-	line-height:16px;color:#d6d6d6;border:1px solid;text-align:center;
+	@include prefix((appearance:none));@include ib;@include size(0.18rem);border-radius:50%;
+	line-height:0.16rem;color:#d6d6d6;border:0.01rem solid;text-align:center;
 	&:after{content:"\2713";}
 	&:checked{color:white;background:$color_blue;border-color:$color_blue;}
 }
@@ -48,16 +48,16 @@ a{color:$color_default;}
 	@include flexbox;@include flex-direction(column);
 }
 .header{
-	@include flex(0,0,44px);@include relative;z-index:10;background-color:rgba(#fff,0.8);
+	@include flex(0,0,0.44rem);@include relative;z-index:10;background-color:rgba(#fff,0.8);
 	@include flexbox;@include justify-content(space-between);@include align-items(center);
 	text-align:center;
-	#{&},#{&} a{font-size:18px;color:$color_dark;}
-	.page-title{font-size:20px;}
-	.action-left,.action-right{@include size(50px,44px);display:block;line-height:44px;}
+	#{&},#{&} a{font-size:0.18rem;color:$color_dark;}
+	.page-title{font-size:0.2rem;}
+	.action-left,.action-right{@include size(0.50rem,0.44rem);display:block;line-height:0.44rem;}
 }
-.footer{@include flex(0,0,44px);}
+.footer{@include flex(0,0,0.44rem);}
 .wrapper{
-	@include flex(1,1,auto);@include relative();font-size:14px;overflow:hidden;
+	@include flex(1,1,auto);@include relative();font-size:0.14rem;overflow:hidden;
 	&.webkit-scroll{-webkit-overflow-scrolling:touch;overflow-y:scroll;overflow-x:hidden;}
 }
 
@@ -67,16 +67,16 @@ a{color:$color_default;}
 	@include background-color-rgba(#444,0.68);
 	&.hidden{display:none;}
 	.dialog-content{
-		width:85%;overflow:hidden;background:white;border-radius:3px;
+		width:85%;overflow:hidden;background:white;border-radius:0.03rem;
 		.dialog-main{
-			padding:6px 10px;min-height:100px;
+			padding:0.06rem 0.1rem;min-height:1rem;
 			@include flexbox();@include justify-content(center);@include align-items(center);
 		}
 	}
 	&.loading-state{
 		background-color:rgba(white,0.5);
 		.dialog-content{
-			padding:6px 10px;
+			padding:0.06rem 0.10rem;
 			@include background-color-rgba(transparent,0);
 			@include flexbox();@include justify-content(center);
 		}
@@ -85,7 +85,7 @@ a{color:$color_default;}
 		@include background-color-rgba(white,0.01);
 		.dialog-content{
 			width:auto;max-width:85%;min-width:33.333%;
-			padding:12px 25px;
+			padding:0.12rem 0.25rem;
 			@include background-color-rgba(black,0.75);color:white;
 			@include flexbox();@include justify-content(center);
 		}
@@ -93,12 +93,12 @@ a{color:$color_default;}
 }
 .btn-group{
 	@include flexbox();@include justify-content(center);
-	border-top:1px solid #e2e2e2;
+	border-top:0.01rem solid #e2e2e2;
 	span{
-		@include flex(1,1,50%);@include user-select(none);text-align:center;line-height:40px;
+		@include flex(1,1,50%);@include user-select(none);text-align:center;line-height:0.4rem;
 		@include flexbox;@include justify-content(center);@include align-items(center);
 	}
-	.btn-submit{color:hsl(188,72%,51%);border-left:1px solid #e2e2e2;}
+	.btn-submit{color:hsl(188,72%,51%);border-left:0.01rem solid #e2e2e2;}
 }
 
 .slide-ctn{
@@ -112,8 +112,8 @@ a{color:$color_default;}
 }
 
 .load-more{
-	display:none;font:16px SimHei;color:$color_blue;
-	height:40px;line-height:40px;
+	display:none;font:0.16rem SimHei;color:$color_blue;
+	height:0.4rem;line-height:0.4rem;
 	text-align:center;
 	.icon-loading{display:none;}
 	&.state-preloading{
