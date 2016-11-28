@@ -49,14 +49,24 @@ define(function(){
 					]
 				},
 				//}}}
+				//社区{{{
+				// {
+				// 	name: '社区'
+				// 	children:[
+				// 	]
+				// },
+				//}}}
 				//Blog{{{
 				{
 					name: '个人博客、社区',
 					children:[
 						{name:'博客园', url:'http://www.cnblogs.com'},
 						{name:'掘金', url:'http://gold.xitu.io/welcome'},
-						{name:'36kr', url:'http://www.36kr.com/'},
+						{name:'众成翻译', url:'http://www.zcfy.cc/'},
+						{name:'阮一峰', url:'http://www.ruanyifeng.com/blog/', target:"_blank"},
+						{name:'张鑫旭', url:'http://www.zhangxinxu.com'},
 						{name:'w3cplus', url:'http://www.w3cplus.com/'},
+						{name:'36kr', url:'http://www.36kr.com/'},
 						{name:'welefen', url:'http://www.welefen.com/'},
 						{name:'IBM-CN', url:'https://www.ibm.com/developerworks/cn/'},
 						{name:'月光博客', url:'http://www.williamlong.info/'},
@@ -64,8 +74,6 @@ define(function(){
 						{name:'大前端', url:'http://www.daqianduan.com/'},
 						{name:'酷壳', url:'http://coolshell.cn/'},
 						{name:'Typeof', url:'http://typeof.net'},
-						{name:'张鑫旭', url:'http://www.zhangxinxu.com'},
-						{name:'阮一峰', url:'http://www.ruanyifeng.com/blog/', target:"_blank"},
 						{name:'cloudgamer', url:'http://www.cnblogs.com/cloudgamer/'},
 						{name:'ziyunfei', url:'http://www.cnblogs.com/ziyunfei/'},
 						{name:'imququ', url:'https://imququ.com/'},
