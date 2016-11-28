@@ -92,18 +92,19 @@ $.fn.datagrid = function(options){
 		else return ret;
 	}//}}}
 	options = $.extend(true, {//{{{
-		rowNum        : false,
-		colWidth      : 80,
-		startRowNum   : 1,
-		data          : [],
-		sortable      : false,
-		sort          : null,
-		dataType      : 'string',
-		remoteSort    : false,
-		autoRowHeight : true,
-		autoColWidth  : true,
-		frozenColumns : [],
-		columns       : []
+		align         : 'center',  // 内容对齐方式
+		colWidth      : 80,        // 默认单元格内容宽度
+		rowNum        : false,     // 是否显示行号
+		startRowNum   : 1,         // 行号开始值
+		data          : [],        // 数据内容
+		sortable      : false,     // 列是否可排序
+		sort          : null,      // 排序选项
+		dataType      : 'string',  // 数据类型
+		remoteSort    : false,     // 是否服务器排序
+		autoRowHeight : true,      // 单元格高度是否自动对齐
+		autoColWidth  : true,      // 单元格宽度是否自动对齐
+		frozenColumns : [],        // 冻结列
+		columns       : []         // 普通列
 	}, options);//}}}
 	// var throttle = function(fn, delay, mustRunDelay){//{{{
 	// 	var timer = null;
@@ -129,7 +130,7 @@ $.fn.datagrid = function(options){
 	var handler  = function(box, options){ return new handler.prototype.init(box, options); };
 	var toString = Object.prototype.toString;
 	var getType  = function(obj){ return toString.call(obj).slice(8, -1).toLowerCase(); };
-	var createElement = function(node){//{{{
+	function createElement(node){//{{{
 		var cd        = '',
 			at        = [],
 			attr      = null,
@@ -166,9 +167,9 @@ $.fn.datagrid = function(options){
 			} else cd = '';
 		}
 		return cd;
-	};//}}}
+	}//}}}
 
-	var get_table = function(options, that){//{{{
+	function get_table(options, that){//{{{
 		var get_head_rows = function(rows, isFrozen){//{{{
 			if(!rows || isFrozen&&!options.frozenColumns.length) return [];
 			var colsType = isFrozen ? 'frozenColumns' : 'columns';
