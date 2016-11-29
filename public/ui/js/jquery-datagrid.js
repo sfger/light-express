@@ -170,7 +170,7 @@ $.fn.datagrid = function(options){
 	}//}}}
 
 	function get_table(options, that){//{{{
-		var get_head_rows = function(rows, isFrozen){//{{{
+		function get_head_rows(rows, isFrozen){//{{{
 			if(!rows || isFrozen&&!options.frozenColumns.length) return [];
 			var colsType = isFrozen ? 'frozenColumns' : 'columns';
 			var il = rows.length - 1;
@@ -224,8 +224,8 @@ $.fn.datagrid = function(options){
 					return nodes;
 				})()});
 			});
-		};//}}}
-		var get_data_rows = function(data, cols, isLeft){//{{{
+		}//}}}
+		function get_data_rows(data, cols, isLeft){//{{{
 			if(isLeft && !options.frozenColumns.length) return [];
 			return data.map(function(row, i){
 				return createElement({
@@ -264,7 +264,7 @@ $.fn.datagrid = function(options){
 					})()
 				});
 			});
-		};//}}}
+		}//}}}
 		return createElement({//{{{
 			name:'div', attr:{'class':'view-wrapper grid' + (options.autoRowHeight ? ' autoRowHeight' : '')}, children:[{
 				name:'div', attr:{'class':'col col-view frozen-view'}, children:[{
@@ -300,7 +300,7 @@ $.fn.datagrid = function(options){
 				}]
 			}]
 		});//}}}
-	};//}}}
+	}//}}}
 
 	//fn adjust_table{{{
 	var getHW = function(el, type){//{{{
@@ -330,36 +330,41 @@ $.fn.datagrid = function(options){
 		}
 	};//}}}
 	var adjust_table = function(tables, that){//{{{
-		if(tables.length==4){
-			var tp0 = tables.eq(2).parent();
-			var tp1 = tables.eq(3).parent();
-			$([tp0.get(0), tp1.get(0)]).css({width:500000});
-			var options = that.userOptions;
-			align_td(tables.filter('table:odd').find('tr:first-child td .cell').toArray(), 'width', that.fieldElements.toArray());
-			if(options.rowNum || options.frozenColumns){
-				if(options.autoRowHeight){
-					align_td($('table:eq(1) td:first-child', that.render).toArray(), 'height', $('table:eq(3) td:first-child', that.render).toArray());
-				}
-				align_table([tables[0], tables[1]], [tables[2], tables[3]], 'height');
-				align_table([tables[0], tables[2]], [tables[1], tables[3]], 'width');
+		if(tables.length<4) return false;
+		var tp0 = tables.eq(2).parent();
+		var tp1 = tables.eq(3).parent();
+		$([tp0.get(0), tp1.get(0)]).css({width:500000});
+		var options = that.userOptions;
+		align_td(tables.filter('table:odd').find('tr:first-child td .cell').toArray(), 'width', that.fieldElements.toArray());
+		if(options.rowNum || options.frozenColumns){
+			if(options.autoRowHeight){
+				align_td($('table:eq(1) td:first-child', that.render).toArray(), 'height', $('table:eq(3) td:first-child', that.render).toArray());
 			}
-
-			// var width_full = (document.compatMode === "CSS1Compat"&&!/msie 6/i.test(navigator.userAgent)) ? 'auto' : '100%';
-			var width_full = 'auto';
-			tp1.css({width:width_full});
-			tp0.parent().css({width:width_full, overflow:'hidden'});
-			var update_scroll_offset = function(){
-				tp0.get(0).parentNode.scrollLeft   = this.scrollLeft;
-				tables.get(1).parentNode.scrollTop = this.scrollTop;
-			};
-			$(tp1).off('scroll').on('scroll', function(){
-				if(this._scroll_id){
-					cancelAnimationFrame(this._scroll_id);
-					this._scroll_id = null;
-				}
-				this._scroll_id = requestAnimationFrame(update_scroll_offset.bind(this));
-			});
+			align_table([tables[0], tables[1]], [tables[2], tables[3]], 'height');
+			align_table([tables[0], tables[2]], [tables[1], tables[3]], 'width');
 		}
+
+		// var width_full = (document.compatMode === "CSS1Compat"&&!/msie 6/i.test(navigator.userAgent)) ? 'auto' : '100%';
+		var width_full = 'auto';
+		tp1.css({width:width_full});
+		tp0.parent().css({width:width_full, overflow:'hidden'});
+		var update_scroll_offset = function(){
+			tp0.get(0).parentNode.scrollLeft   = this.scrollLeft;
+			tables.get(1).parentNode.scrollTop = this.scrollTop;
+		};
+		$(tp1).off('scroll').on('scroll', function(){
+			if(this._scroll_id){
+				cancelAnimationFrame(this._scroll_id);
+				this._scroll_id = null;
+			}
+			this._scroll_id = requestAnimationFrame(update_scroll_offset.bind(this));
+		});
+		$(tables.eq(1)).off('mousewheel DOMMouseScroll').on('mousewheel DOMMouseScroll', function(e){
+			var tb3 = tables.get(3).parentNode;
+			tb3.scrollTop -= (e.originalEvent.wheelDelta || -(e.originalEvent.detail/3)*120)/3;
+			tables.get(1).parentNode.scrollTop = tb3.scrollTop;
+			return false;
+		});
 	};//}}}
 	//}}}
 	handler.prototype = {
@@ -471,6 +476,25 @@ $.fn.datagrid = function(options){
 					}, cell);
 				});
 			}
+			$box.on({
+				mouseenter: function(){
+					var index = this.rowIndex;
+					var data = that.userOptions.data[index];
+					var relatedData = that.relatedData;
+					if(relatedData) $([relatedData.frozenTr, relatedData.tr]).removeClass('hover');
+					that.relatedData = data;
+					if(this === data.frozenTr && data.tr){
+						$(data.tr).addClass('hover');
+					}else if(data.frozenTr){
+						$(data.frozenTr).addClass('hover');
+					}
+				},
+				mouseleave: function(){
+					var relatedData = that.relatedData;
+					if(relatedData) $([relatedData.frozenTr, relatedData.tr]).removeClass('hover');
+					that.relatedData = null;
+				}
+			}, '.body-wrapper tr');
 		},//}}}
 		sortType: {//{{{
 			'string': function(a, b){ // this指{field:field, order:order}
