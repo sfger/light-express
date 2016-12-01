@@ -66,6 +66,7 @@ var options = {
 	/* dataType      : 'number', */
 	width         : 200,
 	/* remoteSort    : true, */
+	triggerRow    : true,
 	frozenColumns : [
 		[
 			{name:'冻结列', colspan:4}
@@ -141,8 +142,8 @@ setInterval(function(){
 	$grid.datagrid('update', {data:gen_data()});
 	setTimeout(function(){
 		$grid.datagrid('sortBy', {field : 'col-2', order : 'asc'});
-	}, 3000);
-}, 5000);
+	}, 5000);
+}, 10000);
 */
 });
 </script>

@@ -96,6 +96,7 @@ $.fn.datagrid = function(options){
 		colWidth      : 80,        // 默认单元格内容宽度
 		rowNum        : false,     // 是否显示行号
 		startRowNum   : 1,         // 行号开始值
+		triggerRow    : false,     // hover是否高亮整行
 		data          : [],        // 数据内容
 		sortable      : false,     // 列是否可排序
 		sort          : null,      // 排序选项
@@ -348,10 +349,10 @@ $.fn.datagrid = function(options){
 		var width_full = 'auto';
 		tp1.css({width:width_full});
 		tp0.parent().css({width:width_full, overflow:'hidden'});
-		var update_scroll_offset = function(){
+		function update_scroll_offset(){
 			tp0.get(0).parentNode.scrollLeft   = this.scrollLeft;
 			tables.get(1).parentNode.scrollTop = this.scrollTop;
-		};
+		}
 		$(tp1).off('scroll').on('scroll', function(){
 			if(this._scroll_id){
 				cancelAnimationFrame(this._scroll_id);
@@ -380,14 +381,20 @@ $.fn.datagrid = function(options){
 		update: function(options){//{{{
 			var that = this;
 			var box  = this.render;
-			var data = options.data;
-			options  = $.extend(true, {}, this.userOptions, options);
-			if(data[0].tr || data[0].frozenTr){
-				data.forEach(function(rowData){
-					rowData.tr = null;
-					if(options.frozenColumns.length) rowData.frozenTr = null;
-				});
+			var old_options = this.userOptions;
+			if(old_options){
+				var data = old_options.data;
+				if(data[0].tr || data[0].frozenTr){
+					data.forEach(function(rowData){
+						delete rowData.tr;
+						if(old_options.frozenColumns.length) delete rowData.frozenTr;
+					});
+				}
+				if(options.data) this.userOptions.data = options.data;
+				delete options.data;
+				options = $.extend(true, {}, this.userOptions, options);
 			}
+			data = options.data;
 			$(box).empty(); // 清空内容取消绑定的事件
 			this.columns       = [];
 			this.frozenColumns = [];
@@ -467,27 +474,25 @@ $.fn.datagrid = function(options){
 			// 	};
 			// 	$box.on(hover_binds, '.head td').on(hover_binds, '.body tr');
 			// }
-			if(!options.remoteSort){
-				$box.on('click', '.field.sortable', function(){
-					var cell = $('.cell', this).get(0);
-					that.sortBy({
-						field: $(cell).data('field'),
-						order: !cell.order||that.defaultOrder
-					}, cell);
-				});
-			}
-			$box.on({
+			if(!options.remoteSort) $box.on('click', '.field.sortable', function(){
+				var cell = $('.cell', this).get(0);
+				that.sortBy({
+					field: $(cell).data('field'),
+					order: !cell.order||that.defaultOrder
+				}, cell);
+			});
+			if(options.triggerRow) $box.on({
 				mouseenter: function(){
-					var index = this.rowIndex;
-					var data = that.userOptions.data[index];
-					var relatedData = that.relatedData;
-					if(relatedData) $([relatedData.frozenTr, relatedData.tr]).removeClass('hover');
-					that.relatedData = data;
-					if(this === data.frozenTr && data.tr){
-						$(data.tr).addClass('hover');
+					var data = that.relatedData;
+					if(data && data.tr && data.tr.parentNode) $([data.frozenTr, data.tr]).removeClass('hover');
+					that.relatedData = data = that.userOptions.data[this.rowIndex];
+					var relatedTr;
+					if(this===data.frozenTr && data.tr){
+						relatedTr = data.tr;
 					}else if(data.frozenTr){
-						$(data.frozenTr).addClass('hover');
+						relatedTr = data.frozenTr;
 					}
+					$(relatedTr).addClass('hover');
 				},
 				mouseleave: function(){
 					var relatedData = that.relatedData;
