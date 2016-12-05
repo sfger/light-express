@@ -229,17 +229,21 @@ a { color: #666; }
 
 .slide-ctn.slide-in { -webkit-transform: translate3d(0, 0, 0); transform: translate3d(0, 0, 0); }
 
-.load-more { display: none; font: 0.16rem SimHei; color: blue; height: 0.4rem; line-height: 0.4rem; text-align: center; }
+.load-more { display: none; font: 16px SimHei; color: blue; height: 0.4rem; line-height: 0.4rem; text-align: center; }
 
 .load-more .icon-loading { display: none; }
 
-.load-more.state-preloading:before { content: '松开加载更多……'; display: inline-block; vertical-align: middle; }
+.load-more.state-preloading:before { content: '加载更多数据……'; display: inline-block; vertical-align: middle; }
 
-.load-more.state-loading, .load-more.state-preloading { display: block; }
+.load-more.state-loading, .load-more.state-preloading, .load-more.state-done { display: block; }
 
 .load-more.state-loading:before { content: normal; }
 
 .load-more.state-loading span { display: inline-block; }
+
+.load-more.state-done:before { content: '无更多数据'; }
+
+.load-more.state-done span { display: none; }
 
 .iScrollVerticalScrollbar { width: 5px !important; }
 

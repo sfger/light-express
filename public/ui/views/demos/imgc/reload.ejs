@@ -102,22 +102,21 @@ require(['jquery', 'IScroll'],function($, IScroll){
 	var $scroller = $(myScroll.wrapper.children[0]);
 	var $loadMore = $('<div class="load-more"><span class="icon-loading"></span></div>');
 	$scroller.append($loadMore)
-	var over_height = 0;
 	var loading_limit = 50;
 	var recover_time = 200;
 	myScroll.on('scroll', function(){//{{{
 		var that = this;
 		var scroll_timer = this._scroll_timer;
-		scroll_timer && cancelAnimationFrame(scroll_timer);
-		this._scroll_timer = requestAnimationFrame(function(){
-			over_height = -that.y + that.wrapperHeight - that.scrollerHeight;
-			if(over_height>=loading_limit){
-				$loadMore.addClass('state-preloading');
-			}else{
-				$loadMore.removeClass('state-preloading');
-			}
+		if(scroll_timer){
+			cancelAnimationFrame(scroll_timer);
+			scroll_timer = null;
+		}
+		scroll_timer = requestAnimationFrame(function(){
+			$loadMore[is_loading_more(myScroll)?'addClass':'removeClass']('state-preloading');
 		});
 	});//}}}
+	function get_over_scroll_height(isr){ return -isr.y+isr.wrapperHeight-isr.scrollerHeight; }
+	function is_loading_more(isr){ return get_over_scroll_height(isr)>=loading_limit && isr.directionY===1; }
 	function refresh_page(iscroll){/*{{{*/
 		var refresh_timer = iscroll._refresh_timer;
 		refresh_timer && cancelAnimationFrame(refresh_timer);
@@ -125,21 +124,29 @@ require(['jquery', 'IScroll'],function($, IScroll){
 			iscroll.refresh();
 		});
 	}/*}}}*/
-	function recover_loading_stage(iscroll){//{{{
-		iscroll.maxScrollY += loading_limit;
-		iscroll.resetPosition(recover_time);
-		$loadMore.removeClass('state-preloading state-loading');
+	function recover_loading_stage(iscroll, late){//{{{
+		late = late || 0;
+		setTimeout(function(){
+			iscroll.maxScrollY += loading_limit;
+			iscroll.resetPosition(recover_time);
+			$loadMore.removeClass('state-preloading state-loading state-done');
+		}, late);
 		/* setTimeout(function(){ */
 		/* 	refresh_page(iscroll); */
 		/* }, recover_time); */
 	}//}}}
-
 	$scroller.get(0).addEventListener('touchend', function(){//{{{
-		if(over_height>loading_limit){
+		if(is_loading_more(myScroll)){
 			myScroll.maxScrollY -= loading_limit;
 			$loadMore.removeClass('state-preloading').addClass('state-loading');
 			setTimeout(function(data){
-				recover_loading_stage(myScroll);
+				var r = Math.random();
+				if(r>0.5){
+					recover_loading_stage(myScroll);
+				}else{
+					recover_loading_stage(myScroll, 1e3);
+					return $loadMore.addClass('state-done');
+				}
 			}, 1200);
 		}
 	}, false);//}}}

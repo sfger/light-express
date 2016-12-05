@@ -38,7 +38,7 @@ define(function(){
 							name: '百度',
 							children:[
 								{name:'百度MUX', url:'http://mux.baidu.com/'},
-								{name:'百度UFO', url:'http://www.baiduux.com/'},
+								{name:'百度FEX', url:'http://fex.baidu.com/'},
 								{name:'百度UED', url:'http://ued.baidu.com/'}
 							]
 						},
@@ -71,11 +71,8 @@ define(function(){
 						{name:'cloudgamer', url:'http://www.cnblogs.com/cloudgamer/'},
 						{name:'ziyunfei', url:'http://www.cnblogs.com/ziyunfei/'},
 						{name:'imququ', url:'https://imququ.com/'},
-						{name:'ipresst', url:'http://www.ipresst.com/'},
 						{name:'hacker-scripts', url:'https://github.com/NARKOZ/hacker-scripts'},
-						{name:'js8', url:'http://js8.in/'},
-						{name:'HTML580', url:'http://www.html580.com/'},
-						{name:'CSSASS', url:'http://www.cssass.com/blog/'}
+						{name:'HTML580', url:'http://www.html580.com/'}
 					]
 				},
 				//}}}
