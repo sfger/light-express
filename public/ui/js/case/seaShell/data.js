@@ -39,6 +39,7 @@ define(function(){
 							children:[
 								{name:'百度MUX', url:'http://mux.baidu.com/'},
 								{name:'百度FEX', url:'http://fex.baidu.com/'},
+								{name:'ecomfe', url:'http://ecomfe.github.io/'},
 								{name:'百度UED', url:'http://ued.baidu.com/'}
 							]
 						},
@@ -85,6 +86,7 @@ define(function(){
 						{name:'AntDesign', url:'https://ant.design/'},
 						{name:'AntV', url:'http://antv.alipay.com/', target:'_blank'},
 						{name:'G2', url:'https://g2.alipay.com/'},
+						{name:'zrender', url:'http://ecomfe.github.io/zrender/'},
 						{name:'Fit', url:'http://fit.baidu.com/components/pc/menu'},
 						{name:'qunee', url:'http://qunee.com/'},
 						{name:'SUI', url:'http://m.sui.taobao.org/'},
@@ -265,24 +267,25 @@ define(function(){
 				{
 					name: 'Share',
 					children: [
-						{name: 'NodeJS官网', url: 'http://nodejs.org/'}
-					]
-				}
-			]
-		},
-		//}}}
-		//{{{C&Cpp
-		{
-			name:'C&Cpp',
-			children:[
-				{
-					name: 'Share',
-					children: [
-						{name: '一分C++文档', url: 'http://classfoo.com/'}
+						{name: 'NodeJS官网', url: 'http://nodejs.org/'},
+						{name: 'npmjs', url: 'https://www.npmjs.com/'}
 					]
 				}
 			]
 		}
+		//}}}
+		//{{{C&Cpp
+		// {
+		// 	name:'C&Cpp',
+		// 	children:[
+		// 		{
+		// 			name: 'Share',
+		// 			children: [
+		// 				{name: '一分C++文档', url: 'http://classfoo.com/'}
+		// 			]
+		// 		}
+		// 	]
+		// }
 		//}}}
 	];
 });
