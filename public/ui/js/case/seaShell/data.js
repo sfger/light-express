@@ -21,8 +21,8 @@ define(function(){
 							name: '淘宝',
 							children:[
 								{name:'淘宝FED', url:'http://taobaofed.org/'},
-								{name:'淘测试', url:'http://www.taobaotest.com/'},
-								{name:'淘宝搜索技术团队', url:'http://www.searchtb.com/'},
+								// {name:'淘测试', url:'http://www.taobaotest.com/'},
+								// {name:'淘宝搜索技术团队', url:'http://www.searchtb.com/'},
 								{name:'一淘UX', url:'http://ux.etao.com/'}
 							]
 						},
@@ -90,6 +90,7 @@ define(function(){
 						{name:'Fit', url:'http://fit.baidu.com/components/pc/menu'},
 						{name:'qunee', url:'http://qunee.com/'},
 						{name:'SUI', url:'http://m.sui.taobao.org/'},
+						{name:'LayUI', url:'http://www.layui.com/'},
 						{name:'React-web', url:'https://github.com/taobaofed/react-web'},
 						{name:'Polymer', url:'https://github.com/Polymer/polymer'},
 						{name:'Dragula', url:'https://github.com/bevacqua/dragula'},
@@ -111,7 +112,7 @@ define(function(){
 						{name:'JS标准参考中文', url:'http://javascript.ruanyifeng.com/'},
 						{name:'JSON', url:'http://www.json.org/'},
 						{name:'Git Magic', url:'http://www-cs-students.stanford.edu/~blynn/gitmagic/intl/zh_cn/ch09.html'},
-						{name:'WXOpen', url:'http://wxopen.notedown.cn/'}
+						{name:'WXOpen', url:'https://mp.weixin.qq.com/'}
 					]
 				},
 				{
