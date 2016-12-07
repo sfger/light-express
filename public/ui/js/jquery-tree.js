@@ -333,7 +333,7 @@ $.fn.tree = function(options){
 			var parentNode = null;
 			try{
 				parentNode = node.parentNode.parentNode.children[0];
-			}catch(e){null;}
+			}catch(e){}
 			return parentNode;
 		},
 		disableSelection: function(){

@@ -63,7 +63,7 @@ __non_webpack_require__([
 				try{
 					var win = window.open(this.option.url);
 					win.opener = null;
-				}catch(e){null;}
+				}catch(e){}
 				return false;
 			}
 		}
