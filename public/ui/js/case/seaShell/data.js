@@ -86,9 +86,12 @@ define(function(){
 						{name:'AntDesign', url:'https://ant.design/'},
 						{name:'AntV', url:'http://antv.alipay.com/', target:'_blank'},
 						{name:'G2', url:'https://g2.alipay.com/'},
-						{name:'zrender', url:'http://ecomfe.github.io/zrender/'},
+						{name:'raphael', url:'http://dmitrybaranovskiy.github.io/raphael/reference.html'},
+						{name:'ZRender', url:'http://ecomfe.github.io/zrender/'},
+						{name:'KuteJS', url:'http://thednp.github.io/kute.js/css.html'},
 						{name:'Fit', url:'http://fit.baidu.com/components/pc/menu'},
 						{name:'qunee', url:'http://qunee.com/'},
+						{name:'mobx', url:'https://mobxjs.github.io/mobx/index.html'},
 						{name:'SUI', url:'http://m.sui.taobao.org/'},
 						{name:'LayUI', url:'http://www.layui.com/'},
 						{name:'React-web', url:'https://github.com/taobaofed/react-web'},
@@ -106,10 +109,12 @@ define(function(){
 				{
 					name: '协议、文档、标准',
 					children:[
+						{name:'CSS Reference', url:'http://cssreference.io/'},
 						{name:'ES6', url:'http://es6.ruanyifeng.com/'},
 						{name:'MathJS', url:'http://mathjs.org/'},
 						{name:'w3help', url:'http://www.w3help.org/'},
 						{name:'JS标准参考中文', url:'http://javascript.ruanyifeng.com/'},
+						{name:'Swift', url:'http://wiki.jikexueyuan.com/project/swift/chapter1/02_a_swift_tour.html'},
 						{name:'JSON', url:'http://www.json.org/'},
 						{name:'Git Magic', url:'http://www-cs-students.stanford.edu/~blynn/gitmagic/intl/zh_cn/ch09.html'},
 						{name:'WXOpen', url:'https://mp.weixin.qq.com/'}
@@ -118,12 +123,14 @@ define(function(){
 				{
 					name: '组织、工具、书籍',
 					children:[
+						{name:'ituring', url:'http://www.ituring.com.cn/'},
 						{name:'JavascripToo', url:'http://www.javascriptoo.com/'},
 						{name:'HTML5Rock', url:'http://www.html5rocks.com/zh/resources'},
 						{name:'Email-ToolBox', url:'http://email-toolbox.com/'},
 						{name:'Programming-Books', url:'https://github.com/vhf/free-programming-books'},
 						{name:'Javascript-Guide', url:'https://github.com/airbnb/javascript'},
 						{name:'Front-End-Collect', url:'https://github.com/foru17/front-end-collect'},
+						{name:'Google', url:'http://translate.google.cn/'},
 						{name:'BestBooks', url:'http://bestcbooks.com/'}
 					]
 				},
@@ -178,7 +185,8 @@ define(function(){
 						{name:'ProcessOn', url:'https://www.processon.com/'},
 						{name:'马克飞象', url:'https://maxiang.io/'},
 						{name:'Dexpot', url:'http://dexpot.de/'},
-						{name:'有道笔记', url:'https://note.youdao.com'}
+						{name:'有道笔记', url:'https://note.youdao.com'},
+						{name:'百度浏览器', url:'http://tongji.baidu.com/data/browser'}
 					]
 				},
 				//}}}
@@ -188,7 +196,8 @@ define(function(){
 					children:[
 						{name:'SinaAppEngine', url:'http://sae.sina.com.cn/'},
 						{name:'MSDN', url:'http://msdn.microsoft.com/en-us/library/ms683218%28VS.85%29.aspx'},
-						{name:'Google Developers', url:'https://developers.google.com/academy/apis/commerce/?hl=zh-cn', target:'_blank'},
+						{name:'Google Developers', url:'https://developers.google.com/academy/apis/commerce/?hl=zh-cn'},
+						{name:'Google Developers CN', url:'https://developers.google.cn/'},
 						{name:'谷歌流量分析', url:'https://www.google.com/analytics/web/?hl=zh-CN', target:'_blank'},
 						{name:'Java document', url:'http://docs.oracle.com/javase/6/docs/api/overview-summary.html'},
 						{name:'Codeplex', url:'http://www.codeplex.com/'}
