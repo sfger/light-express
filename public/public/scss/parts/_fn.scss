@@ -370,7 +370,7 @@ $color_bg_light :#eee !default;
 @mixin grid(){
 	@include flexbox;
 	@if($is_mobile==0){
-		display:table\9;width:100%\9;
+		display:table\9;width:100%\9;table-layout:fixed\9;
 		@media screen and(-ms-high-contrast:active),(-ms-high-contrast:none){@include flexbox;}
 	}
 	&.grid-column{@include flex-direction(column);}
@@ -378,21 +378,27 @@ $color_bg_light :#eee !default;
 @mixin col($width:auto){
 	@include flex(0,0,$width);
 	@if($is_mobile==0){
-		display:table-cell\9;
-		@media screen and(-ms-high-contrast:active),(-ms-high-contrast:none){display:block;}
-		>.grid-iecp{content:"";display:none;display:block;width:$width;height:0;line-height:0;font-size:0;}
+		display:table-cell\9;vertical-align:top\9;
+		&:before{content:"";display:block;width:$width;height:0;line-height:0;font-size:0;}
+		@media screen and(-ms-high-contrast:active),(-ms-high-contrast:none){
+			display:block;
+			&:before{content:normal;}
+		}
 	}
 }
 @mixin col-width($width:auto){
-	&,&>.grid-iecp{width:$width;}
+	&,&:before{width:$width;}
 }
 @mixin col-auto($grow:0,$shrink:0,$basis:auto){
 	@if($is_mobile==0){
 		$width:if($grow==1 and $basis==auto,100%,$basis);
-		display:table-cell\9;width:#{$width}\9;
+		display:table-cell\9;width:#{$width}\9;vertical-align:top\9;
 	}
 	@include flex($grow,$shrink,$basis);
 	@if($is_mobile==0){
-		@media screen and(-ms-high-contrast:active),(-ms-high-contrast:none){display:block;}
+		@media all and(-ms-high-contrast:none){
+			display:block;
+			@at-root *::-ms-backdrop,#{&}{flex-basis:100%;}
+		}
 	}
 }

@@ -313,11 +313,11 @@ $.fn.datagrid = function(options){
 	};//}}}
 	var align_table = function(a, b, type){//{{{
 		var st = 'offset'+(type==='width' ? 'Width' : 'Height');
-		for(var i=0; i<a.length; i++){
+		for(var i=0,len=a.length; i<len; i++){
 			var t1 = a[i][st];
 			var t2 = b[i][st];
 			var t = t1<t2 ? t2 : t1;
-			a[i].style[type] = b[i].style[type] = t+'px';
+			a[i].style[type] = b[i].style[type] = t + Math.ceil(len/2) + 'px';
 		}
 	};//}}}
 	var align_td = function(a, type, fieldElements){//{{{
