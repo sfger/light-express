@@ -117,6 +117,8 @@ audio, canvas, video { display: inline-block; vertical-align: middle; }
 
 @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) { .grid { display: -webkit-box; display: -webkit-flex; display: -moz-flex; display: -ms-flexbox; display: flex; } }
 
+.grid.layout-auto { table-layout: auto\9; }
+
 .grid.grid-column { -webkit-box-direction: normal; -webkit-box-orient: vertical; -webkit-flex-direction: column; -moz-flex-direction: column; -ms-flex-direction: column; flex-direction: column; }
 
 .grid .col { -webkit-box-flex: 0; -webkit-flex: 0 0 auto; -moz-box-flex: 0; -moz-flex: 0 0 auto; -ms-flex: 0 0 auto; flex: 0 0 auto; display: table-cell\9; vertical-align: top\9; }
@@ -135,11 +137,13 @@ audio, canvas, video { display: inline-block; vertical-align: middle; }
 
 @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) { .grid .col-rest.grid { display: -webkit-box; display: -webkit-flex; display: -moz-flex; display: -ms-flexbox; display: flex; } }
 
+.grid .col-rest.grid.layout-auto { table-layout: auto\9; }
+
 .grid .col-rest.grid.grid-column { -webkit-box-direction: normal; -webkit-box-orient: vertical; -webkit-flex-direction: column; -moz-flex-direction: column; -ms-flex-direction: column; flex-direction: column; }
 
 .datagrid-ctn { overflow: hidden; }
 
-.datagrid-ctn .view-wrapper { position: relative; table-layout: auto\9; }
+.datagrid-ctn .view-wrapper { position: relative; }
 
 .datagrid-ctn .col-view { *display: inline; *zoom: 1; *vertical-align: top; }
 

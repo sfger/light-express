@@ -267,7 +267,7 @@ $.fn.datagrid = function(options){
 			});
 		}//}}}
 		return createElement({//{{{
-			name:'div', attr:{'class':'view-wrapper grid' + (options.autoRowHeight ? ' autoRowHeight' : '')}, children:[{
+			name:'div', attr:{'class':'view-wrapper grid layout-auto' + (options.autoRowHeight ? ' autoRowHeight' : '')}, children:[{
 				name:'div', attr:{'class':'col col-view frozen-view'}, children:[{
 					name:'div', attr:{'class':'head-wrapper'}, children:{
 						name:'table', attr:{'class':'frozen head'}, children:{

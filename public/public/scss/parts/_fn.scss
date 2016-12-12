@@ -373,6 +373,7 @@ $color_bg_light :#eee !default;
 		display:table\9;width:100%\9;table-layout:fixed\9;
 		@media screen and(-ms-high-contrast:active),(-ms-high-contrast:none){@include flexbox;}
 	}
+	&.layout-auto{table-layout:auto\9;}
 	&.grid-column{@include flex-direction(column);}
 }
 @mixin col($width:auto){
