@@ -19,6 +19,28 @@ $.fn.pagination = function(options){
 		pageSize            : 25,               // 每页数据数
 		pageNumber          : null,             // 页码
 		pageNumberQueryName : 'pageNumber',     // 页码参数名
+		pageNumberReg       : null,
+		pageNumberParser    : function(){
+			return this.pageNumberReg = new RegExp('([?&]{1}'+this.pageNumberQueryName+'=)([^&]*)');
+		},
+		pageNumberGetter    : function(url){
+			this.pageNumberReg || this.pageNumberParser();
+			url = url || location.href;
+			var pageNumber = this.pageNumberReg.exec(url);
+			if(pageNumber && pageNumber[2]) pageNumber = pageNumber[2];
+			return parseInt(pageNumber,10) || 1;
+		},
+		pageNumberSetter    : function(url, num){
+			url = url || location.href;
+			if(url.slice(-1)=='?') url = url.slice(0,-1);
+			num = num || '';
+			var ret = '';
+			var link = document.createElement('a');
+			link.href = url;
+			if(this.pageNumberReg.test(url)) ret = url.replace(this.pageNumberReg,"$1"+num);
+			else ret = url + (link.search?'&':'?') + this.pageNumberQueryName + '=' + num;
+			return ret;
+		},
 		showPreNext         : true,             // 是否页面下面一页按钮
 		showPreNextOnEdge   : true,             // 最后一页是否显示不能点击的下一页
 		prePageAlias        : '上一页',         // 上一页文字
@@ -40,18 +62,20 @@ $.fn.pagination = function(options){
 			if(options.useAjax){
 				url = 'javascript:';
 			}else{
-				this.pageNumberRegExp = new RegExp('([?&]{1}'+options.pageNumberQueryName+'=)([^&]*)');
-				pageNumber = this.pageNumberRegExp.exec(location.href);
-				if(pageNumber && pageNumber[2]) pageNumber = pageNumber[2];
-				if(!pageNumber){
-					if(location.search) url = location.href+'&'+options.pageNumberQueryName+'=';
-					else url = location.href+'?'+options.pageNumberQueryName+'=';
-					pageNumber = 1;
-				}else{
-					url = location.href.replace(this.pageNumberRegExp,"$1"+'');
-					pageNumber = parseInt(pageNumber, 10);
-					if(isNaN(pageNumber)) pageNumber=1;
-				}
+				pageNumber = options.pageNumberGetter(location.href);
+				url = options.pageNumberSetter(location.href);
+				// this.pageNumberRegExp = new RegExp('([?&]{1}'+options.pageNumberQueryName+'=)([^&]*)');
+				// pageNumber = this.pageNumberRegExp.exec(location.href);
+				// if(pageNumber && pageNumber[2]) pageNumber = pageNumber[2];
+				// if(!pageNumber){
+				// 	if(location.search) url = location.href+'&'+options.pageNumberQueryName+'=';
+				// 	else url = location.href+'?'+options.pageNumberQueryName+'=';
+				// 	pageNumber = 1;
+				// }else{
+				// 	url = location.href.replace(this.pageNumberRegExp,"$1"+'');
+				// 	pageNumber = parseInt(pageNumber, 10);
+				// 	if(isNaN(pageNumber)) pageNumber=1;
+				// }
 			}
 			pageNumber = pageNumber>this.pageCount ? this.pageCount : pageNumber;
 			options.pageNumber = pageNumber;
@@ -101,11 +125,12 @@ $.fn.pagination = function(options){
 						options.onChangePage.call(that, options.pageNumber, that.pageCount);
 					that.update(options.pageNumber);
 				}else{
-					if(that.pageNumberRegExp.test(location.href)){
-						location.href = location.href.replace(that.pageNumberRegExp,"$1"+a);
-					}else{
-						location.href += (/\?/.test(location.href)?'&':'?') + options.pageNumberQueryName + '=' + a;
-					}
+					location.href = options.pageNumberSetter(location.href, a);
+					// if(that.pageNumberRegExp.test(location.href)){
+					// 	location.href = location.href.replace(that.pageNumberRegExp,"$1"+a);
+					// }else{
+					// 	location.href += (/\?/.test(location.href)?'&':'?') + options.pageNumberQueryName + '=' + a;
+					// }
 				}
 				return false;
 			});
@@ -120,7 +145,8 @@ $.fn.pagination = function(options){
 		getNaviNode: function(url, page, show){
 			var options = this.userOptions;
 			if(!options.useAjax){
-				url = url.replace(this.pageNumberRegExp, "$1"+page);
+				// url = url.replace(this.pageNumberRegExp, "$1"+page);
+				url = options.pageNumberSetter(url, page);
 			}
 			var c = (function(){
 				if(show===options.prePageAlias) return ' prev';
