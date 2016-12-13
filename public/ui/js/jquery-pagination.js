@@ -34,14 +34,11 @@ $.fn.pagination = function(options){
 			var render = options.render;
 			this.pageCount = Math.ceil(options.dataSize/options.pageSize);
 			this.pageCount = this.pageCount<1 ? 1 : this.pageCount;
-			// if(!/(^|\s)pagination-ctn(\s|$)/.test(render.className)){
-			// 	render.className += (render.className ? ' ' : '') + 'pagination-ctn';
-			// }
 			$(render).addClass('pagination-ctn');
 			var pageNumber, url;
 			pageNumber = options.pageNumber;
 			if(options.useAjax){
-				url = 'javascript:;';
+				url = 'javascript:';
 			}else{
 				this.pageNumberRegExp = new RegExp('([?&]{1}'+options.pageNumberQueryName+'=)([^&]*)');
 				pageNumber = this.pageNumberRegExp.exec(location.href);
@@ -69,7 +66,7 @@ $.fn.pagination = function(options){
 				this.pageCount = Math.ceil(options.dataSize/options.pageSize) || 1;
 			}
 			// console.log(pageNumber,dataSize);
-			$(options.render).html( this.navishow(pageNumber,this.pageCount,this.url,options.show) + '&nbsp;<div class="form"><span>第</span><input name="'+options.pageNumberQueryName+'" class="page" type="text" value="" /><a href="javascript:;" class="go">GO</a><span>页</span></div>&nbsp;<div class="desc">共<span class="dataSize">'+options.dataSize+'</span>条记录</div>' );
+			$(options.render).html( this.navishow(pageNumber,this.pageCount,this.url,options.show) + '&nbsp;<div class="form"><span>第</span><input name="'+options.pageNumberQueryName+'" class="page" type="text" value="" /><a href="javascript:" class="go">GO</a><span>页</span></div>&nbsp;<div class="desc">共<span class="dataSize">'+options.dataSize+'</span>条记录</div>' );
 		},
 		initEvent: function(){
 			var that = this;
@@ -133,11 +130,11 @@ $.fn.pagination = function(options){
 			if(page<1 || page>this.pageCount){
 				c += ' disabled';
 			}
-			url = '<a href="'+(page>0&&page<=this.pageCount?url:'javascript:;')+'" pageNumber="'+page+'" class="pn'+c+'">'+show+'</a>';
+			url = '<a href="'+(page>0&&page<=this.pageCount?url:'javascript:')+'" pageNumber="'+page+'" class="pn'+c+'">'+show+'</a>';
 			return url;
 		},
 		getPlainChild: function(text){
-			return '<a href="javascript:;" class="'+(text==='...' ? 'plain' : 'current')+'">'+text+'</a>';
+			return '<a href="javascript:" class="'+(text==='...' ? 'plain' : 'current')+'">'+text+'</a>';
 		},
 		navishow: function(cur, page, url, show){
 			show = show==undefined ? 11 : show;
