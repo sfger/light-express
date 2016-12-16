@@ -17,45 +17,30 @@
 html,body,#page{height:100%;overflow:hidden;}
 .grid .col{vertical-align:top;}
 .layout-ctn{height:100%;}
-.layout-main{table-layout:fixed;}
 .grid .resize-bar{width:6px;background:#ddd;}
 .grid .bar-north,.grid .bar-south{width:auto;height:6px;}
 .grid .layout-west,.grid .layout-east,.grid .layout-west .grid-iecp,.grid .layout-east .grid-iecp{width:250px;}
-/* .grid,.grid .col,.grid .col-rest{height:250px;} */
-/* .layout-center{overflow:scroll;} */
-.layout-center{position:relative\9;overflow:auto;overflow:visible\9;}
-.layout-scroller{overflow:auto\9;position:absolute\9;top:0\9;bottom:0\9;left:0\9;right:0\9;height:300px\9;}
-@media screen and(-ms-high-contrast:active),(-ms-high-contrast:none){
-	.layout-center{position:static;overflow:auto;}
-	.layout-scroller{overflow:visible;position:static;top:auto;bottom:auto;left:auto;right:auto;height:auto;}
-}
+.layout-center{overflow:auto;}
+.layout-main{height:93%;}
 </style>
 </head>
 <body>
-<div id="page" class="sss">
+<div id="page">
 	<div class="grid grid-column layout-ctn">
 		<div class="col">north</div>
 		<div class="col resize-bar bar-north"></div>
 		<div class="col-rest grid layout-main">
-			<div class="col layout-west">
-				<!--[if lte IE 9]><p class="grid-iecp"></p><![endif]-->
-				west
-			</div>
+			<div class="col layout-west">west</div>
 			<div class="col resize-bar bar-west">
 				<a href="javascript:" class="ib-col vt-mid"></a>
 			</div>
 			<div class="col-rest layout-center">
-				<div class="layout-scroller">
-					centercentercentercentercentercentercentercentercentercentercentercentercentercentercentercentercentercentercentercentercentercentercentercentercentercentercentercentercentercentercentercentercentercentercentercentercentercentercentercentercentercentercentercentercentercentercentercentercentercentercentercentercentercentercentercentercentercentercentercentercentercenter<br /> center<br /> center<br /> center<br /> center<br /> center<br /> center<br />
-				</div>
+				centercentercentercentercentercentercentercentercentercentercentercentercentercentercentercentercentercentercentercentercentercentercentercentercentercentercentercentercentercentercentercentercentercentercentercentercentercentercentercentercentercentercentercentercentercentercentercentercentercentercentercentercentercentercentercentercentercentercentercentercentercenter<br /> center<br /> center<br /> center<br /> center<br /> center<br /> center<br />
 			</div>
 			<div class="col resize-bar bar-east">
 				<a href="javascript:" class="ib-col vt-mid"></a>
 			</div>
-			<div class="col layout-east">
-				<!--[if lte IE 9]><p class="grid-iecp"></p><![endif]-->
-				east
-			</div>
+			<div class="col layout-east">east</div>
 		</div>
 		<div class="col resize-bar bar-south"></div>
 		<div class="col">south</div>
