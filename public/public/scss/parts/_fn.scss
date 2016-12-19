@@ -395,9 +395,9 @@ $color_bg_light :#eee !default;
 		}
 	}
 }
-@mixin col-width($width:auto){
-	&,&:before{width:$width;}
-}
+// @mixin col-width($width:auto){
+// 	&,&:before{width:$width;}
+// }
 @mixin col-auto($grow:0,$shrink:0,$basis:auto){
 	@if($is_mobile==0){
 		$width:if($grow==1 and $basis==auto,100%,$basis);
