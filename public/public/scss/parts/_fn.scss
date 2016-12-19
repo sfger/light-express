@@ -18,9 +18,9 @@ $color_bg_light :#eee !default;
 // @mixin prefix($map, $vendors:webkit moz ms o){
 @mixin prefix($map, $vendors:webkit){
 	@each $prop,$value in $map{
-		@if $vendors {
-			@each $vendor in $vendors {
-				#{'-' + $vendor + '-' + $prop}:$value;
+		@if $vendors{
+			@each $vendor in $vendors{
+				#{'-'+$vendor+'-'+$prop}:$value;
 			}
 		}
 		#{$prop}:#{$value};

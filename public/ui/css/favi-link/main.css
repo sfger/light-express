@@ -34,7 +34,7 @@
 		opacity: 0;
 		filter: alpha(opacity=0); } }
 
-* { box-sizing: border-box; }
+*, *:before, *:after, *::before, *::after { -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
 
 html, body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, form, fieldset, legend, input, button, textarea, hr, pre, code, p, blockquote, th, td { margin: 0; padding: 0; }
 
@@ -118,7 +118,13 @@ audio, canvas, video { display: inline-block; vertical-align: middle; }
 
 .grid.layout-auto { table-layout: auto\9; }
 
-.grid.grid-column { -webkit-box-direction: normal; -webkit-box-orient: vertical; -webkit-flex-direction: column; -moz-flex-direction: column; -ms-flex-direction: column; flex-direction: column; }
+.grid.grid-column { -webkit-box-direction: normal; -webkit-box-orient: vertical; -webkit-flex-direction: column; -moz-flex-direction: column; -ms-flex-direction: column; flex-direction: column; display: block\9; }
+
+.grid.grid-column > .col, .grid.grid-column > .col-reset { display: block; }
+
+.grid.grid-column > .col-reset { height: 100%; }
+
+@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) { .grid.grid-column { display: -webkit-box; display: -webkit-flex; display: -moz-flex; display: -ms-flexbox; display: flex; } }
 
 .grid .col { -webkit-box-flex: 0; -webkit-flex: 0 0 auto; -moz-box-flex: 0; -moz-flex: 0 0 auto; -ms-flex: 0 0 auto; flex: 0 0 auto; display: table-cell\9; vertical-align: top\9; }
 
@@ -138,7 +144,13 @@ audio, canvas, video { display: inline-block; vertical-align: middle; }
 
 .grid .col-rest.grid.layout-auto { table-layout: auto\9; }
 
-.grid .col-rest.grid.grid-column { -webkit-box-direction: normal; -webkit-box-orient: vertical; -webkit-flex-direction: column; -moz-flex-direction: column; -ms-flex-direction: column; flex-direction: column; }
+.grid .col-rest.grid.grid-column { -webkit-box-direction: normal; -webkit-box-orient: vertical; -webkit-flex-direction: column; -moz-flex-direction: column; -ms-flex-direction: column; flex-direction: column; display: block\9; }
+
+.grid .col-rest.grid.grid-column > .col, .grid .col-rest.grid.grid-column > .col-reset { display: block; }
+
+.grid .col-rest.grid.grid-column > .col-reset { height: 100%; }
+
+@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) { .grid .col-rest.grid.grid-column { display: -webkit-box; display: -webkit-flex; display: -moz-flex; display: -ms-flexbox; display: flex; } }
 
 .layout-container { height: 100%; }
 
