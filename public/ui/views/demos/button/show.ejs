@@ -15,18 +15,12 @@
 </head>
 <body>
 <div id="page">
-    <a id="btn" class="btn" href="javascript:">Button</a>
-	<input type="button" class="btn" value="Button">
-	<input type="button" class="btn btn-green" value="Button">
-	<br />
-    <a id="btn" class="btn" href="javascript:">Button</a>
-	<input type="button" class="btn" value="Button">
-	<input type="button" class="btn btn-green" value="Button">
-	<br />
-    <a id="btn" class="btn" href="javascript:">Button</a>
-	<input type="button" class="btn" value="Button">
-	<input type="button" class="btn btn-green" value="Button">
-	<br />
-</div><!-- #page end! -->
+	<% for(let i=0; i<2; i++){ %>
+	<div>
+		<a id="btn" class="btn" href="javascript:">Button</a>
+		<input type="button" class="btn" value="Button">
+	</div>
+	<% } %>
+</div>
 </body>
 </html>

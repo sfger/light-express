@@ -345,7 +345,7 @@ function getCurrentScript(){//{{{
 	}
 }//}}}
 
-// export {
+// export{
 // 	strtotime, pad, date, getType, createElement,
 // 	numberFormat, numberFromFormat,
 // 	buildRegString, isStrHasTrunkWith,
