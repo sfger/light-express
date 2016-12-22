@@ -91,6 +91,30 @@ var options = {
 			{field:'col-4', name:'冻结第四列'}
 		]
 	],
+	frozenEndColumns : [
+		[
+			{name:'冻结列', colspan:4}
+		],
+		[
+			{name:'冻结列组1', colspan:2},
+			{name:'冻结列组2', colspan:2},
+		],
+		[
+			{field:'col-1', name:'冻结第一列', sortable:true, sortable:true, // dataType: 'number', // 'string',
+				formatter:function(val, row, key){
+					return '格式化: ' + (Math.random()>0.5 ? '<br />' : '') + val;
+				}
+			},
+			{field:'col-2', name:'冻结第二列', align:'right', sortable:true, sort:fieldSortFns.sortNum,
+				formatter: function(val, row, key){
+					var cls = val<60 ? 'warn' : 'normal';
+					return '<span class="'+cls+'">' + val + '</span>';
+				}
+			},
+			{field:'col-3', name:'冻结第三列'},
+			{field:'col-4', name:'冻结第四列'}
+		]
+	],
 	columns:[
 		[
 			{field:'col-5', sortable:true, rowspan:3},

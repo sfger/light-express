@@ -123,7 +123,7 @@ audio, canvas, video { display: inline-block; vertical-align: middle; }
 
 .datagrid-ctn .view-wrapper { position: relative; }
 
-.datagrid-ctn .col-view { *display: inline; *zoom: 1; *vertical-align: top; }
+.datagrid-ctn .col-view { *display: inline; *zoom: 1; }
 
 .datagrid-ctn .auto-view { *position: absolute; *top: 0; *right: 0; }
 

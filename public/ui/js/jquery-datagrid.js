@@ -309,11 +309,13 @@ $.fn.datagrid = function(options){
 		// 	? el['offset'+('width'==type ? 'Width' : 'Height')]
 		// 	: $(el)[type]();
 		// return $(el)[type]();
+		el.style[type] = '';
 		return el['offset'+(type==='width'?'Width':'Height')];
 	};//}}}
 	var align_table = function(a, b, type){//{{{
 		var st = 'offset'+(type==='width' ? 'Width' : 'Height');
 		for(var i=0,len=a.length; i<len; i++){
+			a[i].style[type] = b[i].style[type] = '';
 			var t1 = a[i][st];
 			var t2 = b[i][st];
 			var t = t1<t2 ? t2 : t1;
@@ -374,8 +376,8 @@ $.fn.datagrid = function(options){
 			$(box).addClass('datagrid-ctn');
 			this.render = box;
 			// this.reAlign();
-			this.init_event(options);
 			this.update(options);
+			this.init_event(options);
 			options.onCreate.bind(this)();
 		},//}}}
 		update: function(options){//{{{
@@ -462,11 +464,15 @@ $.fn.datagrid = function(options){
 		init_event: function(options){//{{{
 			var that    = this;
 			var $box    = $(this.render);
-			// var ie = /MSIE (\d+)\.?/.exec(navigator.userAgent);
-			// if(ie && ie.length && ie[1]){
-			// 	ie = Number(ie[1]);
-			// 	if(ie<10) $(window).on('resize.datagrid', throttle(function(){ that.resize(); }));
-			// }
+			/* var ie = /MSIE (\d+)\.?/.exec(navigator.userAgent);
+			if(ie && ie.length && ie[1]){
+				ie = Number(ie[1]);
+				if(ie<10){
+					var $fv = $('.frozen-view', $box);
+					$fv.width($fv.get(0).offsetWidth);
+					$('>.grid', $box).removeClass('layout-auto');
+				}
+			} */
 			// if(document.documentMode===5 || /MSIE 6/.test(navigator.userAgent)){
 			// 	var hover_binds = {// css tr:hover fix
 			// 		mouseenter: function(){ this.style.backgroundColor = '#e6e6e6'; },

@@ -3,7 +3,7 @@ $is_modern:0;
 .datagrid-ctn{
 	overflow:hidden;
 	.view-wrapper{position:relative;}
-	.col-view{*display:inline;*zoom:1;*vertical-align:top;}
+	.col-view{*display:inline;*zoom:1;}
 	.auto-view{*position:absolute;*top:0;*right:0;}
 	.head-wrapper{overflow:hidden;}
 	.body-wrapper{/*height:320px;*height:250px;*/overflow:auto;}
@@ -27,9 +27,7 @@ $is_modern:0;
 		>div{position:absolute\0;left:0\0;right:0\0;top:0\0;bottom:0\0;}
 		table,td:first-child{border-left:none;}
 	}
-	.head td:hover,.body tr:hover,.body tr.hover{
-		background:#e6e6e6;
-	}
+	.head td:hover,.body tr:hover,.body tr.hover{background:#e6e6e6;}
 	.cell{
 		overflow:hidden;line-height:20px;text-align:center;white-space:nowrap;color:#333;
 		&.txt-rt{text-align:right;}

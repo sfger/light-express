@@ -55,7 +55,7 @@ $color_bg_light :#eee !default;
 }
 // 单行溢出省略
 @mixin sln(){white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-%sln{@include sln();}
+%sln{@include sln;}
 
 // webkit多行溢出省略
 @mixin mln($line:2){
