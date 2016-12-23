@@ -387,7 +387,7 @@ $.fn.datagrid = function(options){
 		if(len==2){
 			align_table([tables[0]], [tables[1]], 'width');
 		}else{
-			if(options.rowNum || options.frozenColumns){
+			if(options.frozenColumns || options.frozenEndColumns){
 				if(options.autoRowHeight){
 					align_td($('table:eq(1) td:first-child', that.render).toArray(), 'height', $('table:eq(3) td:first-child', that.render).toArray());
 					align_td($('table:eq(1) td:first-child', that.render).toArray(), 'height', $('table:eq(5) td:first-child', that.render).toArray());
