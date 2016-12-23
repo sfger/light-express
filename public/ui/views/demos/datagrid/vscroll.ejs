@@ -56,13 +56,14 @@ var fieldSortFns = {
 		return a[field] - b[field];
 	}
 };
+var sdata = gen_data();
 var options = {
-	data          : gen_data(),
+	data          : sdata,
 	rowNum        : true,
 	autoRowHeight : true,
 	autoColWidth  : true,
 	/* sortable      : true, */
-	sort          : {field:'col-2', order:'desc'},
+	sort          : {field:'col-5', order:'desc'},
 	/* dataType      : 'number', */
 	width         : 200,
 	/* remoteSort    : true, */
@@ -93,26 +94,26 @@ var options = {
 	],
 	frozenEndColumns : [
 		[
-			{name:'冻结列', colspan:4}
+			{name:'尾列', colspan:5}
 		],
 		[
-			{name:'冻结列组1', colspan:2},
-			{name:'冻结列组2', colspan:2},
+			{name:'尾列组1', colspan:3},
+			{name:'尾列组2', colspan:2},
 		],
 		[
-			{field:'col-1', name:'冻结第一列', sortable:true, sortable:true, // dataType: 'number', // 'string',
+			{field:'col-31', name:'尾列第一列', sortable:true, sortable:true, // dataType: 'number', // 'string',
 				formatter:function(val, row, key){
-					return '格式化: ' + (Math.random()>0.5 ? '<br />' : '') + val;
+					return val;
 				}
 			},
-			{field:'col-2', name:'冻结第二列', align:'right', sortable:true, sort:fieldSortFns.sortNum,
+			{field:'col-32', name:'尾列第二列', align:'right', sortable:true, sort:fieldSortFns.sortNum,
 				formatter: function(val, row, key){
-					var cls = val<60 ? 'warn' : 'normal';
-					return '<span class="'+cls+'">' + val + '</span>';
+					return val;
 				}
 			},
-			{field:'col-3', name:'冻结第三列'},
-			{field:'col-4', name:'冻结第四列'}
+			{field:'col-33', name:'尾列第三列'},
+			{field:'col-34', name:'尾列第四列'},
+			{field:'col-35', name:'尾列第四列'}
 		]
 	],
 	columns:[
@@ -150,11 +151,6 @@ var options = {
 			{field:'col-28'},
 			{field:'col-29'},
 			{field:'col-30'},
-			{field:'col-31'},
-			{field:'col-32'},
-			{field:'col-33'},
-			{field:'col-34'},
-			{field:'col-35'}
 		]
 	],
 	onCreate:function(){}

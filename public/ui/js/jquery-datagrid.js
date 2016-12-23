@@ -105,8 +105,10 @@ $.fn.datagrid = function(options){
 		autoRowHeight : true,      // 单元格高度是否自动对齐
 		autoColWidth  : true,      // 单元格宽度是否自动对齐
 		frozenColumns : [],        // 冻结列
+		frozenEndColumns : [],        // 冻结列
 		columns       : []         // 普通列
 	}, options);//}}}
+	if(!options.columns.length) throw new Error('datagrid must have columns option！');
 	// var throttle = function(fn, delay, mustRunDelay){//{{{
 	// 	var timer = null;
 	// 	var t_start;
@@ -171,9 +173,9 @@ $.fn.datagrid = function(options){
 	}//}}}
 
 	function get_table(options, that){//{{{
-		function get_head_rows(rows, isFrozen){//{{{
-			if(!rows || isFrozen&&!options.frozenColumns.length) return [];
-			var colsType = isFrozen ? 'frozenColumns' : 'columns';
+		function get_head_rows(rows, colsType){//{{{
+			if(!rows || (colsType=='frozenColumns')&&!options.frozenColumns.length) return [];
+			if(!rows || (colsType=='frozenEndColumns')&&!options.frozenEndColumns.length) return [];
 			var il = rows.length - 1;
 			return rows.map(function(row, i){
 				return createElement({name:'tr', children:(function(){
@@ -213,7 +215,10 @@ $.fn.datagrid = function(options){
 							}
 						});
 					});
-					if(options.frozenColumns.length && isFrozen && i===0 && options.rowNum || !options.frozenColumns.length && i===0 && options.rowNum){
+					if(options.rowNum && !i)
+					if( options.frozenColumns.length && (colsType=='frozenColumns')
+						|| !options.frozenColumns.length && (colsType=='columns')
+						|| !options.frozenColumns.length && !options.columns.length && (colsType=='frozenEndColumns') ){
 						nodes.unshift(createElement({
 							name:'td', attr:{rowspan:(options.frozenColumns.length||options.columns.length), 'class':'field'}, children:{
 								name:'div', attr:{'class':'cell-wrapper'}, children:{
@@ -226,20 +231,24 @@ $.fn.datagrid = function(options){
 				})()});
 			});
 		}//}}}
-		function get_data_rows(data, cols, isLeft){//{{{
-			if(isLeft && !options.frozenColumns.length) return [];
+		function get_data_rows(data, cols, colsType){//{{{
+			if((colsType==='frozenColumns') && !options.frozenColumns.length) return [];
 			return data.map(function(row, i){
 				return createElement({
 					name:'tr', children:(function(){
 						var nodes = [];
-						if(options.frozenColumns.length && isLeft && options.rowNum || !options.frozenColumns.length && options.rowNum){
-							nodes.push(createElement({
-								name:'td', children:{
-									name:'div', attr:{'class':'cell-wrapper'}, children:{
-										name:'div', attr:{'class':'cell'}, children:i+options.startRowNum
+						if(options.rowNum){
+							if( options.frozenColumns.length && (colsType=='frozenColumns')
+								|| !options.frozenColumns.length && options.columns.length && (colsType=='columns')
+								|| !options.frozenColumns.length && !options.columns.length && (colsType=='frozenEndColumns') ){
+								nodes.push(createElement({
+									name:'td', children:{
+										name:'div', attr:{'class':'cell-wrapper'}, children:{
+											name:'div', attr:{'class':'cell'}, children:i+options.startRowNum
+										}
 									}
-								}
-							}));
+								}));
+							}
 						}
 						cols && cols.forEach(function(option){
 							if(!option) return true;
@@ -266,45 +275,66 @@ $.fn.datagrid = function(options){
 				});
 			});
 		}//}}}
-		return createElement({//{{{
-			name:'div', attr:{'class':'view-wrapper grid layout-auto' + (options.autoRowHeight ? ' autoRowHeight' : '')}, children:[{
-				name:'div', attr:{'class':'col col-view frozen-view'}, children:[{
-					name:'div', attr:{'class':'head-wrapper'}, children:{
-						name:'table', attr:{'class':'frozen head'}, children:{
-							name:'tbody', children:get_head_rows(options.frozenColumns, true)
+		var ret = {//{{{
+			name:'div',
+			attr:{'class':'view-wrapper grid layout-auto' + (options.autoRowHeight ? ' autoRowHeight' : '')},
+			children:[]
+		};//}}}
+		if(options.frozenColumns.length) ret.children.push({//{{{
+			name:'div', attr:{'class':'col col-view frozen-view'}, children:[{
+				name:'div', attr:{'class':'head-wrapper'}, children:{
+					name:'table', attr:{'class':'frozen head'}, children:{
+						name:'tbody', children:get_head_rows(options.frozenColumns, 'frozenColumns')
+					}
+				}
+			}, {
+				name:'div', attr:{'class':'body-wrapper'}, children:{
+					name:'table', attr:{'class':'frozen body'}, children:{
+						name:'tbody', children:get_data_rows(options.data, that.frozenColumns, 'frozenColumns')
+					}
+				}
+			}
+		]});//}}}
+		if(options.columns.length) ret.children.push({//{{{
+			name:'div', attr:{'class':'col-rest col-view auto-view'}, children:[{
+				name:'div', children:[{
+					name:'div', attr:{style:'overflow:hidden'}, children:{
+						name:'div', attr:{'class': 'head-wrapper'}, children:{
+							name:'table', attr:{'class': 'head'}, children:{
+								name:'tbody', children:get_head_rows(options.columns, 'columns')
+							}
 						}
 					}
 				}, {
-					name:'div', attr:{'class':'body-wrapper'}, children:{
-						name:'table', attr:{'class':'frozen body'}, children:{
-							name:'tbody', children:get_data_rows(options.data, that.frozenColumns, true)
+					name:'div', attr:{'class': 'body-wrapper'}, children:{
+						name:'table', attr:{'class': 'body'}, children:{
+							name:'tbody', children:get_data_rows(options.data, that.columns, 'columns')
 						}
 					}
-				}
-			]}, {
-				name:'div', attr:{'class':'col-rest col-view auto-view'}, children:[{
-					name:'div', children:[{
-						name:'div', attr:{style:'overflow:hidden'}, children:{
-							name:'div', attr:{'class': 'head-wrapper'}, children:{
-								name:'table', attr:{'class': 'head'}, children:{
-									name:'tbody', children:get_head_rows(options.columns)
-								}
-							}
-						}
-					}, {
-						name:'div', attr:{'class': 'body-wrapper'}, children:{
-							name:'table', attr:{'class': 'body'}, children:{
-								name:'tbody', children:get_data_rows(options.data, that.columns)
-							}
-						}
-					}]
 				}]
 			}]
 		});//}}}
+		if(options.frozenEndColumns.length) ret.children.push({//{{{
+			name:'div', attr:{'class':'col col-view frozen-view frozen-end'}, children:[{
+				name:'div', attr:{'class':'head-wrapper'}, children:{
+					name:'table', attr:{'class':'frozen head'}, children:{
+						name:'tbody', children:get_head_rows(options.frozenEndColumns, 'frozenEndColumns')
+					}
+				}
+			}, {
+				name:'div', attr:{'class':'body-wrapper'}, children:{
+					name:'table', attr:{'class':'frozen body'}, children:{
+						name:'tbody', children:get_data_rows(options.data, that.frozenEndColumns, 'frozenEndColumns')
+					}
+				}
+			}
+		]});//}}}
+		return createElement(ret);
 	}//}}}
 
 	//fn adjust_table{{{
 	var getHW = function(el, type){//{{{
+		if(!el) return false;
 		// return (document.documentMode<7 || /MSIE 6/.test(navigator.userAgent))
 		// 	? el['offset'+('width'==type ? 'Width' : 'Height')]
 		// 	: $(el)[type]();
@@ -315,6 +345,7 @@ $.fn.datagrid = function(options){
 	var align_table = function(a, b, type){//{{{
 		var st = 'offset'+(type==='width' ? 'Width' : 'Height');
 		for(var i=0,len=a.length; i<len; i++){
+			if(!(a[i]&&b[i])) continue;
 			a[i].style[type] = b[i].style[type] = '';
 			var t1 = a[i][st];
 			var t2 = b[i][st];
@@ -325,6 +356,7 @@ $.fn.datagrid = function(options){
 	var align_td = function(a, type, fieldElements){//{{{
 		for(var i=0; i<a.length; i++){
 			var field = fieldElements[i];
+			if(!field) continue;
 			var t1  = getHW(a[i], type),
 				t2  = getHW(field, type);
 			if(t1===t2) continue;
@@ -332,42 +364,50 @@ $.fn.datagrid = function(options){
 			a[i].style[type] = field.style[type] = (t+6)+'px';
 		}
 	};//}}}
-	var adjust_table = function(tables, that){//{{{
-		if(tables.length<4) return false;
-		var tp0 = tables.eq(2).parent();
-		var tp1 = tables.eq(3).parent();
+	var adjust_table = function(that){//{{{
+		var tables = $('table', that.render);
+		var tp0 = $('.auto-view table').eq(0).parent();
+		var tp1 = $('.auto-view table').eq(1).parent();
 		$([tp0.get(0), tp1.get(0)]).css({width:500000});
+		len = tables.length;
 		var options = that.userOptions;
-		align_td(tables.filter('table:odd').find('tr:first-child td .cell').toArray(), 'width', that.fieldElements.toArray());
-		if(options.rowNum || options.frozenColumns){
-			if(options.autoRowHeight){
-				align_td($('table:eq(1) td:first-child', that.render).toArray(), 'height', $('table:eq(3) td:first-child', that.render).toArray());
-			}
-			align_table([tables[0], tables[1]], [tables[2], tables[3]], 'height');
-			align_table([tables[0], tables[2]], [tables[1], tables[3]], 'width');
-		}
-
-		// var width_full = (document.compatMode === "CSS1Compat"&&!/msie 6/i.test(navigator.userAgent)) ? 'auto' : '100%';
-		var width_full = 'auto';
-		tp1.css({width:width_full});
-		tp0.parent().css({width:width_full, overflow:'hidden'});
 		function update_scroll_offset(){
-			tp0.get(0).parentNode.scrollLeft   = this.scrollLeft;
-			tables.get(1).parentNode.scrollTop = this.scrollTop;
+			tp0.get(0).parentNode.scrollLeft = this.scrollLeft;
+			if(options.frozenColumns.length) tables.get(1).parentNode.scrollTop = this.scrollTop;
+			if(options.frozenEndColumns.length) $('.frozen-end table', that.render).get(1).parentNode.scrollTop = this.scrollTop;
 		}
-		$(tp1).off('scroll').on('scroll', function(){
+		$('.auto-view .body-wrapper', that.render).off('scroll').on('scroll', function(){
 			if(this._scroll_id){
 				cancelAnimationFrame(this._scroll_id);
 				this._scroll_id = null;
 			}
 			this._scroll_id = requestAnimationFrame(update_scroll_offset.bind(this));
 		});
-		$(tables.eq(1)).off('mousewheel DOMMouseScroll').on('mousewheel DOMMouseScroll', function(e){
-			var tb3 = tables.get(3).parentNode;
-			tb3.scrollTop -= (e.originalEvent.wheelDelta || -(e.originalEvent.detail/3)*120)/3;
-			tables.get(1).parentNode.scrollTop = tb3.scrollTop;
-			return false;
-		});
+		align_td(tables.filter('table:odd').find('tr:first-child td .cell').toArray(), 'width', that.fieldElements.toArray());
+		if(len==2){
+			align_table([tables[0]], [tables[1]], 'width');
+		}else{
+			if(options.rowNum || options.frozenColumns){
+				if(options.autoRowHeight){
+					align_td($('table:eq(1) td:first-child', that.render).toArray(), 'height', $('table:eq(3) td:first-child', that.render).toArray());
+					align_td($('table:eq(1) td:first-child', that.render).toArray(), 'height', $('table:eq(5) td:first-child', that.render).toArray());
+				}
+				align_table([tables[0], tables[1], tables[0], tables[1]], [tables[2], tables[3], tables[4], tables[5]], 'height');
+				align_table([tables[0], tables[2], tables[4]], [tables[1], tables[3], tables[5]], 'width');
+			}
+			$([tables[1], tables[5]]).off('mousewheel DOMMouseScroll').on('mousewheel DOMMouseScroll', function(e){
+				var tb3 = tables.get(3).parentNode;
+				tb3.scrollTop -= (e.originalEvent.wheelDelta || -(e.originalEvent.detail/3)*120)/3;
+				tables.get(1).parentNode.scrollTop = tb3.scrollTop;
+				if(tables.get(5)) tables.get(5).parentNode.scrollTop = tb3.scrollTop;
+				return false;
+			});
+		}
+
+		// var width_full = (document.compatMode === "CSS1Compat"&&!/msie 6/i.test(navigator.userAgent)) ? 'auto' : '100%';
+		var width_full = 'auto';
+		tp1.css({width:width_full});
+		tp0.parent().css({width:width_full, overflow:'hidden'});
 	};//}}}
 	//}}}
 	handler.prototype = {
@@ -390,6 +430,7 @@ $.fn.datagrid = function(options){
 					data.forEach(function(rowData){
 						delete rowData.tr;
 						if(old_options.frozenColumns.length) delete rowData.frozenTr;
+						if(old_options.frozenEndColumns.length) delete rowData.frozenEndTr;
 					});
 				}
 				if(options.data) this.userOptions.data = options.data;
@@ -400,6 +441,7 @@ $.fn.datagrid = function(options){
 			$(box).empty(); // 清空内容取消绑定的事件
 			this.columns       = [];
 			this.frozenColumns = [];
+			this.frozenEndColumns = [];
 			this.userOptions   = options;
 			$(get_table(options, that)).prependTo(box);
 			this.fieldElements = $('.field .cell', box);
@@ -410,12 +452,13 @@ $.fn.datagrid = function(options){
 			// 	$('.body-wrapper table, .body-wrapper table tr:first-child td', box).css({borderTop:'none'});
 			// 	$('.col-view', box).eq(1).find('table, table td:first-child').css({borderLeft:'none'});
 			// }
-			this.allColumns = [].concat(this.frozenColumns, this.columns);
+			this.allColumns = [].concat(this.frozenColumns, this.columns, this.frozenEndColumns);
 			this.dataTbodys = $('.body tbody', box);
 			// if(!(data[0].tr && data[0].frozenTr)|| isReplaceRow){
 			data.forEach(function(rowData, rowNum){
-				if(options.frozenColumns.length) rowData.frozenTr = that.dataTbodys[0].rows[rowNum];
-				rowData.tr = that.dataTbodys[1].rows[rowNum];
+				if(options.frozenColumns.length) rowData.frozenTr = $('.frozen-view .body tbody', box)[0].rows[rowNum];
+				if(options.frozenEndColumns.length) rowData.frozenEndTr = $('.frozen-end .body tbody', box)[0].rows[rowNum];
+				if(options.columns.length) rowData.tr = $('.auto-view .body tbody', box)[0].rows[rowNum];
 			});
 			// }
 			options.data = data;
@@ -436,15 +479,17 @@ $.fn.datagrid = function(options){
 			 * TODO::
 			 * 1、全部行、全部列、单行、单列对齐重新对齐功能
 			 * */
-			adjust_table($('table', this.render), this);
+			adjust_table(this);
 			var ie = /MSIE (\d+)\.?/.exec(navigator.userAgent);
 			if(ie && ie.length && ie[1]){
 				ie = Number(ie[1]);
 				if(ie<8){
 					$('.auto-view', this.render).css({
 						'width': 'auto',
-						'margin-left': $('.frozen-view', this.render).get(0).offsetWidth
+						'margin-left': $('.frozen-view', this.render).get(0).offsetWidth,
+						'margin-right': $('.frozen-view', this.render).get(1).offsetWidth
 					}).find('.body-wrapper').css({'margin-top':'-2px'});
+					$('.view-wrapper', this.render).addClass('txt-justify ie-pure-txt');
 				}
 			}
 			return this;
@@ -487,22 +532,16 @@ $.fn.datagrid = function(options){
 					order: !cell.order||that.defaultOrder
 				}, cell);
 			});
-			if(options.triggerRow) $box.on({
+			if(options.triggerRow && (options.frozenColumns.length || options.frozenEndColumns.length)) $box.on({
 				mouseenter: function(){
 					var data = that.relatedData;
-					if(data && data.tr && data.tr.parentNode) $([data.frozenTr, data.tr]).removeClass('hover');
+					if(data) $([data.frozenTr, data.frozenEndTr, data.tr].filter(function(item){ return item; })).removeClass('hover');
 					that.relatedData = data = that.userOptions.data[this.rowIndex];
-					var relatedTr;
-					if(this===data.frozenTr && data.tr){
-						relatedTr = data.tr;
-					}else if(data.frozenTr){
-						relatedTr = data.frozenTr;
-					}
-					$(relatedTr).addClass('hover');
+					$([data.frozenTr, data.frozenEndTr, data.tr].filter(function(item){ return item; })).addClass('hover');
 				},
 				mouseleave: function(){
-					var relatedData = that.relatedData;
-					if(relatedData) $([relatedData.frozenTr, relatedData.tr]).removeClass('hover');
+					var data = that.relatedData;
+					if(data) $([data.frozenTr, data.frozenEndTr, data.tr].filter(function(item){ return item; })).removeClass('hover');
 					that.relatedData = null;
 				}
 			}, '.body-wrapper tr');
@@ -556,13 +595,16 @@ $.fn.datagrid = function(options){
 			return this.sort_table_dom(options);
 		},//}}}
 		sort_table_dom: function(options){//{{{
-			var frozenTrDoc = document.createDocumentFragment(),
-				trDoc       = document.createDocumentFragment(),
-				frozenTbody = null,
-				tbody       = null;
+			var frozenTrDoc    = document.createDocumentFragment(),
+				frozenEndTrDoc = document.createDocumentFragment(),
+				trDoc          = document.createDocumentFragment(),
+				frozenTbody    = null,
+				frozenEndTbody = null,
+				tbody          = null;
 			options.data.forEach(function(rowData, rowNum){
-				var frozenTr = rowData.frozenTr;
-				var tr       = rowData.tr;
+				var frozenTr    = rowData.frozenTr;
+				var frozenEndTr = rowData.frozenEndTr;
+				var tr          = rowData.tr;
 				if(frozenTr){
 					frozenTbody||(function(){
 						frozenTbody = frozenTr.parentNode;
@@ -570,6 +612,13 @@ $.fn.datagrid = function(options){
 					})();
 					frozenTrDoc.appendChild(frozenTr);
 					if(options.rowNum) $('td:eq(0) .cell', frozenTr).text(rowNum+1);
+				}
+				if(frozenEndTr){
+					frozenEndTbody||(function(){
+						frozenEndTbody = frozenEndTr.parentNode;
+						frozenEndTbody.style.display = 'none';
+					})();
+					frozenEndTrDoc.appendChild(frozenEndTr);
 				}
 				if(tr){
 					tbody||(function(){
@@ -583,6 +632,10 @@ $.fn.datagrid = function(options){
 			if(frozenTbody && (frozenTrDoc.children || frozenTrDoc.childNodes)){
 				frozenTbody.appendChild(frozenTrDoc);
 				frozenTbody.style.display = '';
+			}
+			if(frozenEndTbody && (frozenEndTrDoc.children || frozenEndTrDoc.childNodes)){
+				frozenEndTbody.appendChild(frozenEndTrDoc);
+				frozenEndTbody.style.display = '';
 			}
 			if(tbody && (trDoc.children || trDoc.childNodes)){
 				tbody.appendChild(trDoc);

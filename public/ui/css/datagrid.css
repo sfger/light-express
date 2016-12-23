@@ -121,7 +121,7 @@ audio, canvas, video { display: inline-block; vertical-align: middle; }
 
 .datagrid-ctn { overflow: hidden; }
 
-.datagrid-ctn .view-wrapper { position: relative; }
+.datagrid-ctn .view-wrapper { position: relative; *white-space: nowrap; *overflow: hidden; }
 
 .datagrid-ctn .col-view { *display: inline; *zoom: 1; }
 

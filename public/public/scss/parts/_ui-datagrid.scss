@@ -2,7 +2,7 @@
 $is_modern:0;
 .datagrid-ctn{
 	overflow:hidden;
-	.view-wrapper{position:relative;}
+	.view-wrapper{position:relative;*white-space:nowrap;*overflow:hidden;}
 	.col-view{*display:inline;*zoom:1;}
 	.auto-view{*position:absolute;*top:0;*right:0;}
 	.head-wrapper{overflow:hidden;}
