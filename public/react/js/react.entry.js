@@ -1,5 +1,5 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
+// import React from 'react';
+// import ReactDOM from 'react-dom';
 import {createStore, combineReducers} from 'redux';
 import * as reducers from './parts/reducers';
 
