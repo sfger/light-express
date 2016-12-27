@@ -92,44 +92,23 @@ $.fn.datagrid = function(options){
 		else return ret;
 	}//}}}
 	options = $.extend(true, {//{{{
-		align         : 'center',  // 内容对齐方式
-		colWidth      : 80,        // 默认单元格内容宽度
-		rowNum        : false,     // 是否显示行号
-		startRowNum   : 1,         // 行号开始值
-		triggerRow    : false,     // hover是否高亮整行
-		data          : [],        // 数据内容
-		sortable      : false,     // 列是否可排序
-		sort          : null,      // 排序选项
-		dataType      : 'string',  // 数据类型
-		remoteSort    : false,     // 是否服务器排序
-		autoRowHeight : true,      // 单元格高度是否自动对齐
-		autoColWidth  : true,      // 单元格宽度是否自动对齐
-		frozenColumns : [],        // 冻结列
+		align            : 'center',  // 内容对齐方式
+		colWidth         : 80,        // 默认单元格内容宽度
+		rowNum           : false,     // 是否显示行号
+		startRowNum      : 1,         // 行号开始值
+		triggerRow       : false,     // hover是否高亮整行
+		data             : [],        // 数据内容
+		sortable         : false,     // 列是否可排序
+		sort             : null,      // 排序选项
+		dataType         : 'string',  // 数据类型
+		remoteSort       : false,     // 是否服务器排序
+		autoRowHeight    : true,      // 单元格高度是否自动对齐
+		autoColWidth     : true,      // 单元格宽度是否自动对齐
+		frozenColumns    : [],        // 冻结列
 		frozenEndColumns : [],        // 冻结列
-		columns       : []         // 普通列
+		columns          : []         // 普通列
 	}, options);//}}}
 	if(!options.columns.length) throw new Error('datagrid must have columns option！');
-	// var throttle = function(fn, delay, mustRunDelay){//{{{
-	// 	var timer = null;
-	// 	var t_start;
-	// 	return function() {
-	// 		var context = this,
-	// 			args = arguments,
-	// 			t_curr = +new Date();
-	// 		clearTimeout(timer);
-	// 		if (!t_start) {
-	// 			t_start = t_curr;
-	// 		}
-	// 		if (t_curr - t_start >= mustRunDelay) {
-	// 			fn.apply(context, args);
-	// 			t_start = t_curr;
-	// 		} else {
-	// 			timer = setTimeout(function() {
-	// 				fn.apply(context, args);
-	// 			}, delay);
-	// 		}
-	// 	};
-	// };//}}}
 	var handler  = function(box, options){ return new handler.prototype.init(box, options); };
 	var toString = Object.prototype.toString;
 	var getType  = function(obj){ return toString.call(obj).slice(8, -1).toLowerCase(); };
@@ -216,17 +195,17 @@ $.fn.datagrid = function(options){
 						});
 					});
 					if(options.rowNum && !i)
-					if( options.frozenColumns.length && (colsType=='frozenColumns')
-						|| !options.frozenColumns.length && (colsType=='columns')
-						|| !options.frozenColumns.length && !options.columns.length && (colsType=='frozenEndColumns') ){
-						nodes.unshift(createElement({
-							name:'td', attr:{rowspan:(options.frozenColumns.length||options.columns.length), 'class':'field'}, children:{
-								name:'div', attr:{'class':'cell-wrapper'}, children:{
-									name:'div', attr:{'class':'cell'}
+						if( options.frozenColumns.length && (colsType=='frozenColumns')
+							|| !options.frozenColumns.length && (colsType=='columns')
+							|| !options.frozenColumns.length && !options.columns.length && (colsType=='frozenEndColumns') ){
+							nodes.unshift(createElement({
+								name:'td', attr:{rowspan:(options.frozenColumns.length||options.columns.length), 'class':'field'}, children:{
+									name:'div', attr:{'class':'cell-wrapper'}, children:{
+										name:'div', attr:{'class':'cell'}
+									}
 								}
-							}
-						}));
-					}
+							}));
+						}
 					return nodes;
 				})()});
 			});
@@ -389,17 +368,21 @@ $.fn.datagrid = function(options){
 		}else{
 			if(options.frozenColumns || options.frozenEndColumns){
 				if(options.autoRowHeight){
-					align_td($('table:eq(1) td:first-child', that.render).toArray(), 'height', $('table:eq(3) td:first-child', that.render).toArray());
-					align_td($('table:eq(1) td:first-child', that.render).toArray(), 'height', $('table:eq(5) td:first-child', that.render).toArray());
+					var $base = $('table:eq(1) td:first-child', that.render).toArray();
+					align_td($base, 'height', $('table:eq(3) td:first-child', that.render).toArray());
+					align_td($base, 'height', $('table:eq(5) td:first-child', that.render).toArray());
 				}
 				align_table([tables[0], tables[1], tables[0], tables[1]], [tables[2], tables[3], tables[4], tables[5]], 'height');
 				align_table([tables[0], tables[2], tables[4]], [tables[1], tables[3], tables[5]], 'width');
 			}
 			$([tables[1], tables[5]]).off('mousewheel DOMMouseScroll').on('mousewheel DOMMouseScroll', function(e){
 				var tb3 = tables.get(3).parentNode;
-				tb3.scrollTop -= (e.originalEvent.wheelDelta || -(e.originalEvent.detail/3)*120)/3;
-				tables.get(1).parentNode.scrollTop = tb3.scrollTop;
-				if(tables.get(5)) tables.get(5).parentNode.scrollTop = tb3.scrollTop;
+				var list = [tb3, tables.get(1).parentNode];
+				if(tables.get(5)) list.push(tables.get(5).parentNode);
+				if($(list).is(':animated')) return false;
+				var scroll_height = tb3.scrollHeight - tb3.clientHeight;
+				var _sh = tb3.scrollTop - (e.originalEvent.wheelDelta || -(e.originalEvent.detail/3)*120);
+				$(list).animate({scrollTop:'+'+(_sh>scroll_height?scroll_height:_sh)+'px'}, 230);
 				return false;
 			});
 		}
