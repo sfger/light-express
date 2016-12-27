@@ -27,7 +27,7 @@ module.exports = {
 		chunkFilename:'[name].js',
 		libraryTarget:"umd",
 		// library:'test',
-		publicPath:'../dist/'
+		// publicPath:'../dist/'
 	},
 	resolve:{
 		// extensions:['', '.ts', '.js', '.jsx']
