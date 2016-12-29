@@ -50,8 +50,10 @@ define(function(){
 					children:[
 						{name:'博客园', url:'http://www.cnblogs.com'},
 						{name:'掘金', url:'http://gold.xitu.io/welcome'},
+						{name:'伯乐在线', url:'http://web.jobbole.com/'},
 						{name:'众成翻译', url:'http://www.zcfy.cc/'},
 						{name:'Geek.CSDN', url:'http://geek.csdn.net/'},
+						{name:'WEB骇客', url:'http://www.webhek.com/'},
 						{name:'阮一峰', url:'http://www.ruanyifeng.com/blog/', target:"_blank"},
 						{name:'张鑫旭', url:'http://www.zhangxinxu.com'},
 						{name:'w3cplus', url:'http://www.w3cplus.com/'},
