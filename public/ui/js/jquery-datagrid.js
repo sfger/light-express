@@ -158,17 +158,27 @@ $.fn.datagrid = function(options){
 			var il = rows.length - 1;
 			return rows.map(function(row, i){
 				return createElement({name:'tr', children:(function(){
-					var nodes = row.map(function(option/*, j*/){
+					var index = 0;
+					var nodes = row.map(function(option, j){
 						var title = (option.name || option.field || '');
 						var width = (options.autoColWidth||option.colspan) ? 'auto' : ((option.width||options.colWidth) + 'px');
 						var td_attr = {};
 						if(option.rowspan) td_attr.rowspan = option.rowspan;
 						if(option.colspan) td_attr.colspan = option.colspan;
 						var colspan = option.colspan || 1;
-						var isField = colspan==1&&((i==il)||((il+1)==(i+(option.rowspan||1))));
+						var isField = colspan==1&&((i==il)||((il+1)==(i+option.rowspan)));
 						var cell_attr = {"class":'cell', "style":{width:width}};
+						if(i){
+							if(colspan==1){
+								while(that[colsType][index]) index++;
+								that[colsType][index] = option;
+							}
+							index += colspan;
+						}else{
+							if(colspan==1) that[colsType].push(option);
+							else while(colspan--) that[colsType].push(null);
+						}
 						if(isField){
-							that[colsType].push(option);
 							var class_name = ['field'];
 							if(options.sortable && option.sortable!==false || option.sortable==true){
 								class_name.push('sortable');
@@ -435,6 +445,7 @@ $.fn.datagrid = function(options){
 			// 	$('.body-wrapper table, .body-wrapper table tr:first-child td', box).css({borderTop:'none'});
 			// 	$('.col-view', box).eq(1).find('table, table td:first-child').css({borderLeft:'none'});
 			// }
+			console.log(this.frozenColumns, this.columns, this.frozenEndColumns);
 			this.allColumns = [].concat(this.frozenColumns, this.columns, this.frozenEndColumns);
 			this.dataTbodys = $('.body tbody', box);
 			// if(!(data[0].tr && data[0].frozenTr)|| isReplaceRow){

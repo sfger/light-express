@@ -74,7 +74,8 @@ var options = {
 		],
 		[
 			{name:'冻结列组1', colspan:2},
-			{name:'冻结列组2', colspan:2},
+			{field:'col-3', name:'冻结第三列', rowspan:2},
+			{field:'col-4', name:'冻结第四列', rowspan:2}
 		],
 		[
 			{field:'col-1', name:'冻结第一列', sortable:true, sortable:true, // dataType: 'number', // 'string',
@@ -87,44 +88,31 @@ var options = {
 					var cls = val<60 ? 'warn' : 'normal';
 					return '<span class="'+cls+'">' + val + '</span>';
 				}
-			},
-			{field:'col-3', name:'冻结第三列'},
-			{field:'col-4', name:'冻结第四列'}
+			}
 		]
 	],
 	frozenEndColumns : [
 		[
-			{name:'尾列', colspan:5}
+			{name:'尾列', colspan:2}
 		],
 		[
-			{name:'尾列组1', colspan:3},
-			{name:'尾列组2', colspan:2},
-		],
-		[
-			{field:'col-31', name:'尾列第一列', sortable:true, sortable:true, // dataType: 'number', // 'string',
+			{field:'col-34', name:'尾列第一列'},
+			{field:'col-35', name:'尾列第二列', 
 				formatter:function(val, row, key){
-					return val;
+					return '格式化: ' + (Math.random()>0.5 ? '<br />' : '') + val;
 				}
-			},
-			{field:'col-32', name:'尾列第二列', sortable:true, sort:fieldSortFns.sortNum,
-				formatter: function(val, row, key){
-					return val;
-				}
-			},
-			{field:'col-33', name:'尾列第三列'},
-			{field:'col-34', name:'尾列第四列'},
-			{field:'col-35', name:'尾列第四列'}
+			}
 		]
 	],
 	columns:[
 		[
-			{field:'col-5', sortable:true, rowspan:3},
-			{name:'非冻结列', colspan:30}
+			{name:'非冻结列', colspan:28},
+			{field:'col-5', sortable:true, rowspan:3}
 		],
 		[
 			{field:'col-6', rowspan:2},
-			{name:'非冻结列组1', colspan:9},
-			{name:'非冻结列组2', colspan:20}
+			{name:'非冻结列组1', colspan:10},
+			{name:'非冻结列组2', colspan:17}
 		],
 		[
 			{field:'col-7'},
@@ -151,6 +139,17 @@ var options = {
 			{field:'col-28'},
 			{field:'col-29'},
 			{field:'col-30'},
+			{field:'col-31', sortable:true, sortable:true, // dataType: 'number', // 'string',
+				formatter:function(val, row, key){
+					return val;
+				}
+			},
+			{field:'col-32', sortable:true, sort:fieldSortFns.sortNum,
+				formatter: function(val, row, key){
+					return val;
+				}
+			},
+			{field:'col-33'}
 		]
 	],
 	onCreate:function(){}
