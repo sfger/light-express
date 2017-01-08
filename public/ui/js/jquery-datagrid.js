@@ -343,6 +343,7 @@ $.fn.datagrid = function(options){
 		}
 	};//}}}
 	var align_td = function(a, type, fieldElements){//{{{
+		// console.log(a, fieldElements);
 		for(var i=0; i<a.length; i++){
 			var field = fieldElements[i];
 			if(!field) continue;
@@ -372,7 +373,7 @@ $.fn.datagrid = function(options){
 			}
 			this._scroll_id = requestAnimationFrame(update_scroll_offset.bind(this));
 		});
-		align_td(tables.filter('table:odd').find('tr:first-child td .cell').toArray(), 'width', that.fieldElements.toArray());
+		align_td(tables.filter('table:odd').find('tr:first-child td .cell').toArray(), 'width', [$('tr:eq(0) td:eq(0) .cell', tables[0])[0]].concat(that.fieldElements));
 		if(len==2){
 			align_table([tables[0]], [tables[1]], 'width');
 		}else{
@@ -437,7 +438,13 @@ $.fn.datagrid = function(options){
 			this.frozenEndColumns = [];
 			this.userOptions   = options;
 			$(get_table(options, that)).prependTo(box);
-			this.fieldElements = $('.field .cell', box);
+			this.allColumns = [].concat(this.frozenColumns, this.columns, this.frozenEndColumns);
+			// this.fieldElements = $('.field .cell', box);
+			this.fieldElements = this.allColumns.map(function(option){
+				return $('[data-field="'+option.field+'"]', box).get(0);
+			});
+			// console.log(this.fieldElements);
+			// this.dataTbodys = $('.body tbody', box);
 
 			// if(document.documentMode===5 || /MSIE 6/.test(navigator.userAgent)){
 			// 	$('.col-view', box).css({height: $('.head-wrapper').get(0).offsetHeight + $('.body-wrapper').get(0).offsetHeight})// css height:100% fix,
@@ -445,9 +452,6 @@ $.fn.datagrid = function(options){
 			// 	$('.body-wrapper table, .body-wrapper table tr:first-child td', box).css({borderTop:'none'});
 			// 	$('.col-view', box).eq(1).find('table, table td:first-child').css({borderLeft:'none'});
 			// }
-			console.log(this.frozenColumns, this.columns, this.frozenEndColumns);
-			this.allColumns = [].concat(this.frozenColumns, this.columns, this.frozenEndColumns);
-			this.dataTbodys = $('.body tbody', box);
 			// if(!(data[0].tr && data[0].frozenTr)|| isReplaceRow){
 			data.forEach(function(rowData, rowNum){
 				if(options.frozenColumns.length) rowData.frozenTr = $('.frozen-view .body tbody', box)[0].rows[rowNum];

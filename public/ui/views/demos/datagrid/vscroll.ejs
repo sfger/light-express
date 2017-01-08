@@ -40,7 +40,7 @@ require.config({
 require(['jquery', 'ui/js/jquery-datagrid'],function($){
 var gen_data = function(){
 	var data = [];
-	for(var row=0; row<45; row++){
+	for(var row=0; row<245; row++){
 		data[row] = {};
 		for(var col=0; col<35; col++){
 			/* data[row]['col-'+(col+1)] = 'row:' + (row+1) + '<br />col:' + (col+1); */
@@ -106,8 +106,8 @@ var options = {
 	],
 	columns:[
 		[
+			{field:'col-5', sortable:true, rowspan:3},
 			{name:'非冻结列', colspan:28},
-			{field:'col-5', sortable:true, rowspan:3}
 		],
 		[
 			{field:'col-6', rowspan:2},
