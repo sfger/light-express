@@ -328,18 +328,34 @@ $.fn.datagrid = function(options){
 		// 	? el['offset'+('width'==type ? 'Width' : 'Height')]
 		// 	: $(el)[type]();
 		// return $(el)[type]();
-		el.style[type] = '';
+		el.style && (el.style[type] = '');
 		return el['offset'+(type==='width'?'Width':'Height')];
 	};//}}}
-	var align_table = function(a, b, type){//{{{
-		var st = 'offset'+(type==='width' ? 'Width' : 'Height');
-		for(var i=0,len=a.length; i<len; i++){
-			if(!(a[i]&&b[i])) continue;
-			a[i].style[type] = b[i].style[type] = '';
-			var t1 = a[i][st];
-			var t2 = b[i][st];
-			var t = t1<t2 ? t2 : t1;
-			a[i].style[type] = b[i].style[type] = t + Math.ceil(len/2) + 'px';
+	var align_cell_height = function(arr, type){//{{{
+		for(var i=0,il=arr.length; i<il; i++){
+			var max = arr[i].map(function(one){
+				return getHW(one, type);
+			}).reduce(function(a, b){
+				return a>=b ? a : b;
+			}, 0) + Number(Math.ceil(il/2)) + 'px';
+			arr[i].forEach(function(t){
+				t.style[type] = max;
+			});
+		}
+	};//}}}
+	var align_cell_width = function(arr, type){//{{{
+		var len = arr.length;
+		for(var i=0,il=arr[0].length; i<il; i++){
+			var j=0, tmp = [];
+			while(j < len) tmp.push(arr[j++][i]);
+			var max = tmp.map(function(one){
+				return getHW(one, type);
+			}).reduce(function(a, b){
+				return a>=b ? a : b;
+			}, 0) + Number(Math.ceil(len/2)) + 'px';
+			tmp.forEach(function(t){
+				t.style[type] = max
+			});
 		}
 	};//}}}
 	var align_td = function(a, type, fieldElements){//{{{
@@ -373,18 +389,27 @@ $.fn.datagrid = function(options){
 			}
 			this._scroll_id = requestAnimationFrame(update_scroll_offset.bind(this));
 		});
-		align_td(tables.filter('table:odd').find('tr:first-child td .cell').toArray(), 'width', [$('tr:eq(0) td:eq(0) .cell', tables[0])[0]].concat(that.fieldElements));
+		// align_td(tables.filter('table:odd').find('tr:first-child td .cell').toArray(), 'width', [$('tr:eq(0) td:eq(0) .cell', tables[0])[0]].concat(that.fieldElements));
+		align_cell_height([
+			tables.filter('table:odd').find('tr:first-child td .cell').toArray(),
+			[$('tr:eq(0) td:eq(0) .cell', tables[0])[0]].concat(that.fieldElements)
+		], 'width');
 		if(len==2){
-			align_table([tables[0]], [tables[1]], 'width');
+			align_cell_width([tables.filter(':odd').toArray(), tables.filter(':even').toArray()], 'width');
 		}else{
 			if(options.frozenColumns || options.frozenEndColumns){
 				if(options.autoRowHeight){
-					var $base = $('table:eq(1) td:first-child', that.render).toArray();
-					align_td($base, 'height', $('table:eq(3) td:first-child', that.render).toArray());
-					align_td($base, 'height', $('table:eq(5) td:first-child', that.render).toArray());
+					// var $base = $('table:eq(1) td:first-child', that.render).toArray();
+					// align_td($base, 'height', $('table:eq(3) td:first-child', that.render).toArray());
+					// align_td($base, 'height', $('table:eq(5) td:first-child', that.render).toArray());
+					align_cell_width([
+						$('table:eq(1) td:first-child', that.render).toArray(),
+						$('table:eq(3) td:first-child', that.render).toArray(),
+						$('table:eq(5) td:first-child', that.render).toArray(),
+					], 'height');
 				}
-				align_table([tables[0], tables[1], tables[0], tables[1]], [tables[2], tables[3], tables[4], tables[5]], 'height');
-				align_table([tables[0], tables[2], tables[4]], [tables[1], tables[3], tables[5]], 'width');
+				align_cell_height([tables.filter(':odd').toArray(), tables.filter(':even').toArray()], 'height');
+				align_cell_width([tables.filter(':odd').toArray(), tables.filter(':even').toArray()], 'width');
 			}
 			$([tables[1], tables[5]]).off('mousewheel DOMMouseScroll').on('mousewheel DOMMouseScroll', function(e){
 				var tb3 = tables.get(3).parentNode;
