@@ -145,9 +145,9 @@ audio, canvas, video { display: inline-block; vertical-align: middle; }
 
 .datagrid-ctn .body-wrapper tr:nth-child(even) { background: #ffe; }
 
-.datagrid-ctn .auto-view { overflow: hidden; *width: 0px; position: relative\0; }
+.datagrid-ctn .auto-view.locate-view { overflow: hidden; *width: 0px; position: relative\0; }
 
-.datagrid-ctn .auto-view > div { position: absolute\0; left: 0\0; right: 0\0; top: 0\0; bottom: 0\0; }
+.datagrid-ctn .auto-view.locate-view > div { position: absolute\0; left: 0\0; right: 0\0; top: 0\0; bottom: 0\0; }
 
 .datagrid-ctn .auto-view table, .datagrid-ctn .auto-view td:first-child { border-left: none; }
 

@@ -64,6 +64,20 @@ Array.prototype.map = Array.prototype.map || function(fn, context){
 	}
 	return arr;
 };
+Array.prototype.reduce = Array.prototype.reduce || function(callback, initialValue){
+	var previous = initialValue, k = 0, length = this.length;
+	if(typeof initialValue === "undefined"){
+		previous = this[0];
+		k = 1;
+	}
+
+	if(typeof callback === "function"){
+		for(k; k<length; k++){
+			this.hasOwnProperty(k) && (previous = callback(previous, this[k], k, this));
+		}
+	}
+	return previous;
+};
 Array.prototype.filter = Array.prototype.filter || function(fn, context){
 	var arr = [];
 	if(typeof fn === "function"){
@@ -158,6 +172,7 @@ $.fn.datagrid = function(options){
 			var il = rows.length - 1;
 			return rows.map(function(row, i){
 				return createElement({name:'tr', children:(function(){
+					var index = 0;
 					var nodes = row.map(function(option/*, j*/){
 						var title = (option.name || option.field || '');
 						var width = (options.autoColWidth||option.colspan) ? 'auto' : ((option.width||options.colWidth) + 'px');
@@ -165,10 +180,19 @@ $.fn.datagrid = function(options){
 						if(option.rowspan) td_attr.rowspan = option.rowspan;
 						if(option.colspan) td_attr.colspan = option.colspan;
 						var colspan = option.colspan || 1;
-						var isField = colspan==1&&((i==il)||((il+1)==(i+(option.rowspan||1))));
+						var isField = colspan==1&&((i==il)||((il+1)==(i+option.rowspan)));
 						var cell_attr = {"class":'cell', "style":{width:width}};
+						if(i){
+							if(colspan==1){
+								while(that[colsType][index]) index++;
+								that[colsType][index] = option;
+							}
+							index += colspan;
+						}else{
+							if(colspan==1) that[colsType].push(option);
+							else while(colspan--) that[colsType].push(null);
+						}
 						if(isField){
-							that[colsType].push(option);
 							var class_name = ['field'];
 							if(options.sortable && option.sortable!==false || option.sortable==true){
 								class_name.push('sortable');
@@ -272,10 +296,10 @@ $.fn.datagrid = function(options){
 						name:'tbody', children:get_data_rows(options.data, that.frozenColumns, 'frozenColumns')
 					}
 				}
-			}
-		]});//}}}
+			}]
+		});//}}}
 		if(options.columns.length) ret.children.push({//{{{
-			name:'div', attr:{'class':'col-rest col-view auto-view'}, children:[{
+			name:'div', attr:{'class':'col-rest col-view auto-view'+(options.frozenColumns.length||options.frozenEndColumns.length ? ' locate-view' : '')}, children:[{
 				name:'div', children:[{
 					name:'div', attr:{style:'overflow:hidden'}, children:{
 						name:'div', attr:{'class': 'head-wrapper'}, children:{
@@ -306,8 +330,8 @@ $.fn.datagrid = function(options){
 						name:'tbody', children:get_data_rows(options.data, that.frozenEndColumns, 'frozenEndColumns')
 					}
 				}
-			}
-		]});//}}}
+			}]
+		});//}}}
 		return createElement(ret);
 	}//}}}
 
@@ -318,37 +342,43 @@ $.fn.datagrid = function(options){
 		// 	? el['offset'+('width'==type ? 'Width' : 'Height')]
 		// 	: $(el)[type]();
 		// return $(el)[type]();
-		el.style[type] = '';
+		el.style && (el.style[type] = '');
 		return el['offset'+(type==='width'?'Width':'Height')];
 	};//}}}
-	var align_table = function(a, b, type){//{{{
-		var st = 'offset'+(type==='width' ? 'Width' : 'Height');
-		for(var i=0,len=a.length; i<len; i++){
-			if(!(a[i]&&b[i])) continue;
-			a[i].style[type] = b[i].style[type] = '';
-			var t1 = a[i][st];
-			var t2 = b[i][st];
-			var t = t1<t2 ? t2 : t1;
-			a[i].style[type] = b[i].style[type] = t + Math.ceil(len/2) + 'px';
+	var align_cell_column = function(arr, type){//{{{
+		for(var i=0,il=arr.length; i<il; i++){
+			var column = arr[i];
+			var max = column.map(function(one){
+				return getHW(one, type);
+			}).reduce(function(a, b){
+				return a>=b ? a : b;
+			}, 0) + Math.ceil(il/2) + 'px';
+			column.forEach(function(t){
+				t.style[type] = max;
+			});
 		}
 	};//}}}
-	var align_td = function(a, type, fieldElements){//{{{
-		for(var i=0; i<a.length; i++){
-			var field = fieldElements[i];
-			if(!field) continue;
-			var t1  = getHW(a[i], type),
-				t2  = getHW(field, type);
-			if(t1===t2) continue;
-			var t = t1<t2 ? t2 : t1;
-			a[i].style[type] = field.style[type] = (t+6)+'px';
+	var align_cell_row = function(arr, type){//{{{
+		var len = arr.length;
+		for(var i=0,il=arr[0].length; i<il; i++){
+			var j=0, row = [];
+			while(j < len) row.push(arr[j++][i]);
+			var max = row.map(function(one){
+				return getHW(one, type);
+			}).reduce(function(a, b){
+				return a>=b ? a : b;
+			}, 0) + Math.ceil(len/2) + 'px';
+			row.forEach(function(t){
+				t.style[type] = max;
+			});
 		}
 	};//}}}
 	var adjust_table = function(that){//{{{
 		var tables = $('table', that.render);
-		var tp0 = $('.auto-view table').eq(0).parent();
-		var tp1 = $('.auto-view table').eq(1).parent();
-		$([tp0.get(0), tp1.get(0)]).css({width:500000});
-		len = tables.length;
+		var $autoTable = $('.auto-view table', that.render).parent();
+		var tp0 = $autoTable.eq(0);
+		var tp1 = $autoTable.eq(1);
+		$autoTable.css({width:500000});
 		var options = that.userOptions;
 		function update_scroll_offset(){
 			tp0.get(0).parentNode.scrollLeft = this.scrollLeft;
@@ -362,19 +392,22 @@ $.fn.datagrid = function(options){
 			}
 			this._scroll_id = requestAnimationFrame(update_scroll_offset.bind(this));
 		});
-		align_td(tables.filter('table:odd').find('tr:first-child td .cell').toArray(), 'width', that.fieldElements.toArray());
-		if(len==2){
-			align_table([tables[0]], [tables[1]], 'width');
-		}else{
-			if(options.frozenColumns || options.frozenEndColumns){
-				if(options.autoRowHeight){
-					var $base = $('table:eq(1) td:first-child', that.render).toArray();
-					align_td($base, 'height', $('table:eq(3) td:first-child', that.render).toArray());
-					align_td($base, 'height', $('table:eq(5) td:first-child', that.render).toArray());
-				}
-				align_table([tables[0], tables[1], tables[0], tables[1]], [tables[2], tables[3], tables[4], tables[5]], 'height');
-				align_table([tables[0], tables[2], tables[4]], [tables[1], tables[3], tables[5]], 'width');
-			}
+		if(options.autoColWidth){
+			align_cell_row([
+				(function(){
+					var column = that.fieldElements;
+					if(options.rowNum) column = [$('tr:eq(0) td:eq(0) .cell', tables[0])[0]].concat(column);
+					return column;
+				})(),
+				tables.filter('table:odd').find('tr:first-child td .cell').toArray()
+			], 'width');
+		}else if(options.rowNum){
+			align_cell_row([
+				$('tr:eq(0) td:eq(0) .cell:eq(0)', tables[0]).toArray(),
+				$('tr:first-child td:first-child .cell', tables[1]).toArray()
+			], 'width');
+		}
+		if(options.frozenColumns || options.frozenEndColumns){
 			$([tables[1], tables[5]]).off('mousewheel DOMMouseScroll').on('mousewheel DOMMouseScroll', function(e){
 				var tb3 = tables.get(3).parentNode;
 				var list = [tb3, tables.get(1).parentNode];
@@ -385,7 +418,14 @@ $.fn.datagrid = function(options){
 				$(list).animate({scrollTop:'+'+(_sh>scroll_height?scroll_height:_sh)+'px'}, 230);
 				return false;
 			});
+			if(options.autoRowHeight){
+				align_cell_row($('table:odd').toArray().map(function(table){
+					return $('td:first-child', table).toArray();
+				}), 'height');
+			}
+			align_cell_column([tables.filter(':odd').toArray(), tables.filter(':even').toArray()], 'height');
 		}
+		align_cell_row([tables.filter(':odd').toArray(), tables.filter(':even').toArray()], 'width');
 
 		// var width_full = (document.compatMode === "CSS1Compat"&&!/msie 6/i.test(navigator.userAgent)) ? 'auto' : '100%';
 		var width_full = 'auto';
@@ -422,12 +462,17 @@ $.fn.datagrid = function(options){
 			}
 			data = options.data;
 			$(box).empty(); // 清空内容取消绑定的事件
-			this.columns       = [];
-			this.frozenColumns = [];
+			this.columns          = [];
+			this.frozenColumns    = [];
 			this.frozenEndColumns = [];
-			this.userOptions   = options;
+			this.userOptions      = options;
 			$(get_table(options, that)).prependTo(box);
-			this.fieldElements = $('.field .cell', box);
+			this.allColumns = [].concat(this.frozenColumns, this.columns, this.frozenEndColumns);
+			this.fieldElements = this.allColumns.map(function(option){
+				return $('[data-field="'+option.field+'"]', box).get(0);
+			});
+			// console.log(this.fieldElements);
+			// this.dataTbodys = $('.body tbody', box);
 
 			// if(document.documentMode===5 || /MSIE 6/.test(navigator.userAgent)){
 			// 	$('.col-view', box).css({height: $('.head-wrapper').get(0).offsetHeight + $('.body-wrapper').get(0).offsetHeight})// css height:100% fix,
@@ -435,8 +480,6 @@ $.fn.datagrid = function(options){
 			// 	$('.body-wrapper table, .body-wrapper table tr:first-child td', box).css({borderTop:'none'});
 			// 	$('.col-view', box).eq(1).find('table, table td:first-child').css({borderLeft:'none'});
 			// }
-			this.allColumns = [].concat(this.frozenColumns, this.columns, this.frozenEndColumns);
-			this.dataTbodys = $('.body tbody', box);
 			// if(!(data[0].tr && data[0].frozenTr)|| isReplaceRow){
 			data.forEach(function(rowData, rowNum){
 				if(options.frozenColumns.length) rowData.frozenTr = $('.frozen-view .body tbody', box)[0].rows[rowNum];
@@ -453,9 +496,7 @@ $.fn.datagrid = function(options){
 			}else if(sort){
 				this.sortBy({field:sort.field, order:sort.order});
 			}
-			this.reAlign();
-			// return this.resize();
-			return this;
+			return this.reAlign();
 		},//}}}
 		reAlign: function(){//{{{
 			/* *
@@ -477,18 +518,6 @@ $.fn.datagrid = function(options){
 			}
 			return this;
 		},//}}}
-		// resize: function(){//{{{
-			// var render = this.render;
-			// var dataViews = $('.col-view', render);
-			// var tables = $('table', dataViews);
-			// var ie = /MSIE (\d+)\.?/.exec(navigator.userAgent);
-			// if(ie && ie.length && ie[1]){
-			// 	ie = Number(ie[1]);
-			// 	if(ie<10) dataViews.eq(1).css({width: render.clientWidth - 1 - dataViews.get(0).offsetWidth});
-			// }
-			// tables.eq(1).parent().css({height:tables.get(3).parentNode.clientHeight});
-			// return this;
-		// },//}}}
 		init_event: function(options){//{{{
 			var that    = this;
 			var $box    = $(this.render);

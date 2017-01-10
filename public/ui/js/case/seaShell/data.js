@@ -109,6 +109,7 @@ define(function(){
 						{name:'ES6', url:'http://es6.ruanyifeng.com/'},
 						{name:'MathJS', url:'http://mathjs.org/'},
 						{name:'w3help', url:'http://www.w3help.org/'},
+						{name:'cssTriggers', url:'https://csstriggers.com/'},
 						{name:'JS标准参考中文', url:'http://javascript.ruanyifeng.com/'},
 						{name:'Swift', url:'http://wiki.jikexueyuan.com/project/swift/chapter1/02_a_swift_tour.html'},
 						{name:'JSON', url:'http://www.json.org/'},
