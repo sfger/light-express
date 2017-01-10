@@ -58,6 +58,7 @@ var fieldSortFns = {
 	}
 };
 var sdata = gen_data();
+var stime = Date.now();
 var options = {
 	data          : sdata,
 	rowNum        : true,
@@ -153,7 +154,9 @@ var options = {
 			{field:'col-33'}
 		]
 	],
-	onCreate:function(){}
+	onCreate:function(){
+		console.log('Load time: ' + (Date.now()-stime));
+	}
 };
 window.$grid = $('#my_datagrid');
 $grid.datagrid(options);

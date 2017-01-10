@@ -33,6 +33,7 @@ return a[field] - b[field];
 }
 };
 var sdata = gen_data();
+var stime = Date.now();
 var options = {
 data          : sdata,
 rowNum        : true,
@@ -128,7 +129,9 @@ return val;
 {field:'col-33'}
 ]
 ],
-onCreate:function(){}
+onCreate:function(){
+console.log('Load time: ' + (Date.now()-stime));
+}
 };
 window.$grid = $('#my_datagrid');
 $grid.datagrid(options);

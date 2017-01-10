@@ -392,22 +392,22 @@ $.fn.datagrid = function(options){
 			}
 			this._scroll_id = requestAnimationFrame(update_scroll_offset.bind(this));
 		});
-		align_cell_row([
-			tables.filter('table:odd').find('tr:first-child td .cell').toArray(),
-			[$('tr:eq(0) td:eq(0) .cell', tables[0])[0]].concat(that.fieldElements)
-		], 'width');
-		if(tables.length==2){
-			align_cell_row([tables.filter(':odd').toArray(), tables.filter(':even').toArray()], 'width');
-		}else{
-			if(options.frozenColumns || options.frozenEndColumns){
-				if(options.autoRowHeight){
-					align_cell_row($('table:odd').toArray().map(function(table){
-						return $('td:first-child', table).toArray();
-					}), 'height');
-				}
-				align_cell_column([tables.filter(':odd').toArray(), tables.filter(':even').toArray()], 'height');
-				align_cell_row([tables.filter(':odd').toArray(), tables.filter(':even').toArray()], 'width');
-			}
+		if(options.autoColWidth){
+			align_cell_row([
+				(function(){
+					var column = that.fieldElements;
+					if(options.rowNum) column = [$('tr:eq(0) td:eq(0) .cell', tables[0])[0]].concat(column);
+					return column;
+				})(),
+				tables.filter('table:odd').find('tr:first-child td .cell').toArray()
+			], 'width');
+		}else if(options.rowNum){
+			align_cell_row([
+				$('tr:eq(0) td:eq(0) .cell:eq(0)', tables[0]).toArray(),
+				$('tr:first-child td:first-child .cell', tables[1]).toArray()
+			], 'width');
+		}
+		if(options.frozenColumns || options.frozenEndColumns){
 			$([tables[1], tables[5]]).off('mousewheel DOMMouseScroll').on('mousewheel DOMMouseScroll', function(e){
 				var tb3 = tables.get(3).parentNode;
 				var list = [tb3, tables.get(1).parentNode];
@@ -418,7 +418,14 @@ $.fn.datagrid = function(options){
 				$(list).animate({scrollTop:'+'+(_sh>scroll_height?scroll_height:_sh)+'px'}, 230);
 				return false;
 			});
+			if(options.autoRowHeight){
+				align_cell_row($('table:odd').toArray().map(function(table){
+					return $('td:first-child', table).toArray();
+				}), 'height');
+			}
+			align_cell_column([tables.filter(':odd').toArray(), tables.filter(':even').toArray()], 'height');
 		}
+		align_cell_row([tables.filter(':odd').toArray(), tables.filter(':even').toArray()], 'width');
 
 		// var width_full = (document.compatMode === "CSS1Compat"&&!/msie 6/i.test(navigator.userAgent)) ? 'auto' : '100%';
 		var width_full = 'auto';
@@ -489,9 +496,7 @@ $.fn.datagrid = function(options){
 			}else if(sort){
 				this.sortBy({field:sort.field, order:sort.order});
 			}
-			this.reAlign();
-			// return this.resize();
-			return this;
+			return this.reAlign();
 		},//}}}
 		reAlign: function(){//{{{
 			/* *
@@ -513,18 +518,6 @@ $.fn.datagrid = function(options){
 			}
 			return this;
 		},//}}}
-		// resize: function(){//{{{
-			// var render = this.render;
-			// var dataViews = $('.col-view', render);
-			// var tables = $('table', dataViews);
-			// var ie = /MSIE (\d+)\.?/.exec(navigator.userAgent);
-			// if(ie && ie.length && ie[1]){
-			// 	ie = Number(ie[1]);
-			// 	if(ie<10) dataViews.eq(1).css({width: render.clientWidth - 1 - dataViews.get(0).offsetWidth});
-			// }
-			// tables.eq(1).parent().css({height:tables.get(3).parentNode.clientHeight});
-			// return this;
-		// },//}}}
 		init_event: function(options){//{{{
 			var that    = this;
 			var $box    = $(this.render);
