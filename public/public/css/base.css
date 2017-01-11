@@ -1,3 +1,5 @@
+.grid .col, .grid .col-rest { display: -webkit-box; display: -webkit-flex; display: -moz-flex; display: -ms-flexbox; display: flex; }
+
 *, *:before, *:after, *::before, *::after { -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
 
 html, body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, form, fieldset, legend, input, button, textarea, hr, pre, code, p, blockquote, th, td { margin: 0; padding: 0; }
@@ -76,7 +78,9 @@ audio, canvas, video { display: inline-block; vertical-align: middle; }
 
 .vt-btm { vertical-align: bottom; }
 
-.grid { display: -webkit-box; display: -webkit-flex; display: -moz-flex; display: -ms-flexbox; display: flex; display: table\9; width: 100%\9; table-layout: fixed\9; }
+.vt-bsl { vertical-align: baseline; }
+
+.grid { display: -webkit-box; display: -webkit-flex; display: -moz-flex; display: -ms-flexbox; display: flex; display: table\9; width: 100%\9; table-layout: fixed\9; -webkit-box-align: stretch; -ms-flex-align: stretch; -webkit-align-items: stretch; -moz-align-items: stretch; align-items: stretch; }
 
 @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) { .grid { display: -webkit-box; display: -webkit-flex; display: -moz-flex; display: -ms-flexbox; display: flex; } }
 
@@ -90,16 +94,24 @@ audio, canvas, video { display: inline-block; vertical-align: middle; }
 
 @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) { .grid.grid-column { display: -webkit-box; display: -webkit-flex; display: -moz-flex; display: -ms-flexbox; display: flex; } }
 
+.grid .col, .grid .col-rest { display: -webkit-box; display: -webkit-flex; display: -moz-flex; display: -ms-flexbox; display: flex; -webkit-box-direction: normal; -webkit-box-orient: vertical; -webkit-flex-direction: column; -moz-flex-direction: column; -ms-flex-direction: column; flex-direction: column; }
+
+.grid.vt-mid .col, .grid.vt-mid .col-rest { -webkit-box-pack: center; -ms-flex-pack: center; -webkit-justify-content: center; -moz-justify-content: center; justify-content: center; vertical-align: middle; }
+
+.grid.vt-top .col, .grid.vt-top .col-rest { -webkit-box-pack: start; -ms-flex-pack: start; -webkit-justify-content: flex-start; -moz-justify-content: flex-start; justify-content: flex-start; vertical-align: top; }
+
+.grid.vt-btm .col, .grid.vt-btm .col-rest { -webkit-box-pack: end; -ms-flex-pack: end; -webkit-justify-content: flex-end; -moz-justify-content: flex-end; justify-content: flex-end; vertical-align: bottom; }
+
+.grid.vt-bsl .col, .grid.vt-bsl .col-rest { -webkit-box-pack: baseline; -ms-flex-pack: baseline; -webkit-justify-content: baseline; -moz-justify-content: baseline; justify-content: baseline; vertical-align: baseline; }
+
 .grid .col { -webkit-box-flex: 0; -webkit-flex: 0 0 auto; -moz-box-flex: 0; -moz-flex: 0 0 auto; -ms-flex: 0 0 auto; flex: 0 0 auto; display: table-cell\9; vertical-align: top\9; }
 
-.grid .col:before { content: ""; display: block; width: auto; height: 0; line-height: 0; font-size: 0; }
-
-@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) { .grid .col { display: block; }
+@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) { .grid .col { display: -webkit-box; display: -webkit-flex; display: -moz-flex; display: -ms-flexbox; display: flex; }
 	.grid .col:before { content: normal; } }
 
 .grid .col-rest { display: table-cell\9; width: 100%\9; vertical-align: top\9; -webkit-box-flex: 1; -webkit-flex: 1 1 auto; -moz-box-flex: 1; -moz-flex: 1 1 auto; -ms-flex: 1 1 auto; flex: 1 1 auto; }
 
-@media all and (-ms-high-contrast: none) { .grid .col-rest { display: block; }
+@media all and (-ms-high-contrast: none) { .grid .col-rest { display: -webkit-box; display: -webkit-flex; display: -moz-flex; display: -ms-flexbox; display: flex; }
 	*::-ms-backdrop, .grid .col-rest { flex-basis: 100%; } }
 
 .grid .col-rest.grid { display: -webkit-box; display: -webkit-flex; display: -moz-flex; display: -ms-flexbox; display: flex; display: table\9; width: 100%\9; table-layout: fixed\9; }

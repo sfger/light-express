@@ -86,6 +86,7 @@ define(function(){
 						{name:'ZRender', url:'http://ecomfe.github.io/zrender/'},
 						{name:'KuteJS', url:'http://thednp.github.io/kute.js/css.html'},
 						{name:'Fit', url:'http://fit.baidu.com/components/pc/menu'},
+						{name:'CSSPIN', url:'https://github.com/webkul/csspin'},
 						{name:'qunee', url:'http://qunee.com/'},
 						{name:'mobx', url:'https://mobxjs.github.io/mobx/index.html'},
 						{name:'SUI', url:'http://m.sui.taobao.org/'},

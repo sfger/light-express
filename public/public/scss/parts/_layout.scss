@@ -31,9 +31,23 @@
 .vt-top{vertical-align:top;}
 .vt-mid{vertical-align:middle;}
 .vt-btm{vertical-align:bottom;}
+.vt-bsl{vertical-align:baseline;}
 
 .grid{
-	@include grid;
+	@include grid;@include align-items(stretch);
+	.col,.col-rest{@include flexbox;@include flex-direction(column);}
+	&.vt-mid{
+		.col,.col-rest{@include justify-content(center);vertical-align:middle;}
+	}
+	&.vt-top{
+		.col,.col-rest{@include justify-content(flex-start);vertical-align:top;}
+	}
+	&.vt-btm{
+		.col,.col-rest{@include justify-content(flex-end);vertical-align:bottom;}
+	}
+	&.vt-bsl{
+		.col,.col-rest{@include justify-content(baseline);vertical-align:baseline;}
+	}
 	.col{@include col;}
 	.col-rest{
 		@include col-auto(1,1,auto);

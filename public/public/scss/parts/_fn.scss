@@ -389,12 +389,11 @@ $color_bg_light :#eee !default;
 	}
 }
 @mixin col($width:auto){
-	@include flex(0,0,$width);
+	@include flex(0,0,$width);@extend %flexbox;
 	@if($is_mobile==0){
 		display:table-cell\9;vertical-align:top\9;
-		&:before{content:"";display:block;width:$width;height:0;line-height:0;font-size:0;}
 		@media screen and(-ms-high-contrast:active),(-ms-high-contrast:none){
-			display:block;
+			@include flexbox;
 			&:before{content:normal;}
 		}
 	}
@@ -407,10 +406,10 @@ $color_bg_light :#eee !default;
 		$width:if($grow==1 and $basis==auto,100%,$basis);
 		display:table-cell\9;width:#{$width}\9;vertical-align:top\9;
 	}
-	@include flex($grow,$shrink,$basis);
+	@include flex($grow,$shrink,$basis);@extend %flexbox;
 	@if($is_mobile==0){
 		@media all and(-ms-high-contrast:none){
-			display:block;
+			@include flexbox;
 			@at-root *::-ms-backdrop,#{&}{flex-basis:100%;}
 		}
 	}
