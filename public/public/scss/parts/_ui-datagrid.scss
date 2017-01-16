@@ -29,7 +29,7 @@ $is_modern:0;
 		}
 		table,td:first-child{border-left:none;}
 	}
-	.head td:hover,.body tr:hover,.body tr.hover{background:#e6e6e6;}
+	.head td:hover,/*.body tr:hover,*/.body tr.hover{background:#e6e6e6;}
 	.cell{
 		overflow:hidden;line-height:20px;text-align:center;white-space:nowrap;color:#333;
 		&.txt-rt{text-align:right;}

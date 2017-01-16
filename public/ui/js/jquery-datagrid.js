@@ -438,7 +438,6 @@ $.fn.datagrid = function(options){
 		init: function(box, options){//{{{
 			$(box).addClass('datagrid-ctn');
 			this.render = box;
-			// this.reAlign();
 			this.update(options);
 			this.init_event(options);
 			options.onCreate.bind(this)();
@@ -448,19 +447,20 @@ $.fn.datagrid = function(options){
 			var box  = this.render;
 			var old_options = this.userOptions;
 			if(old_options){
-				var data = old_options.data;
-				if(data[0].tr || data[0].frozenTr){
-					data.forEach(function(rowData){
-						delete rowData.tr;
-						if(old_options.frozenColumns.length) delete rowData.frozenTr;
-						if(old_options.frozenEndColumns.length) delete rowData.frozenEndTr;
-					});
+				if(options.data){
+					var data = old_options.data;
+					if(data[0].tr || data[0].frozenTr || data[0].frozenEndTr){
+						data.forEach(function(rowData){
+							delete rowData.tr;
+							if(old_options.frozenColumns.length) delete rowData.frozenTr;
+							if(old_options.frozenEndColumns.length) delete rowData.frozenEndTr;
+						});
+					}
+					this.userOptions.data = options.data;
+					delete options.data;
 				}
-				if(options.data) this.userOptions.data = options.data;
-				delete options.data;
 				options = $.extend(true, {}, this.userOptions, options);
 			}
-			data = options.data;
 			$(box).empty(); // 清空内容取消绑定的事件
 			this.columns          = [];
 			this.frozenColumns    = [];
@@ -472,23 +472,12 @@ $.fn.datagrid = function(options){
 				return $('[data-field="'+option.field+'"]', box).get(0);
 			});
 			// console.log(this.fieldElements);
-			// this.dataTbodys = $('.body tbody', box);
 
-			// if(document.documentMode===5 || /MSIE 6/.test(navigator.userAgent)){
-			// 	$('.col-view', box).css({height: $('.head-wrapper').get(0).offsetHeight + $('.body-wrapper').get(0).offsetHeight})// css height:100% fix,
-			// 		.eq(0).css({width:$('.col-view', box).eq(0).find('table').eq(0).width()});// css display:inline fix
-			// 	$('.body-wrapper table, .body-wrapper table tr:first-child td', box).css({borderTop:'none'});
-			// 	$('.col-view', box).eq(1).find('table, table td:first-child').css({borderLeft:'none'});
-			// }
-			// if(!(data[0].tr && data[0].frozenTr)|| isReplaceRow){
-			data.forEach(function(rowData, rowNum){
+			options.data.forEach(function(rowData, rowNum){
 				if(options.frozenColumns.length) rowData.frozenTr = $('.frozen-view .body tbody', box)[0].rows[rowNum];
 				if(options.frozenEndColumns.length) rowData.frozenEndTr = $('.frozen-end .body tbody', box)[0].rows[rowNum];
 				if(options.columns.length) rowData.tr = $('.auto-view .body tbody', box)[0].rows[rowNum];
 			});
-			// }
-			options.data = data;
-			data = null;
 			var sort = options.sort;
 			if(options.remoteSort){
 				var sort_order = (~[true,'desc'].indexOf(sort.order)) ? 'desc' : 'asc';
@@ -545,16 +534,22 @@ $.fn.datagrid = function(options){
 				}, cell);
 			});
 			if(options.triggerRow && (options.frozenColumns.length || options.frozenEndColumns.length)) $box.on({
-				mouseenter: function(){
+				mouseenter: function(e){
+					if(e.delegateTarget._triggering) return false;
+					e.delegateTarget._triggering = true;
 					var data = that.relatedData;
 					if(data) $([data.frozenTr, data.frozenEndTr, data.tr].filter(function(item){ return item; })).removeClass('hover');
 					that.relatedData = data = that.userOptions.data[this.rowIndex];
 					$([data.frozenTr, data.frozenEndTr, data.tr].filter(function(item){ return item; })).addClass('hover');
+					e.delegateTarget._triggering = false;
 				},
-				mouseleave: function(){
+				mouseleave: function(e){
+					if(e.delegateTarget._triggering) return false;
+					e.delegateTarget._triggering = true;
 					var data = that.relatedData;
 					if(data) $([data.frozenTr, data.frozenEndTr, data.tr].filter(function(item){ return item; })).removeClass('hover');
 					that.relatedData = null;
+					e.delegateTarget._triggering = false;
 				}
 			}, '.body-wrapper tr');
 		},//}}}

@@ -163,7 +163,7 @@ audio, canvas, video { display: inline-block; vertical-align: middle; }
 
 .datagrid-ctn .auto-view table, .datagrid-ctn .auto-view td:first-child { border-left: none; }
 
-.datagrid-ctn .head td:hover, .datagrid-ctn .body tr:hover, .datagrid-ctn .body tr.hover { background: #e6e6e6; }
+.datagrid-ctn .head td:hover, .datagrid-ctn .body tr.hover { background: #e6e6e6; }
 
 .datagrid-ctn .cell { overflow: hidden; line-height: 20px; text-align: center; white-space: nowrap; color: #333; }
 
