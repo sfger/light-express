@@ -31,12 +31,26 @@
 .vt-top{vertical-align:top;}
 .vt-mid{vertical-align:middle;}
 .vt-btm{vertical-align:bottom;}
+.vt-bsl{vertical-align:baseline;}
 
 .grid{
 	@include grid;
-	.col{@include col;}
-	.col-rest{
-		@include col-auto(1,1,auto);
-		&.grid{@include grid;}
+	&.vt-top{
+		@include align-items(flex-start);
+		.col,.col-rest{vertical-align:top;}
 	}
+	&.vt-btm{
+		@include align-items(flex-end);
+		.col,.col-rest{vertical-align:bottom;}
+	}
+	&.vt-mid{
+		@include align-items(center);
+		.col,.col-rest{vertical-align:middle;}
+	}
+	&.vt-bsl{
+		@include align-items(baseline);
+		.col,.col-rest{vertical-align:baseline;}
+	}
+	.col{@include col;}
+	.col-rest{@include col-auto(1,1,auto);}
 }

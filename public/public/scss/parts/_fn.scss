@@ -392,8 +392,8 @@ $color_bg_light :#eee !default;
 	@include flex(0,0,$width);
 	@if($is_mobile==0){
 		display:table-cell\9;vertical-align:top\9;
-		&:before{content:"";display:block;width:$width;height:0;line-height:0;font-size:0;}
 		@media screen and(-ms-high-contrast:active),(-ms-high-contrast:none){
+			// @include flexbox;
 			display:block;
 			&:before{content:normal;}
 		}
@@ -410,6 +410,7 @@ $color_bg_light :#eee !default;
 	@include flex($grow,$shrink,$basis);
 	@if($is_mobile==0){
 		@media all and(-ms-high-contrast:none){
+			// @include flexbox;
 			display:block;
 			@at-root *::-ms-backdrop,#{&}{flex-basis:100%;}
 		}

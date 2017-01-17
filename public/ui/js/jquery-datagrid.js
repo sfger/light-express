@@ -335,13 +335,8 @@ $.fn.datagrid = function(options){
 		return createElement(ret);
 	}//}}}
 
-	//fn adjust_table{{{
 	var getHW = function(el, type){//{{{
 		if(!el) return false;
-		// return (document.documentMode<7 || /MSIE 6/.test(navigator.userAgent))
-		// 	? el['offset'+('width'==type ? 'Width' : 'Height')]
-		// 	: $(el)[type]();
-		// return $(el)[type]();
 		el.style && (el.style[type] = '');
 		return el['offset'+(type==='width'?'Width':'Height')];
 	};//}}}
@@ -373,7 +368,7 @@ $.fn.datagrid = function(options){
 			});
 		}
 	};//}}}
-	var adjust_table = function(that){//{{{
+	var resize_table = function(that){//{{{
 		var tables = $('table', that.render);
 		var $autoTable = $('.auto-view table', that.render).parent();
 		var tp0 = $autoTable.eq(0);
@@ -386,6 +381,8 @@ $.fn.datagrid = function(options){
 			if(options.frozenEndColumns.length) $('.frozen-end table', that.render).get(1).parentNode.scrollTop = this.scrollTop;
 		}
 		$('.auto-view .body-wrapper', that.render).off('scroll').on('scroll', function(){
+			// var data = that.relatedData;
+			// if(data) $([data.frozenTr, data.frozenEndTr, data.tr].filter(function(item){ return item; })).removeClass('hover');
 			if(this._scroll_id){
 				cancelAnimationFrame(this._scroll_id);
 				this._scroll_id = null;
@@ -409,6 +406,8 @@ $.fn.datagrid = function(options){
 		}
 		if(options.frozenColumns || options.frozenEndColumns){
 			$([tables[1], tables[5]]).off('mousewheel DOMMouseScroll').on('mousewheel DOMMouseScroll', function(e){
+				// var data = that.relatedData;
+				// if(data) $([data.frozenTr, data.frozenEndTr, data.tr].filter(function(item){ return item; })).removeClass('hover');
 				var tb3 = tables.get(3).parentNode;
 				var list = [tb3, tables.get(1).parentNode];
 				if(tables.get(5)) list.push(tables.get(5).parentNode);
@@ -427,18 +426,14 @@ $.fn.datagrid = function(options){
 		}
 		align_cell_row([tables.filter(':odd').toArray(), tables.filter(':even').toArray()], 'width');
 
-		// var width_full = (document.compatMode === "CSS1Compat"&&!/msie 6/i.test(navigator.userAgent)) ? 'auto' : '100%';
-		var width_full = 'auto';
-		tp1.css({width:width_full});
-		tp0.parent().css({width:width_full, overflow:'hidden'});
+		tp1.css({width:'auto'});
+		tp0.parent().css({width:'auto', overflow:'hidden'});
 	};//}}}
-	//}}}
 	handler.prototype = {
 		defaultOrder: false, //true:desc, false:asc
 		init: function(box, options){//{{{
 			$(box).addClass('datagrid-ctn');
 			this.render = box;
-			// this.reAlign();
 			this.update(options);
 			this.init_event(options);
 			options.onCreate.bind(this)();
@@ -448,19 +443,20 @@ $.fn.datagrid = function(options){
 			var box  = this.render;
 			var old_options = this.userOptions;
 			if(old_options){
-				var data = old_options.data;
-				if(data[0].tr || data[0].frozenTr){
-					data.forEach(function(rowData){
-						delete rowData.tr;
-						if(old_options.frozenColumns.length) delete rowData.frozenTr;
-						if(old_options.frozenEndColumns.length) delete rowData.frozenEndTr;
-					});
+				if(options.data){
+					var data = old_options.data;
+					if(data[0].tr || data[0].frozenTr || data[0].frozenEndTr){
+						data.forEach(function(rowData){
+							delete rowData.tr;
+							if(old_options.frozenColumns.length) delete rowData.frozenTr;
+							if(old_options.frozenEndColumns.length) delete rowData.frozenEndTr;
+						});
+					}
+					this.userOptions.data = options.data;
+					delete options.data;
 				}
-				if(options.data) this.userOptions.data = options.data;
-				delete options.data;
 				options = $.extend(true, {}, this.userOptions, options);
 			}
-			data = options.data;
 			$(box).empty(); // 清空内容取消绑定的事件
 			this.columns          = [];
 			this.frozenColumns    = [];
@@ -472,23 +468,12 @@ $.fn.datagrid = function(options){
 				return $('[data-field="'+option.field+'"]', box).get(0);
 			});
 			// console.log(this.fieldElements);
-			// this.dataTbodys = $('.body tbody', box);
 
-			// if(document.documentMode===5 || /MSIE 6/.test(navigator.userAgent)){
-			// 	$('.col-view', box).css({height: $('.head-wrapper').get(0).offsetHeight + $('.body-wrapper').get(0).offsetHeight})// css height:100% fix,
-			// 		.eq(0).css({width:$('.col-view', box).eq(0).find('table').eq(0).width()});// css display:inline fix
-			// 	$('.body-wrapper table, .body-wrapper table tr:first-child td', box).css({borderTop:'none'});
-			// 	$('.col-view', box).eq(1).find('table, table td:first-child').css({borderLeft:'none'});
-			// }
-			// if(!(data[0].tr && data[0].frozenTr)|| isReplaceRow){
-			data.forEach(function(rowData, rowNum){
+			options.data.forEach(function(rowData, rowNum){
 				if(options.frozenColumns.length) rowData.frozenTr = $('.frozen-view .body tbody', box)[0].rows[rowNum];
 				if(options.frozenEndColumns.length) rowData.frozenEndTr = $('.frozen-end .body tbody', box)[0].rows[rowNum];
 				if(options.columns.length) rowData.tr = $('.auto-view .body tbody', box)[0].rows[rowNum];
 			});
-			// }
-			options.data = data;
-			data = null;
 			var sort = options.sort;
 			if(options.remoteSort){
 				var sort_order = (~[true,'desc'].indexOf(sort.order)) ? 'desc' : 'asc';
@@ -503,7 +488,7 @@ $.fn.datagrid = function(options){
 			 * TODO::
 			 * 1、全部行、全部列、单行、单列对齐重新对齐功能
 			 * */
-			adjust_table(this);
+			resize_table(this);
 			var ie = /MSIE (\d+)\.?/.exec(navigator.userAgent);
 			if(ie && ie.length && ie[1]){
 				ie = Number(ie[1]);
@@ -521,22 +506,6 @@ $.fn.datagrid = function(options){
 		init_event: function(options){//{{{
 			var that    = this;
 			var $box    = $(this.render);
-			/* var ie = /MSIE (\d+)\.?/.exec(navigator.userAgent);
-			if(ie && ie.length && ie[1]){
-				ie = Number(ie[1]);
-				if(ie<10){
-					var $fv = $('.frozen-view', $box);
-					$fv.width($fv.get(0).offsetWidth);
-					$('>.grid', $box).removeClass('layout-auto');
-				}
-			} */
-			// if(document.documentMode===5 || /MSIE 6/.test(navigator.userAgent)){
-			// 	var hover_binds = {// css tr:hover fix
-			// 		mouseenter: function(){ this.style.backgroundColor = '#e6e6e6'; },
-			// 		mouseleave: function(){ this.style.backgroundColor = 'transparent'; }
-			// 	};
-			// 	$box.on(hover_binds, '.head td').on(hover_binds, '.body tr');
-			// }
 			if(!options.remoteSort) $box.on('click', '.field.sortable', function(){
 				var cell = $('.cell', this).get(0);
 				that.sortBy({
@@ -545,16 +514,31 @@ $.fn.datagrid = function(options){
 				}, cell);
 			});
 			if(options.triggerRow && (options.frozenColumns.length || options.frozenEndColumns.length)) $box.on({
-				mouseenter: function(){
-					var data = that.relatedData;
-					if(data) $([data.frozenTr, data.frozenEndTr, data.tr].filter(function(item){ return item; })).removeClass('hover');
-					that.relatedData = data = that.userOptions.data[this.rowIndex];
-					$([data.frozenTr, data.frozenEndTr, data.tr].filter(function(item){ return item; })).addClass('hover');
+				mouseenter: function(e){
+					var target = this;
+					var box = e.delegateTarget;
+					if(box._triggering_in){
+						cancelAnimationFrame(box._triggering_in);
+						box._triggering_in = null;
+					}
+					box._triggering_in = requestAnimationFrame(function(){
+						var data = that.relatedData;
+						if(data) $([data.frozenTr, data.frozenEndTr, data.tr].filter(function(item){ return item; })).removeClass('hover');
+						that.relatedData = data = that.userOptions.data[target.rowIndex];
+						$([data.frozenTr, data.frozenEndTr, data.tr].filter(function(item){ return item; })).addClass('hover');
+					});
 				},
-				mouseleave: function(){
-					var data = that.relatedData;
-					if(data) $([data.frozenTr, data.frozenEndTr, data.tr].filter(function(item){ return item; })).removeClass('hover');
-					that.relatedData = null;
+				mouseleave: function(e){
+					var box = e.delegateTarget;
+					if(box._triggering_out){
+						cancelAnimationFrame(box._triggering_out);
+						box._triggering_out = null;
+					}
+					box._triggering_out = requestAnimationFrame(function(){
+						var data = that.relatedData;
+						if(data) $([data.frozenTr, data.frozenEndTr, data.tr].filter(function(item){ return item; })).removeClass('hover');
+						that.relatedData = null;
+					});
 				}
 			}, '.body-wrapper tr');
 		},//}}}
