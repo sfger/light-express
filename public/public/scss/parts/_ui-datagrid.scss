@@ -4,15 +4,7 @@ $is_modern:0;
 	overflow:hidden;
 	.view-wrapper{position:relative;*white-space:nowrap;*overflow:hidden;}
 	.col-view{*display:inline;*zoom:1;}
-	.auto-view{*position:absolute;*top:0;*right:0;}
 	.head-wrapper{overflow:hidden;}
-	.body-wrapper{/*height:320px;*height:250px;*/overflow:auto;}
-	.frozen-view{
-		.body-wrapper{
-			overflow:hidden;
-			table{margin-bottom:50px;}
-		}
-	}
 	table{
 		border-collapse:collapse;
 		&,td{border:1px solid #ccc;}
@@ -22,7 +14,13 @@ $is_modern:0;
 		table,tr:first-child td{border-top:none;}
 		tr:nth-child(even){background:#ffe;}
 	}
+	.frozen-view .body-wrapper{
+		overflow:hidden;
+		table{margin-bottom:50px;}
+	}
 	.auto-view{
+		*position:absolute;*top:0;*right:0;
+		.body-wrapper{overflow:auto;}
 		&.locate-view{
 			overflow:hidden;*width:0px;position:relative\0;
 			>div{position:absolute\0;left:0\0;right:0\0;top:0\0;bottom:0\0;}

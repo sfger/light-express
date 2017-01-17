@@ -389,11 +389,12 @@ $color_bg_light :#eee !default;
 	}
 }
 @mixin col($width:auto){
-	@include flex(0,0,$width);@extend %flexbox;
+	@include flex(0,0,$width);
 	@if($is_mobile==0){
 		display:table-cell\9;vertical-align:top\9;
 		@media screen and(-ms-high-contrast:active),(-ms-high-contrast:none){
-			@include flexbox;
+			// @include flexbox;
+			display:block;
 			&:before{content:normal;}
 		}
 	}
@@ -406,10 +407,11 @@ $color_bg_light :#eee !default;
 		$width:if($grow==1 and $basis==auto,100%,$basis);
 		display:table-cell\9;width:#{$width}\9;vertical-align:top\9;
 	}
-	@include flex($grow,$shrink,$basis);@extend %flexbox;
+	@include flex($grow,$shrink,$basis);
 	@if($is_mobile==0){
 		@media all and(-ms-high-contrast:none){
-			@include flexbox;
+			// @include flexbox;
+			display:block;
 			@at-root *::-ms-backdrop,#{&}{flex-basis:100%;}
 		}
 	}
