@@ -345,10 +345,10 @@ function getCurrentScript(){//{{{
 	}
 }//}}}
 
-// export{
-// 	strtotime, pad, date, getType, createElement,
-// 	numberFormat, numberFromFormat,
-// 	buildRegString, isStrHasTrunkWith,
-// 	domCountDown, throttle, isPlainObject,
-// 	extend, isWindow, getCurrentScript
-// };
+export{
+	strtotime, pad, date, getType, createElement,
+	numberFormat, numberFromFormat,
+	buildRegString, isStrHasTrunkWith,
+	domCountDown, throttle, isPlainObject,
+	extend, isWindow, getCurrentScript
+};

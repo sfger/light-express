@@ -1,92 +1,5 @@
-// requestAnimationFrame {{{
-(function() {
-	'use strict';
-	var vendors = ['webkit', 'moz'];
-	for(var i=0; i<vendors.length && !window.requestAnimationFrame; ++i){
-		var vp = vendors[i];
-		window.requestAnimationFrame = window[vp+'RequestAnimationFrame'];
-		window.cancelAnimationFrame = (window[vp+'CancelAnimationFrame']
-			|| window[vp+'CancelRequestAnimationFrame']);
-	}
-	if( /iP(ad|hone|od).*OS 6/.test(window.navigator.userAgent) // iOS6 is buggy
-		|| !window.requestAnimationFrame || !window.cancelAnimationFrame ){
-		var lastTime = 0;
-		window.requestAnimationFrame = function(callback){
-			var now = Date.now();
-			var nextTime = Math.max(lastTime + 16, now);
-			return setTimeout(function() { callback(lastTime = nextTime); }, nextTime - now);
-		};
-		window.cancelAnimationFrame = clearTimeout;
-	}
-}());
-// }}}
-Function.prototype.bind = Function.prototype.bind || function(oThis){//{{{
-	if(typeof this!=="function"){
-		throw new TypeError("Function.prototype.bind - what is trying to be bound is not callable");
-	}
-	var aArgs = Array.prototype.slice.call(arguments, 1), 
-		fToBind = this, 
-		fNOP    = function(){},
-		fBound  = function(){
-			return fToBind.apply(
-				this instanceof fNOP && oThis ? this : oThis || window,
-				aArgs.concat(Array.prototype.slice.call(arguments))
-			);
-		};
-	fNOP.prototype   = this.prototype;
-	fBound.prototype = new fNOP();
-	return fBound;
-};
-Array.prototype.forEach = Array.prototype.forEach || function(fn, scope){
-	for(var i=0,len=this.length; i<len; ++i){
-		if(i in this){
-			fn.call(scope, this[i], i, this);
-		}
-	}
-};
-Array.prototype.indexOf = Array.prototype.indexOf || function(searchElement, fromIndex){
-	var index = -1;
-	fromIndex = fromIndex*1 || 0;
-	for (var k=0, length=this.length; k<length; k++) {
-		if(k>=fromIndex && this[k]===searchElement){
-			index = k;
-			break;
-		}
-	}
-	return index;
-};
-Array.prototype.map = Array.prototype.map || function(fn, context){
-	var arr = [];
-	if(typeof fn === "function"){
-		for(var k=0, length=this.length; k<length; k++) {
-			arr.push(fn.call(context, this[k], k, this));
-		}
-	}
-	return arr;
-};
-Array.prototype.reduce = Array.prototype.reduce || function(callback, initialValue){
-	var previous = initialValue, k = 0, length = this.length;
-	if(typeof initialValue === "undefined"){
-		previous = this[0];
-		k = 1;
-	}
-
-	if(typeof callback === "function"){
-		for(k; k<length; k++){
-			this.hasOwnProperty(k) && (previous = callback(previous, this[k], k, this));
-		}
-	}
-	return previous;
-};
-Array.prototype.filter = Array.prototype.filter || function(fn, context){
-	var arr = [];
-	if(typeof fn === "function"){
-		for(var k=0, length=this.length; k<length; k++){
-			fn.call(context, this[k], k, this) && arr.push(this[k]);
-		}
-	}
-	return arr;
-};//}}}
+import "../../public/js/requestAnimationFrame";
+import {createElement} from "../../public/js/parts/fn";
 $.fn.datagrid = function(options){
 	var type = $.type(options);
 	if(type==='string'){//{{{
@@ -124,47 +37,6 @@ $.fn.datagrid = function(options){
 	}, options);//}}}
 	if(!options.columns.length) throw new Error('datagrid must have columns option！');
 	var handler  = function(box, options){ return new handler.prototype.init(box, options); };
-	var toString = Object.prototype.toString;
-	var getType  = function(obj){ return toString.call(obj).slice(8, -1).toLowerCase(); };
-	function createElement(node){//{{{
-		var cd        = '',
-			at        = [],
-			attr      = null,
-			children  = null,
-			fn        = createElement,
-			node_type = getType(node);
-		if(node_type === 'array'){
-			for(var j in node) cd += fn(node[j]);
-		}else{
-			if(node_type==="string" || node_type=="number"){
-				cd = node;
-			}else if(node_type==='object' && node.name){
-				attr = node.attr, children = node.children, at = [];
-				if(attr){
-					for(var key in attr){
-						if(key=='style'){
-							var style = attr[key];
-							var ot = getType(style);
-							attr[key] = '';
-							if(ot=='object'){
-								for(var sk in style){
-									attr[key] += sk + ':' + style[sk] + ';';
-								}
-							}else if(ot=='string'){
-								attr[key] = style;
-							}
-						}
-						at.push('' + key + '="' + attr[key] + '"');
-					}
-				}
-				if(at.length) at.unshift('');
-				if(children && getType(children) !== 'array') children = [children];
-				cd = '<' + node.name + at.join(' ') + '>' + (children ? fn(children) : '') + '</' + node.name + '>';
-			} else cd = '';
-		}
-		return cd;
-	}//}}}
-
 	function get_table(options, that){//{{{
 		function get_head_rows(rows, colsType){//{{{
 			if(!rows || (colsType=='frozenColumns')&&!options.frozenColumns.length) return [];
@@ -177,8 +49,8 @@ $.fn.datagrid = function(options){
 						var title = (option.name || option.field || '');
 						var width = (options.autoColWidth||option.colspan) ? 'auto' : ((option.width||options.colWidth) + 'px');
 						var td_attr = {};
-						if(option.rowspan) td_attr.rowspan = option.rowspan;
-						if(option.colspan) td_attr.colspan = option.colspan;
+						if(option.rowspan) td_attr['rowspan'] = option.rowspan;
+						if(option.colspan) td_attr['colspan'] = option.colspan;
 						var colspan = option.colspan || 1;
 						var isField = colspan==1&&((i==il)||((il+1)==(i+option.rowspan)));
 						var cell_attr = {"class":'cell', "style":{width:width}};
@@ -334,13 +206,12 @@ $.fn.datagrid = function(options){
 		});//}}}
 		return createElement(ret);
 	}//}}}
-
-	var getHW = function(el, type){//{{{
+	function getHW(el, type){//{{{
 		if(!el) return false;
 		el.style && (el.style[type] = '');
 		return el['offset'+(type==='width'?'Width':'Height')];
 	};//}}}
-	var align_cell_column = function(arr, type){//{{{
+	function align_cell_column(arr, type){//{{{
 		for(var i=0,il=arr.length; i<il; i++){
 			var column = arr[i];
 			var max = column.map(function(one){
@@ -353,7 +224,7 @@ $.fn.datagrid = function(options){
 			});
 		}
 	};//}}}
-	var align_cell_row = function(arr, type){//{{{
+	function align_cell_row(arr, type){//{{{
 		var len = arr.length;
 		for(var i=0,il=arr[0].length; i<il; i++){
 			var j=0, row = [];
@@ -368,7 +239,7 @@ $.fn.datagrid = function(options){
 			});
 		}
 	};//}}}
-	var resize_table = function(that){//{{{
+	function resize_table(that){//{{{
 		var tables = $('table', that.render);
 		var $autoTable = $('.auto-view table', that.render).parent();
 		var tp0 = $autoTable.eq(0);
@@ -376,9 +247,16 @@ $.fn.datagrid = function(options){
 		$autoTable.css({width:500000});
 		var options = that.userOptions;
 		function update_scroll_offset(){
-			tp0.get(0).parentNode.scrollLeft = this.scrollLeft;
-			if(options.frozenColumns.length) tables.get(1).parentNode.scrollTop = this.scrollTop;
-			if(options.frozenEndColumns.length) $('.frozen-end table', that.render).get(1).parentNode.scrollTop = this.scrollTop;
+			let aview:any = tp0.get(0).parentNode;
+			aview.scrollLeft = this.scrollLeft;
+			if(options.frozenColumns.length){
+				let fview:any = tables.get(1).parentNode;
+				fview.scrollTop = this.scrollTop;
+			}
+			if(options.frozenEndColumns.length){
+				let feview:any = $('.frozen-end table', that.render).get(1).parentNode;
+				feview.scrollTop = this.scrollTop;
+			}
 		}
 		$('.auto-view .body-wrapper', that.render).off('scroll').on('scroll', function(){
 			// var data = that.relatedData;
@@ -408,12 +286,13 @@ $.fn.datagrid = function(options){
 			$([tables[1], tables[5]]).off('mousewheel DOMMouseScroll').on('mousewheel DOMMouseScroll', function(e){
 				// var data = that.relatedData;
 				// if(data) $([data.frozenTr, data.frozenEndTr, data.tr].filter(function(item){ return item; })).removeClass('hover');
-				var tb3 = tables.get(3).parentNode;
+				let originalEvent:any = e.originalEvent;
+				let tb3:any = tables.get(3).parentNode;
 				var list = [tb3, tables.get(1).parentNode];
 				if(tables.get(5)) list.push(tables.get(5).parentNode);
 				if($(list).is(':animated')) return false;
 				var scroll_height = tb3.scrollHeight - tb3.clientHeight;
-				var _sh = tb3.scrollTop - (e.originalEvent.wheelDelta || -(e.originalEvent.detail/3)*120);
+				var _sh = tb3.scrollTop - (originalEvent.wheelDelta || -(originalEvent.detail/3)*120);
 				$(list).animate({scrollTop:'+'+(_sh>scroll_height?scroll_height:_sh)+'px'}, 230);
 				return false;
 			});
@@ -470,9 +349,18 @@ $.fn.datagrid = function(options){
 			// console.log(this.fieldElements);
 
 			options.data.forEach(function(rowData, rowNum){
-				if(options.frozenColumns.length) rowData.frozenTr = $('.frozen-view .body tbody', box)[0].rows[rowNum];
-				if(options.frozenEndColumns.length) rowData.frozenEndTr = $('.frozen-end .body tbody', box)[0].rows[rowNum];
-				if(options.columns.length) rowData.tr = $('.auto-view .body tbody', box)[0].rows[rowNum];
+				if(options.frozenColumns.length){
+					let tbody:any = $('.frozen-view .body tbody', box)[0];
+					rowData.frozenTr = tbody.rows[rowNum];
+				}
+				if(options.frozenEndColumns.length){
+					let tbody:any = $('.frozen-end .body tbody', box)[0];
+					rowData.frozenEndTr = tbody.rows[rowNum];
+				}
+				if(options.columns.length){
+					let tbody:any = $('.auto-view .body tbody', box)[0];
+					rowData.tr = tbody.rows[rowNum];
+				}
 			});
 			var sort = options.sort;
 			if(options.remoteSort){
@@ -491,8 +379,8 @@ $.fn.datagrid = function(options){
 			resize_table(this);
 			var ie = /MSIE (\d+)\.?/.exec(navigator.userAgent);
 			if(ie && ie.length && ie[1]){
-				ie = Number(ie[1]);
-				if(ie<8){
+				var ver = Number(ie[1]);
+				if(ver<8){
 					$('.auto-view', this.render).css({
 						'width': 'auto',
 						'margin-left': $('.frozen-view', this.render).get(0).offsetWidth,
@@ -504,10 +392,10 @@ $.fn.datagrid = function(options){
 			return this;
 		},//}}}
 		init_event: function(options){//{{{
-			var that    = this;
-			var $box    = $(this.render);
+			var that = this;
+			var $box = $(this.render);
 			if(!options.remoteSort) $box.on('click', '.field.sortable', function(){
-				var cell = $('.cell', this).get(0);
+				let cell:any = $('.cell', this).get(0);
 				that.sortBy({
 					field: $(cell).data('field'),
 					order: !cell.order||that.defaultOrder
@@ -563,7 +451,8 @@ $.fn.datagrid = function(options){
 		getColumnSortFunction: function(option){//{{{
 			var field_option = this.getFieldOption(option.field); // 列的选项
 			if(!field_option){
-				return console.log(option, 'Field not found......');
+				console.log(option, 'Field not found......');
+				throw new Error('Field not found:'+option.field);
 			}
 			var sort_type    = field_option.dataType || this.userOptions.dataType || 'string'; // 排序的类型
 			var fn           = field_option.sort || this.sortType[sort_type]; // 排序的函数

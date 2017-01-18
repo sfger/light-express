@@ -1,9 +1,15 @@
 {
 	"compilerOptions": {
 		"target": "es5",
+		"module": "commonjs",
+		"moduleResolution": "node",
+		"allowJs": true,
+		"allowSyntheticDefaultImports": true,
+		"jsx": "preserve",
+		"lib": ["dom", "es5"],
 		"sourceMap": true
 	},
 	"exclude": [
 		"node_modules"
-  ]
+	]
 }
