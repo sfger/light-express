@@ -1,5 +1,5 @@
 @charset "utf-8"; //解决中文报错
-$is_modern:1 !default; // 兼容低版本ie
+$is_modern:0 !default; // 兼容低版本ie
 $is_mobile:0 !default; // 兼容PC
 
 $base_font_size :12px !default;
@@ -107,7 +107,7 @@ $color_bg_light :#eee !default;
 	$ie-hex-str : ie-hex-str($rgba);
 	background-color:$rgba;
 	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#{$ie-hex-str},endColorstr=#{$ie-hex-str});
-	@media screen and (min-width:0px){filter:none;}
+	@media screen and (min-width:0){filter:none;}
 }
 @mixin user-select($val){@include prefix((user-select:$val),webkit moz ms);}
 @mixin box-sizing($mode:content-box){@include prefix((box-sizing:$mode),webkit moz);}
@@ -117,26 +117,25 @@ $color_bg_light :#eee !default;
 @mixin border-bottom-left-radius($n:0){@include prefix((border-bottom-left-radius:$n),webkit moz);}
 @mixin border-bottom-right-radius($n:0){@include prefix((border-bottom-right-radius:$n),webkit moz);}
 @mixin background-circle($size, $color, $empty:null, $emptyColor:white, $borderWidth:1px){
-	@include size($size);@include relative(null,1);text-align:center;// *overflow:hidden;
-	&:before{
-		content:"";@include absolute(left 0 top 0, -2);
-		border-left:$size dotted $color;border-top:$size dotted $color;
+	@include size($size);@include relative(null,1);text-align:center;border-radius:50%;
+	@if $empty {
+		border:$borderWidth solid $color;background:$emptyColor;
+	}@else{
+		background:$color;
 	}
-	@if($empty){
-		&:after{
-			content:"";@include absolute(left $borderWidth top $borderWidth, -1);
-			border-left:($size - $borderWidth*2) dotted $emptyColor;
-			border-top:($size - $borderWidth*2) dotted $emptyColor;
+	@media \0screen{
+		border:none;background:transparent;
+		&:before{
+			content:"";@include absolute(left 0 top 0,-2);
+			border-left:$size dotted $color;border-top:$size dotted $color;
 		}
-	}
-	@media screen and(min-width:0px){
-		border-radius:50%;
 		@if($empty){
-			border:$borderWidth solid $color;background:$emptyColor;
-		}@else{
-			background:$color;
+			&:after{
+				content:"";@include absolute(left $borderWidth top $borderWidth, -1);
+				border-left:($size - $borderWidth*2) dotted $emptyColor;
+				border-top:($size - $borderWidth*2) dotted $emptyColor;
+			}
 		}
-		&:before,&:after{content:normal;}
 	}
 }
 @mixin position($position, $args, $index:null){
@@ -356,7 +355,7 @@ $color_bg_light :#eee !default;
     .step-position{
         @include size(28px);@include absolute(top -10px);
         margin-left:-7px;font:18px/28px "Microsoft YaHei";text-align:center;color:white;
-        @media screen and(min-width:0px){@include border-radius(50%);background-color:$color;}
+        @media screen and (min-width:0){@include border-radius(50%);background-color:$color;}
         .step-arrow{
             display:block;@include size(0);margin-top:-22px;margin-left:-12px;
             border:12px solid $color;border-right:0px solid white;
@@ -364,55 +363,36 @@ $color_bg_light :#eee !default;
             &.arrow-done{border-left-color:$colorDone;}
         }
         &.position-done{
-            @media screen and(min-width:0px){background-color:$colorDone;}
+            @media screen and (min-width:0){background-color:$colorDone;}
             .step-arrow{border-left-color:$colorDone;}
         }
         &.first-position .step-arrow{border-color:transparent;}
         .step-label{font:12px/normal NSimSun;color:#999;margin-top:20px;width:500%;margin-left:-200%;}
     }
 }
+
 @mixin grid(){
+	display:table;width:100%;table-layout:fixed;
 	@include flexbox;
-	@if($is_mobile==0){
-		display:table\9;width:100%\9;table-layout:fixed\9;
-		@media screen and(-ms-high-contrast:active),(-ms-high-contrast:none){@include flexbox;}
-	}
-	&.layout-auto{table-layout:auto\9;}
+	@media \0screen{display:table;}
+	@media screen and (min-width:0\0) and (min-resolution:.001dpcm){display:table;}
+	&.layout-auto{table-layout:auto;}
 	&.grid-column{
-		@include flex-direction(column);
-		@if($is_mobile==0){
-			display:block\9;
-			>.col,>.col-reset{display:block;}
-			>.col-reset{height:100%;}
-			@media screen and(-ms-high-contrast:active),(-ms-high-contrast:none){@include flexbox;}
-		}
+		display:block;
+		>.col,>.col-reset{display:block;}
+		>.col-reset{height:100%;}
+		@include flex-direction(column);@include flexbox;
 	}
 }
-@mixin col($width:auto){
-	@include flex(0,0,$width);
-	@if($is_mobile==0){
-		display:table-cell\9;vertical-align:top\9;
-		@media screen and(-ms-high-contrast:active),(-ms-high-contrast:none){
-			// @include flexbox;
-			display:block;
-			&:before{content:normal;}
-		}
-	}
+@mixin col($width:null){
+	display:table-cell;vertical-align:top;
+	@include flex(0,0,if($width,$width,auto));width:$width;
+	@at-root_:-ms-lang(x),#{&}{display:block;}
 }
-// @mixin col-width($width:auto){
-// 	&,&:before{width:$width;}
-// }
 @mixin col-auto($grow:0,$shrink:0,$basis:auto){
-	@if($is_mobile==0){
-		$width:if($grow==1 and $basis==auto,100%,$basis);
-		display:table-cell\9;width:#{$width}\9;vertical-align:top\9;
-	}
+	$width:if($grow==1 and $basis==auto,100%,$basis);
+	display:table-cell;width:#{$width};vertical-align:top;
 	@include flex($grow,$shrink,$basis);
-	@if($is_mobile==0){
-		@media all and(-ms-high-contrast:none){
-			// @include flexbox;
-			display:block;
-			@at-root *::-ms-backdrop,#{&}{flex-basis:100%;}
-		}
-	}
+	// @include flex($grow,$shrink,$width);
+	@at-root_:-ms-lang(x),#{&}{display:block;}
 }
