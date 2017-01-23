@@ -110,21 +110,21 @@ audio, canvas, video { display: inline-block; *display: inline; *zoom: 1; vertic
 
 .grid.vt-bsl .col, .grid.vt-bsl .col-rest { vertical-align: baseline; }
 
-.grid .col { display: table-cell; vertical-align: top; -webkit-box-flex: 0; -webkit-flex: 0 0 auto; -moz-box-flex: 0; -moz-flex: 0 0 auto; -ms-flex: 0 0 auto; flex: 0 0 auto; width: auto; }
+.grid .col { display: table-cell; vertical-align: top; -webkit-box-flex: 0; -webkit-flex: 0 0 auto; -moz-box-flex: 0; -moz-flex: 0 0 auto; -ms-flex: 0 0 auto; flex: 0 0 auto; }
 
 _:-ms-lang(x), .grid .col { display: block; }
 
-.grid .col-rest { display: table-cell; width: 100%; vertical-align: top; -webkit-box-flex: 1; -webkit-flex: 1 1 auto; -moz-box-flex: 1; -moz-flex: 1 1 auto; -ms-flex: 1 1 auto; flex: 1 1 auto; width: 100%; }
+.grid .col-rest { display: table-cell; width: 100%; vertical-align: top; -webkit-box-flex: 1; -webkit-flex: 1 1 auto; -moz-box-flex: 1; -moz-flex: 1 1 auto; -ms-flex: 1 1 auto; flex: 1 1 auto; }
 
 _:-ms-lang(x), .grid .col-rest { display: block; }
 
-.circle { width: 100px; height: 100px; position: relative; z-index: 1; text-align: center; border-radius: 50%; border: 1px solid red; background: white; line-height: 100px; }
+.circle { width: 100px; height: 100px; text-align: center; border-radius: 50%; border: 1px solid red; background: white; line-height: 100px; }
 
-@media \0screen { .circle { border: none; background: transparent; }
+@media \0screen { .circle { position: relative; z-index: 1; border: none; background: transparent; }
 	.circle:before { content: ""; position: absolute; top: 0; left: 0; z-index: -2; border-left: 100px dotted red; border-top: 100px dotted red; }
 	.circle:after { content: ""; position: absolute; top: 1px; left: 1px; z-index: -1; border-left: 98px dotted white; border-top: 98px dotted white; } }
 
-.circle2 { width: 100px; height: 100px; position: relative; z-index: 1; text-align: center; border-radius: 50%; background: red; line-height: 100px; }
+.circle2 { width: 100px; height: 100px; text-align: center; border-radius: 50%; background: red; line-height: 100px; }
 
-@media \0screen { .circle2 { border: none; background: transparent; }
+@media \0screen { .circle2 { position: relative; z-index: 1; border: none; background: transparent; }
 	.circle2:before { content: ""; position: absolute; top: 0; left: 0; z-index: -2; border-left: 100px dotted red; border-top: 100px dotted red; } }

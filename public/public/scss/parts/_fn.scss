@@ -106,8 +106,7 @@ $color_bg_light :#eee !default;
 	$rgba       : rgba($color,$alpha);
 	$ie-hex-str : ie-hex-str($rgba);
 	background-color:$rgba;
-	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#{$ie-hex-str},endColorstr=#{$ie-hex-str});
-	@media screen and (min-width:0){filter:none;}
+	@media \0screen\,screen\9{filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#{$ie-hex-str},endColorstr=#{$ie-hex-str});}
 }
 @mixin user-select($val){@include prefix((user-select:$val),webkit moz ms);}
 @mixin box-sizing($mode:content-box){@include prefix((box-sizing:$mode),webkit moz);}
@@ -117,14 +116,14 @@ $color_bg_light :#eee !default;
 @mixin border-bottom-left-radius($n:0){@include prefix((border-bottom-left-radius:$n),webkit moz);}
 @mixin border-bottom-right-radius($n:0){@include prefix((border-bottom-right-radius:$n),webkit moz);}
 @mixin background-circle($size, $color, $empty:null, $emptyColor:white, $borderWidth:1px){
-	@include size($size);@include relative(null,1);text-align:center;border-radius:50%;
+	@include size($size);text-align:center;border-radius:50%;
 	@if $empty {
 		border:$borderWidth solid $color;background:$emptyColor;
 	}@else{
 		background:$color;
 	}
 	@media \0screen{
-		border:none;background:transparent;
+		@include relative(null,1);border:none;background:transparent;
 		&:before{
 			content:"";@include absolute(left 0 top 0,-2);
 			border-left:$size dotted $color;border-top:$size dotted $color;
