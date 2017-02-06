@@ -18,6 +18,7 @@ $.fn.datagrid = function(options){
 		if(1===len) return ret[0];
 		else return ret;
 	}//}}}
+	if(!options.columns.length) throw new Error('datagrid must have columns option！');
 	options = $.extend(true, {//{{{
 		align            : 'center',  // 内容对齐方式
 		colWidth         : 80,        // 默认单元格内容宽度
@@ -35,7 +36,6 @@ $.fn.datagrid = function(options){
 		frozenEndColumns : [],        // 冻结列
 		columns          : []         // 普通列
 	}, options);//}}}
-	if(!options.columns.length) throw new Error('datagrid must have columns option！');
 	var handler  = function(box, options){ return new handler.prototype.init(box, options); };
 	function get_table(options, that){//{{{
 		function get_head_rows(rows, colsType){//{{{

@@ -25,12 +25,19 @@ module.exports = {
 		path:__dirname+'/dist/',
 		filename:'[name].js',
 		chunkFilename:'[name].js',
-		libraryTarget:"umd",
+		libraryTarget:"umd"
 		// library:'test',
 		// publicPath:'../dist/'
 	},
 	resolve:{
-		// extensions:['', '.ts', '.js', '.jsx']
+		modules: [
+			path.join(__dirname, "public"),
+			"node_modules"
+		],
+		extensions:['.ts', '.js', '.jsx', 'png', 'jpg'],
+		alias: {
+			root: path.resolve(__dirname, 'public/'),
+		}
 	},
 	externals: {
 		jquery: {
@@ -56,21 +63,43 @@ module.exports = {
 		rules:[
 			{test:/\.ts$/, loader:'ts-loader'},
 			{
-				exclude:/(node_modules|bower_components)/,
 				test:/\.jsx?$/,
-				loader:'babel-loader',
-				options:{
-					presets: [
-						// ['es2015', {modules:false}],
-						['es2015'],
-						'react'
-					]
-				}
+				exclude:/(node_modules|bower_components)/,
+				use:[
+					{
+						loader:'babel-loader',
+						options:{
+							presets: [
+								// ['es2015', {modules:false}],
+								['es2015'],
+								'react'
+							]
+						}
+					}
+				]
 			},
-			{test:/\.scss/, loader:'style-loader!css-loader!sass-loader'},
-			{test:/\.css$/, loader:'style-loader!css-loader'},
-			{test:/\.(png|jpg)$/, loader:'url-loader?limit=8192'}
+			{
+				test:/\.scss/,
+				exclude:/(node_modules|bower_components)/,
+				use:[ 'style-loader', 'css-loader', 'sass-loader' ]
+			},
+			{
+				test:/\.css$/,
+				exclude:/(node_modules|bower_components)/,
+				use:[ 'style-loader', 'css-loader' ]
+			},
+			{
+				test:/\.(png|jpg)$/,
+				exclude:/(node_modules|bower_components)/,
+				use:[
+					{
+						loader:'url-loader',
+						options:{ limit:8192 }
+					}
+				]
+			}
 		]
 	},
-	plugins:[]
+	plugins:[
+	]
 };

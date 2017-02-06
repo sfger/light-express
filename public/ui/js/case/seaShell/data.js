@@ -78,7 +78,8 @@ define(function(){
 					name: 'Web-UI',
 					children:[
 						{name:'Material', url:'http://www.material-ui.com/#/'},
-						{name:'Bootstrap', url:'http://getbootstrap.com/'},
+						{name:'Pure', url:'https://github.com/yahoo/pure'},
+						{name:'AntDesign', url:'https://ant.design/'},
 						{name:'AntDesign', url:'https://ant.design/'},
 						{name:'AntV', url:'http://antv.alipay.com/', target:'_blank'},
 						{name:'G2', url:'https://g2.alipay.com/'},
