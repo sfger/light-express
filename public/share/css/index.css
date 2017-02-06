@@ -99,7 +99,7 @@
 	*::-ms-backdrop, .grid .col-rest { flex-basis: 100%; } }
 
 /* Original style from softwaremaniacs.org (c) Ivan Sagalaev <Maniac@SoftwareManiacs.Org> */
-.hljs { display: block; overflow-x: auto; padding: 0.5em; background: #f0f0f0; -webkit-text-size-adjust: none; }
+.hljs { display: block; overflow-x: auto; padding: 0.5em; background: #eaeaea; -webkit-text-size-adjust: none; }
 
 .hljs, .hljs-subst, .hljs-tag .hljs-title, .nginx .hljs-title { color: black; }
 
@@ -153,7 +153,7 @@ html.full-screen #page, html.full-screen .home-page { height: 100%; }
 
 .navi-box h3 { font-size: 16px; }
 
-.navi-box a { display: inline-block; vertical-align: middle; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; display: inline-block; vertical-align: middle; width: 133px; height: auto; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; font: 14px/auto "Microsoft YaHei"; border: none; -webkit-border-radius: 3px; -moz-border-radius: 3px; border-radius: 3px; color: rgba(255, 255, 255, 0); text-align: center; background: transparent; cursor: pointer; text-decoration: none; -webkit-border-radius: 4px; -moz-border-radius: 4px; border-radius: 4px; padding: 2px 5px; margin: 5px; _margin: 5px 11px; transition: all 0.3s ease-in 0s; font-size: 16px; border: 1px solid #fff; line-height: 25px; text-decoration: none; color: white; }
+.navi-box a { display: inline-block; vertical-align: middle; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; display: inline-block; vertical-align: middle; width: 133px; height: auto; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; font: 14px/auto "Microsoft YaHei"; border: none; -webkit-border-radius: 3px; -moz-border-radius: 3px; border-radius: 3px; color: rgba(255, 255, 255, 0); text-align: center; background: transparent; cursor: pointer; text-decoration: none; -webkit-border-radius: 4px; -moz-border-radius: 4px; border-radius: 4px; padding: 2px 5px; margin: 5px; _margin: 5px 11px; transition: all 0.314s ease-in 0s; font-size: 16px; border: 1px solid #fff; line-height: 25px; text-decoration: none; color: white; }
 
 .navi-box a:hover { background-color: rgba(13, 13, 13, 0); }
 
@@ -165,7 +165,7 @@ html.full-screen #page, html.full-screen .home-page { height: 100%; }
 
 @media screen and (max-width: 640px) { .wrap { width: auto; } }
 
-.article-page .md-ctn { padding: 4px; }
+.article-page .md-ctn { padding: 4px; background: #feffef; }
 
 .article-page .md-ctn table { margin: 8px 0; table-layout: fixed; border-collapse: collapse; border: 1px black #666; }
 
@@ -175,15 +175,15 @@ html.full-screen #page, html.full-screen .home-page { height: 100%; }
 
 .article-page .md-ctn p { text-indent: 32px; text-indent: 2rem; }
 
-.article-page .md-ctn h1, .article-page .md-ctn h2, .article-page .md-ctn h3, .article-page .md-ctn h4, .article-page .md-ctn h5, .article-page .md-ctn h6 { line-height: normal; margin: 6px 0; }
+.article-page .md-ctn h1, .article-page .md-ctn h2, .article-page .md-ctn h3, .article-page .md-ctn h4, .article-page .md-ctn h5, .article-page .md-ctn h6 { line-height: normal; margin: 8px 0; }
 
-.article-page .md-ctn h1 { font-size: 18px; }
+.article-page .md-ctn h1 { font-size: 22px; }
 
-.article-page .md-ctn h2 { font-size: 17px; }
+.article-page .md-ctn h2 { font-size: 20px; }
 
-.article-page .md-ctn h3 { font-size: 16px; }
+.article-page .md-ctn h3 { font-size: 18px; }
 
-.article-page .md-ctn h4 { font-size: 15px; }
+.article-page .md-ctn h4 { font-size: 16px; }
 
 .article-page .md-ctn h5 { font-size: 14px; }
 

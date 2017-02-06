@@ -31,7 +31,7 @@ html{
 	h3{font-size:16px;}
 	a{
 		@include ib;@include button(133px, auto);@include border-radius(4px);
-		padding:2px 5px;margin:5px;_margin:5px 11px;transition:all 0.3s ease-in 0s;
+		padding:2px 5px;margin:5px;_margin:5px 11px;transition:all 0.314s ease-in 0s;
 		font-size:16px;border:1px solid #fff;line-height:25px;text-decoration:none;color:white;
 		&:hover{background:white;color:#666;/*transform:rotate(3deg);*/}
 	}
@@ -43,16 +43,16 @@ html{
 .article-page{
 	// @media screen and (max-width:640px){width:auto;}
 	.md-ctn{
-		padding:4px;
+		padding:4px;background:#feffef;
 		table{margin:8px 0;table-layout:fixed;border-collapse:collapse;border:1px black #666;}
 		th,td{padding:2px 4px;border:1px #666 solid;word-break:break-all;word-wrap:break-word;}
 		sub,sup{font-size:10px;}
 		p{text-indent:32px;text-indent:2rem;}
-		h1,h2,h3,h4,h5,h6,{line-height:normal;margin:6px 0;}
-		h1{font-size:18px;}
-		h2{font-size:17px;}
-		h3{font-size:16px;}
-		h4{font-size:15px;}
+		h1,h2,h3,h4,h5,h6,{line-height:normal;margin:8px 0;}
+		h1{font-size:22px;}
+		h2{font-size:20px;}
+		h3{font-size:18px;}
+		h4{font-size:16px;}
 		h5{font-size:14px;}
 		h6{font-size:12px;}
 		pre{margin:0;}
