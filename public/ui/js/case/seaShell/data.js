@@ -52,6 +52,9 @@ define(function(){
 						{name:'掘金', url:'http://gold.xitu.io/welcome'},
 						{name:'伯乐在线', url:'http://web.jobbole.com/'},
 						{name:'众成翻译', url:'http://www.zcfy.cc/'},
+						{name:'码农头条', url:'http://hao.caibaojian.com/'},
+						{name:'Segmentfault news', url:'https://segmentfault.com/news'},
+						{name:'awesomes', url:'https://www.awesomes.cn/'},
 						{name:'Geek.CSDN', url:'http://geek.csdn.net/'},
 						{name:'WEB骇客', url:'http://www.webhek.com/'},
 						{name:'阮一峰', url:'http://www.ruanyifeng.com/blog/', target:"_blank"},
@@ -112,16 +115,26 @@ define(function(){
 						{name:'MathJS', url:'http://mathjs.org/'},
 						{name:'w3help', url:'http://www.w3help.org/'},
 						{name:'cssTriggers', url:'https://csstriggers.com/'},
+						{name:'Docsify', url:'https://docsify.js.org/#/'},
 						{name:'JS标准参考中文', url:'http://javascript.ruanyifeng.com/'},
-						{name:'Swift', url:'http://wiki.jikexueyuan.com/project/swift/chapter1/02_a_swift_tour.html'},
+						{name:'csstriggers', url:'https://csstriggers.com/'},
+						{name:'es2017', url:'https://frontendmasters.gitbooks.io/front-end-handbook-2017/content/'},
+						{name:'es6-es7', url:'http://exploringjs.com/es2016-es2017/index.html'},
+						{name:'grid-flex', url:'http://www.xingbofeng.com/css-grid-flex/'},
+						{name:'IETransformsTranslator', url:'http://www.useragentman.com/IETransformsTranslator/'},
+						{name:'Swift', url:'http://wiki.jikexueyuan.com/project/swift/'},
 						{name:'JSON', url:'http://www.json.org/'},
 						{name:'Git Magic', url:'http://www-cs-students.stanford.edu/~blynn/gitmagic/intl/zh_cn/ch09.html'},
-						{name:'WXOpen', url:'https://mp.weixin.qq.com/'}
+						{name:'egg', url:'https://eggjs.org/'},
+						{name:'AlloyTouch', url:'http://alloyteam.github.io/AlloyTouch/index.html'},
+						{name:'WXOpen', url:'https://mp.weixin.qq.com/'},
+						{name:'小程序', url:'https://mp.weixin.qq.com/debug/wxadoc/dev/'}
 					]
 				},
 				{
 					name: '组织、工具、书籍',
 					children:[
+						{name:'Know it all', url:'https://know-it-all.io/'},
 						{name:'ituring', url:'http://www.ituring.com.cn/'},
 						{name:'JavascripToo', url:'http://www.javascriptoo.com/'},
 						{name:'HTML5Rock', url:'http://www.html5rocks.com/zh/resources'},
