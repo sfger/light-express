@@ -135,12 +135,12 @@ console.log('Load time: ' + (Date.now()-stime));
 };
 window.$grid = $('#my_datagrid');
 $grid.datagrid(options);
-/*
 setInterval(function(){
 $grid.datagrid('update', {data:gen_data()});
 setTimeout(function(){
 $grid.datagrid('sortBy', {field : 'col-2', order : 'asc'});
 }, 5000);
 }, 10000);
+/*
 */
 });</script></body></html>

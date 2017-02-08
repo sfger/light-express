@@ -1,19 +1,17 @@
 import "../../public/js/requestAnimationFrame";
 import {createElement} from "../../public/js/parts/fn";
-$.fn.datagrid = function(options){
-	var type = $.type(options);
-	if(type==='string'){//{{{
-		var args = Array.prototype.slice.call(arguments).slice(1);
-		var ret = [];
-		this.each(function(i, element){
-			var ui = $(element).data('ui');
+$.fn.datagrid = function(options, ...args){
+	if('string'===$.type(options)){//{{{
+		// let args = Array.prototype.slice.call(arguments).slice(1);
+		let ret = this.toArray().map(function(one){
+			let ui = $(one).data('ui');
 			if(ui && ui.iDatagrid){
-				ret.push(ui.iDatagrid[options].apply(ui.iDatagrid, args));
+				return ui.iDatagrid[options].apply(ui.iDatagrid, args);
 			}else{
 				throw new Error('UI:datagrid does not init...');
 			}
 		});
-		var len = ret.length;
+		let len = ret[0].length;
 		if(0===len) return this;
 		if(1===len) return ret[0];
 		else return ret;
@@ -41,18 +39,18 @@ $.fn.datagrid = function(options){
 		function get_head_rows(rows, colsType){//{{{
 			if(!rows || (colsType=='frozenColumns')&&!options.frozenColumns.length) return [];
 			if(!rows || (colsType=='frozenEndColumns')&&!options.frozenEndColumns.length) return [];
-			var il = rows.length - 1;
+			let il = rows.length - 1;
 			return rows.map(function(row, i){
 				return createElement({name:'tr', children:(function(){
-					var index = 0;
-					var nodes = row.map(function(option/*, j*/){
+					let index = 0;
+					let nodes = row.map(function(option/*, j*/){
 						var title = (option.name || option.field || '');
-						var width = (options.autoColWidth||option.colspan) ? 'auto' : ((option.width||options.colWidth) + 'px');
 						var td_attr = {};
 						if(option.rowspan) td_attr['rowspan'] = option.rowspan;
 						if(option.colspan) td_attr['colspan'] = option.colspan;
 						var colspan = option.colspan || 1;
 						var isField = colspan==1&&((i==il)||((il+1)==(i+option.rowspan)));
+						var width = (options.autoColWidth||option.colspan) ? 'auto' : ((option.width||options.colWidth) + 'px');
 						var cell_attr = {"class":'cell', "style":{width:width}};
 						if(i){
 							if(colspan==1){
@@ -75,9 +73,8 @@ $.fn.datagrid = function(options){
 						return createElement({
 							name:'td', attr:td_attr, children:{
 								name : 'div',
-								attr : {
-									"class" : 'cell-wrapper'
-								}, children: {
+								attr : {"class":'cell-wrapper'},
+								children: {
 									name: 'div',
 									attr: cell_attr,
 									children: [
@@ -210,7 +207,7 @@ $.fn.datagrid = function(options){
 		if(!el) return false;
 		el.style && (el.style[type] = '');
 		return el['offset'+(type==='width'?'Width':'Height')];
-	};//}}}
+	}//}}}
 	function align_cell_column(arr, type){//{{{
 		for(var i=0,il=arr.length; i<il; i++){
 			var column = arr[i];
@@ -223,7 +220,7 @@ $.fn.datagrid = function(options){
 				t.style[type] = max;
 			});
 		}
-	};//}}}
+	}//}}}
 	function align_cell_row(arr, type){//{{{
 		var len = arr.length;
 		for(var i=0,il=arr[0].length; i<il; i++){
@@ -238,7 +235,7 @@ $.fn.datagrid = function(options){
 				t.style[type] = max;
 			});
 		}
-	};//}}}
+	}//}}}
 	function resize_table(that){//{{{
 		var tables = $('table', that.render);
 		var $autoTable = $('.auto-view table', that.render).parent();
@@ -307,7 +304,7 @@ $.fn.datagrid = function(options){
 
 		tp1.css({width:'auto'});
 		tp0.parent().css({width:'auto', overflow:'hidden'});
-	};//}}}
+	}//}}}
 	handler.prototype = {
 		defaultOrder: false, //true:desc, false:asc
 		init: function(box, options){//{{{
