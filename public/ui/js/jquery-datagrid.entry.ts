@@ -81,7 +81,7 @@ $.fn.datagrid = function(options, ...args){
 										' ',
 										{name:'span', attr:{'class':'field-title'}, children:title},
 										{name:'span', attr:{'class':'sort-mark'}},
-										' '	
+										' '
 									]
 								}
 							}
