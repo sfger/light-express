@@ -1,0 +1,87 @@
+{
+    "jsRules": {
+        "class-name": true,
+        "comment-format": [
+            false
+        ],
+        "indent": [
+            true,
+            "tabs"
+        ],
+        "no-duplicate-variable": true,
+        "no-eval": true,
+        "no-trailing-whitespace": true,
+        "no-unsafe-finally": true,
+        "one-line": [
+            true,
+            "check-open-brace",
+            "check-whitespace"
+        ],
+        "quotemark": [
+            false
+        ],
+		"semicolon": [
+			{
+				"extends": "tslint:latest",
+				"rules": {
+					"curly": true
+				},
+				"jsRules": {
+					"curly": true
+				},
+				"rulesDirectory": [
+				]
+			},
+            true,
+            "always"
+        ],
+        "triple-equals": [
+            false
+        ],
+        "variable-name": [
+            true,
+            "ban-keywords"
+        ],
+        "whitespace": [
+            false
+        ]
+    },
+    "rules": {
+        "class-name": true,
+        "comment-format": [
+            false
+        ],
+        "indent": [
+            true,
+            "tabs"
+        ],
+        "no-eval": true,
+        "no-internal-module": true,
+        "no-trailing-whitespace": true,
+        "no-unsafe-finally": true,
+        "no-var-keyword": false,
+        "one-line": [
+            false
+        ],
+        "quotemark": [
+            true
+        ],
+        "semicolon": [
+            true,
+            "always"
+        ],
+        "triple-equals": [
+            false
+        ],
+        "typedef-whitespace": [
+            false
+        ],
+        "variable-name": [
+            true,
+            "ban-keywords"
+        ],
+        "whitespace": [
+            false
+        ]
+    }
+}

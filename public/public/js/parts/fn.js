@@ -1,6 +1,5 @@
 /* fn.js
  * */
-/* eslint no-unused-vars:0 */
 
 /* String */
 //{{{ strtotime

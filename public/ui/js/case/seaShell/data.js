@@ -80,6 +80,7 @@ define(function(){
 				{
 					name: 'Web-UI',
 					children:[
+						{name:'javascript', url:'http://www.javascripting.com/'},
 						{name:'Material', url:'http://www.material-ui.com/#/'},
 						{name:'Pure', url:'https://github.com/yahoo/pure'},
 						{name:'AntDesign', url:'https://ant.design/'},
