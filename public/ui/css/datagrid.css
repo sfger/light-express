@@ -141,7 +141,7 @@ _:-ms-lang(x), .grid .col-rest { display: block; }
 
 .datagrid-ctn .frozen-view .body-wrapper { overflow: hidden; }
 
-.datagrid-ctn .frozen-view .body-wrapper table { margin-bottom: 50px; }
+.datagrid-ctn .frozen-view .body-wrapper table { margin-bottom: 20px; }
 
 .datagrid-ctn .auto-view { *position: absolute; *top: 0; *right: 0; }
 

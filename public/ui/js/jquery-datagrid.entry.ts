@@ -153,7 +153,7 @@ $.fn.datagrid = function(options, ...args){
 			children:[]
 		};//}}}
 		if(options.frozenColumns.length) ret.children.push({//{{{
-			name:'div', attr:{'class':'col col-view frozen-view'}, children:[{
+			name:'div', attr:{'class':'col col-view frozen-view frozen-start'}, children:[{
 				name:'div', attr:{'class':'head-wrapper'}, children:{
 					name:'table', attr:{'class':'frozen head'}, children:{
 						name:'tbody', children:get_head_rows(options.frozenColumns, 'frozenColumns')

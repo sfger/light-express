@@ -191,6 +191,7 @@ define(function(){
 					name: '小工具',
 					children:[
 						{name:'Emmet', url:'http://docs.emmet.io/'},
+						{name:'截图工具', url:'https://www.snipaste.com/index.html'},
 						{name:'Less', url:'https://github.com/groenewege/vim-less', target:'_blank'},
 						{name:'Vim Zencoding', url:'https://github.com/mattn/zencoding-vim', target:'_blank'},
 						{name:'HTML5轮廓工具', url:'http://gsnedders.html5.org/'},

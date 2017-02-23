@@ -49,7 +49,7 @@ var gen_data = function(){
 		data[row] = {};
 		for(var col=0; col<35; col++){
 			/* data[row]['col-'+(col+1)] = 'row:' + (row+1) + '<br />col:' + (col+1); */
-			data[row]['col-'+(col+1)] =  Number(Math.random()*100).toFixed(2);
+			data[row]['col-'+(col+1)] = Number(Math.random()*100).toFixed(2);
 		} 
 	}
 	return data;
