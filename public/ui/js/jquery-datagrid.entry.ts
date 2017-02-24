@@ -151,7 +151,7 @@ $.fn.datagrid = function(options, ...args){
 			name:'div', attr:{'class':'datagrid-ctn'}, children:{
 				name:'div',
 				attr:{'class':'view-wrapper grid layout-auto' + (options.autoRowHeight ? ' autoRowHeight' : '')},
-				children[]
+				children:[]
 			}
 		};//}}}
 		if(options.frozenColumns.length) ret.children.children.push({//{{{
@@ -313,7 +313,7 @@ $.fn.datagrid = function(options, ...args){
 			let item = $autoView.find('.body-wrapper')[0];
 			let bar_width = item.offsetWidth -item.clientWidth;
 			$autoView.css({width: $autoView[0].offsetWidth + bar_width});
-		},500);
+		});
 	}//}}}
 	handler.prototype = {
 		defaultOrder: false, //true:desc, false:asc
