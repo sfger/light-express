@@ -1,7 +1,7 @@
 @charset "utf-8";
 $is_modern:0;
 .datagrid-ctn{
-	overflow:hidden;
+	overflow:hidden;@include ib;max-width:100%;
 	.view-wrapper{position:relative;*white-space:nowrap;*overflow:hidden;}
 	.col-view{*display:inline;*zoom:1;}
 	.head-wrapper{overflow:hidden;}
@@ -16,14 +16,23 @@ $is_modern:0;
 	}
 	.frozen-view .body-wrapper{
 		overflow:hidden;
-		table{margin-bottom:20px;}
+		// table{margin-bottom:17px;}
+	}
+	.frozen-end{
+		@include relative(left -1px);
 	}
 	.auto-view{
+		// @include flex(0,0,auto);
+		// width:auto;
+		// max-width:100%;
 		*position:absolute;*top:0;*right:0;
 		.body-wrapper{overflow:auto;}
 		&.locate-view{
 			overflow:hidden;*width:0px;position:relative\0;
-			>div{position:absolute\0;left:0\0;right:0\0;top:0\0;bottom:0\0;}
+			>div{
+				@media \0screen{@include absolute(left 0 right 0 top 0 bottom 0);}
+				@media screen and (min-width:0\0) and (min-resolution:.001dpcm){@include absolute(left 0 right 0 top 0 bottom 0);}
+			}
 		}
 		table,td:first-child{border-left:none;}
 	}

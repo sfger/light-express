@@ -149,10 +149,14 @@ $.fn.datagrid = function(options, ...args){
 		}//}}}
 		var ret = {//{{{
 			name:'div',
-			attr:{'class':'view-wrapper grid layout-auto' + (options.autoRowHeight ? ' autoRowHeight' : '')},
-			children:[]
+			attr:{'class':'datagrid-ctn'},
+			children:{
+				name:'div',
+				attr:{'class':'view-wrapper grid layout-auto' + (options.autoRowHeight ? ' autoRowHeight' : '')},
+				children[]
+			}
 		};//}}}
-		if(options.frozenColumns.length) ret.children.push({//{{{
+		if(options.frozenColumns.length) ret.children.children.push({//{{{
 			name:'div', attr:{'class':'col col-view frozen-view frozen-start'}, children:[{
 				name:'div', attr:{'class':'head-wrapper'}, children:{
 					name:'table', attr:{'class':'frozen head'}, children:{
@@ -167,7 +171,7 @@ $.fn.datagrid = function(options, ...args){
 				}
 			}]
 		});//}}}
-		if(options.columns.length) ret.children.push({//{{{
+		if(options.columns.length) ret.children.children.push({//{{{
 			name:'div', attr:{'class':'col-rest col-view auto-view'+(options.frozenColumns.length||options.frozenEndColumns.length ? ' locate-view' : '')}, children:[{
 				name:'div', children:[{
 					name:'div', attr:{style:'overflow:hidden'}, children:{
@@ -186,7 +190,7 @@ $.fn.datagrid = function(options, ...args){
 				}]
 			}]
 		});//}}}
-		if(options.frozenEndColumns.length) ret.children.push({//{{{
+		if(options.frozenEndColumns.length) ret.children.children.push({//{{{
 			name:'div', attr:{'class':'col col-view frozen-view frozen-end'}, children:[{
 				name:'div', attr:{'class':'head-wrapper'}, children:{
 					name:'table', attr:{'class':'frozen head'}, children:{
@@ -238,7 +242,8 @@ $.fn.datagrid = function(options, ...args){
 	}//}}}
 	function resize_table(that){//{{{
 		var tables = $('table', that.render);
-		var $autoTable = $('.auto-view table', that.render).parent();
+		var $autoView  = $('.auto-view', that.render);
+		var $autoTable = $('table', $autoView).parent();
 		var tp0 = $autoTable.eq(0);
 		var tp1 = $autoTable.eq(1);
 		$autoTable.css({width:500000});
@@ -304,11 +309,18 @@ $.fn.datagrid = function(options, ...args){
 
 		tp1.css({width:'auto'});
 		tp0.parent().css({width:'auto', overflow:'hidden'});
+		// $autoTable.css({width:'auto'});
+		$autoView.css({width:$autoTable.find('table')[0].offsetWidth});
+		requestAnimationFrame(function(){
+			let item = $autoView.find('.body-wrapper')[0];
+			let bar_width = item.offsetWidth -item.clientWidth;
+			$autoView.css({width: $autoView[0].offsetWidth + bar_width});
+		},500);
 	}//}}}
 	handler.prototype = {
 		defaultOrder: false, //true:desc, false:asc
 		init: function(box, options){//{{{
-			$(box).addClass('datagrid-ctn');
+			// $(box).addClass('datagrid-ctn');
 			this.render = box;
 			this.update(options);
 			this.init_event(options);
@@ -373,19 +385,29 @@ $.fn.datagrid = function(options, ...args){
 			 * TODO::
 			 * 1、全部行、全部列、单行、单列对齐重新对齐功能
 			 * */
+			var that = this;
 			resize_table(this);
-			var ie = /MSIE (\d+)\.?/.exec(navigator.userAgent);
-			if(ie && ie.length && ie[1]){
-				var ver = Number(ie[1]);
-				if(ver<8){
-					$('.auto-view', this.render).css({
-						'width': 'auto',
-						'margin-left': $('.frozen-view', this.render).get(0).offsetWidth,
-						'margin-right': $('.frozen-view', this.render).get(1).offsetWidth
-					}).find('.body-wrapper').css({'margin-top':'-2px'});
-					$('.view-wrapper', this.render).addClass('txt-justify ie-pure-txt');
+			requestAnimationFrame(function(){
+				var item = $('.auto-view .body-wrapper', that.render)[0];
+				$('.frozen-view .body-wrapper table', that.render).css({
+					'margin-bottom': item.offsetHeight - item.clientHeight
+				});
+			});
+			requestAnimationFrame(function(){
+				var ie = /MSIE (\d+)\.?/.exec(navigator.userAgent);
+				var ver;
+				if(ie && ie.length && ie[1]){
+					ver = Number(ie[1]);
+					if(ver<8){
+						$('.auto-view', this.render).css({
+							'width': 'auto',
+							'margin-left': $('.frozen-view', this.render).get(0).offsetWidth,
+							'margin-right': $('.frozen-view', this.render).get(1).offsetWidth
+						}).find('.body-wrapper').css({'margin-top':'-2px'});
+						$('.view-wrapper', this.render).addClass('txt-justify ie-pure-txt');
+					}
 				}
-			}
+			});
 			return this;
 		},//}}}
 		init_event: function(options){//{{{

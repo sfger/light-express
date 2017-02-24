@@ -121,7 +121,7 @@ _:-ms-lang(x), .grid .col { display: block; }
 
 _:-ms-lang(x), .grid .col-rest { display: block; }
 
-.datagrid-ctn { overflow: hidden; }
+.datagrid-ctn { overflow: hidden; display: inline-block; *display: inline; *zoom: 1; vertical-align: middle; max-width: 100%; }
 
 .datagrid-ctn .view-wrapper { position: relative; *white-space: nowrap; *overflow: hidden; }
 
@@ -141,7 +141,7 @@ _:-ms-lang(x), .grid .col-rest { display: block; }
 
 .datagrid-ctn .frozen-view .body-wrapper { overflow: hidden; }
 
-.datagrid-ctn .frozen-view .body-wrapper table { margin-bottom: 20px; }
+.datagrid-ctn .frozen-end { position: relative; left: -1px; }
 
 .datagrid-ctn .auto-view { *position: absolute; *top: 0; *right: 0; }
 
@@ -149,7 +149,9 @@ _:-ms-lang(x), .grid .col-rest { display: block; }
 
 .datagrid-ctn .auto-view.locate-view { overflow: hidden; *width: 0px; position: relative\0; }
 
-.datagrid-ctn .auto-view.locate-view > div { position: absolute\0; left: 0\0; right: 0\0; top: 0\0; bottom: 0\0; }
+@media \0screen { .datagrid-ctn .auto-view.locate-view > div { position: absolute; top: 0; right: 0; bottom: 0; left: 0; } }
+
+@media screen and (min-width: 0\0) and (min-resolution: 0.001dpcm) { .datagrid-ctn .auto-view.locate-view > div { position: absolute; top: 0; right: 0; bottom: 0; left: 0; } }
 
 .datagrid-ctn .auto-view table, .datagrid-ctn .auto-view td:first-child { border-left: none; }
 
