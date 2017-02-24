@@ -148,9 +148,7 @@ $.fn.datagrid = function(options, ...args){
 			});
 		}//}}}
 		var ret = {//{{{
-			name:'div',
-			attr:{'class':'datagrid-ctn'},
-			children:{
+			name:'div', attr:{'class':'datagrid-ctn'}, children:{
 				name:'div',
 				attr:{'class':'view-wrapper grid layout-auto' + (options.autoRowHeight ? ' autoRowHeight' : '')},
 				children[]
@@ -320,7 +318,6 @@ $.fn.datagrid = function(options, ...args){
 	handler.prototype = {
 		defaultOrder: false, //true:desc, false:asc
 		init: function(box, options){//{{{
-			// $(box).addClass('datagrid-ctn');
 			this.render = box;
 			this.update(options);
 			this.init_event(options);
