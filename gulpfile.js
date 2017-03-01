@@ -103,12 +103,12 @@ gulp.task('webpack', ['del'], function(cb){
 	var config = require('./webpack.config.js');
 	config.plugins = [
 		new webpack.optimize.UglifyJsPlugin({
-			compress:{properties:false,comparisons:false},
-			output:{quote_keys:true, ascii_only:true},
-			mangle:false,
-			// mangle:{
-			// 	except:['$super', '$', 'exports', 'require']
-			// }
+			// compress:{properties:false,comparisons:false},
+			// output:{quote_keys:true, ascii_only:true},
+			// mangle:false,
+			mangle:{
+				except:['$super', '$', 'exports', 'require']
+			}
 		})
 	];
 	var compiler = webpack(config);

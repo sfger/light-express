@@ -50,12 +50,13 @@ $.fn.datagrid = function(options, ...args){
 						if(option.colspan) td_attr['colspan'] = option.colspan;
 						var colspan = option.colspan || 1;
 						var isField = colspan==1&&((i==il)||((il+1)==(i+option.rowspan)));
+						// console.log(option,i,il,option.rowspan, isField);
 						var width = (options.autoColWidth||option.colspan) ? 'auto' : ((option.width||options.colWidth) + 'px');
 						var cell_attr = {"class":'cell', "style":{width:width}};
 						if(i){
 							if(colspan==1){
 								while(that[colsType][index]) index++;
-								that[colsType][index] = option;
+								if(isField) that[colsType][index] = option;
 							}
 							index += colspan;
 						}else{
@@ -219,7 +220,7 @@ $.fn.datagrid = function(options, ...args){
 				return a>=b ? a : b;
 			}, 0) + Math.ceil(il/2) + 'px';
 			column.forEach(function(t){
-				t.style[type] = max;
+				if(t&&t.style) t.style[type] = max;
 			});
 		}
 	}//}}}
@@ -234,7 +235,7 @@ $.fn.datagrid = function(options, ...args){
 				return a>=b ? a : b;
 			}, 0) + Math.ceil(len/2) + 'px';
 			row.forEach(function(t){
-				t.style[type] = max;
+				if(t&&t.style) t.style[type] = max;
 			});
 		}
 	}//}}}
@@ -308,11 +309,11 @@ $.fn.datagrid = function(options, ...args){
 		tp1.css({width:'auto'});
 		tp0.parent().css({width:'auto', overflow:'hidden'});
 		// $autoTable.css({width:'auto'});
-		$autoView.css({width:$autoTable.find('table')[0].offsetWidth});
+		// $autoView.css({width:$autoTable.find('table')[0].offsetWidth});
 		requestAnimationFrame(function(){
 			let item = $autoView.find('.body-wrapper')[0];
 			let bar_width = item.offsetWidth -item.clientWidth;
-			$autoView.css({width: $autoView[0].offsetWidth + bar_width});
+			$autoView.css({width: $autoView.find('table')[1].offsetWidth + bar_width});
 		});
 	}//}}}
 	handler.prototype = {
@@ -349,6 +350,7 @@ $.fn.datagrid = function(options, ...args){
 			this.userOptions      = options;
 			$(get_table(options, that)).prependTo(box);
 			this.allColumns = [].concat(this.frozenColumns, this.columns, this.frozenEndColumns);
+			// console.log(this.columns);
 			this.fieldElements = this.allColumns.map(function(option){
 				return $('[data-field="'+option.field+'"]', box).get(0);
 			});
