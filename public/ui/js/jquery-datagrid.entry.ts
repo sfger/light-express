@@ -35,7 +35,7 @@ $.fn.datagrid = function(options, ...args){
 		columns          : []         // 普通列
 	}, options);//}}}
 	var handler  = function(box, options){ return new handler.prototype.init(box, options); };
-	var browser = {};
+	var browser:any = {};
 	var ie = /MSIE (\d+)\.?/.exec(navigator.userAgent);
 	if(ie && ie.length && ie[1]){
 		browser.ie = true;
