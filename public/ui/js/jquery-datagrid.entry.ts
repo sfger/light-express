@@ -35,6 +35,12 @@ $.fn.datagrid = function(options, ...args){
 		columns          : []         // 普通列
 	}, options);//}}}
 	var handler  = function(box, options){ return new handler.prototype.init(box, options); };
+	var browser = {};
+	var ie = /MSIE (\d+)\.?/.exec(navigator.userAgent);
+	if(ie && ie.length && ie[1]){
+		browser.ie = true;
+		browser.version = Number(ie[1]);
+	}
 	function get_table(options, that){//{{{
 		function get_head_rows(rows, colsType){//{{{
 			if(!rows || (colsType=='frozenColumns')&&!options.frozenColumns.length) return [];
@@ -314,6 +320,15 @@ $.fn.datagrid = function(options, ...args){
 			let item = $autoView.find('.body-wrapper')[0];
 			let bar_width = item.offsetWidth -item.clientWidth;
 			$autoView.css({width: $autoView.find('table')[1].offsetWidth + bar_width});
+			requestAnimationFrame(function(){
+				let bar_height = item.offsetHeight -item.clientHeight;
+				let $tables = $('.frozen-view .body-wrapper table', that.render);
+				// console.log(bar_width,bar_height);
+				$tables.css({marginBottom:bar_height});
+				browser.version<8 && requestAnimationFrame(function(){
+					$tables.css({marginBottom:bar_height});
+				});
+			});
 		});
 	}//}}}
 	handler.prototype = {
@@ -387,24 +402,13 @@ $.fn.datagrid = function(options, ...args){
 			var that = this;
 			resize_table(this);
 			requestAnimationFrame(function(){
-				var item = $('.auto-view .body-wrapper', that.render)[0];
-				$('.frozen-view .body-wrapper table', that.render).css({
-					'margin-bottom': item.offsetHeight - item.clientHeight
-				});
-			});
-			requestAnimationFrame(function(){
-				var ie = /MSIE (\d+)\.?/.exec(navigator.userAgent);
-				var ver;
-				if(ie && ie.length && ie[1]){
-					ver = Number(ie[1]);
-					if(ver<8){
-						$('.auto-view', this.render).css({
-							'width': 'auto',
-							'margin-left': $('.frozen-view', this.render).get(0).offsetWidth,
-							'margin-right': $('.frozen-view', this.render).get(1).offsetWidth
-						}).find('.body-wrapper').css({'margin-top':'-2px'});
-						$('.view-wrapper', this.render).addClass('txt-justify ie-pure-txt');
-					}
+				if(browser.version<8){
+					$('.auto-view', this.render).css({
+						'width': 'auto',
+						'margin-left': $('.frozen-view', this.render).get(0).offsetWidth,
+						'margin-right': $('.frozen-view', this.render).get(1).offsetWidth
+					}).find('.body-wrapper').css({'margin-top':'-2px'});
+					$('.view-wrapper', this.render).addClass('txt-justify ie-pure-txt');
 				}
 			});
 			return this;
