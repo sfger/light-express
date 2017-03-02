@@ -87,7 +87,7 @@ var extension  = {
 					// res.writeHead(302);
 					return res.end('');
 				}
-			}else{ //暂时支付css和js，其它暂时没必要处理
+			}else{ //暂时支持css和js，其它暂时没必要处理
 				return next();
 			}
 

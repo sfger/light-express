@@ -246,7 +246,7 @@ $.fn.datagrid = function(options, ...args){
 		}
 	}//}}}
 	function resize_table(that){//{{{
-		var tables = $('table', that.render);
+		var $tables = $('table', that.render);
 		var $autoView  = $('.auto-view', that.render);
 		var $autoTable = $('table', $autoView).parent();
 		var tp0 = $autoTable.eq(0);
@@ -257,7 +257,7 @@ $.fn.datagrid = function(options, ...args){
 			let aview:any = tp0.get(0).parentNode;
 			aview.scrollLeft = this.scrollLeft;
 			if(options.frozenColumns.length){
-				let fview:any = tables.get(1).parentNode;
+				let fview:any = $tables.get(1).parentNode;
 				fview.scrollTop = this.scrollTop;
 			}
 			if(options.frozenEndColumns.length){
@@ -278,44 +278,42 @@ $.fn.datagrid = function(options, ...args){
 			align_cell_row([
 				(function(){
 					var column = that.fieldElements;
-					if(options.rowNum) column = [$('tr:eq(0) td:eq(0) .cell', tables[0])[0]].concat(column);
+					if(options.rowNum) column = [$('tr:eq(0) td:eq(0) .cell', $tables[0])[0]].concat(column);
 					return column;
 				})(),
-				tables.filter('table:odd').find('tr:first-child td .cell').toArray()
+				$tables.filter('table:odd').find('tr:first-child td .cell').toArray()
 			], 'width');
 		}else if(options.rowNum){
 			align_cell_row([
-				$('tr:eq(0) td:eq(0) .cell:eq(0)', tables[0]).toArray(),
-				$('tr:first-child td:first-child .cell', tables[1]).toArray()
+				$('tr:eq(0) td:eq(0) .cell:eq(0)', $tables[0]).toArray(),
+				$('tr:first-child td:first-child .cell', $tables[1]).toArray()
 			], 'width');
 		}
 		if(options.frozenColumns || options.frozenEndColumns){
-			$([tables[1], tables[5]]).off('mousewheel DOMMouseScroll').on('mousewheel DOMMouseScroll', function(e){
+			$([$tables[1], $tables[5]]).off('mousewheel DOMMouseScroll').on('mousewheel DOMMouseScroll', function(e){
 				// var data = that.relatedData;
 				// if(data) $([data.frozenTr, data.frozenEndTr, data.tr].filter(function(item){ return item; })).removeClass('hover');
 				let originalEvent:any = e.originalEvent;
-				let tb3:any = tables.get(3).parentNode;
-				var list = [tb3, tables.get(1).parentNode];
-				if(tables.get(5)) list.push(tables.get(5).parentNode);
+				let tb3:any = $tables[3].parentNode;
+				let list = [tb3, $tables[1].parentNode];
+				if($tables[5]) list.push($tables[5].parentNode);
 				if($(list).is(':animated')) return false;
-				var scroll_height = tb3.scrollHeight - tb3.clientHeight;
-				var _sh = tb3.scrollTop - (originalEvent.wheelDelta || -(originalEvent.detail/3)*120);
+				let scroll_height = tb3.scrollHeight - tb3.clientHeight;
+				let _sh = tb3.scrollTop - (originalEvent.wheelDelta || -(originalEvent.detail/3)*120);
 				$(list).animate({scrollTop:'+'+(_sh>scroll_height?scroll_height:_sh)+'px'}, 230);
-				return false;
+				// return false;
 			});
 			if(options.autoRowHeight){
 				align_cell_row($('table:odd').toArray().map(function(table){
 					return $('td:first-child', table).toArray();
 				}), 'height');
 			}
-			align_cell_column([tables.filter(':odd').toArray(), tables.filter(':even').toArray()], 'height');
+			align_cell_column([$tables.filter(':odd').toArray(), $tables.filter(':even').toArray()], 'height');
 		}
-		align_cell_row([tables.filter(':odd').toArray(), tables.filter(':even').toArray()], 'width');
+		align_cell_row([$tables.filter(':odd').toArray(), $tables.filter(':even').toArray()], 'width');
 
 		tp1.css({width:'auto'});
 		tp0.parent().css({width:'auto', overflow:'hidden'});
-		// $autoTable.css({width:'auto'});
-		// $autoView.css({width:$autoTable.find('table')[0].offsetWidth});
 		requestAnimationFrame(function(){
 			let item = $autoView.find('.body-wrapper')[0];
 			let bar_width = item.offsetWidth -item.clientWidth;
@@ -323,7 +321,6 @@ $.fn.datagrid = function(options, ...args){
 			requestAnimationFrame(function(){
 				let bar_height = item.offsetHeight -item.clientHeight;
 				let $tables = $('.frozen-view .body-wrapper table', that.render);
-				// console.log(bar_width,bar_height);
 				$tables.css({marginBottom:bar_height});
 				browser.version<8 && requestAnimationFrame(function(){
 					$tables.css({marginBottom:bar_height});

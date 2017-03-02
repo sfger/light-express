@@ -48,7 +48,8 @@ define(function(){
 				{
 					name: '个人博客、社区',
 					children:[
-						{name:'博客园', url:'http://www.cnblogs.com'},
+						{name:'博客园', url:'http://www.cnblogs.com/'},
+						{name:'DIV', url:'http://div.io/'},
 						{name:'掘金', url:'http://gold.xitu.io/welcome'},
 						{name:'伯乐在线', url:'http://web.jobbole.com/'},
 						{name:'众成翻译', url:'http://www.zcfy.cc/'},
@@ -83,7 +84,6 @@ define(function(){
 						{name:'javascript', url:'http://www.javascripting.com/'},
 						{name:'Material', url:'http://www.material-ui.com/#/'},
 						{name:'Pure', url:'https://github.com/yahoo/pure'},
-						{name:'AntDesign', url:'https://ant.design/'},
 						{name:'AntDesign', url:'https://ant.design/'},
 						{name:'AntV', url:'http://antv.alipay.com/', target:'_blank'},
 						{name:'G2', url:'https://g2.alipay.com/'},
