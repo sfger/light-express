@@ -335,7 +335,6 @@ $.fn.datagrid = function(options, ...args){
 			this.render = box;
 			this.update(options);
 			this.init_event(options);
-			options.onCreate.bind(this)();
 		},//}}}
 		update: function(options){
 			this.render.className = 'datagrid-render-ctn data-loading';
@@ -412,7 +411,10 @@ $.fn.datagrid = function(options, ...args){
 					}).find('.body-wrapper').css({'margin-top':'-2px'});
 					$('.view-wrapper', this.render).addClass('txt-justify ie-pure-txt');
 				}
-				setTimeout(function(){ $(that.render).removeClass('data-loading'); }, 0);
+				setTimeout(function(){
+					$(that.render).removeClass('data-loading');
+					that.userOptions.onCreate.bind(this)();
+				}, 0);
 			});
 			return this;
 		},//}}}
