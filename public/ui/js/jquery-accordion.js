@@ -1,3 +1,4 @@
+/* vim: set fdm=marker : */
 $.fn.accordion = function(options){
 	var type = $.type(options);
 	if(type==='string'){
@@ -15,20 +16,18 @@ $.fn.accordion = function(options){
 		data: []
 	}, options);
 	var handler = function(box, options){ return new handler.prototype.init(box, options); };
-	// var getType = light.util.getType;
 	handler.prototype = {
 		init: function(box, options){
 			var that = this;
 			var $box = $(box);
-			$box.addClass('accordion-container');
+			$box.addClass('accordion-ctn');
 			this.userOptions = options;
 			this.render = box;
-			if(!box.children){
-				box.innerHTML = '<ul></ul>';
-			}
+			if(!box.children) box.innerHTML = '<ul></ul>';
 			this.titles = [];
 			var ul = box.children[0];
 			var len = 0;
+			if(options.fitContent) box.style.height = '100%';
 			if(ul.children && (len = ul.children.length)){
 				for(var i=0; i<len; i++){
 					this.titles.push(ul.children[i].children[0]);
@@ -46,11 +45,10 @@ $.fn.accordion = function(options){
 					}
 				}
 			}
-			$('#test').delegate('.title', {
+			$box.delegate('.panel-title', {
 				click: function(){
 					var panel = this.parentNode.children[1];
 					var spl = that.selectedPanel;
-					// var $spl = $(spl);
 					spl && $(spl.parentNode.children[0]).removeClass('selected');
 					if(panel!=spl){
 						$(this).addClass('selected');
@@ -91,4 +89,3 @@ $.fn.accordion = function(options){
 		else $this.data('ui', {iAccordion:instance});
 	});
 };
-/* vim: set fdm=marker : */

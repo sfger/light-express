@@ -122,7 +122,7 @@ _:-ms-lang(x), .grid .col-rest { display: block; }
 
 .tree-container { width: auto; overflow: auto; background: white; }
 
-.tree-container ul[data-deep="1"] { display: inline-block; *display: inline; *zoom: 1; vertical-align: top; min-width: 100%; }
+.tree-container ul[data-deep="1"] { /*@include ib(top);*/ display: inline-block; vertical-align: top; min-width: 100%; }
 
 .tree-container ul li ul { width: auto; height: auto; _line-height: 0; _font-size: 0; }
 
@@ -130,7 +130,7 @@ _:-ms-lang(x), .grid .col-rest { display: block; }
 
 .tree-container ul li ul, .tree-container ul li li { width: auto; vertical-align: middle; list-style: none; }
 
-.tree-container ul li a { display: block; white-space: nowrap; line-height: normal; height: 19px; color: black; _font-size: 16px; text-decoration: none; background: transparent; }
+.tree-container ul li a { display: block; white-space: nowrap; line-height: normal; height: 19px; color: black; _font-size: 16px; text-decoration: none; background: transparent; cursor: pointer; }
 
 .tree-container ul li a:hover, .tree-container ul li a.hover { background: #e1e1e1; }
 

@@ -1,8 +1,8 @@
 @charset "utf-8";
-.accordion-container{
+.accordion-ctn{
 	border:1px solid #ccc;height:auto/*100%*/;width:200px;overflow:hidden;
 	li{float:left;width:100%;}
-	.title{
+	.panel-title{
 		border:{
 			bottom:1px solid #e6e6e6;
 			top:1px solid #ccc;

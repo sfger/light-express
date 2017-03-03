@@ -80,7 +80,7 @@ require(['jquery', 'IScroll'],function($, IScroll){
 	/* 	document.documentElement.style.fontSize = window.innerWidth/3.75/(window.devicePixelRatio||1)+'px!important'; */
 	/* }; */
 	/* return false; */
-	document.documentElement.addEventListener('touchmove', function(e){ e.preventDefault(); }, false);
+	document.documentElement.addEventListener('touchmove', function(e){ e.preventDefault(); }, {passive:false});
 	document.querySelector('.wrapper').addEventListener('touchend', function(){//{{{
 		if(is_loading_more(myScroll)){
 			myScroll.maxScrollY -= loading_limit;

@@ -36,7 +36,7 @@ require(['jquery', 'IScroll'],function($, IScroll){
 /* 	document.documentElement.style.fontSize = window.innerWidth/3.75/(window.devicePixelRatio||1)+'px!important'; */
 /* }; */
 /* return false; */
-document.documentElement.addEventListener('touchmove', function(e){ e.preventDefault(); }, false);
+document.documentElement.addEventListener('touchmove', function(e){ e.preventDefault(); }, {passive:false});
 document.querySelector('.wrapper').addEventListener('touchend', function(){//{{{
 if(is_loading_more(myScroll)){
 myScroll.maxScrollY -= loading_limit;
@@ -51,7 +51,6 @@ return $loadMore.addClass('state-done');
 }
 }, 1200);
 }
-return true;
 }, false);//}}}
 function init_iscroll(selector){
 return new IScroll(selector, {

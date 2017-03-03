@@ -22,7 +22,7 @@ $.fn.tree = function(options){
 	var createTree = function(data, deep, container, deepest_ul, interal_init){
 		if(!deep) deep = 1;
 		if(!interal_init){
-			container.innerHTML = '<ul data-deep="1"><li class="line" style="display:block;"><a href="javascript:" style="display:none;"><span class="title">__ROOT__</span></a></li></ul>';
+			container.innerHTML = '<ul data-deep="0"><li class="line" style="display:block;"><a style="display:none;"><span class="title">__ROOT__</span></a></li></ul>';
 			container = container.children[0].children[0];
 			container.children[0].option = {name:'__ROOT__',children:data};
 		}
@@ -35,7 +35,8 @@ $.fn.tree = function(options){
 			ul.appendChild(li);
 			ul.setAttribute('data-deep', deep);
 			li.appendChild(line);
-			line.href = 'javascript:';
+			// line.href = 'javascript:';
+			// line.draggable = true;
 			line.className = 'line';
 			line.option = data[i];
 			var indent = data[i].children ? (deep==1?deep-2:deep-1) : deep;

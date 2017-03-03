@@ -3,7 +3,7 @@ $basePath:'../' !default;
 .tree-container{
 	width:auto;overflow:auto;background:white;
 	ul{
-		&[data-deep="1"]{@include ib(top);min-width:100%;}
+		&[data-deep="1"]{/*@include ib(top);*/display:inline-block;vertical-align:top;min-width:100%;}
 		li{
 			ul{
 				width:auto;height:auto;_line-height:0;_font-size:0;
@@ -13,7 +13,7 @@ $basePath:'../' !default;
 		}
 		li a{
 			display:block;white-space:nowrap;line-height:normal;height:19px;
-			color:black;_font-size:16px; text-decoration:none;background:transparent;
+			color:black;_font-size:16px; text-decoration:none;background:transparent;cursor:pointer;
 			&:hover,&.hover{background:#e1e1e1;}
 			&.current{background:#d1d1d1;}
 		}

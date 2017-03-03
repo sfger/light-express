@@ -11,16 +11,14 @@ __non_webpack_require__.config({
 		// 'jquery-tabs':  {deps:["jquery"]}
 	}
 });
-__non_webpack_require__([
-	'jquery'
-], function($){
+__non_webpack_require__(['jquery'], function($){
 	require('../../../../public/js/es5-shim');
 	require('../../jquery-layout');
 	require('../../jquery-tree');
 	require('../../jquery-tabs');
-	var $leftMenu = $('.left-menu');
-	var $mainTab = $('.tab-ctn');
-	var $page = $('#page');
+	let $leftMenu = $('.left-menu');
+	let $mainTab = $('.tab-ctn');
+	let $page = $('#page');
 	$page.layout({
 		panel:{
 			toggle:true,
@@ -37,17 +35,17 @@ __non_webpack_require__([
 			each: {west:{width:4}}
 		}
 	}).show();
-	var data = require('./data');
+	let data = require('./data');
 	$leftMenu.tree({
 		data:data,
 		animate:{time:115},
 		onClick:function(){
-			var option = this.option;
+			let option = this.option;
 			if(!$leftMenu.tree('isLeaf', this)){
 				return false;
 			}
 			if(option.url.slice(0, 8)==='https://' || option.target=="_blank"){
-				var win = window.open(option.url);
+				let win = window.open(option.url);
 				win.opener = null;
 			}else{
 				$mainTab.tabs('add', {
@@ -61,7 +59,7 @@ __non_webpack_require__([
 		onContextmenu:function(e){
 			if(e.altKey && $leftMenu.tree('isLeaf', this)){
 				try{
-					var win = window.open(this.option.url);
+					let win = window.open(this.option.url);
 					win.opener = null;
 				}catch(e){}
 				return false;
@@ -76,7 +74,7 @@ __non_webpack_require__([
 		border     : true,
 		position   : 'north'
 	});
-	var default_tab = `<div class="imgc" style="height:100%;">
+	let default_tab = `<div class="imgc" style="height:100%;">
 		<div class="imge">欢迎来朴水做客！</div>
 		<!--[if lt IE 8]><p class="iecp"></p><![endif]-->
 	</div>`;

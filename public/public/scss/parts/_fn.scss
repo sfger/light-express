@@ -187,7 +187,9 @@ $color_bg_light :#eee !default;
 	@include ib;@include size($width, $height);@include user-select(none);
 	font:14px/#{$height} "Microsoft YaHei";border:none;
 	@include border-radius(3px);color:invert($bgcolor);
+	box-shadow: 0 #{$height*0.4} #{$height*0.525} #{-$height*0.35} lighten($bgcolor,3%);
 	text-align:center;background:$bgcolor;cursor:pointer;text-decoration:none;
+	@include prefix((transition:#{"background,box-shadow"} 0.35s ease-out));
 	@if($hover){
 		&:hover{background-color:lighten($bgcolor,5%);}
 	}
@@ -204,6 +206,7 @@ $color_bg_light :#eee !default;
 		}
 		&:active{
 			outline:thin dotted;outline-offset:-2px;
+			box-shadow: 0 #{$height*0.43} #{$height*0.685} #{-$height*0.25} darken($bgcolor,5%);
 			@if($animation){
 				background-color:darken($bgcolor,5%);
 				@include prefix((transform:translateZ(0)));
@@ -228,7 +231,6 @@ $color_bg_light :#eee !default;
 }
 
 // Returns the opposite direction of each direction in a list
-// @author Hugo Giraudel
 // @param {List} $directions - List of initial directions
 // @return {List} - List of opposite directions
 @function opposite-direction($directions) {

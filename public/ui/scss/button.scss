@@ -2,7 +2,7 @@
 @import "base";
 @include useKeyframes(radioOut);
 .btn{
-	@include button(100px,30px,#888,1,1,1);margin:5px;
+	@include button(130px,45px,#000,1,1,1);margin:5px;
 	color:white;
 	// &:before{background-color:red;}
 }
