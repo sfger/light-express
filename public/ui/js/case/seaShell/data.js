@@ -114,6 +114,7 @@ define(function(){
 					children:[
 						{name:'CSS Reference', url:'http://cssreference.io/'},
 						{name:'ES6', url:'http://es6.ruanyifeng.com/'},
+						{name:'TypeScript', url:'https://basarat.gitbooks.io/typescript/content/'},
 						{name:'MathJS', url:'http://mathjs.org/'},
 						{name:'w3help', url:'http://www.w3help.org/'},
 						{name:'awesome', url:'https://github.com/lnishan/awesome-competitive-programming'},

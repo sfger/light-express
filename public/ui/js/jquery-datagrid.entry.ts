@@ -251,6 +251,7 @@ $.fn.datagrid = function(options, ...args){
 		var $autoTable = $('table', $autoView).parent();
 		var tp0 = $autoTable.eq(0);
 		var tp1 = $autoTable.eq(1);
+		let auto = $autoView.find('.body-wrapper')[0];
 		$autoTable.css({width:500000});
 		var options = that.userOptions;
 		function update_scroll_offset(){
@@ -315,11 +316,11 @@ $.fn.datagrid = function(options, ...args){
 		tp1.css({width:'auto'});
 		tp0.parent().css({width:'auto', overflow:'hidden'});
 		requestAnimationFrame(function(){
-			let item = $autoView.find('.body-wrapper')[0];
-			let bar_width = item.offsetWidth -item.clientWidth;
+			$('.body-wrapper', that.render).css({height:that.render.offsetHeight - $autoView.find('.head-wrapper')[0].offsetHeight});
+			let bar_width = auto.offsetWidth - auto.clientWidth;
 			$autoView.css({width: $autoView.find('table')[1].offsetWidth + bar_width});
 			requestAnimationFrame(function(){
-				let bar_height = item.offsetHeight -item.clientHeight;
+				let bar_height = auto.offsetHeight - auto.clientHeight;
 				let $tables = $('.frozen-view .body-wrapper table', that.render);
 				$tables.css({marginBottom:bar_height});
 				browser.version<8 && requestAnimationFrame(function(){
@@ -336,7 +337,11 @@ $.fn.datagrid = function(options, ...args){
 			this.init_event(options);
 			options.onCreate.bind(this)();
 		},//}}}
-		update: function(options){//{{{
+		update: function(options){
+			this.render.className = 'datagrid-render-ctn data-loading';
+			setTimeout(()=>{this._update(options);}, 0);
+		},
+		_update: function(options){//{{{
 			var that = this;
 			var box  = this.render;
 			var old_options = this.userOptions;
@@ -396,7 +401,7 @@ $.fn.datagrid = function(options, ...args){
 			 * TODO::
 			 * 1、全部行、全部列、单行、单列对齐重新对齐功能
 			 * */
-			var that = this;
+			let that = this;
 			resize_table(this);
 			requestAnimationFrame(function(){
 				if(browser.version<8){
@@ -407,6 +412,7 @@ $.fn.datagrid = function(options, ...args){
 					}).find('.body-wrapper').css({'margin-top':'-2px'});
 					$('.view-wrapper', this.render).addClass('txt-justify ie-pure-txt');
 				}
+				setTimeout(function(){ $(that.render).removeClass('data-loading'); }, 0);
 			});
 			return this;
 		},//}}}
