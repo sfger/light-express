@@ -44,7 +44,7 @@ require.config({
 	}
 });
 require(['jquery', 'ui/js/jquery-datagrid'],function($){
-var gen_data = function(){
+var gen_data = function(cb){
 	var data = [];
 	for(var row=0; row<50; row++){
 		data[row] = {};
@@ -53,7 +53,10 @@ var gen_data = function(){
 			data[row]['col-'+(col+1)] = Number(Math.random()*100).toFixed(2);
 		} 
 	}
-	return data;
+	setTimeout(function(){
+		cb(data);
+	}, 0);
+	// return data;
 };
 var fieldSortFns = {
 	sortStr: null, // default
@@ -62,10 +65,9 @@ var fieldSortFns = {
 		return a[field] - b[field];
 	}
 };
-var sdata = gen_data();
 var stime = Date.now();
 var options = {
-	data          : sdata,
+	data          : gen_data,
 	rowNum        : true,
 	autoRowHeight : true,
 	autoColWidth  : true,
@@ -167,7 +169,7 @@ window.$grid = $('#my_datagrid');
 $grid.datagrid(options);
 /*
 setInterval(function(){
-	$grid.datagrid('update', {data:gen_data()});
+	$grid.datagrid('update', {data:gen_data});
 	setTimeout(function(){
 		$grid.datagrid('sortBy', {field : 'col-2', order : 'asc'});
 	}, 5000);
