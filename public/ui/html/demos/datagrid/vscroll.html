@@ -36,7 +36,6 @@ var field = this.field;
 return a[field] - b[field];
 }
 };
-var stime = Date.now();
 var options = {
 data          : gen_data,
 rowNum        : true,
@@ -136,10 +135,12 @@ onCreate:function(){
 console.log('Load time: ' + (Date.now()-stime));
 }
 };
+var stime = Date.now();
 window.$grid = $('#my_datagrid');
 $grid.datagrid(options);
 /*
 setInterval(function(){
+stime = Date.now();
 $grid.datagrid('update', {data:gen_data});
 setTimeout(function(){
 $grid.datagrid('sortBy', {field : 'col-2', order : 'asc'});

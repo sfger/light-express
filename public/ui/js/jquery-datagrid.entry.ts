@@ -347,6 +347,7 @@ $.fn.datagrid = function(options, ...args){
 					});
 				}else that._update(options);
 			}, 0);
+			return this;
 		},
 		_setOptions: function(options){
 			var old_options = this.userOptions;
@@ -370,12 +371,11 @@ $.fn.datagrid = function(options, ...args){
 		_update: function(options){//{{{
 			var that = this;
 			var box  = this.render;
-			$(box).empty(); // 清空内容取消绑定的事件
 			this.columns          = [];
 			this.frozenColumns    = [];
 			this.frozenEndColumns = [];
 			this.userOptions      = options = this._setOptions(options);
-			$(get_table(options, that)).prependTo(box);
+			$(box).empty().append(get_table(options, that));
 			this.allColumns = [].concat(this.frozenColumns, this.columns, this.frozenEndColumns);
 			// console.log(this.columns);
 			this.fieldElements = this.allColumns.map(function(option){
@@ -404,7 +404,7 @@ $.fn.datagrid = function(options, ...args){
 			}else if(sort){
 				this.sortBy({field:sort.field, order:sort.order});
 			}
-			return this.reAlign();
+			this.reAlign();
 		},//}}}
 		reAlign: function(){//{{{
 			/* *
