@@ -123,11 +123,11 @@ _:-ms-lang(x), .grid .col-rest { display: block; }
 
 .datagrid-render-ctn { overflow: hidden; }
 
-.datagrid-render-ctn.data-loading { position: relative; background-color: rgba(0, 0, 0, 0.8); color: transparent; }
+.datagrid-render-ctn.data-loading { position: relative; background-color: rgba(0, 0, 0, 0.692); color: transparent; }
 
 .datagrid-render-ctn.data-loading .view-wrapper { z-index: -1; }
 
-@media \0screen\,screen\9 { .datagrid-render-ctn.data-loading { filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#CC000000,endColorstr=#CC000000); } }
+@media \0screen\,screen\9 { .datagrid-render-ctn.data-loading { filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#B0000000,endColorstr=#B0000000); } }
 
 .datagrid-render-ctn.data-loading:before { content: "数据正在加载中……"; display: block; position: absolute; top: 0; right: 0; bottom: 0; left: 0; margin: auto; height: 15px; line-height: 15px; text-align: center; color: white; }
 

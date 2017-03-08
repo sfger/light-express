@@ -35,12 +35,12 @@ $.fn.datagrid = function(options, ...args){
 		columns          : []         // 普通列
 	}, options);//}}}
 	var handler  = function(box, options){ return new handler.prototype.init(box, options); };
-	var browser:any = {};
+	var browser:any = {};// {{{
 	var ie = /MSIE (\d+)\.?/.exec(navigator.userAgent);
 	if(ie && ie.length && ie[1]){
 		browser.ie = true;
 		browser.version = Number(ie[1]);
-	}
+	}// }}}
 	function get_table(options, that){//{{{
 		function get_head_rows(rows, colsType){//{{{
 			if(!rows || (colsType=='frozenColumns')&&!options.frozenColumns.length) return [];
@@ -336,13 +336,20 @@ $.fn.datagrid = function(options, ...args){
 			this.update(options);
 			this.init_event(options);
 		},//}}}
-		update: function(options){// {{{
+		update: function(options){
+			let that = this;
 			this.render.className = 'datagrid-render-ctn data-loading';
-			setTimeout(()=>{this._update(options);}, 0);
-		},// }}}
-		_update: function(options){//{{{
-			var that = this;
-			var box  = this.render;
+			setTimeout(function(){
+				if('function'===$.type(options.data)){
+					options.data(function(data){
+						options.data = data;
+						that._update(options);
+					});
+				}else that._update(options);
+			}, 0);
+			return this;
+		},
+		_setOptions: function(options){
 			var old_options = this.userOptions;
 			if(old_options){
 				if(options.data){
@@ -359,12 +366,16 @@ $.fn.datagrid = function(options, ...args){
 				}
 				options = $.extend(true, {}, this.userOptions, options);
 			}
-			$(box).empty(); // 清空内容取消绑定的事件
+			return options;
+		},
+		_update: function(options){//{{{
+			var that = this;
+			var box  = this.render;
 			this.columns          = [];
 			this.frozenColumns    = [];
 			this.frozenEndColumns = [];
-			this.userOptions      = options;
-			$(get_table(options, that)).prependTo(box);
+			this.userOptions      = options = this._setOptions(options);
+			$(box).empty().append(get_table(options, this));
 			this.allColumns = [].concat(this.frozenColumns, this.columns, this.frozenEndColumns);
 			// console.log(this.columns);
 			this.fieldElements = this.allColumns.map(function(option){
@@ -393,7 +404,7 @@ $.fn.datagrid = function(options, ...args){
 			}else if(sort){
 				this.sortBy({field:sort.field, order:sort.order});
 			}
-			return this.reAlign();
+			this.reAlign();
 		},//}}}
 		reAlign: function(){//{{{
 			/* *
