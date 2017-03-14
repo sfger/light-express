@@ -379,7 +379,7 @@ $.fn.datagrid = function(options, ...args){
 			this.allColumns = [].concat(this.frozenColumns, this.columns, this.frozenEndColumns);
 			// console.log(this.columns);
 			this.fieldElements = this.allColumns.map(function(option){
-				return $('[data-field="'+option.field+'"]', box).get(0);
+				return $('[data-field="'+option.field+'"]', box)[0];
 			});
 			// console.log(this.fieldElements);
 
@@ -415,15 +415,16 @@ $.fn.datagrid = function(options, ...args){
 			resize_table(this);
 			requestAnimationFrame(function(){
 				if(browser.version<8){
-					$('.auto-view', this.render).css({
+					let $frozen_view = $('.frozen-view', that.render);
+					$('.auto-view', that.render).css({
 						'width': 'auto',
-						'margin-left': $('.frozen-view', this.render).get(0).offsetWidth,
-						'margin-right': $('.frozen-view', this.render).get(1).offsetWidth
+						'margin-left': $frozen_view[0].offsetWidth,
+						'margin-right': $frozen_view[1].offsetWidth
 					}).find('.body-wrapper').css({'margin-top':'-2px'});
-					$('.view-wrapper', this.render).addClass('txt-justify ie-pure-txt');
+					$('.view-wrapper', that.render).addClass('txt-justify ie-pure-txt');
 				}
 				requestAnimationFrame(function(){
-					that.userOptions.onCreate.bind(this)();
+					that.userOptions.onCreate.bind(that)();
 					$(that.render).removeClass('data-loading');
 				});
 			});
