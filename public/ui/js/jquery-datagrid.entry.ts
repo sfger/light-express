@@ -50,7 +50,7 @@ $.fn.datagrid = function(options, ...args){
 				return createElement({name:'tr', children:(function(){
 					let index = 0;
 					let nodes = row.map(function(option/*, j*/){
-						var title = (option.name || option.field || '');
+						var title   = option.name || option.field || '';
 						var td_attr = {};
 						if(option.rowspan) td_attr['rowspan'] = option.rowspan;
 						if(option.colspan) td_attr['colspan'] = option.colspan;
@@ -336,7 +336,7 @@ $.fn.datagrid = function(options, ...args){
 			this.update(options);
 			this.init_event(options);
 		},//}}}
-		update: function(options){
+		update: function(options){// {{{
 			let that = this;
 			this.render.className = 'datagrid-render-ctn data-loading';
 			setTimeout(function(){
@@ -348,8 +348,8 @@ $.fn.datagrid = function(options, ...args){
 				}else that._update(options);
 			}, 0);
 			return this;
-		},
-		_setOptions: function(options){
+		},// }}}
+		_setOptions: function(options){// {{{
 			var old_options = this.userOptions;
 			if(old_options){
 				if(options.data){
@@ -367,7 +367,7 @@ $.fn.datagrid = function(options, ...args){
 				options = $.extend(true, {}, this.userOptions, options);
 			}
 			return options;
-		},
+		},// }}}
 		_update: function(options){//{{{
 			var that = this;
 			var box  = this.render;
