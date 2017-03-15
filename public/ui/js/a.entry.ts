@@ -3,7 +3,7 @@ function multicast(target, key, descriptor){
 	let func = descriptor.value;
 	descriptor.value = function(list, ...rest) {
 		if(Array.isArray(list)){
-			return list.map(item => return func.apply(this, [item].concat(rest)));
+			return list.map(item => func.apply(this, [item].concat(rest)));
 		}else{
 			let item = list;
 			return func.apply(this, [item].concat(rest));
@@ -13,12 +13,12 @@ function multicast(target, key, descriptor){
 }
 
 class Collection {
+	items:Array<any> = [];
 	constructor(){
-		this.items = [];
 	}
 
 	@multicast
-	append(item){
+	append(item, ...args:Array<any>){
 		// console.log(item, Array.prototype.slice.call(arguments));
 		this.items.push(item);
 		return this.items.slice(-1)[0];    
