@@ -129,6 +129,7 @@ define(function(){
 						{name:'Swift', url:'http://wiki.jikexueyuan.com/project/swift/'},
 						{name:'JSON', url:'http://www.json.org/'},
 						{name:'Git Magic', url:'http://www-cs-students.stanford.edu/~blynn/gitmagic/intl/zh_cn/ch09.html'},
+						{name:'Git cmd', url:'https://shfshanyue.github.io/cheat-sheets/git'},
 						{name:'egg', url:'https://eggjs.org/'},
 						{name:'AlloyTouch', url:'http://alloyteam.github.io/AlloyTouch/index.html'},
 						{name:'WXOpen', url:'https://mp.weixin.qq.com/'},

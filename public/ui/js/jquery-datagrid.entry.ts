@@ -34,9 +34,9 @@ $.fn.datagrid = function(options, ...args){
 		frozenEndColumns : [],        // 冻结列
 		columns          : []         // 普通列
 	}, options);//}}}
-	var handler  = function(box, options){ return new handler.prototype.init(box, options); };
-	var browser:any = {};// {{{
-	var ie = /MSIE (\d+)\.?/.exec(navigator.userAgent);
+	let handler  = function(box, options){ return new handler.prototype.init(box, options); };
+	let browser:any = {};// {{{
+	let ie = /MSIE (\d+)\.?/.exec(navigator.userAgent);
 	if(ie && ie.length && ie[1]){
 		browser.ie = true;
 		browser.version = Number(ie[1]);
