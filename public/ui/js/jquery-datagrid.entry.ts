@@ -50,15 +50,15 @@ $.fn.datagrid = function(options, ...args){
 				return createElement({name:'tr', children:(function(){
 					let index = 0;
 					let nodes = row.map(function(option/*, j*/){
-						var title   = option.name || option.field || '';
-						var td_attr = {};
+						let title   = option.name || option.field || '';
+						let td_attr = {};
 						if(option.rowspan) td_attr['rowspan'] = option.rowspan;
 						if(option.colspan) td_attr['colspan'] = option.colspan;
-						var colspan = option.colspan || 1;
-						var isField = colspan==1&&((i==il)||((il+1)==(i+option.rowspan)));
+						let colspan = option.colspan || 1;
+						let isField = colspan==1&&((i==il)||((il+1)==(i+option.rowspan)));
 						// console.log(option,i,il,option.rowspan, isField);
-						var width = (options.autoColWidth||option.colspan) ? 'auto' : ((option.width||options.colWidth) + 'px');
-						var cell_attr = {"class":'cell', "style":{width:width}};
+						let width = (options.autoColWidth||option.colspan) ? 'auto' : ((option.width||options.colWidth) + 'px');
+						let cell_attr = {"class":'cell', "style":{width:width}};
 						if(i){
 							if(colspan==1){
 								while(that[colsType][index]) index++;
@@ -70,7 +70,7 @@ $.fn.datagrid = function(options, ...args){
 							else while(colspan--) that[colsType].push(null);
 						}
 						if(isField){
-							var class_name = ['field'];
+							let class_name = ['field'];
 							if(options.sortable && option.sortable!==false || option.sortable==true){
 								class_name.push('sortable');
 							}
@@ -115,7 +115,7 @@ $.fn.datagrid = function(options, ...args){
 			return data.map(function(row, i){
 				return createElement({
 					name:'tr', children:(function(){
-						var nodes = [];
+						let nodes = [];
 						if(options.rowNum){
 							if( options.frozenColumns.length && (colsType=='frozenColumns')
 								|| !options.frozenColumns.length && options.columns.length && (colsType=='columns')
@@ -131,7 +131,7 @@ $.fn.datagrid = function(options, ...args){
 						}
 						cols && cols.forEach(function(option){
 							if(!option) return true;
-							var field     = option.field,
+							let field     = option.field,
 								val       = row[field],
 								formatter = option.formatter,
 								cls_list  = ['cell'],
@@ -154,14 +154,34 @@ $.fn.datagrid = function(options, ...args){
 				});
 			});
 		}//}}}
-		var ret = {//{{{
+		let ret:any = {//{{{
 			name:'div', attr:{'class':'datagrid-ctn'}, children:{
 				name:'div',
 				attr:{'class':'view-wrapper grid layout-auto' + (options.autoRowHeight ? ' autoRowHeight' : '')},
-				children:[]
+				children:[{
+					name:'div',
+					attr:{'class':'col-rest col-view auto-view'+(options.frozenColumns.length||options.frozenEndColumns.length ? ' locate-view' : '')},
+					children:[{
+						name:'div', children:[{
+							name:'div', attr:{style:'overflow:hidden'}, children:{
+								name:'div', attr:{'class': 'head-wrapper'}, children:{
+									name:'table', attr:{'class': 'head'}, children:{
+										name:'tbody', children:get_head_rows(options.columns, 'columns')
+									}
+								}
+							}
+						}, {
+							name:'div', attr:{'class': 'body-wrapper'}, children:{
+								name:'table', attr:{'class': 'body'}, children:{
+									name:'tbody', children:get_data_rows(options.data, that.columns, 'columns')
+								}
+							}
+						}]
+					}]
+				}]
 			}
 		};//}}}
-		if(options.frozenColumns.length) ret.children.children.push({//{{{
+		if(options.frozenColumns.length) ret.children.children.unshift({//{{{
 			name:'div', attr:{'class':'col col-view frozen-view frozen-start'}, children:[{
 				name:'div', attr:{'class':'head-wrapper'}, children:{
 					name:'table', attr:{'class':'frozen head'}, children:{
@@ -174,25 +194,6 @@ $.fn.datagrid = function(options, ...args){
 						name:'tbody', children:get_data_rows(options.data, that.frozenColumns, 'frozenColumns')
 					}
 				}
-			}]
-		});//}}}
-		if(options.columns.length) ret.children.children.push({//{{{
-			name:'div', attr:{'class':'col-rest col-view auto-view'+(options.frozenColumns.length||options.frozenEndColumns.length ? ' locate-view' : '')}, children:[{
-				name:'div', children:[{
-					name:'div', attr:{style:'overflow:hidden'}, children:{
-						name:'div', attr:{'class': 'head-wrapper'}, children:{
-							name:'table', attr:{'class': 'head'}, children:{
-								name:'tbody', children:get_head_rows(options.columns, 'columns')
-							}
-						}
-					}
-				}, {
-					name:'div', attr:{'class': 'body-wrapper'}, children:{
-						name:'table', attr:{'class': 'body'}, children:{
-							name:'tbody', children:get_data_rows(options.data, that.columns, 'columns')
-						}
-					}
-				}]
 			}]
 		});//}}}
 		if(options.frozenEndColumns.length) ret.children.children.push({//{{{
@@ -218,9 +219,9 @@ $.fn.datagrid = function(options, ...args){
 		return el['offset'+(type==='width'?'Width':'Height')];
 	}//}}}
 	function align_cell_column(arr, type){//{{{
-		for(var i=0,il=arr.length; i<il; i++){
-			var column = arr[i];
-			var max = column.map(function(one){
+		for(let i=0,il=arr.length; i<il; i++){
+			let column = arr[i];
+			let max = column.map(function(one){
 				return getHW(one, type);
 			}).reduce(function(a, b){
 				return a>=b ? a : b;
@@ -231,11 +232,11 @@ $.fn.datagrid = function(options, ...args){
 		}
 	}//}}}
 	function align_cell_row(arr, type){//{{{
-		var len = arr.length;
-		for(var i=0,il=arr[0].length; i<il; i++){
-			var j=0, row = [];
+		let len = arr.length;
+		for(let i=0,il=arr[0].length; i<il; i++){
+			let j=0, row = [];
 			while(j < len) row.push(arr[j++][i]);
-			var max = row.map(function(one){
+			let max = row.map(function(one){
 				return getHW(one, type);
 			}).reduce(function(a, b){
 				return a>=b ? a : b;
@@ -246,28 +247,28 @@ $.fn.datagrid = function(options, ...args){
 		}
 	}//}}}
 	function resize_table(that){//{{{
-		var $tables = $('table', that.render);
-		var $autoView  = $('.auto-view', that.render);
-		var $autoTable = $('table', $autoView).parent();
-		var tp0 = $autoTable.eq(0);
-		var tp1 = $autoTable.eq(1);
+		let $tables = $('table', that.render);
+		let $autoView  = $('.auto-view', that.render);
+		let $autoTable = $('table', $autoView).parent();
+		let tp0 = $autoTable.eq(0);
+		let tp1 = $autoTable.eq(1);
 		let auto = $autoView.find('.body-wrapper')[0];
 		$autoTable.css({width:500000});
-		var options = that.userOptions;
+		let options = that.userOptions;
 		function update_scroll_offset(){
-			let aview:any = tp0.get(0).parentNode;
+			let aview:any = tp0[0].parentNode;
 			aview.scrollLeft = this.scrollLeft;
 			if(options.frozenColumns.length){
-				let fview:any = $tables.get(1).parentNode;
+				let fview:any = $tables[1].parentNode;
 				fview.scrollTop = this.scrollTop;
 			}
 			if(options.frozenEndColumns.length){
-				let feview:any = $('.frozen-end table', that.render).get(1).parentNode;
+				let feview:any = $('.frozen-end table', that.render)[1].parentNode;
 				feview.scrollTop = this.scrollTop;
 			}
 		}
 		$('.auto-view .body-wrapper', that.render).off('scroll').on('scroll', function(){
-			// var data = that.relatedData;
+			// let data = that.relatedData;
 			// if(data) $([data.frozenTr, data.frozenEndTr, data.tr].filter(function(item){ return item; })).removeClass('hover');
 			if(this._scroll_id){
 				cancelAnimationFrame(this._scroll_id);
@@ -278,7 +279,7 @@ $.fn.datagrid = function(options, ...args){
 		if(options.autoColWidth){
 			align_cell_row([
 				(function(){
-					var column = that.fieldElements;
+					let column = that.fieldElements;
 					if(options.rowNum) column = [$('tr:eq(0) td:eq(0) .cell', $tables[0])[0]].concat(column);
 					return column;
 				})(),
@@ -292,7 +293,7 @@ $.fn.datagrid = function(options, ...args){
 		}
 		if(options.frozenColumns || options.frozenEndColumns){
 			$([$tables[1], $tables[5]]).off('mousewheel DOMMouseScroll').on('mousewheel DOMMouseScroll', function(e){
-				// var data = that.relatedData;
+				// let data = that.relatedData;
 				// if(data) $([data.frozenTr, data.frozenEndTr, data.tr].filter(function(item){ return item; })).removeClass('hover');
 				let originalEvent:any = e.originalEvent;
 				let tb3:any = $tables[3].parentNode;
@@ -350,10 +351,10 @@ $.fn.datagrid = function(options, ...args){
 			return this;
 		},// }}}
 		_setOptions: function(options){// {{{
-			var old_options = this.userOptions;
+			let old_options = this.userOptions;
 			if(old_options){
 				if(options.data){
-					var data = old_options.data;
+					let data = old_options.data;
 					if(data[0].tr || data[0].frozenTr || data[0].frozenEndTr){
 						data.forEach(function(rowData){
 							delete rowData.tr;
@@ -369,15 +370,15 @@ $.fn.datagrid = function(options, ...args){
 			return options;
 		},// }}}
 		_update: function(options){//{{{
-			var that = this;
-			var box  = this.render;
+			let that = this;
+			let box  = this.render;
 			this.columns          = [];
 			this.frozenColumns    = [];
 			this.frozenEndColumns = [];
 			this.userOptions      = options = this._setOptions(options);
 			$(box).empty().append(get_table(options, this));
 			this.allColumns = [].concat(this.frozenColumns, this.columns, this.frozenEndColumns);
-			// console.log(this.columns);
+			console.log(this.allColumns);
 			this.fieldElements = this.allColumns.map(function(option){
 				return $('[data-field="'+option.field+'"]', box)[0];
 			});
@@ -397,9 +398,9 @@ $.fn.datagrid = function(options, ...args){
 					rowData.tr = tbody.rows[rowNum];
 				}
 			});
-			var sort = options.sort;
+			let sort = options.sort;
 			if(options.remoteSort){
-				var sort_order = (~[true,'desc'].indexOf(sort.order)) ? 'desc' : 'asc';
+				let sort_order = (~[true,'desc'].indexOf(sort.order)) ? 'desc' : 'asc';
 				$('.head-wrapper [data-field='+sort.field+'] .sort-mark', box).addClass(sort_order);
 			}else if(sort){
 				this.sortBy({field:sort.field, order:sort.order});
@@ -407,8 +408,7 @@ $.fn.datagrid = function(options, ...args){
 			this.reAlign();
 		},//}}}
 		reAlign: function(){//{{{
-			/* *
-			 * TODO::
+			/* TODO :
 			 * 1、全部行、全部列、单行、单列对齐重新对齐功能
 			 * */
 			let that = this;
@@ -431,10 +431,10 @@ $.fn.datagrid = function(options, ...args){
 			return this;
 		},//}}}
 		init_event: function(options){//{{{
-			var that = this;
-			var $box = $(this.render);
+			let that = this;
+			let $box = $(this.render);
 			if(!options.remoteSort) $box.on('click', '.field.sortable', function(){
-				let cell:any = $('.cell', this).get(0);
+				let cell:any = $('.cell', this)[0];
 				that.sortBy({
 					field: $(cell).data('field'),
 					order: !cell.order||that.defaultOrder
@@ -442,27 +442,27 @@ $.fn.datagrid = function(options, ...args){
 			});
 			if(options.triggerRow && (options.frozenColumns.length || options.frozenEndColumns.length)) $box.on({
 				mouseenter: function(e){
-					var target = this;
-					var box = e.delegateTarget;
+					let target = this;
+					let box = e.delegateTarget;
 					if(box._triggering_in){
 						cancelAnimationFrame(box._triggering_in);
 						box._triggering_in = null;
 					}
 					box._triggering_in = requestAnimationFrame(function(){
-						var data = that.relatedData;
+						let data = that.relatedData;
 						if(data) $([data.frozenTr, data.frozenEndTr, data.tr].filter(function(item){ return item; })).removeClass('hover');
 						that.relatedData = data = that.userOptions.data[target.rowIndex];
 						$([data.frozenTr, data.frozenEndTr, data.tr].filter(function(item){ return item; })).addClass('hover');
 					});
 				},
 				mouseleave: function(e){
-					var box = e.delegateTarget;
+					let box = e.delegateTarget;
 					if(box._triggering_out){
 						cancelAnimationFrame(box._triggering_out);
 						box._triggering_out = null;
 					}
 					box._triggering_out = requestAnimationFrame(function(){
-						var data = that.relatedData;
+						let data = that.relatedData;
 						if(data) $([data.frozenTr, data.frozenEndTr, data.tr].filter(function(item){ return item; })).removeClass('hover');
 						that.relatedData = null;
 					});
@@ -471,14 +471,14 @@ $.fn.datagrid = function(options, ...args){
 		},//}}}
 		sortType: {//{{{
 			'string': function(a, b){ // this指{field:field, order:order}
-				var field = this.field;
-				var x = a[field];
-				var y = b[field];
+				let field = this.field;
+				let x = a[field];
+				let y = b[field];
 				if(x==y) return 0;
 				return x>y ? 1 : -1;
 			},
 			'number': function(a, b){
-				var field = this.field;
+				let field = this.field;
 				return a[field] - b[field];
 			}
 		},//}}}
@@ -487,48 +487,46 @@ $.fn.datagrid = function(options, ...args){
 				return one.field===fieldName;
 			})[0];
 		},//}}}
-		getColumnSortFunction: function(option){//{{{
-			var field_option = this.getFieldOption(option.field); // 列的选项
+		getColumnSortFunction: function({order, field}){//{{{
+			let field_option = this.getFieldOption(field); // 列的选项
 			if(!field_option){
-				console.log(option, 'Field not found......');
-				throw new Error('Field not found:'+option.field);
+				console.log({order, field}, 'Field not found......');
+				throw new Error('Field not found:'+field);
 			}
-			var sort_type    = field_option.dataType || this.userOptions.dataType || 'string'; // 排序的类型
-			var fn           = field_option.sort || this.sortType[sort_type]; // 排序的函数
-			return function(a, b){
-				return fn.call(option, a, b) * (option.order ? -1 : 1);
-			};
+			let sort_type = field_option.dataType || this.userOptions.dataType || 'string'; // 排序的类型
+			let fn        = field_option.sort     || this.sortType[sort_type]; // 排序的函数
+			return function(a, b){ return fn.call({order, field}, a, b) * (order ? -1 : 1); };
 		},//}}}
-		sortBy: function(option, sortElement){//{{{
+		sortBy: function({order, field}, sortElement){//{{{
 			//order: (true||'desc')->desc, (false||not 'desc')->asc
-			var options        = this.userOptions;
-			var preSortElement = this.sortElement;
-			option.order = (~[true,'desc'].indexOf(option.order)) ? true : false;
-			this.sortElement = sortElement = sortElement || $('.head-wrapper [data-field='+option.field+']', this.render).get(0);
+			let options        = this.userOptions;
+			let preSortElement = this.sortElement;
+			order = (~[true,'desc'].indexOf(order)) ? true : false;
+			this.sortElement = sortElement = sortElement || $('.head-wrapper [data-field='+field+']', this.render)[0];
 			if(preSortElement){
 				if(sortElement===preSortElement){ // 同一列
-					if(option.order===preSortElement.order) return this; // 排序没变中断
+					if(order===preSortElement.order) return this; // 排序没变中断
 					options.data = options.data.reverse();
 				}
 				$('.sort-mark', preSortElement).removeClass('asc desc');
 			}
-			$('.sort-mark', sortElement).addClass(option.order?'desc':'asc');
-			options.data.sort(this.getColumnSortFunction(option));
-			sortElement.order = option.order;
-			sortElement.field = option.field;
+			$('.sort-mark', sortElement).addClass(order?'desc':'asc');
+			options.data.sort(this.getColumnSortFunction({order, field}));
+			sortElement.order = order;
+			sortElement.field = field;
 			return this.sort_table_dom(options);
 		},//}}}
 		sort_table_dom: function(options){//{{{
-			var frozenTrDoc    = document.createDocumentFragment(),
+			let frozenTrDoc    = document.createDocumentFragment(),
 				frozenEndTrDoc = document.createDocumentFragment(),
 				trDoc          = document.createDocumentFragment(),
 				frozenTbody    = null,
 				frozenEndTbody = null,
 				tbody          = null;
 			options.data.forEach(function(rowData, rowNum){
-				var frozenTr    = rowData.frozenTr;
-				var frozenEndTr = rowData.frozenEndTr;
-				var tr          = rowData.tr;
+				let frozenTr    = rowData.frozenTr;
+				let frozenEndTr = rowData.frozenEndTr;
+				let tr          = rowData.tr;
 				if(frozenTr){
 					frozenTbody||(function(){
 						frozenTbody = frozenTr.parentNode;
@@ -571,9 +569,9 @@ $.fn.datagrid = function(options, ...args){
 	};
 	handler.prototype.init.prototype = handler.prototype;
 	return this.each(function(){//{{{
-		var $this = $(this);
-		var instance = handler(this, $.extend(true, {}, options));
-		var ui = $this.data('ui');
+		let $this = $(this);
+		let instance = handler(this, $.extend(true, {}, options));
+		let ui = $this.data('ui');
 		if(ui) ui.iDatagrid = instance;
 		else $this.data('ui', {iDatagrid:instance});
 	});//}}}
