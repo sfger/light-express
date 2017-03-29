@@ -339,7 +339,7 @@ $.fn.datagrid = function(options, ...args){
 		},//}}}
 		update: function(options){// {{{
 			let that = this;
-			this.render.className = 'datagrid-render-ctn data-loading';
+			this.render.className = 'datagrid-render-ctn state-loading';
 			setTimeout(function(){
 				if('function'===$.type(options.data)){
 					options.data(function(data){
@@ -425,7 +425,7 @@ $.fn.datagrid = function(options, ...args){
 				}
 				requestAnimationFrame(function(){
 					that.userOptions.onCreate.bind(that)();
-					$(that.render).removeClass('data-loading');
+					$(that.render).removeClass('state-loading');
 				});
 			});
 			return this;

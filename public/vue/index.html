@@ -1,14 +1,33 @@
-<!doctype html><html lang="zh-CN"><head><meta charset="UTF-8" /><meta name="renderer" content="webkit"><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" /><title>Title</title><meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimal-ui" /><style type="text/css"></style></head><body><div id="page"><div id="app-7"><ol><li is="list-item" v-for="item in list" :item="item">正在加载中……</li></ol></div></div><script src="https://unpkg.com/vue/dist/vue.js"></script><script>Vue.component('list-item', {
+<!doctype html><html lang="zh-CN"><head><meta charset="UTF-8" /><meta name="renderer" content="webkit"><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" /><title>Title</title><meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimal-ui" /><style type="text/css">.fade-enter-active,.fade-leave-active{
+transition:opacity .5s;
+}
+.fade-enter,.fade-leave-active{
+opacity:0;
+}</style></head><body><div id="page"><div id="app-7"><transition-group appear name="fade" tag="ol"><li is="list-item" v-for="(item,i) in list" :item="item" @remove="remove(i)" :key="item">正在加载中……<template scope="props" slot="index">这是第{{i+1}}个元素{{props.txt}}</template></li></transition-group><select v-model="selected"><option value="">请选择</option><option value="0">A</option><option value="1">B</option><option value="2">C</option></select><span>Selected:{{selected}}</span></div></div><script src="https://unpkg.com/vue/dist/vue.js"></script><script>/*
+Vue.component('list-item', {
 props: ['item'],
-template: '<li>{{ item.text }}</li>'
+template: '<li @click="$emit(\'remove\')">{{item.text}},<slot name="index" txt="test"></slot></li>'
 });
-var app7 = new Vue({
+*/
+var app = new Vue({
 el: '#app-7',
 data: {
 list: [
 {text:'a'},
 {text:'b'},
 {text:'c'}
-]
+],
+selected:''
+},
+components: {
+'list-item': {
+props: ['item'],
+template: '<li @click="$emit(\'remove\')">{{item.text}},<slot name="index" txt="test"></slot></li>'
+}
+},
+methods: {
+remove: function(i){
+this.list.splice(i,1);
+}
 }
 });</script></body></html>
