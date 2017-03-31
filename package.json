@@ -15,6 +15,7 @@
     "ejs": "^2.4.1",
     "express": "~4.2.0",
     "morgan": "~1.7.0",
+    "node-sass": "^4.5.2",
     "vue": "^2.2.4",
     "vuex": "^2.2.1",
     "webpack": "^2.2.0"
@@ -43,7 +44,6 @@
     "gulp-util": "^3.0.7",
     "html-loader": "^0.4.0",
     "jsx-loader": "^0.13.2",
-    "node-sass": "^3.11.1",
     "postcss-image-inliner": "^0.2.0",
     "postcss-sprites": "^2.0.2",
     "postcss-urlrev": "^1.2.0",

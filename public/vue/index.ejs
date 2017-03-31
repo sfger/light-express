@@ -53,7 +53,12 @@ var app = new Vue({
 	},
 	components: {
 		'list-item': {
-			props: ['item'],
+			props: {
+				'item':{
+					type:Object,
+					required:true
+				}
+			},
 			template: '<li @click="$emit(\'remove\')">{{item.text}}, <slot name="index" txt="test"></slot></li>'
 		}
 	},
