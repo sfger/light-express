@@ -41,7 +41,8 @@ router.get(['/', '/*.html'], function(req, res, next){
 					if(bg.length==3) bg = colorTrans(bg);
 					if(color.length==3) color = colorTrans(color);
 
-					return 'http://fpoimg.com/'+width+'x'+height+'?bg_color='+bg+'&text_color='+color+'&text=' + text;
+					// return 'http://fpoimg.com/'+width+'x'+height+'?bg_color='+bg+'&text_color='+color+'&text=' + text;
+					return "//placeholdit.imgix.net/~text?txtsize=33&txt="+text+"&w="+width+"&h="+height+"&bg=" + bg +"&txtcolor=" + color;
 				}
 			}
 		}, req.app.Extension.dist.bind({req:req, res:res, distPath:url_path}));

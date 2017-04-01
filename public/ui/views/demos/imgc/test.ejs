@@ -18,6 +18,61 @@
 <div id="page">
 	<div class="circle">test</div>
 	<div class="circle2">test</div>
+
+	<div class="slider">
+		<ul class="main-content">
+			<li><a href=""><img src="<%-node.get_img(870,400)%>" alt="" /></a></li>
+			<li><a href=""><img src="<%-node.get_img(970,400)%>" alt="" /></a></li>
+			<li class="active"><a href=""><img src="<%-node.get_img(270,400)%>" alt="活动名称" /></a></li>
+			<li><a href=""><img src="<%-node.get_img(270,400)%>" alt="" /></a></li>
+			<li><a href=""><img src="<%-node.get_img(270,400)%>" alt="" /></a></li>
+		</ul>
+		<a href="javascript:" class="btn-prev">&lt;</a>
+		<a href="javascript:" class="btn-next">&gt;</a>
+	</div>
 </div>
+<script id="requirejs" data-version="<%- __version__ %>" src="../../../../public/js/require.js?<%- __version__ %>"></script>
+<script>
+// requestAnimationFrame {{{
+(function() {
+	'use strict';
+	var vendors = ['webkit', 'moz'];
+	for (var i = 0; i < vendors.length && !window.requestAnimationFrame; ++i) {
+		var vp = vendors[i];
+		window.requestAnimationFrame = window[vp+'RequestAnimationFrame'];
+		window.cancelAnimationFrame = (window[vp+'CancelAnimationFrame']
+			|| window[vp+'CancelRequestAnimationFrame']);
+	}
+	if (/iP(ad|hone|od).*OS 6/.test(window.navigator.userAgent) // iOS6 is buggy
+	|| !window.requestAnimationFrame || !window.cancelAnimationFrame) {
+		var lastTime = 0;
+		window.requestAnimationFrame = function(callback) {
+			var now = Date.now();
+			var nextTime = Math.max(lastTime + 16, now);
+			return setTimeout(function() { callback(lastTime = nextTime); }, nextTime - now);
+		};
+		window.cancelAnimationFrame = clearTimeout;
+	}
+}());
+// }}}
+require.config({
+	baseUrl:'../../../../',
+	urlArgs:document.getElementById("requirejs").getAttribute("data-version"),
+	map:{"*":{css:"require-css"}},
+	paths:{
+		jquery:'public/js/jquery'
+	},
+	shim:{
+		'ui/js/jquery-slider': ['jquery']
+	}
+});
+require(['jquery', 'ui/js/jquery-slider'],function($){
+	$('.slider').slider({
+		miniMap: true,
+		nextButton: '.slider .btn-next',
+		prevButton: '.slider .btn-prev'
+	});
+});
+</script>
 </body>
 </html>

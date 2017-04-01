@@ -84,7 +84,7 @@ $color_bg_light :#eee !default;
 		&:before{@include ib($vertical-align);}
 		&:before,{content:"";height:100%;font-size:0;line-height:0;width:0;}
 	}
-	@if($selecor){
+	@if($selecor!=''){
 		#{$selecor}{
 			@include ib($vertical-align);
 			@if($is_image==1){

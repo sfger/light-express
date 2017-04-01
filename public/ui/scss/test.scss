@@ -9,3 +9,41 @@
 	@include background-circle(100px,red);
 	line-height:100px;
 }
+
+
+.map-control{
+	@include absolute(left 0 bottom 6px,2);text-align:center;
+	ul,li{@include ib;}
+	ul{@include background-color-rgba(white,0.3);padding:0 3px;font-size:0;@include border-radius(20px);}
+	li{
+		@include prefix((transition:background 0.6s));
+		@include background-circle(12px,#ccc);margin:5px;cursor:pointer;
+		&.active{@include background-circle(12px,white);}
+	}
+}
+.slider{
+	@include size(870px,400px);overflow:hidden;@include relative;
+	&:hover{
+		.btn-prev,.btn-next{visibility:visible;opacity:1;}
+	}
+	.main-content{
+		@include size(100%);
+		li{
+			@include size(100%);
+			@include absolute(left 0 top 0,0);@include opacity(0);
+			@include prefix((transition:opacity 0.6s));
+			&.active{@include opacity(1);z-index:1;}
+			a{display:block;@include size(100%);@include imgc(1);}
+		}
+	}
+	.btn-prev,.btn-next{
+		text-decoration:none;
+		opacity:0;visibility:hidden;color:white;@include prefix((transition:opacity 0.6s));@include border-radius(4px);
+		@include absolute(top 50%,2);@include size(30px,62px);@include background-color-rgba(black,0.2);
+		margin-top:-31px;text-align:center;font:42px/62px SimSun;line-height:66px\0;
+		&:hover{@include background-color-rgba(black,0.5);}
+	}
+	.btn-prev{left:0;}
+	.btn-next{right:0;}
+	.map-control{width:100%;}
+}
