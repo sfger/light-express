@@ -1,4 +1,4 @@
-$.fn.slider = function(options){
+$.fn.slider = function(options){//{{{
 	options = $.extend(true, {
 		interval: 3e3,
 		auto: true,
@@ -45,7 +45,7 @@ $.fn.slider = function(options){
 			force = force===false ? true : false; // 是否强制切换（鼠标在滚动元素范围内时停止自动滚动）
 			if(this.store.hover && force) return false;
 			if(n==0) return false;
-			this.goTo( this.store.$miniMap.filter('.active').index() + n );
+			this.goTo( this.store.$list.filter('.active').index() + n );
 		},
 		goTo: function(index){
 			var len = this.store.listLength;
@@ -62,20 +62,21 @@ $.fn.slider = function(options){
 			var $from = $list.filter('.active');
 			var $to   = $list.eq(index);
 			$list.removeClass('active').eq(index).addClass('active');
-			$miniMap.removeClass('active').eq(index).addClass('active');
+			$miniMap && $miniMap.removeClass('active').eq(index).addClass('active');
 			if( options.onSlider ) options.onSlider($from[0], $to[0]);
 			if( options.auto ) this.autoSlider();
 		},
 		event: function(){
 			var that  = this;
 			var store = this.store;
-			$(store.options.prevButton).click(function(){ that.go(-1); });
-			$(store.options.nextButton).click(function(){ that.go(1); });
-			$(store.$miniMap).click(function(){ that.goToByElement(this); });
+			var options = store.options;
+			$(options.prevButton).click(function(){ that.go(-1); });
+			$(options.nextButton).click(function(){ that.go(1); });
+			store.$miniMap && store.$miniMap.click(function(){ that.goToByElement(this); });
 			options.onCreate && setTimeout(function(){
 				options.onCreate(store.options.render);
 			}, 0);
-			$(store.options.render).hover(function(){
+			options.auto && $(store.options.render).hover(function(){
 				store.hover = true;
 			}, function(){
 				store.hover = false;
@@ -100,4 +101,4 @@ $.fn.slider = function(options){
 		if(ui) ui.iSlider = instance;
 		else $this.data('ui', {iSlider:instance});
 	});
-};
+};//}}};
