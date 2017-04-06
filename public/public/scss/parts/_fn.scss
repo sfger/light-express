@@ -30,20 +30,26 @@ $color_bg_light :#eee !default;
 // .list{@include prefix((transform:rotate(0deg),transition:all .2s ease-out));}
 // .test{@include prefix((transition:#{top 1s,transform 1s,left 1s}));}
 // .element{@include prefix((transform:translate(-50%, -50%) rotate(45deg)), webkit ms);}
-@mixin cf(){
+%cf{
 	@if($is_modern==0){*zoom:1;}
 	&:before,&:after{content:"";display:table;}
 	&:after{clear:both;overflow:hidden;}
 }
-%cf{@include cf;}
-@mixin inline-block($vertical-align:middle){
+@mixin cf{@extend %cf;}
+
+%ib{
 	display:inline-block;
 	@if($is_modern==0){*display:inline;*zoom:1;}
+	vertical-align:middle;//*vertical-align:auto;
+}
+%inline-block{@extend %ib;}
+@mixin inline-block($vertical-align:middle){
+	@extend %ib;
 	vertical-align:$vertical-align;//*vertical-align:auto;
 }
-%inline-block{@include inline-block;}
 @mixin ib($vertical-align:middle){@include inline-block($vertical-align);}
-%ib{@include ib;}
+// .test{@include ib(baseline);}
+
 @mixin size($width:auto, $height:$width, $prefix:null){
 	@if $prefix and not index(min max, $prefix){
 		@warn "If there is a prefix, it must be:[min|max]`, but got:`#{$prefix}`.";
@@ -54,15 +60,26 @@ $color_bg_light :#eee !default;
 	}
 }
 // 单行溢出省略
-@mixin sln(){white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-%sln{@include sln;}
+%sln{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+@mixin sln(){@extend %sln;}
+// .test{@include sln;}
 
 // webkit多行溢出省略
-@mixin mln($line:2){
+%mln{
 	overflow:hidden;text-overflow:ellipsis;
-	display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:$line;
+	display:-webkit-box;-webkit-box-orient:vertical;
+	-webkit-line-clamp:2;
 }
-%mln{@include mln;}
+@mixin mln($line:2,$lineHeight:null){
+	@extend %mln;
+	@if($lineHeight){
+		line-height:$lineHeight;
+		height:$line*$lineHeight;
+	}
+	-webkit-line-clamp:$line;
+}
+// .mln2{@include mln;}
+// .mln3{@include mln(3);}
 
 // 通用居中样式
 // 使用见_layout.scss
