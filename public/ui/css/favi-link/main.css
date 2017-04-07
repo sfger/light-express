@@ -4,9 +4,9 @@
 
 .cf:after { clear: both; overflow: hidden; }
 
-.test, audio, canvas, video, .imge, .imgc:before, .imgc .iecp, .imgc img, .ib, .img-tight:before, .img-tight .iecp, .img-tight img, .ib-row:before, .ib-row .iecp, .ib-col, .ib-col-full, .txt-justify:after, .txt-justify .iecp, .txt-justify .i, .tree-container .indent, .tree-container .join, .tree-container .hit, .tree-container .file, .tree-container .folder, .tree-container .checkbox, .tree-container .title, .tab-ctn .tab-header:before, .tab-ctn .tab-header .iecp, .tab-ctn .tab-header li, .tab-ctn .tab-header a:before, .tab-ctn .tab-header a .iecp, .tab-ctn .tab-header a span, .tab-ctn .tab-header .closer, .bottom span { display: inline-block; *display: inline; *zoom: 1; vertical-align: middle; }
+audio, canvas, video, .imge, .imgc:before, .imgc .iecp, .imgc img, .ib, .img-tight:before, .img-tight .iecp, .img-tight img, .ib-row:before, .ib-row .iecp, .ib-col, .ib-col-full, .txt-justify:after, .txt-justify .iecp, .txt-justify .i, .tree-container .indent, .tree-container .join, .tree-container .hit, .tree-container .file, .tree-container .folder, .tree-container .checkbox, .tree-container .title, .tab-ctn .tab-header:before, .tab-ctn .tab-header .iecp, .tab-ctn .tab-header li, .tab-ctn .tab-header a:before, .tab-ctn .tab-header a .iecp, .tab-ctn .tab-header a span, .tab-ctn .tab-header .closer, .bottom span { display: inline-block; *display: inline; *zoom: 1; vertical-align: middle; }
 
-.test { vertical-align: baseline; }
+.tab-ctn .tab-header .title { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
 *, *:before, *:after, *::before, *::after { -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
 
@@ -212,7 +212,7 @@ _:-ms-lang(x), .grid .col-rest { display: block; }
 
 .tab-ctn .tab-header .icon { width: 16px; height: 16px; }
 
-.tab-ctn .tab-header .title { margin: 0 3px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.tab-ctn .tab-header .title { margin: 0 3px; }
 
 .tab-ctn .tab-header .closer { -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; vertical-align: middle; width: 16px; height: 16px; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; font: 14px/16px "Microsoft YaHei"; border: none; -webkit-border-radius: 3px; -moz-border-radius: 3px; border-radius: 3px; color: rgba(255, 255, 255, 0); box-shadow: 0 6.4px 8.4px -5.6px rgba(8, 8, 8, 0); text-align: center; background: transparent; cursor: pointer; text-decoration: none; -webkit-transition: background,box-shadow 0.35s ease-out; transition: background,box-shadow 0.35s ease-out; font: bold 16px/1.234 SimSun; color: #333; }
 

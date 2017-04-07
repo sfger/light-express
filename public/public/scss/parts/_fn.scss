@@ -171,7 +171,6 @@ $color_bg_light :#eee !default;
 @mixin absolute($args:null, $index:null){@include position(absolute, $args, $index);}
 @mixin fixed($args:null, $index:null){@include position(fixed, $args, $index);}
 @mixin relative($args:null, $index:null){@include position(relative, $args, $index);}
-// .element{@include absolute(top 0 left 1em);}
 
 @mixin keyframes($name){
 	// @-moz-keyframes #{$name}{@content}
@@ -204,6 +203,9 @@ $color_bg_light :#eee !default;
 	@include ib;@include size($width, $height);@include user-select(none);
 	font:14px/#{$height} "Microsoft YaHei";border:none;
 	@include border-radius(3px);color:invert($bgcolor);
+	@if($height==auto){
+		$height:1rem;
+	}
 	box-shadow: 0 #{$height*0.4} #{$height*0.525} #{-$height*0.35} lighten($bgcolor,3%);
 	text-align:center;background:$bgcolor;cursor:pointer;text-decoration:none;
 	@include prefix((transition:#{"background,box-shadow"} 0.35s ease-out));

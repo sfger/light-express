@@ -1,37 +1,33 @@
 @charset "utf-8";
-// *{@include box-sizing(border-box);}
+$bar_color:#b3b3b3 !default;
 .window-ctn{
-	@include imgc;@include fixed(top 0 left 0);_position:absolute;z-index:50;
-	@include background-color-rgba(#565656,0.72);
-	@include size(100%);display:none;text-align:center;
+	@include fixed(top 0 left 0, 50);_position:absolute;display:none;
+	@include imgc(0,'.window-wrapper');@include size(100%);
+	@include background-color-rgba(black,0.45);
 	.window-wrapper{
-		@include imge;margin-bottom:5%;
-		overflow:visible;background:white;text-align:left;
-		@include border-radius(5px);
+		@include imge;margin-bottom:5%;overflow:visible;
+		@include border-radius(5px);background:white;text-align:left;
 	}
-	.window-bar{background:#b6b6b6;padding:2px 0;}
+	.window-bar{background:$bar_color;padding:2px 0;}
 	.window-header{
-		@include imgc;@include user-select(none);overflow:visible;text-align:left;
-		@include border-top-left-radius(5px);@include border-top-right-radius(5px);
+		@include imgc;overflow:visible;text-align:left;
+		@include border-radius(5px 5px 0 0);@include user-select(none);
 		*zoom:0;*position:relative;
 	}
 	.window-title{
 		@include imge;line-height:30px;text-indent:5px;
 		width:100%;_width:auto;
-		// background:red;white-space:nowrap;
 	}
 	.window-closer{
-		// @include absolute(right 7px top 7px);
-		*position:absolute;*top:7px;*right:7px;
+		@media screen\9{@include absolute(top 7px right 7px);}
 		@include imge;@include size(20px);margin-left:-25px;border:none;
-		color:black;text-decoration:none;font:normal 20px/1 SimSun;color:#555;
+		text-decoration:none;font:normal 20px/1 SimSun;color:black;
 		@include prefix((transition:all 0.5s ease-out 0s));
-		&:hover{@include prefix((transform:rotate(360deg)));color:black;font-weight:bold;}
+		&:hover{@include prefix((transform:rotate(360deg)));font-weight:bold;}
 	}
-	// .window-contents{}
 	.window-view{overflow:auto;overflow-x:hidden;}
 	.window-footer{
-		@include border-bottom-left-radius(5px);@include border-bottom-right-radius(5px);
+		@include border-radius(0 0 5px 5px);
 		overflow:visible;*zoom:0;text-align:right;
 	}
 }

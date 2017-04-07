@@ -22,6 +22,7 @@ $.fn.slider = function(options){//{{{
 			store.options = options;
 			store.box = box;
 			store.listLength = store.$list.length;
+			if(!store.listLength) throw new Error('no slider items');
 			var $active_item = store.$list.filter('.active');
 			if( !$active_item.length ) $active_item = $list.eq(0).addClass('active');
 			if(options.miniMap){
@@ -101,4 +102,4 @@ $.fn.slider = function(options){//{{{
 		if(ui) ui.iSlider = instance;
 		else $this.data('ui', {iSlider:instance});
 	});
-};//}}};
+};//}}}
