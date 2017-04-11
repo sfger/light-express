@@ -514,7 +514,15 @@ $.fn.datagrid = function(options, ...args){
 			options.data.sort(this.getColumnSortFunction({order, field}));
 			sortElement.order = order;
 			sortElement.field = field;
-			return this.sort_table_dom(options);
+			let that = this;
+			$(this.render).addClass('state-loading');
+			setTimeout(function(){
+				that.sort_table_dom(options);
+				setTimeout(function(){
+					$(that.render).removeClass('state-loading');
+				}, 0);
+			}, 0);
+			return this;
 		},//}}}
 		sort_table_dom: function(options){//{{{
 			let frozenTrDoc    = document.createDocumentFragment(),
