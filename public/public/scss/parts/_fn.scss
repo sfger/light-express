@@ -70,16 +70,18 @@ $color_bg_light :#eee !default;
 	display:-webkit-box;-webkit-box-orient:vertical;
 	-webkit-line-clamp:2;
 }
-@mixin mln($line:2,$lineHeight:null){
+@mixin mln($line:2,$lineHeight:null,$max:''){
 	@extend %mln;
+	$max:if($max==1,'max-','');
 	@if($lineHeight){
 		line-height:$lineHeight;
-		height:$line*$lineHeight;
+		#{$max+'height'}:$line*$lineHeight;
 	}
 	-webkit-line-clamp:$line;
 }
 // .mln2{@include mln;}
-// .mln3{@include mln(3);}
+// .mln3{@include mln(3,3px);}
+// .mln3-max{@include mln(3,3px,1);}
 
 // 通用居中样式
 // 使用见_layout.scss

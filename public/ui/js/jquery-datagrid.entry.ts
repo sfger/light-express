@@ -378,7 +378,7 @@ $.fn.datagrid = function(options, ...args){
 			this.userOptions      = options = this._setOptions(options);
 			$(box).empty().append(get_table(options, this));
 			this.allColumns = [].concat(this.frozenColumns, this.columns, this.frozenEndColumns);
-			console.log(this.allColumns);
+			// console.log(this.allColumns);
 			this.fieldElements = this.allColumns.map(function(option){
 				return $('[data-field="'+option.field+'"]', box)[0];
 			});
