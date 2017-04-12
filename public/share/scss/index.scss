@@ -48,7 +48,16 @@ html{
 		th,td{padding:2px 4px;border:1px #666 solid;word-break:break-all;word-wrap:break-word;}
 		sub,sup{font-size:10px;}
 		p{text-indent:32px;text-indent:2rem;}
-		h1,h2,h3,h4,h5,h6,{line-height:normal;margin:8px 0;}
+		h1,h2,h3,h4,h5,h6,{line-height:normal;}
+		h1{margin:1.024em;text-align:center;}
+		h2,h3,h4,h5,h6{
+			margin:2em 0 1em 0;
+			@include relative;text-indent:12px;line-height:1.2;
+			&:before{
+				content:'';display:block;@include size(4px,100%);@include absolute(left 0);
+				background:#333;
+			}
+		}
 		h1{font-size:22px;}
 		h2{font-size:20px;}
 		h3{font-size:18px;}
@@ -56,6 +65,7 @@ html{
 		h5{font-size:14px;}
 		h6{font-size:12px;}
 		pre{margin:0;}
+		p{padding:15px;background:#eaeaea;border-left:4px solid #333;margin:1em 0;}
 	}
 }
 .article-bar{
