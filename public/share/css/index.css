@@ -177,11 +177,11 @@ html.full-screen #page, html.full-screen .home-page { height: 100%; }
 
 .article-page .md-ctn p { text-indent: 32px; text-indent: 2rem; }
 
-.article-page .md-ctn h1, .article-page .md-ctn h2, .article-page .md-ctn h3, .article-page .md-ctn h4, .article-page .md-ctn h5, .article-page .md-ctn h6 { line-height: normal; }
+.article-page .md-ctn h1, .article-page .md-ctn h2, .article-page .md-ctn h3, .article-page .md-ctn h4, .article-page .md-ctn h5, .article-page .md-ctn h6 { line-height: 1.2; font-family: SimHei; }
 
 .article-page .md-ctn h1 { margin: 1.024em; text-align: center; }
 
-.article-page .md-ctn h2, .article-page .md-ctn h3, .article-page .md-ctn h4, .article-page .md-ctn h5, .article-page .md-ctn h6 { margin: 2em 0 1em 0; position: relative; text-indent: 12px; line-height: 1.2; }
+.article-page .md-ctn h2, .article-page .md-ctn h3, .article-page .md-ctn h4, .article-page .md-ctn h5, .article-page .md-ctn h6 { margin: 2em 0 1em 0; position: relative; text-indent: 12px; }
 
 .article-page .md-ctn h2:before, .article-page .md-ctn h3:before, .article-page .md-ctn h4:before, .article-page .md-ctn h5:before, .article-page .md-ctn h6:before { content: ''; display: block; width: 4px; height: 100%; position: absolute; left: 0; background: #333; }
 
