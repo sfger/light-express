@@ -4,9 +4,7 @@
 
 .cf:after { clear: both; overflow: hidden; }
 
-.test, .imge, .imgc:before, .imgc .iecp, .imgc img, .ib, .img-tight:before, .img-tight .iecp, .img-tight img, .ib-row:before, .ib-row .iecp, .ib-col, .ib-col-full, .txt-justify:after, .txt-justify .iecp, .txt-justify .i, .navi-box a { display: inline-block; *display: inline; *zoom: 1; vertical-align: middle; }
-
-.test { vertical-align: baseline; }
+.imge, .imgc:before, .imgc .iecp, .imgc img, .ib, .img-tight:before, .img-tight .iecp, .img-tight img, .ib-row:before, .ib-row .iecp, .ib-col, .ib-col-full, .txt-justify:after, .txt-justify .iecp, .txt-justify .i, .navi-box a { display: inline-block; *display: inline; *zoom: 1; vertical-align: middle; }
 
 .imge { vertical-align: middle; font-size: 12px; font-size: 1rem; line-height: normal; }
 
