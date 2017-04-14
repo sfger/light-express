@@ -4,7 +4,7 @@
 
 .cf:after { clear: both; overflow: hidden; }
 
-audio, canvas, video, .imge, .imgc:before, .imgc .iecp, .imgc img, .ib, .img-tight:before, .img-tight .iecp, .img-tight img, .ib-row:before, .ib-row .iecp, .ib-col, .ib-col-full, .txt-justify:after, .txt-justify .iecp, .txt-justify .i, .tree-container .indent, .tree-container .join, .tree-container .hit, .tree-container .file, .tree-container .folder, .tree-container .checkbox, .tree-container .title, .tab-ctn .tab-header:before, .tab-ctn .tab-header .iecp, .tab-ctn .tab-header li, .tab-ctn .tab-header a:before, .tab-ctn .tab-header a .iecp, .tab-ctn .tab-header a span, .tab-ctn .tab-header .closer, .bottom span { display: inline-block; *display: inline; *zoom: 1; vertical-align: middle; }
+audio, canvas, video, .imge, .imgc:before, .imgc .iecp, .imgc img, .ib, .img-ctn:before, .img-ctn .iecp, .img-ctn img, .ib-row:before, .ib-row .iecp, .ib-col, .ib-col-full, .txt-jt:after, .txt-jt .iecp, .tree-container .indent, .tree-container .join, .tree-container .hit, .tree-container .file, .tree-container .folder, .tree-container .checkbox, .tree-container .title, .tab-ctn .tab-header:before, .tab-ctn .tab-header .iecp, .tab-ctn .tab-header li, .tab-ctn .tab-header a:before, .tab-ctn .tab-header a .iecp, .tab-ctn .tab-header a span, .tab-ctn .tab-header .closer, .bottom span { display: inline-block; *display: inline; *zoom: 1; vertical-align: middle; }
 
 .tab-ctn .tab-header .title { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
@@ -40,13 +40,15 @@ audio, canvas, video { vertical-align: middle; }
 
 .ib { vertical-align: middle; }
 
-.img-tight { font-size: 0; text-align: center; }
+.img-ctn { font-size: 0; text-align: center; }
 
-.img-tight:before, .img-tight .iecp { vertical-align: middle; }
+.img-ctn:before, .img-ctn .iecp { vertical-align: middle; }
 
-.img-tight:before, .img-tight .iecp { content: ""; height: 100%; font-size: 0; line-height: 0; width: 0; }
+.img-ctn:before, .img-ctn .iecp { content: ""; height: 100%; font-size: 0; line-height: 0; width: 0; }
 
-.img-tight img { vertical-align: middle; max-width: 100%; max-height: 100%; }
+.img-ctn img { vertical-align: middle; max-width: 100%; max-height: 100%; }
+
+.badge { border-radius: 50%; overflow: hidden; }
 
 .ib-row { font-size: 0; }
 
@@ -66,15 +68,13 @@ audio, canvas, video { vertical-align: middle; }
 
 .txt-ct { text-align: center; }
 
-.txt-justify { text-align: justify; }
+.txt-jt { text-align: justify; }
 
-.txt-justify.ie-pure-txt { text-justify: distribute-all-lines; }
+.txt-jt.ie-pure-txt { text-justify: distribute-all-lines; }
 
-.txt-justify:after { content: ''; }
+.txt-jt:after { content: ''; }
 
-.txt-justify:after, .txt-justify .iecp { vertical-align: middle; width: 100%; height: 0px; overflow: hidden; line-height: 0; padding: 0; border: none; }
-
-.txt-justify .i { vertical-align: middle; font-style: normal; }
+.txt-jt:after, .txt-jt .iecp { vertical-align: middle; width: 100%; height: 0px; overflow: hidden; line-height: 0; padding: 0; border: none; }
 
 .vt-top { vertical-align: top; }
 

@@ -6,7 +6,8 @@
 .imgc{@include imgc;}
 
 .ib{@include ib;}
-.img-tight{@include imgc(1);}
+.img-ctn{@include imgc(1);}
+.badge{border-radius:50%;overflow:hidden;}
 
 .ib-row{@include imgc(0,'',left);}
 .ib-col,.ib-col-full{@include imge(top);}
@@ -17,7 +18,7 @@
 .txt-lt{text-align:left;}
 .txt-rt{text-align:right;}
 .txt-ct{text-align:center;}
-.txt-justify{
+.txt-jt{
 	text-align:justify;
 	&.ie-pure-txt{text-justify:distribute-all-lines;}
 	&:after{content:'';}
@@ -25,7 +26,7 @@
 		@include ib;@include size(100%,0px);
 		overflow:hidden;line-height:0;padding:0;border:none;
 	}
-	.i{@include ib;font-style:normal;}
+	// .i{@include ib;font-style:normal;}
 }
 
 .vt-top{vertical-align:top;}

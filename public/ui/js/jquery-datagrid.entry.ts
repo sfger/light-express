@@ -416,12 +416,15 @@ $.fn.datagrid = function(options, ...args){
 			requestAnimationFrame(function(){
 				if(browser.version<8){
 					let $frozen_view = $('.frozen-view', that.render);
-					$('.auto-view', that.render).css({
+					let $auto_view = $('.auto-view', that.render);
+					$auto_view.css({
 						'width': 'auto',
 						'margin-left': $frozen_view[0].offsetWidth,
 						'margin-right': $frozen_view[1].offsetWidth
 					}).find('.body-wrapper').css({'margin-top':'-2px'});
-					$('.view-wrapper', that.render).addClass('txt-justify ie-pure-txt');
+					requestAnimationFrame(function(){
+						$frozen_view.eq(1).css({'margin-left':$('.body-wrapper',$auto_view)[0].offsetWidth});
+					});
 				}
 				requestAnimationFrame(function(){
 					that.userOptions.onCreate.bind(that)();
