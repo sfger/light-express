@@ -129,7 +129,7 @@ _:-ms-lang(x), .grid .col-rest { display: block; }
 
 @media \0screen\,screen\9 { .datagrid-render-ctn.state-loading { filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#B0000000,endColorstr=#B0000000); } }
 
-.datagrid-render-ctn.state-loading:before { content: "正在加载……"; display: block; position: absolute; top: 0; right: 0; bottom: 0; left: 0; margin: auto; height: 15px; line-height: 15px; text-align: center; color: white; }
+.datagrid-render-ctn.state-loading:before { content: "正在加载……"; display: block; position: absolute; top: 0; right: 0; bottom: 0; left: 0; z-index: 5; margin: auto; height: 15px; line-height: 15px; text-align: center; color: white; }
 
 .datagrid-ctn { overflow: hidden; vertical-align: middle; max-width: 100%; }
 
@@ -168,10 +168,6 @@ _:-ms-lang(x), .grid .col-rest { display: block; }
 .datagrid-ctn .head td:hover, .datagrid-ctn .body tr.hover { background: #e6e6e6; }
 
 .datagrid-ctn .cell { overflow: hidden; line-height: 20px; text-align: center; white-space: nowrap; color: #333; }
-
-.datagrid-ctn .cell.txt-rt { text-align: right; }
-
-.datagrid-ctn .cell.txt-lt { text-align: left; }
 
 .datagrid-ctn .field-title { margin-left: 12px; }
 

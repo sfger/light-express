@@ -7,7 +7,7 @@ $is_modern:0;
 		position:relative;@include background-color-rgba(black,0.692);color:transparent;
 		&:before{
 			content:"正在加载……";display:block;
-			@include absolute(left 0 right 0 top 0 bottom 0);margin:auto;
+			@include absolute(left 0 right 0 top 0 bottom 0,5);margin:auto;
 			height:15px;line-height:15px;text-align:center;color:white;
 		}
 	}
@@ -51,8 +51,8 @@ $is_modern:0;
 	.head td:hover,/*.body tr:hover,*/.body tr.hover{background:#e6e6e6;}
 	.cell{
 		overflow:hidden;line-height:20px;text-align:center;white-space:nowrap;color:#333;
-		&.txt-rt{text-align:right;}
-		&.txt-lt{text-align:left;}
+		// &.txt-rt{text-align:right;}
+		// &.txt-lt{text-align:left;}
 	}
 	.field-title{@extend %ib;margin-left:12px;}
 	.cell{height:100%;}
