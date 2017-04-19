@@ -22,7 +22,7 @@ app.Extension = Extension;
 app.set('views', Extension.view_dir);
 app.set('view engine', 'ejs');
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded());
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookie());
 // app.locals.__version__ = '__version__';
 app.use(session({name:'_SSID_', keys:['skey1', 'skey2']}));
