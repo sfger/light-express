@@ -60,6 +60,7 @@ define(function(){
 						{name:'WEB骇客', url:'http://www.webhek.com/'},
 						{name:'matrix67', url:'http://www.matrix67.com/'},
 						{name:'阮一峰', url:'http://www.ruanyifeng.com/blog/', target:"_blank"},
+						{name:"ANLY", url:'http://blog.lmj.wiki/'},
 						{name:'reygreen1', url:'http://reygreen1.github.io/'},
 						{name:'张鑫旭', url:'http://www.zhangxinxu.com'},
 						{name:'w3cplus', url:'http://www.w3cplus.com/'},
