@@ -22,9 +22,9 @@
 	<div class="slider">
 		<ul class="main-content">
 			<li><a href=""><img src="<%-node.get_img(870,400)%>" alt="" /></a></li>
-			<li><a href=""><img src="<%-node.get_img(970,400)%>" alt="" /></a></li>
+			<li><a href=""><img src="<%-node.get_img(970,300)%>" alt="" /></a></li>
 			<li class="active"><a href=""><img src="<%-node.get_img(270,400)%>" alt="" /></a></li>
-			<li><a href=""><img src="<%-node.get_img(270,400)%>" alt="" /></a></li>
+			<li><a href=""><img src="<%-node.get_img(270,300)%>" alt="" /></a></li>
 			<li><a href=""><img src="<%-node.get_img(270,400)%>" alt="" /></a></li>
 		</ul>
 		<a href="javascript:" class="btn-prev">&lt;</a>
@@ -68,7 +68,6 @@ require.config({
 });
 require(['jquery', 'ui/js/jquery-slider'],function($){
 	$('.slider').slider({
-		miniMap: true,
 		nextButton: '.slider .btn-next',
 		prevButton: '.slider .btn-prev'
 	});

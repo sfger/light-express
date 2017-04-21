@@ -4,20 +4,19 @@ $.fn.slider = function(options){//{{{
 		auto: true,
 		nextButton: null,
 		prevButton: null,
-		miniMap: false,
+		miniMap: 'auto',
 	}, options);
 	var handler = function(box, options){ return new handler.prototype.init(box, options); };
 	handler.prototype = {
-		store: {
-			hover:false,
-			options: null,
-			timer: null,
-			$list: null,
-			listLength: 0,
-			$miniMap: null
-		},
 		init: function(box, options){
-			var store = this.store;
+			var store = this.store = {
+				hover:false,
+				options: null,
+				timer: null,
+				$list: null,
+				listLength: 0,
+				$miniMap: null
+			};
 			var $list = store.$list = $(box).find('>ul>li');
 			store.options = options;
 			store.box = box;
@@ -26,14 +25,19 @@ $.fn.slider = function(options){//{{{
 			var $active_item = store.$list.filter('.active');
 			if( !$active_item.length ) $active_item = $list.eq(0).addClass('active');
 			if(options.miniMap){
-				if(options.miniMap===true){
-					var ret   = $('<div class="map-control"><ul></ul></div>');
+				if(options.miniMap===true || options.miniMap==='auto'){
+					var $ret   = $('<div class="map-control"><ul></ul></div>');
 					var index = $list.filter('.active').index();
 					for(var i=0,il=store.listLength; i<il; i++){
-						$('ul', ret).append('<li class="'+(index===i?'active':'')+'"></li>');
+						$('ul', $ret).append('<li class="'+(index===i?'active':'')+'"></li>');
 					}
-					store.$miniMap = ret.find('li');
-					$(box).append(ret);
+					store.$miniMap = $ret.find('li');
+					if(options.miniMap==='auto' && store.listLength==1){
+						$ret.hide();
+						$(store.prevButton).hide();
+						$(store.nextButton).hide();
+					}
+					$(box).append($ret);
 				}else if($.type(options.miniMap)=='string' && $(options.miniMap).length){
 					store.$miniMap = $(options.miniMap);
 				}
