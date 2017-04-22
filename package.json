@@ -7,6 +7,7 @@
   },
   "dependencies": {
     "@types/jquery": "^2.0.39",
+    "babel-loader": "^7.0.0",
     "babel-preset-es2015-native-modules": "^6.9.4",
     "body-parser": "^1.17.1",
     "cookie-parser": "^1.4.3",
@@ -28,7 +29,6 @@
   "devDependencies": {
     "args": "0.0.3",
     "babel-core": "^6.21.0",
-    "babel-loader": "^6.2.10",
     "babel-preset-es2015": "^6.18.0",
     "babel-preset-es2015-webpack2": "^1.0.0",
     "babel-preset-react": "^6.16.0",
