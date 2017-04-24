@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimal-ui" />
 <title>Document</title>
 <style>
 .ellipsis{overflow:hidden;line-height:25px;max-height:200px;height:200px;}
@@ -44,30 +45,43 @@ $('test').innerHTML = 'test '.repeat('549');
 var copy = {
 	input : null,
 	init: function(){
-		if(window.clipboardData) return;
-		var input = this.input = document.createElement('input');
+		/* if(window.clipboardData) return; */
+		var input = this.input = document.createElement('a');
 		input.style.cssText = "width:1px;height:1px;line-height:0;font-size:1px;overflow:hidden;color:transparent;border:none;position:fixed;right:0;bottom:0;background:transparent;box-shadow:none;";
 		document.body.appendChild(input);
 	},
 	string: function(str){
 		str = String(str);
-		if(window.clipboardData){
-			window.clipboardData.clearData();
-			window.clipboardData.setData("Text", str);
-		}else{
+		/* if(window.clipboardData){ */
+		/* 	window.clipboardData.clearData(); */
+		/* 	window.clipboardData.setData("Text", str); */
+		/* }else{ */
 			var input = this.input;
-			input.value = str;
-			var currentFocus = document.activeElement;
-			input.focus();
-			input.setSelectionRange(0, str.length);
-			document.execCommand('copy');
-			currentFocus && currentFocus.focus();
-		}
+			input.innerHTML = str;
+			if(document.selection){  
+				var range = document.body.createTextRange();  
+				range.moveToElementText(input);  
+				range.select();  
+			}else if(window.getSelection){  
+				var range = document.createRange();  
+				range.selectNode(input);  
+				window.getSelection().addRange(range);  
+			}
+			/* var input = this.input; */
+			/* input.value = str; */
+			/* var currentFocus = document.activeElement; */
+			/* input.focus(); */
+			/* input.setSelectionRange(0, str.length); */
+			/* document.execCommand('copy'); */
+			/* input.blur(); */
+			/* currentFocus && currentFocus.focus(); */
+		/* } */
 	}
 };
 copy.init();
-$('list').onclick = function(){
+$('list').onclick = function(e){
 	copy.string(Math.random());
+			document.execCommand('copy');
 };
 </script>
 </body>
