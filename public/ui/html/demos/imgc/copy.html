@@ -30,7 +30,7 @@ input : null,
 init: function(){
 /* if(window.clipboardData) return; */
 var input = this.input = document.createElement('a');
-input.style.cssText = "width:1px;height:1px;line-height:0;font-size:1px;overflow:hidden;color:transparent;border:none;position:fixed;right:0;bottom:0;background:transparent;box-shadow:none;";
+/* input.style.cssText = "width:1px;height:1px;line-height:0;font-size:1px;overflow:hidden;color:transparent;border:none;position:fixed;right:0;bottom:0;background:transparent;box-shadow:none;"; */
 document.body.appendChild(input);
 },
 string: function(str){
@@ -47,7 +47,7 @@ range.moveToElementText(input);
 range.select();
 }else if(window.getSelection){
 var range = document.createRange();
-range.selectNode(input);
+range.selectNodeContents(input);
 window.getSelection().addRange(range);
 }
 /* var input = this.input; */
@@ -55,7 +55,7 @@ window.getSelection().addRange(range);
 /* var currentFocus = document.activeElement; */
 /* input.focus(); */
 /* input.setSelectionRange(0, str.length); */
-/* document.execCommand('copy'); */
+document.execCommand('copy');
 /* input.blur(); */
 /* currentFocus && currentFocus.focus(); */
 /* } */
@@ -64,5 +64,4 @@ window.getSelection().addRange(range);
 copy.init();
 $('list').onclick = function(e){
 copy.string(Math.random());
-document.execCommand('copy');
 };</script></body></html>

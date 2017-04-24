@@ -2,12 +2,12 @@
 // @import "fn";
 // *,*:before,*:after,*::before,*::after{@include box-sizing(border-box);}
 .cf{@include cf;}
-.imge{@include imge;}
 .imgc{@include imgc;}
+.imge{@include imge;}
 
 .ib{@include ib;}
-.img-ctn{@include imgc(1);}
 .badge{border-radius:50%;overflow:hidden;}
+.img-ctn{@include imgc(1);}
 
 .ib-row{@include imgc(0,'',left);}
 .ib-col,.ib-col-full{@include imge(top);}

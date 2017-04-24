@@ -4,7 +4,7 @@
 
 .cf:after { clear: both; overflow: hidden; }
 
-audio, canvas, video, .imge, .imgc:before, .imgc .iecp, .imgc img, .ib, .img-tight:before, .img-tight .iecp, .img-tight img, .ib-row:before, .ib-row .iecp, .ib-col, .ib-col-full, .txt-justify:after, .txt-justify .iecp, .txt-justify .i, .tree-container .indent, .tree-container .join, .tree-container .hit, .tree-container .file, .tree-container .folder, .tree-container .checkbox, .tree-container .title { display: inline-block; *display: inline; *zoom: 1; vertical-align: middle; }
+audio, canvas, video, .imgc:before, .imgc .iecp, .imgc img, .imge, .ib, .img-ctn:before, .img-ctn .iecp, .img-ctn img, .ib-row:before, .ib-row .iecp, .ib-col, .ib-col-full, .txt-jt:after, .txt-jt .iecp, .tree-container .indent, .tree-container .join, .tree-container .hit, .tree-container .file, .tree-container .folder, .tree-container .checkbox, .tree-container .title { display: inline-block; *display: inline; *zoom: 1; vertical-align: middle; }
 
 *, *:before, *:after, *::before, *::after { -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
 
@@ -26,8 +26,6 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, nav, 
 
 audio, canvas, video { vertical-align: middle; }
 
-.imge { vertical-align: middle; font-size: 12px; font-size: 1rem; line-height: normal; }
-
 .imgc { font-size: 0; text-align: center; }
 
 .imgc:before, .imgc .iecp { vertical-align: middle; }
@@ -36,15 +34,19 @@ audio, canvas, video { vertical-align: middle; }
 
 .imgc img { vertical-align: middle; max-width: 100%; max-height: 100%; }
 
+.imge { vertical-align: middle; font-size: 12px; font-size: 1rem; line-height: normal; }
+
 .ib { vertical-align: middle; }
 
-.img-tight { font-size: 0; text-align: center; }
+.badge { border-radius: 50%; overflow: hidden; }
 
-.img-tight:before, .img-tight .iecp { vertical-align: middle; }
+.img-ctn { font-size: 0; text-align: center; }
 
-.img-tight:before, .img-tight .iecp { content: ""; height: 100%; font-size: 0; line-height: 0; width: 0; }
+.img-ctn:before, .img-ctn .iecp { vertical-align: middle; }
 
-.img-tight img { vertical-align: middle; max-width: 100%; max-height: 100%; }
+.img-ctn:before, .img-ctn .iecp { content: ""; height: 100%; font-size: 0; line-height: 0; width: 0; }
+
+.img-ctn img { vertical-align: middle; max-width: 100%; max-height: 100%; }
 
 .ib-row { font-size: 0; }
 
@@ -64,15 +66,13 @@ audio, canvas, video { vertical-align: middle; }
 
 .txt-ct { text-align: center; }
 
-.txt-justify { text-align: justify; }
+.txt-jt { text-align: justify; }
 
-.txt-justify.ie-pure-txt { text-justify: distribute-all-lines; }
+.txt-jt.ie-pure-txt { text-justify: distribute-all-lines; }
 
-.txt-justify:after { content: ''; }
+.txt-jt:after { content: ''; }
 
-.txt-justify:after, .txt-justify .iecp { vertical-align: middle; width: 100%; height: 0px; overflow: hidden; line-height: 0; padding: 0; border: none; }
-
-.txt-justify .i { vertical-align: middle; font-style: normal; }
+.txt-jt:after, .txt-jt .iecp { vertical-align: middle; width: 100%; height: 0px; overflow: hidden; line-height: 0; padding: 0; border: none; }
 
 .vt-top { vertical-align: top; }
 

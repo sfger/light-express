@@ -1,3 +1,5 @@
+.tooth { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
 .picker-container { display: block; position: fixed; top: 0; left: 0; z-index: 200; font: 10px "Helvetica Neue",Helvetica,Arial,sans-serif; background-color: rgba(0, 0, 0, 0.2); width: 100%; height: 100%; overflow: hidden; animation-fill-mode: both; }
 
 .area_ctrl { position: absolute; bottom: 0; left: 0; z-index: 201; width: 100%; height: auto; overflow: hidden; margin: 0; background-color: #d5d8df; color: #000; vertical-align: middle; transform: translate3d(0, 0, 0); }
@@ -31,4 +33,4 @@
 
 .area_btn_box:after { left: 0; bottom: 0; transform-origin: 50% 70%; }
 
-.tooth { height: 2em; line-height: 2em; overflow: hidden; display: -webkit-box; display: -webkit-flex; display: -moz-flex; display: -ms-flexbox; display: flex; -webkit-box-direction: normal; -webkit-box-orient: vertical; -webkit-flex-direction: column; -moz-flex-direction: column; -ms-flex-direction: column; flex-direction: column; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; text-align: center; }
+.tooth { height: 2em; line-height: 2em; overflow: hidden; display: -webkit-box; display: -webkit-flex; display: -moz-flex; display: -ms-flexbox; display: flex; -webkit-box-direction: normal; -webkit-box-orient: vertical; -webkit-flex-direction: column; -moz-flex-direction: column; -ms-flex-direction: column; flex-direction: column; text-align: center; }
