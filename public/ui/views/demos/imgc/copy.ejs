@@ -72,7 +72,7 @@ var copy = {
 			/* var currentFocus = document.activeElement; */
 			/* input.focus(); */
 			/* input.setSelectionRange(0, str.length); */
-			/* document.execCommand('copy'); */
+			document.execCommand('copy');
 			/* input.blur(); */
 			/* currentFocus && currentFocus.focus(); */
 		/* } */
@@ -81,7 +81,6 @@ var copy = {
 copy.init();
 $('list').onclick = function(e){
 	copy.string(Math.random());
-			document.execCommand('copy');
 };
 </script>
 </body>
