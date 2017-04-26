@@ -1,5 +1,5 @@
 <template>
-	<li @click="$emit('remove')">{{item.text}}, <slot name="index" txt="test"></slot></li>
+	<li @click="$emit('remove')">{{item.text}}, <slot name="index" txt="test">222</slot></li>
 </template>
 <script>
 export default {

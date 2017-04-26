@@ -2,7 +2,6 @@
 	<div id="app">
 		<transition-group appear name="fade" tag="ol">
 			<li is="list-item" v-for="(item,i) in list" :item="item" @remove="remove(i)" :key="item">
-				正在加载中……
 				<template scope="props" slot="index">这是第{{i+1}}个元素{{props.txt}}</template>
 			</li>
 		</transition-group>

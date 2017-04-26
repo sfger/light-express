@@ -4,9 +4,7 @@
 
 .cf:after { clear: both; overflow: hidden; }
 
-.imge, .imgc:before, .imgc .iecp, .imgc img, .ib, .img-ctn:before, .img-ctn .iecp, .img-ctn img, .ib-row:before, .ib-row .iecp, .ib-col, .ib-col-full, .txt-jt:after, .txt-jt .iecp, .navi-box a { display: inline-block; *display: inline; *zoom: 1; vertical-align: middle; }
-
-.imge { vertical-align: middle; font-size: 12px; font-size: 1rem; line-height: normal; }
+.imgc:before, .imgc .iecp, .imgc img, .imge, .ib, .img-ctn:before, .img-ctn .iecp, .img-ctn img, .ib-row:before, .ib-row .iecp, .ib-col, .ib-col-full, .txt-jt:after, .txt-jt .iecp, .navi-box a { display: inline-block; *display: inline; *zoom: 1; vertical-align: middle; }
 
 .imgc { font-size: 0; text-align: center; }
 
@@ -16,7 +14,11 @@
 
 .imgc img { vertical-align: middle; max-width: 100%; max-height: 100%; }
 
+.imge { vertical-align: middle; font-size: 12px; font-size: 1rem; line-height: normal; }
+
 .ib { vertical-align: middle; }
+
+.badge { border-radius: 50%; overflow: hidden; }
 
 .img-ctn { font-size: 0; text-align: center; }
 
@@ -25,8 +27,6 @@
 .img-ctn:before, .img-ctn .iecp { content: ""; height: 100%; font-size: 0; line-height: 0; width: 0; }
 
 .img-ctn img { vertical-align: middle; max-width: 100%; max-height: 100%; }
-
-.badge { border-radius: 50%; overflow: hidden; }
 
 .ib-row { font-size: 0; }
 
