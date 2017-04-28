@@ -45,37 +45,29 @@ $('test').innerHTML = 'test '.repeat('549');
 var copy = {
 	input : null,
 	init: function(){
-		/* if(window.clipboardData) return; */
 		var input = this.input = document.createElement('a');
-		/* input.style.cssText = "width:1px;height:1px;line-height:0;font-size:1px;overflow:hidden;color:transparent;border:none;position:fixed;right:0;bottom:0;background:transparent;box-shadow:none;"; */
+		input.style.cssText = "width:1px;height:1px;line-height:0;font-size:1px;overflow:hidden;color:transparent;border:none;position:fixed;right:0;bottom:0;background:transparent;box-shadow:none;";
 		document.body.appendChild(input);
 	},
 	string: function(str){
 		str = String(str);
-		/* if(window.clipboardData){ */
-		/* 	window.clipboardData.clearData(); */
-		/* 	window.clipboardData.setData("Text", str); */
-		/* }else{ */
-			var input = this.input;
-			input.innerHTML = str;
-			if(document.selection){  
-				var range = document.body.createTextRange();  
-				range.moveToElementText(input);  
-				range.select();  
-			}else if(window.getSelection){  
-				var range = document.createRange();  
-				range.selectNodeContents(input);  
-				window.getSelection().addRange(range);  
-			}
-			/* var input = this.input; */
-			/* input.value = str; */
-			/* var currentFocus = document.activeElement; */
-			/* input.focus(); */
-			/* input.setSelectionRange(0, str.length); */
+		var input = this.input;
+		input.innerHTML = str;
+		if(document.selection){  
+			document.selection.empty();
+			var range = document.body.createTextRange();  
+			range.moveToElementText(input);  
+			range.select();  
 			document.execCommand('copy');
-			/* input.blur(); */
-			/* currentFocus && currentFocus.focus(); */
-		/* } */
+			document.selection.empty();
+		}else if(window.getSelection){  
+			var range = document.createRange();  
+			range.selectNodeContents(input);  
+			window.getSelection().removeAllRanges()
+				window.getSelection().addRange(range);  
+			document.execCommand('copy');
+			window.getSelection().removeAllRanges()
+		}
 	}
 };
 copy.init();
