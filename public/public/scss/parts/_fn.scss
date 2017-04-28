@@ -192,9 +192,8 @@ $color_bg_light :#eee !default;
 @mixin useKeyframes($name){
 	@if($name==radioOut){
 		@include keyframes($name){
-			0%{@include prefix((transform:scale(0)),webkit);@include opacity(1);}
-			70%{@include prefix((transform:scale(2)),webkit);@include opacity(0.5);}
-			90%{@include prefix((transform:scale(2.5)),webkit);@include opacity(0.1);}
+			0%{@include prefix((transform:scale(0.1)),webkit);@include opacity(0.55);}
+			99%{@include prefix((transform:scale(2.2)),webkit);@include opacity(0.05);}
 			100%{@include prefix((transform:scale(0)),webkit);@include opacity(0);}
 		}
 	}
@@ -219,9 +218,10 @@ $color_bg_light :#eee !default;
 			@include relative;//overflow:hidden;
 			&:before{
 				content:'';
+				@include size(100%,0);padding-top:100%;margin:auto;
 				@include absolute(left 0 right 0 bottom 0 top 0,-1);
-				@include prefix((transform:scale(0)));
-				@include border-radius(100%);
+				// @include prefix((transform:scale(0)));
+				@include border-radius(50%);
 				// @include prefix((transition:transform 0s ease-out));
 			}
 		}
@@ -233,7 +233,7 @@ $color_bg_light :#eee !default;
 				@include prefix((transform:translateZ(0)));
 				&:before{
 					background-image:radial-gradient(darken($bgcolor,25%),transparent 99%);
-					@include prefix((animation:radioOut 0.2s ease-out 0s 1 normal),webkit);
+					@include prefix((animation:radioOut 0.12s ease-out 0s 1 forwards),webkit);
 					// @include prefix((animation-fill-mode:forwards),webkit);
 					// @include prefix((transition:transform 0.35s ease-out));
 					// @include prefix((transform:scale(2)));
