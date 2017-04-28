@@ -28,17 +28,12 @@ $('test').innerHTML = 'test '.repeat('549');
 var copy = {
 input : null,
 init: function(){
-/* if(window.clipboardData) return; */
 var input = this.input = document.createElement('a');
 input.style.cssText = "width:1px;height:1px;line-height:0;font-size:1px;overflow:hidden;color:transparent;border:none;position:fixed;right:0;bottom:0;background:transparent;box-shadow:none;";
 document.body.appendChild(input);
 },
 string: function(str){
 str = String(str);
-/* if(window.clipboardData){ */
-/* 	window.clipboardData.clearData(); */
-/* 	window.clipboardData.setData("Text", str); */
-/* }else{ */
 var input = this.input;
 input.innerHTML = str;
 if(document.selection){
@@ -56,14 +51,6 @@ window.getSelection().addRange(range);
 document.execCommand('copy');
 window.getSelection().removeAllRanges()
 }
-/* var input = this.input; */
-/* input.value = str; */
-/* var currentFocus = document.activeElement; */
-/* input.focus(); */
-/* input.setSelectionRange(0, str.length); */
-/* input.blur(); */
-/* currentFocus && currentFocus.focus(); */
-/* } */
 }
 };
 copy.init();

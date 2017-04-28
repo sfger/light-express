@@ -11,11 +11,7 @@ window.app = new Vue({
 	// 	});
 	// },
 	data: {
-		list: [
-			{text:'a'},
-			{text:'b'},
-			{text:'c'}
-		],
+		list: [],
 		selected:''
 	},
 	components: {
@@ -30,3 +26,12 @@ window.app = new Vue({
 		}
 	}
 });
+
+
+setTimeout(function(){
+	app.$data.list = [
+		{text:'a'},
+		{text:'b'},
+		{text:'c'}
+	]
+}, 1200);

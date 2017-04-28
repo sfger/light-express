@@ -1,10 +1,13 @@
 <template>
 	<div id="app">
-		<transition-group appear name="fade" tag="ol">
+		<transition-group appear name="fade" tag="ol" v-if="!!list.length">
 			<li is="list-item" v-for="(item,i) in list" :item="item" @remove="remove(i)" :key="item">
 				<template scope="props" slot="index">这是第{{i+1}}个元素{{props.txt}}</template>
 			</li>
 		</transition-group>
+		<ol v-else>
+			<li style="list-style:none;">暂无数据！</li>
+		</ol>
 		<select v-model="selectedValue">
 			<option value="">请选择</option>
 			<option value="0">A</option>
@@ -16,7 +19,7 @@
 </template>
 <script>
 import item from './item.vue';
-export default{
+export default {
 	name: 'app',
 	props: ['list', 'selected'],
 	components: {
@@ -31,6 +34,7 @@ export default{
 		selectedValue: function(val, o){
 			// this.$parent.$data.selected = val;
 			this.$emit('test', val,1,2,3,4);
+			if(val) this.list.push({text:val});
 		}
 	},
 	methods: {

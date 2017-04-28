@@ -34,7 +34,7 @@ module.exports = {
 			path.join(__dirname, "public"),
 			"node_modules"
 		],
-		extensions:['.ts', '.js', '.jsx', 'png', 'jpg'],
+		extensions:['.ts', '.vue', '.js', '.jsx', 'png', 'jpg'],
 		alias: {
 			root: path.resolve(__dirname, 'public/'),
 		}
