@@ -84,13 +84,15 @@ audio, canvas, video { vertical-align: middle; }
 
 .vt-bsl { vertical-align: baseline; }
 
-.grid { display: table; width: 100%; table-layout: fixed; display: -webkit-box; display: -webkit-flex; display: -moz-flex; display: -ms-flexbox; display: flex; }
+.grid { display: -webkit-box; display: -webkit-flex; display: -moz-flex; display: -ms-flexbox; display: flex; width: 100%; }
 
 @media \0screen { .grid { display: table; } }
 
 @media screen and (min-width: 0\0) and (min-resolution: 0.001dpcm) { .grid { display: table; } }
 
 .grid.layout-auto { table-layout: auto; }
+
+.grid.layout-fixed { table-layout: fixed; }
 
 .grid.grid-column { display: block; -webkit-box-direction: normal; -webkit-box-orient: vertical; -webkit-flex-direction: column; -moz-flex-direction: column; -ms-flex-direction: column; flex-direction: column; display: -webkit-box; display: -webkit-flex; display: -moz-flex; display: -ms-flexbox; display: flex; }
 
@@ -114,13 +116,17 @@ audio, canvas, video { vertical-align: middle; }
 
 .grid.vt-bsl .col, .grid.vt-bsl .col-rest { vertical-align: baseline; }
 
-.grid .col { display: table-cell; vertical-align: top; -webkit-box-flex: 0; -webkit-flex: 0 0 auto; -moz-box-flex: 0; -moz-flex: 0 0 auto; -ms-flex: 0 0 auto; flex: 0 0 auto; }
+.grid .col { -webkit-box-flex: 0; -webkit-flex: 0 0 auto; -moz-box-flex: 0; -moz-flex: 0 0 auto; -ms-flex: 0 0 auto; flex: 0 0 auto; }
 
-_:-ms-lang(x), .grid .col { display: block; }
+@media \0screen { .grid .col { display: table-cell; vertical-align: top; } }
 
-.grid .col-rest { display: table-cell; width: 100%; vertical-align: top; -webkit-box-flex: 1; -webkit-flex: 1 1 auto; -moz-box-flex: 1; -moz-flex: 1 1 auto; -ms-flex: 1 1 auto; flex: 1 1 auto; }
+@media screen and (min-width: 0\0) and (min-resolution: 0.001dpcm) { .grid .col { display: table-cell; vertical-align: top; } }
 
-_:-ms-lang(x), .grid .col-rest { display: block; }
+.grid .col-rest { -webkit-box-flex: 1; -webkit-flex: 1 1 auto; -moz-box-flex: 1; -moz-flex: 1 1 auto; -ms-flex: 1 1 auto; flex: 1 1 auto; width: 100%; }
+
+@media \0screen { .grid .col-rest { display: table-cell; vertical-align: top; } }
+
+@media screen and (min-width: 0\0) and (min-resolution: 0.001dpcm) { .grid .col-rest { display: table-cell; vertical-align: top; } }
 
 .layout-container { height: 100%; }
 
