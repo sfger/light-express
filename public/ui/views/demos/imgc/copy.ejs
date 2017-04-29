@@ -63,8 +63,8 @@ var copy = {
 		}else if(window.getSelection){  
 			var range = document.createRange();  
 			range.selectNodeContents(input);  
-			window.getSelection().removeAllRanges()
-				window.getSelection().addRange(range);  
+			window.getSelection().removeAllRanges();
+			window.getSelection().addRange(range);  
 			document.execCommand('copy');
 			window.getSelection().removeAllRanges()
 		}
