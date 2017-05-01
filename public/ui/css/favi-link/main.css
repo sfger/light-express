@@ -50,7 +50,7 @@ audio, canvas, video { vertical-align: middle; }
 
 .img-ctn img { vertical-align: middle; max-width: 100%; max-height: 100%; }
 
-.ib-row { font-size: 0; }
+.ib-row { font-size: 0; text-align: left; }
 
 .ib-row:before, .ib-row .iecp { vertical-align: middle; }
 
@@ -194,7 +194,7 @@ audio, canvas, video { vertical-align: middle; }
 
 .tree-draging-proxy { display: none; position: absolute; padding: 2px 8px; border: 1px solid #ccc; background: #eee; border-radius: 3px; }
 
-.tab-ctn .tab-header { font-size: 0; }
+.tab-ctn .tab-header { font-size: 0; text-align: left; }
 
 .tab-ctn .tab-header:before, .tab-ctn .tab-header .iecp { vertical-align: middle; }
 

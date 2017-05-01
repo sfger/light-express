@@ -92,10 +92,7 @@ $color_bg_light :#eee !default;
 }
 %imge{@include imge;}
 @mixin imgc($is_image:1, $selecor:img, $align:center, $vertical-align:middle, $rem:1rem){
-	font-size:0;
-	@if($align!=left){
-		text-align:$align;
-	}
+	font-size:0;text-align:$align;
 	@if($is_modern==0){
 		&:before,.iecp{@include ib($vertical-align);}
 		&:before,.iecp{content:"";height:100%;font-size:0;line-height:0;width:0;}

@@ -49,7 +49,7 @@ audio, canvas, video { vertical-align: middle; }
 
 .img-ctn img { vertical-align: middle; max-width: 100%; max-height: 100%; }
 
-.ib-row { font-size: 0; }
+.ib-row { font-size: 0; text-align: left; }
 
 .ib-row:before, .ib-row .iecp { vertical-align: middle; }
 
