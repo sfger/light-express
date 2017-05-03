@@ -446,7 +446,7 @@ $.fn.datagrid = function(options, ...args){
 			if(options.triggerRow && (options.frozenColumns.length || options.frozenEndColumns.length)) $box.on({
 				mouseenter: function(e){
 					let target = this;
-					let box = e.delegateTarget;
+					let box:any = e.delegateTarget;
 					if(box._triggering_in){
 						cancelAnimationFrame(box._triggering_in);
 						box._triggering_in = null;
@@ -459,7 +459,7 @@ $.fn.datagrid = function(options, ...args){
 					});
 				},
 				mouseleave: function(e){
-					let box = e.delegateTarget;
+					let box:any = e.delegateTarget;
 					if(box._triggering_out){
 						cancelAnimationFrame(box._triggering_out);
 						box._triggering_out = null;
