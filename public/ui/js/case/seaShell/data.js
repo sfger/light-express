@@ -143,6 +143,7 @@ define(function(){
 						{name:'Git cmd', url:'https://shfshanyue.github.io/cheat-sheets/git'},
 						{name:'egg', url:'https://eggjs.org/'},
 						{name:'AlloyTouch', url:'http://alloyteam.github.io/AlloyTouch/index.html'},
+						{name:'Gitmoji', url:'https://github.com/carloscuesta/gitmoji'},
 						{name:'WXOpen', url:'https://mp.weixin.qq.com/'},
 						{name:'小程序', url:'https://mp.weixin.qq.com/debug/wxadoc/dev/'}
 					]
@@ -154,6 +155,7 @@ define(function(){
 						{name:'TypeScript', url:'https://basarat.gitbooks.io/typescript/content/'},
 						{name:'TypeScript入门教程', url:'https://ts.xcatliu.com/'},
 						{name:'React Guide', url:'http://huziketang.com/books/react/'},
+						{name:'Colors', url:'https://github.com/mrmrs/colors'},
 						{name:'Know it all', url:'https://know-it-all.io/'},
 						{name:'Shell Search', url:'https://jaywcjlove.github.io/linux-command/'},
 						{name:'ituring', url:'http://www.ituring.com.cn/'},
