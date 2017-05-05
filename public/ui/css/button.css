@@ -160,4 +160,4 @@ audio, canvas, video { vertical-align: middle; }
 
 .btn:active { outline: thin dotted; outline-offset: -2px; box-shadow: 0 19.35px 30.825px -11.25px black; background-color: black; -webkit-transform: translateZ(0); transform: translateZ(0); }
 
-.btn:active:before { background-image: radial-gradient(gray, gray 100%); background-image: -webkit-radial-gradient(gray, gray 100%); -webkit-animation: radioOut 0.32s ease-in-out 0s 1 forwards; animation: radioOut 0.32s ease-in-out 0s 1 forwards; }
+.btn:active:before { background-image: -webkit-radial-gradient(gray, gray 100%); background-image: radial-gradient(gray, gray 100%); -webkit-animation: radioOut 0.32s ease-in-out 0s 1 forwards; animation: radioOut 0.32s ease-in-out 0s 1 forwards; }

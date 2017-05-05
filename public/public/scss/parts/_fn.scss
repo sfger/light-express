@@ -230,8 +230,8 @@ $color_bg_light :#eee !default;
 				@include prefix((transform:translateZ(0)));
 				&:before{
 					// background:lighten($bgcolor,50%);
-					background-image:radial-gradient(lighten($bgcolor,50%),lighten($bgcolor,50%) 100%);
 					background-image:-webkit-radial-gradient(lighten($bgcolor,50%),lighten($bgcolor,50%) 100%);
+					background-image:radial-gradient(lighten($bgcolor,50%),lighten($bgcolor,50%) 100%);
 					@include prefix((animation:radioOut 0.32s ease-in-out 0s 1 forwards),webkit);
 					// @include prefix((animation-fill-mode:forwards),webkit);
 					// @include prefix((transition:transform 0.35s ease-out));
