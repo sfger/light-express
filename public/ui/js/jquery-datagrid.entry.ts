@@ -2,7 +2,6 @@ import "../../public/js/requestAnimationFrame";
 import {createElement} from "../../public/js/parts/fn";
 $.fn.datagrid = function(options, ...args){
 	if('string'===$.type(options)){//{{{
-		// let args = Array.prototype.slice.call(arguments).slice(1);
 		let ret = this.toArray().map(function(one){
 			let ui = $(one).data('ui');
 			if(ui && ui.iDatagrid){
