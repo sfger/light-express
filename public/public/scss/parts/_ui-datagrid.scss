@@ -24,7 +24,7 @@ $is_modern:0;
 	}
 	.body-wrapper{
 		table,tr:first-child td{border-top:none;}
-		tr:nth-child(even){background:#ffe;}
+		tr:nth-child(even){@include background-color-rgba(#ffe,0.78);}
 	}
 	.frozen-view .body-wrapper{
 		overflow:hidden;
@@ -48,7 +48,7 @@ $is_modern:0;
 		}
 		table,td:first-child{border-left:none;}
 	}
-	.head td:hover,/*.body tr:hover,*/.body tr.hover{background:#e6e6e6;}
+	.head td:hover,/*.body tr:hover,*/.body tr.hover{@include background-color-rgba(#e6e6e6,0.78);}
 	.cell{
 		overflow:hidden;line-height:20px;text-align:center;white-space:nowrap;color:#333;
 		// &.txt-rt{text-align:right;}
@@ -57,7 +57,7 @@ $is_modern:0;
 	.field-title{@extend %ib;margin-left:12px;}
 	.cell{height:100%;}
 	.sortable{
-		cursor:pointer;background:#f3f3f3;
+		cursor:pointer;@include background-color-rgba(#f3f3f3,0.78);
 		// filter:progid:DXImageTransform.Microsoft.Gradient(gradientType=0, startColorStr=#f3f3f3, endColorStr=#d1d1d1);
 		// background:gradient(top, #f3f3f3, #d1d1d1, #f3f3f3);
 		// background:-moz-linear-gradient(top, #f3f3f3, #d1d1d1, #f3f3f3);
@@ -66,7 +66,7 @@ $is_modern:0;
 		// background:-o-linear-gradient(top, #f3f3f3 0%, #d1d1d1 50%,#f3f3f3 100%);
 		// background:-ms-linear-gradient(top, #f3f3f3 0%, #d1d1d1 50%,#f3f3f3 100%);
 		// background:linear-gradient(to bottom, #f3f3f3 0%, #d1d1d1 50%,#f3f3f3 100%);
-		&:hover{background:#e6e6e6;}
+		&:hover{@include background-color-rgba(#e6e6e6,0.78);}
 		// .sort-mark:before{content:"↓";color:#eee;}
 	}
 	.sort-mark{

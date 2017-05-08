@@ -211,7 +211,7 @@ var extension  = {
 						maxFileSize:20480
 					}),
 					require('precss')({}),
-					require('postcss-urlrev')({})
+					require('postcss-urlrev')({includeRemote:true})
 				]).process(result.css, {
 					from:in_file, to:out_file
 				}).then(result=>{
