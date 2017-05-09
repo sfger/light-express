@@ -226,8 +226,6 @@ audio, canvas, video { vertical-align: middle; }
 
 .tab-ctn .tab-header .closer:active { box-shadow: 0 6.88px 10.96px -4px transparent; background-color: transparent; }
 
-.tab-ctn .tab-header .closer:active[data-animation] { background-color: transparent; }
-
 .tab-ctn .tab-header .closer:hover { background: #ccc; }
 
 .tab-ctn .tab-content { height: 100%; }
