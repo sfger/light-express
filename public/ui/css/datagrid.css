@@ -153,7 +153,9 @@ audio, canvas, video { vertical-align: middle; }
 
 .datagrid-ctn .body-wrapper table, .datagrid-ctn .body-wrapper tr:first-child td { border-top: none; }
 
-.datagrid-ctn .body-wrapper tr:nth-child(even) { background: #ffe; }
+.datagrid-ctn .body-wrapper tr:nth-child(even) { background-color: rgba(255, 255, 238, 0.78); }
+
+@media \0screen\,screen\9 { .datagrid-ctn .body-wrapper tr:nth-child(even) { filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#C7FFFFEE,endColorstr=#C7FFFFEE); } }
 
 .datagrid-ctn .frozen-view .body-wrapper { overflow: hidden; }
 
@@ -171,7 +173,9 @@ audio, canvas, video { vertical-align: middle; }
 
 .datagrid-ctn .auto-view table, .datagrid-ctn .auto-view td:first-child { border-left: none; }
 
-.datagrid-ctn .head td:hover, .datagrid-ctn .body tr.hover { background: #e6e6e6; }
+.datagrid-ctn .head td:hover, .datagrid-ctn .body tr.hover { background-color: rgba(230, 230, 230, 0.78); }
+
+@media \0screen\,screen\9 { .datagrid-ctn .head td:hover, .datagrid-ctn .body tr.hover { filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#C7E6E6E6,endColorstr=#C7E6E6E6); } }
 
 .datagrid-ctn .cell { overflow: hidden; line-height: 20px; text-align: center; white-space: nowrap; color: #333; }
 
@@ -179,9 +183,13 @@ audio, canvas, video { vertical-align: middle; }
 
 .datagrid-ctn .cell { height: 100%; }
 
-.datagrid-ctn .sortable { cursor: pointer; background: #f3f3f3; }
+.datagrid-ctn .sortable { cursor: pointer; background-color: rgba(243, 243, 243, 0.78); }
 
-.datagrid-ctn .sortable:hover { background: #e6e6e6; }
+@media \0screen\,screen\9 { .datagrid-ctn .sortable { filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#C7F3F3F3,endColorstr=#C7F3F3F3); } }
+
+.datagrid-ctn .sortable:hover { background-color: rgba(230, 230, 230, 0.78); }
+
+@media \0screen\,screen\9 { .datagrid-ctn .sortable:hover { filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#C7E6E6E6,endColorstr=#C7E6E6E6); } }
 
 .datagrid-ctn .sort-mark { vertical-align: middle; width: 12px; text-align: center; font-family: SimSun; color: #b90; }
 

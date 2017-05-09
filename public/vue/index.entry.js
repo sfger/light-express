@@ -12,7 +12,7 @@ window.app = new Vue({
 	// },
 	data: {
 		list: [],
-		selected:''
+		selected:'2'
 	},
 	components: {
 		'list-item': {

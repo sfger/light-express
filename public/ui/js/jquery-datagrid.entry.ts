@@ -1,3 +1,4 @@
+declare var $:any;
 import "../../public/js/requestAnimationFrame";
 import {createElement} from "../../public/js/parts/fn";
 $.fn.datagrid = function(options, ...args){
