@@ -14,17 +14,16 @@
 <link rel="stylesheet" type="text/css" href="../../../css/datagrid.css?<%- __version__ %>" />
 <style type="text/css" media="all">
 *{padding:0;margin:0;font-size:14px;}
-#my_datagrid{height:400px;width:auto;_width:100%;border:1px solid green;}
-/* .datagrid-ctn .body-wrapper{max-height:304px;} */
-.datagrid-ctn{}
+.my-datagrid{height:400px;width:50%;overflow:hidden;float:left;}
 .warn{color:#ff0101;}
 .normal{color:#008f1f;}
 </style>
 </head>
 <body>
 <div id="page">
-	<div id="my_datagrid"></div>
-	data table desc
+	<div class="my-datagrid"></div>
+	<div class="my-datagrid"></div>
+	<a id="btn-refresh" href="javascript:">刷新数据</a>
 </div>
 <!--[if lt IE 9]>
 <script src="../../../../public/js/es5-shim.js"></script>
@@ -160,13 +159,16 @@ var options = {
 			{field:'col-33'}
 		]
 	],
-	onCreate:function(){
+	onUpdate:function(){
 		console.log('Load time: ' + (Date.now()-stime));
 	}
 };
 var stime = Date.now();
-window.$grid = $('#my_datagrid');
+var $grid = $('.my-datagrid');
 $grid.datagrid(options);
+$('#btn-refresh').click(function(){
+	$grid.eq(-1).datagrid('update', {data:gen_data});
+});
 /*
 setInterval(function(){
 	stime = Date.now();

@@ -1,7 +1,8 @@
 @charset "utf-8";
 $is_modern:0;
 .datagrid-render-ctn{
-	overflow:hidden;//@include prefix((transition:all 0.1s ease-out));color:#666;
+	width:100%;overflow:hidden;//@include prefix((transition:all 0.1s ease-out));color:#666;
+	border-bottom:1px solid #ccc;
 	&.state-loading{
 		.view-wrapper{z-index:-1;}
 		position:relative;@include background-color-rgba(black,0.692);color:transparent;
@@ -13,7 +14,7 @@ $is_modern:0;
 	}
 }
 .datagrid-ctn{
-	overflow:hidden;@include ib;max-width:100%;
+	max-width:100%;overflow:hidden;@include ib;
 	.view-wrapper{position:relative;*white-space:nowrap;*overflow:hidden;}
 	.col-view{*display:inline;*zoom:1;}
 	.head-wrapper{overflow:hidden;}
@@ -30,9 +31,7 @@ $is_modern:0;
 		overflow:hidden;
 		// table{margin-bottom:17px;}
 	}
-	.frozen-end{
-		@include relative(left -1px);
-	}
+	// .frozen-end{@include relative(left -1px);}
 	.auto-view{
 		// @include flex(0,0,auto);
 		// width:auto;
@@ -48,7 +47,10 @@ $is_modern:0;
 		}
 		table,td:first-child{border-left:none;}
 	}
-	.head td:hover,/*.body tr:hover,*/.body tr.hover{@include background-color-rgba(#e6e6e6,0.78);}
+	.head td:hover,/*.body tr:hover,*/.body tr.hover{
+		@include background-color-rgba(#e6e6e6,0.78);
+		@media \0screen\,screen\9{background-color:#e6e6e6;}
+	}
 	.cell{
 		overflow:hidden;line-height:20px;text-align:center;white-space:nowrap;color:#333;
 		// &.txt-rt{text-align:right;}

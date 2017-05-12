@@ -1,9 +1,7 @@
 <!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8" /><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" /><title>Title</title><meta name="apple-mobile-web-app-capable" content="yes" /><meta name="apple-mobile-web-app-status-bar-style" content="black" /><meta name="format-detection" content="telephone=no" /><meta name="author" content="" /><meta name="revisit-after" content="1 days" /><meta name="keywords" content="" /><meta name="description" content="" /><link rel="stylesheet" type="text/css" href="../../../css/datagrid.css?__version__" /><style type="text/css" media="all">*{padding:0;margin:0;font-size:14px;}
-#my_datagrid{height:400px;width:auto;_width:100%;border:1px solid green;}
-/* .datagrid-ctn .body-wrapper{max-height:304px;} */
-.datagrid-ctn{}
+.my-datagrid{height:400px;width:50%;overflow:hidden;float:left;}
 .warn{color:#ff0101;}
-.normal{color:#008f1f;}</style></head><body><div id="page"><div id="my_datagrid"></div>data table desc</div><!--[if lt IE 9]><script src="../../../../public/js/es5-shim.js"></script><script src="../../../../public/js/es5-sham.js"></script><![endif]--><script id="requirejs" data-version="__version__" src="../../../../public/js/require.js?__version__"></script><script>require.config({
+.normal{color:#008f1f;}</style></head><body><div id="page"><div class="my-datagrid"></div><div class="my-datagrid"></div><a id="btn-refresh" href="javascript:">刷新数据</a></div><!--[if lt IE 9]><script src="../../../../public/js/es5-shim.js"></script><script src="../../../../public/js/es5-sham.js"></script><![endif]--><script id="requirejs" data-version="__version__" src="../../../../public/js/require.js?__version__"></script><script>require.config({
 baseUrl:'../../../../',
 urlArgs:document.getElementById("requirejs").getAttribute("data-version"),
 map:{"*":{css:"require-css"}},
@@ -131,13 +129,16 @@ return val;
 {field:'col-33'}
 ]
 ],
-onCreate:function(){
+onUpdate:function(){
 console.log('Load time: ' + (Date.now()-stime));
 }
 };
 var stime = Date.now();
-window.$grid = $('#my_datagrid');
+var $grid = $('.my-datagrid');
 $grid.datagrid(options);
+$('#btn-refresh').click(function(){
+$grid.eq(-1).datagrid('update', {data:gen_data});
+});
 /*
 setInterval(function(){
 stime = Date.now();

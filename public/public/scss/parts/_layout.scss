@@ -1,6 +1,4 @@
 @charset "utf-8";
-// @import "fn";
-// *,*:before,*:after,*::before,*::after{@include box-sizing(border-box);}
 .cf{@include cf;}
 .imgc{@include imgc;}
 .imge{@include imge;}

@@ -7,7 +7,15 @@
 
 audio, canvas, video, .imgc:before, .imgc .iecp, .imgc img, .imge, .ib, .img-ctn:before, .img-ctn .iecp, .img-ctn img, .ib-row:before, .ib-row .iecp, .ib-col, .ib-col-full, .txt-jt:after, .txt-jt .iecp, .datagrid-ctn, .datagrid-ctn .field-title, .datagrid-ctn .sort-mark { display: inline-block; *display: inline; *zoom: 1; vertical-align: middle; }
 
-*, *:before, *:after, *::before, *::after { -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
+* { -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
+
+*:before { -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
+
+*:after { -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
+
+*::before { -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
+
+*::after { -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
 
 html, body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, form, fieldset, legend, input, button, textarea, hr, pre, code, p, blockquote, th, td { margin: 0; padding: 0; }
 
@@ -127,7 +135,7 @@ audio, canvas, video { vertical-align: middle; }
 
 @media screen and (min-width: 0\0) and (min-resolution: 0.001dpcm) { .grid .col-rest { display: table-cell; vertical-align: top; } }
 
-.datagrid-render-ctn { overflow: hidden; }
+.datagrid-render-ctn { width: 100%; overflow: hidden; border-bottom: 1px solid #ccc; }
 
 .datagrid-render-ctn.state-loading { position: relative; background-color: rgba(0, 0, 0, 0.692); color: transparent; }
 
@@ -137,7 +145,7 @@ audio, canvas, video { vertical-align: middle; }
 
 .datagrid-render-ctn.state-loading:before { content: "正在加载……"; display: block; position: absolute; top: 0; right: 0; bottom: 0; left: 0; z-index: 5; margin: auto; height: 15px; line-height: 15px; text-align: center; color: white; }
 
-.datagrid-ctn { overflow: hidden; vertical-align: middle; max-width: 100%; }
+.datagrid-ctn { max-width: 100%; overflow: hidden; vertical-align: middle; }
 
 .datagrid-ctn .view-wrapper { position: relative; *white-space: nowrap; *overflow: hidden; }
 
@@ -159,8 +167,6 @@ audio, canvas, video { vertical-align: middle; }
 
 .datagrid-ctn .frozen-view .body-wrapper { overflow: hidden; }
 
-.datagrid-ctn .frozen-end { position: relative; left: -1px; }
-
 .datagrid-ctn .auto-view { *position: absolute; *top: 0; *right: 0; }
 
 .datagrid-ctn .auto-view .body-wrapper { overflow: auto; }
@@ -176,6 +182,8 @@ audio, canvas, video { vertical-align: middle; }
 .datagrid-ctn .head td:hover, .datagrid-ctn .body tr.hover { background-color: rgba(230, 230, 230, 0.78); }
 
 @media \0screen\,screen\9 { .datagrid-ctn .head td:hover, .datagrid-ctn .body tr.hover { filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#C7E6E6E6,endColorstr=#C7E6E6E6); } }
+
+@media \0screen\,screen\9 { .datagrid-ctn .head td:hover, .datagrid-ctn .body tr.hover { background-color: #e6e6e6; } }
 
 .datagrid-ctn .cell { overflow: hidden; line-height: 20px; text-align: center; white-space: nowrap; color: #333; }
 

@@ -157,7 +157,7 @@ $.fn.datagrid = function(options, ...args){
 		let ret:any = {//{{{
 			name:'div', attr:{'class':'datagrid-ctn'}, children:{
 				name:'div',
-				attr:{'class':'view-wrapper grid layout-auto' + (options.autoRowHeight ? ' autoRowHeight' : '')},
+				attr:{'class':'view-wrapper grid' + (options.autoRowHeight ? ' autoRowHeight' : '')},
 				children:[{
 					name:'div',
 					attr:{'class':'col-rest col-view auto-view'+(options.frozenColumns.length||options.frozenEndColumns.length ? ' locate-view' : '')},
@@ -277,12 +277,10 @@ $.fn.datagrid = function(options, ...args){
 			this._scroll_id = requestAnimationFrame(update_scroll_offset.bind(this));
 		});
 		if(options.autoColWidth){
+			let column = that.fieldElements;
+			if(options.rowNum) column = [$('tr:eq(0) td:eq(0) .cell', $tables[0])[0]].concat(column);
 			align_cell_row([
-				(function(){
-					let column = that.fieldElements;
-					if(options.rowNum) column = [$('tr:eq(0) td:eq(0) .cell', $tables[0])[0]].concat(column);
-					return column;
-				})(),
+				column,
 				$tables.filter('table:odd').find('tr:first-child td .cell').toArray()
 			], 'width');
 		}else if(options.rowNum){
@@ -303,10 +301,9 @@ $.fn.datagrid = function(options, ...args){
 				let scroll_height = tb3.scrollHeight - tb3.clientHeight;
 				let _sh = tb3.scrollTop - (originalEvent.wheelDelta || -(originalEvent.detail/3)*120);
 				$(list).animate({scrollTop:'+'+(_sh>scroll_height?scroll_height:_sh)+'px'}, 230);
-				// return false;
 			});
 			if(options.autoRowHeight){
-				align_cell_row($('table:odd').toArray().map(function(table){
+				align_cell_row($('table:odd', that.render).toArray().map(function(table){
 					return $('td:first-child', table).toArray();
 				}), 'height');
 			}
@@ -331,15 +328,16 @@ $.fn.datagrid = function(options, ...args){
 		});
 	}//}}}
 	handler.prototype = {
-		defaultOrder: false, //true:desc, false:asc
+		sortOrderDesc: false, //true:desc, false:asc
 		init: function(box, options){//{{{
 			this.render = box;
 			this.update(options);
 			this.init_event(options);
+			options.onCreate && options.onCreate.bind(this)();
 		},//}}}
 		update: function(options){// {{{
 			let that = this;
-			this.render.className = 'datagrid-render-ctn state-loading';
+			$(this.render).addClass('datagrid-render-ctn state-loading');
 			setTimeout(function(){
 				if('function'===$.type(options.data)){
 					options.data(function(data){
@@ -416,7 +414,7 @@ $.fn.datagrid = function(options, ...args){
 			requestAnimationFrame(function(){
 				if(browser.version<8){
 					let $frozen_view = $('.frozen-view', that.render);
-					let $auto_view = $('.auto-view', that.render);
+					let $auto_view   = $('.auto-view', that.render);
 					$auto_view.css({
 						'width': 'auto',
 						'margin-left': $frozen_view[0].offsetWidth,
@@ -427,8 +425,8 @@ $.fn.datagrid = function(options, ...args){
 					});
 				}
 				requestAnimationFrame(function(){
-					that.userOptions.onCreate.bind(that)();
 					$(that.render).removeClass('state-loading');
+					that.userOptions.onUpdate && that.userOptions.onUpdate.bind(that)();
 				});
 			});
 			return this;
@@ -440,7 +438,7 @@ $.fn.datagrid = function(options, ...args){
 				let cell:any = $('.cell', this)[0];
 				that.sortBy({
 					field: $(cell).data('field'),
-					order: !cell.order||that.defaultOrder
+					order: !cell.order||that.sortOrderDesc
 				}, cell);
 			});
 			if(options.triggerRow && (options.frozenColumns.length || options.frozenEndColumns.length)) $box.on({
