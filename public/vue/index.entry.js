@@ -27,7 +27,6 @@ window.app = new Vue({
 	}
 });
 
-
 setTimeout(function(){
 	app.$data.list = [
 		{text:'a'},
