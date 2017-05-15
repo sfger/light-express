@@ -92,13 +92,13 @@ audio, canvas, video { vertical-align: middle; }
 
 .grid { display: -webkit-box; display: -webkit-flex; display: -moz-flex; display: -ms-flexbox; display: flex; width: 100%; }
 
-@media \0screen { .grid { display: table; } }
+@media \0screen { .grid { display: table; }
+	.grid.layout-auto { table-layout: auto; }
+	.grid.layout-fixed { table-layout: fixed; } }
 
-@media screen and (min-width: 0\0) and (min-resolution: 0.001dpcm) { .grid { display: table; } }
-
-.grid.layout-auto { table-layout: auto; }
-
-.grid.layout-fixed { table-layout: fixed; }
+@media screen and (min-width: 0\0) and (min-resolution: 0.001dpcm) { .grid { display: table; }
+	.grid.layout-auto { table-layout: auto; }
+	.grid.layout-fixed { table-layout: fixed; } }
 
 .grid.grid-column { display: block; -webkit-box-direction: normal; -webkit-box-orient: vertical; -webkit-flex-direction: column; -moz-flex-direction: column; -ms-flex-direction: column; flex-direction: column; display: -webkit-box; display: -webkit-flex; display: -moz-flex; display: -ms-flexbox; display: flex; }
 

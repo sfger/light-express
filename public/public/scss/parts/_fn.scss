@@ -409,10 +409,16 @@ $color_warning  :#f90 !default;
 
 @mixin grid(){
 	@include flexbox;width:100%;
-	@media \0screen{display:table;}
-	@media screen and (min-width:0\0) and (min-resolution:.001dpcm){display:table;}
-	&.layout-auto{table-layout:auto;}
-	&.layout-fixed{table-layout:fixed;}
+	@media \0screen{
+		display:table;
+		&.layout-auto{table-layout:auto;}
+		&.layout-fixed{table-layout:fixed;}
+	}
+	@media screen and (min-width:0\0) and (min-resolution:.001dpcm){
+		display:table;
+		&.layout-auto{table-layout:auto;}
+		&.layout-fixed{table-layout:fixed;}
+	}
 	&.grid-column{
 		display:block;
 		>.col,>.col-reset{display:block;}
