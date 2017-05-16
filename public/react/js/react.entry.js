@@ -30,20 +30,10 @@ __non_webpack_require__(['react', 'react-dom'], function(React, ReactDOM){
 	// }
 	const reducer = combineReducers(reducers);
 	const store = createStore(reducer, {
-		num:0,
-		list:[]
+		num:3,
+		list:['test','list']
 	});
 	const {dispatch, subscribe, getState} = store;
-	console.log(store);
-	console.log(getState());
-	dispatch({type:'ADD'});
-	console.log(getState());
-	dispatch({type:'PUSH', text:'test'});
-	console.log(getState());
-	dispatch({type:'PUSH', text:'list'});
-	console.log(getState());
-	dispatch({type:'POP'});
-	console.log(getState());
 
 	let CommentBox = React.createClass({
 		getInitialState: function(){
@@ -63,10 +53,32 @@ __non_webpack_require__(['react', 'react-dom'], function(React, ReactDOM){
 			});
 			console.log(111,this.state.count);
 		},
+		num: function(){
+			dispatch({type:'ADD'});
+		},
+		list: function(){
+			dispatch({type:'PUSH', text:Number(String(Math.random()).slice(2)).toString(16)});
+		},
 		render: function(){
 			return (
-				<div className="commentBox" data-test="test" onClick={this.test}>
-				{this.props.title}! I am a CommentBox. Counter: {this.state.count}
+				<div className="commentBox">
+				<div>
+				<a href="javascript:" data-test="test" onClick={this.test}>{this.props.title}! I am a CommentBox. Counter: {this.state.count}</a>
+				</div>
+				<div>
+				<a href="javascript:" onClick={this.num}>Add num</a>
+				<span>{getState().num}</span>
+				</div>
+				<div>
+				<a href="javascript:" onClick={this.list}>Push list</a>
+				<ul>
+				{
+					getState().list.map(function(one){
+						return <li>{one}</li>
+					})
+				}
+				</ul>
+				</div>
 				</div>
 			);
 		}
