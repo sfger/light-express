@@ -429,11 +429,13 @@ $color_warning  :#f90 !default;
 @mixin col($width:null){
 	@media \0screen{display:table-cell;vertical-align:top;}
 	@media screen and (min-width:0\0) and (min-resolution:.001dpcm){display:table-cell;vertical-align:top;}
+	@at-root_:-ms-lang(x),#{&}{display:inline-block;}
 	@include flex(0,0,if($width,$width,auto));width:$width;
 }
 @mixin col-auto($grow:0,$shrink:0,$basis:auto){
 	$width:if($grow==1 and $basis==auto,100%,$basis);
 	@media \0screen{display:table-cell;vertical-align:top;}
 	@media screen and (min-width:0\0) and (min-resolution:.001dpcm){display:table-cell;vertical-align:top;}
+	@at-root_:-ms-lang(x),#{&}{display:inline-block;}
 	@include flex($grow,$shrink,$basis);width:#{$width};
 }
