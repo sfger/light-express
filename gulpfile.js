@@ -42,6 +42,7 @@ var tArray = [
 var timeString = tArray.join('');
 
 var gulp         = require('gulp'),
+	glob         = require('glob'),
 	del          = require('del'),
 	gutil        = require("gulp-util"),
 	minifycss    = require('gulp-minify-css'),
@@ -50,7 +51,8 @@ var gulp         = require('gulp'),
 	// rename       = require('gulp-rename'),
 	// concat       = require('gulp-concat'),
 	replace      = require('gulp-replace'),
-	sftp         = require('gulp-sftp');
+	sftp         = require('gulp-sftp'),
+	config = require('./webpack.config.js');
 gulp.task('del', function(cb){
 	var dir = '*'===project ? '' : project;
 	// console.log(dir);
@@ -100,7 +102,6 @@ gulp.task('sprite', ['del'], function(){
 
 gulp.task('webpack', ['del'], function(cb){
 	var webpack = require("webpack");
-	var config = require('./webpack.config.js');
 	config.plugins = [
 		new webpack.optimize.UglifyJsPlugin({
 			// compress:{properties:false,comparisons:false},
@@ -111,8 +112,21 @@ gulp.task('webpack', ['del'], function(cb){
 			}
 		})
 	];
-	var compiler = webpack(config);
-	compiler.run(function(err, stats){
+	var dir = project;
+	var entrysArray = glob.sync("**/*.@(entry).@(js?(x)|ts)", {
+		cwd:'./public/'+dir+'/',
+		nodir:true,
+		nobrace:true
+	});
+	if(!entrysArray.length) return cb();
+	// console.log(entrysArray);
+	// process.exit();
+	var entryMap = {};
+	entrysArray.forEach((one) => {
+		entryMap[dir+'/'+one.replace(/\.entry\.(jsx?|ts)?$/, '')] = './' + dir + '/' + one;
+	});
+	config.entry = entryMap;
+	webpack(config).run(function(err, stats){
 		if(err) throw new gutil.PluginError("webpack", err);
 		gutil.log("[webpack]", stats.toString({}));
 		cb();
