@@ -147,7 +147,7 @@
 	window.jQBrowser.uaMatch = uaMatch;
 
 	// Only assign to jQuery.browser if jQuery is loaded
-	if ( jQuery ) {
+	if ( window.jQuery ) {
 		jQuery.browser = window.jQBrowser;
 	}
 

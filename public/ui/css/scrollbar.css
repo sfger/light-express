@@ -1,0 +1,149 @@
+.cf { *zoom: 1; }
+
+.cf:before, .cf:after { content: ""; display: table; }
+
+.cf:after { clear: both; overflow: hidden; }
+
+audio, canvas, video, .imgc:before, .imgc .iecp, .imgc img, .imge, .ib, .img-ctn:before, .img-ctn .iecp, .img-ctn img, .ib-row:before, .ib-row .iecp, .ib-col, .ib-col-full, .txt-jt:after, .txt-jt .iecp { display: inline-block; *display: inline; *zoom: 1; vertical-align: middle; }
+
+* { -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
+
+*:before { -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
+
+*:after { -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
+
+*::before { -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
+
+*::after { -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
+
+html, body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, form, fieldset, legend, input, button, textarea, hr, pre, code, p, blockquote, th, td { margin: 0; padding: 0; }
+
+html { margin: 0; }
+
+html, button, input, select, textarea { font: 14px/normal "\5b8b\4f53","Microsoft YaHei"; color: #000; }
+
+html { -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; }
+
+fieldset, img { border: none; }
+
+[hidden] { display: none; }
+
+:focus { outline: none; }
+
+article, aside, details, figcaption, figure, footer, header, hgroup, main, nav, section, summary { display: block; }
+
+audio, canvas, video { vertical-align: middle; }
+
+.imgc { font-size: 0; text-align: center; }
+
+.imgc:before, .imgc .iecp { vertical-align: middle; }
+
+.imgc:before, .imgc .iecp { content: ""; height: 100%; font-size: 0; line-height: 0; width: 0; }
+
+.imgc img { vertical-align: middle; max-width: 100%; max-height: 100%; }
+
+.imge { vertical-align: middle; font-size: 14px; font-size: 1rem; line-height: normal; }
+
+.ib { vertical-align: middle; }
+
+.badge { border-radius: 50%; overflow: hidden; }
+
+.img-ctn { font-size: 0; text-align: center; }
+
+.img-ctn:before, .img-ctn .iecp { vertical-align: middle; }
+
+.img-ctn:before, .img-ctn .iecp { content: ""; height: 100%; font-size: 0; line-height: 0; width: 0; }
+
+.img-ctn img { vertical-align: middle; max-width: 100%; max-height: 100%; }
+
+.ib-row { font-size: 0; text-align: left; }
+
+.ib-row:before, .ib-row .iecp { vertical-align: middle; }
+
+.ib-row:before, .ib-row .iecp { content: ""; height: 100%; font-size: 0; line-height: 0; width: 0; }
+
+.ib-col, .ib-col-full { vertical-align: top; font-size: 14px; font-size: 1rem; line-height: normal; }
+
+.ib-col-full { width: 100%; }
+
+.ib-row.ib-col, .ib-row.ib-col-full { font-size: 0; }
+
+.txt-lt { text-align: left; }
+
+.txt-rt { text-align: right; }
+
+.txt-ct { text-align: center; }
+
+.txt-jt { text-align: justify; }
+
+.txt-jt.ie-pure-txt { text-justify: distribute-all-lines; }
+
+.txt-jt:after { content: ''; }
+
+.txt-jt:after, .txt-jt .iecp { vertical-align: middle; width: 100%; height: 0px; overflow: hidden; line-height: 0; padding: 0; border: none; }
+
+.vt-top { vertical-align: top; }
+
+.vt-mid { vertical-align: middle; }
+
+.vt-btm { vertical-align: bottom; }
+
+.vt-bsl { vertical-align: baseline; }
+
+.grid { display: -webkit-box; display: -webkit-flex; display: -moz-flex; display: -ms-flexbox; display: flex; width: 100%; }
+
+@media \0screen { .grid { display: table; }
+	.grid.layout-auto { table-layout: auto; }
+	.grid.layout-fixed { table-layout: fixed; } }
+
+@media screen and (min-width: 0\0) and (min-resolution: 0.001dpcm) { .grid { display: table; }
+	.grid.layout-auto { table-layout: auto; }
+	.grid.layout-fixed { table-layout: fixed; } }
+
+.grid.grid-column { display: block; -webkit-box-direction: normal; -webkit-box-orient: vertical; -webkit-flex-direction: column; -moz-flex-direction: column; -ms-flex-direction: column; flex-direction: column; display: -webkit-box; display: -webkit-flex; display: -moz-flex; display: -ms-flexbox; display: flex; }
+
+.grid.grid-column > .col, .grid.grid-column > .col-reset { display: block; }
+
+.grid.grid-column > .col-reset { height: 100%; }
+
+.grid.vt-top { -webkit-box-align: start; -ms-flex-align: start; -webkit-align-items: flex-start; -moz-align-items: flex-start; align-items: flex-start; }
+
+.grid.vt-top .col, .grid.vt-top .col-rest { vertical-align: top; }
+
+.grid.vt-btm { -webkit-box-align: end; -ms-flex-align: end; -webkit-align-items: flex-end; -moz-align-items: flex-end; align-items: flex-end; }
+
+.grid.vt-btm .col, .grid.vt-btm .col-rest { vertical-align: bottom; }
+
+.grid.vt-mid { -webkit-box-align: center; -ms-flex-align: center; -webkit-align-items: center; -moz-align-items: center; align-items: center; }
+
+.grid.vt-mid .col, .grid.vt-mid .col-rest { vertical-align: middle; }
+
+.grid.vt-bsl { -webkit-box-align: baseline; -ms-flex-align: baseline; -webkit-align-items: baseline; -moz-align-items: baseline; align-items: baseline; }
+
+.grid.vt-bsl .col, .grid.vt-bsl .col-rest { vertical-align: baseline; }
+
+.grid .col { -webkit-box-flex: 0; -webkit-flex: 0 0 auto; -moz-box-flex: 0; -moz-flex: 0 0 auto; -ms-flex: 0 0 auto; flex: 0 0 auto; }
+
+@media \0screen { .grid .col { display: table-cell; vertical-align: top; } }
+
+@media screen and (min-width: 0\0) and (min-resolution: 0.001dpcm) { .grid .col { display: table-cell; vertical-align: top; } }
+
+_:-ms-lang(x), .grid .col { display: inline-block\9; }
+
+.grid .col-rest { -webkit-box-flex: 1; -webkit-flex: 1 1 auto; -moz-box-flex: 1; -moz-flex: 1 1 auto; -ms-flex: 1 1 auto; flex: 1 1 auto; width: 100%; }
+
+@media \0screen { .grid .col-rest { display: table-cell; vertical-align: top; } }
+
+@media screen and (min-width: 0\0) and (min-resolution: 0.001dpcm) { .grid .col-rest { display: table-cell; vertical-align: top; } }
+
+_:-ms-lang(x), .grid .col-rest { display: inline-block\9; }
+
+html, body { overflow: hidden; position: relative; }
+
+.scrollbar-ctn { padding-right: 4px; position: relative; overflow: hidden; }
+
+.scrollbar-ctn > .scrollbar-cnt { max-height: 100%; overflow: hidden; }
+
+.scrollbar-ctn > .scrollbar-outter { position: absolute; top: 0; right: 0; z-index: 50; width: 4px; height: 100%; background: #999; opacity: 0.5; cursor: pointer; }
+
+.scrollbar-ctn > .scrollbar-outter > .scrollbar-inner { border-radius: 4px; position: absolute; top: 0; left: 0; z-index: 100; cursor: pointer; background: black; opacity: 0.7; width: 100%; height: 0.00001%; }

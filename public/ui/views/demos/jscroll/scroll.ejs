@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="renderer" content="webkit">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<title>Title</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimal-ui" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+<meta name="apple-touch-fullscreen" content="yes" />
+<meta name="format-detection" content="telephone=no, email=no" />
+<meta name="screen-orientation" content="portrait">
+<meta name="full-screen" content="yes">
+<meta name="browsermode" content="application">
+<meta name="x5-orientation" content="portrait">
+<meta name="x5-fullscreen" content="true">
+<meta name="x5-page-mode" content="app">
+<meta name="author" content="" />
+<meta name="revisit-after" content="1 days" />
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<link rel="icon" href="/favicon.ico" type="image/x-icon" />
+<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+<link rel="stylesheet" type="text/css" href="../../../css/scrollbar.css?<%- __version__ %>" />
+<style type="text/css" media="all">
+body #page{height:200px;}
+.test{width:100px;}
+.test>div{height:600px;overflow:hidden;}
+.list>ul{height:350px;overflow:hidden;}
+</style>
+</head>
+<body>
+<div id="page">
+	<div class="test">
+		<div>
+			<div class="list">
+				<ul>
+					<% for(let i=0; i<55; i++){ %>
+						<li><%- i+1 %></li>
+					<% } %>
+				</ul>
+			</div>
+			<div style="height:500px;background:red;"></div>
+		</div>
+	</div>
+</div>
+<script id="requirejs" data-version="<%- __version__ %>" src="../../../../public/js/require.js?<%- __version__ %>"></script>
+<script>
+require.config({
+	baseUrl: '../../../../',
+	urlArgs:document.getElementById("requirejs").getAttribute("data-version"),
+	paths:{
+		jquery:'public/js/jquery'
+	},
+	shim:{
+		'ui/js/jquery-scrollbar':['jquery'],
+		'ui/js/browser':['jquery']
+	}
+});
+require(['jquery', 'ui/js/jquery-scrollbar'], function($){
+	$('.test,.list,body').scrollbar();
+});
+</script>
+</body>
+</html>
