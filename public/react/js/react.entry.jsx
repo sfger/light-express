@@ -28,8 +28,7 @@ __non_webpack_require__(['react', 'react-dom'], function(React, ReactDOM){
 	// 	}
 	// 	return {num};
 	// }
-	const reducer = combineReducers(reducers);
-	const store = createStore(reducer, {
+	const store = createStore(combineReducers(reducers), {
 		num:3,
 		list:['test','list']
 	});
@@ -49,7 +48,7 @@ __non_webpack_require__(['react', 'react-dom'], function(React, ReactDOM){
 				count:this.state.count + 1,
 			}, function(){
 				console.log(222,this.state.count);
-				console.log(this.props.a);
+				console.log(this.props.a, this.props.row);
 			});
 			console.log(111,this.state.count);
 		},
@@ -62,23 +61,23 @@ __non_webpack_require__(['react', 'react-dom'], function(React, ReactDOM){
 		render: function(){
 			return (
 				<div className="commentBox">
-				<div>
-				<a href="javascript:" data-test="test" onClick={this.test}>{this.props.title}! I am a CommentBox. Counter: {this.state.count}</a>
-				</div>
-				<div>
-				<a href="javascript:" onClick={this.num}>Add num</a>
-				<span>{getState().num}</span>
-				</div>
-				<div>
-				<a href="javascript:" onClick={this.list}>Push list</a>
-				<ul>
-				{
-					getState().list.map(function(one){
-						return <li>{one}</li>
-					})
-				}
-				</ul>
-				</div>
+					<div>
+						<a href="javascript:" data-test="test" onClick={this.test}>{this.props.title}! I am a CommentBox. Counter: {this.state.count}</a>
+					</div>
+					<div>
+						<a href="javascript:" onClick={this.num}>Add num</a>
+						<span>{getState().num}</span>
+					</div>
+					<div>
+						<a href="javascript:" onClick={this.list}>Push list</a>
+						<ul>
+							{
+								getState().list.map(function(one){
+									return <li>{one}</li>;
+								})
+							}
+						</ul>
+					</div>
 				</div>
 			);
 		}
@@ -86,10 +85,9 @@ __non_webpack_require__(['react', 'react-dom'], function(React, ReactDOM){
 	let test = {a:'aaa', b:'bbb'};
 
 	function render(){
-		console.log('render');
 		ReactDOM.render(
-			<CommentBox row={1} {...test} />,
-				document.querySelector('#page')
+			<CommentBox row={'row'} {...test} />,
+			document.querySelector('#page')
 		);
 	}
 	render();
