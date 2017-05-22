@@ -74,9 +74,10 @@ gulp.task('js', ['del'], function(){
 		'!./public/'+project+'/**/*.@(entry).js',
 		'!./public/**/parts/*.js'
 	]).pipe(uglify({
+		ie8:true,
 		compress:{properties:false,comparisons:false},
-		output:{quote_keys:true, ascii_only:true},
-		mangle:false
+		output:{quote_keys:true, ascii_only:true}
+		// mangle:false
 		// mangle:{
 		// 	except:['$super', '$', 'exports', 'require']
 		// }
@@ -111,9 +112,10 @@ gulp.task('webpack', ['del'], function(cb){
 	var webpack = require("webpack");
 	config.plugins = [
 		new webpack.optimize.UglifyJsPlugin({
+			ie8: true,
 			compress:{properties:false,comparisons:false},
-			output:{quote_keys:true, ascii_only:true},
-			mangle:false
+			output:{quote_keys:true, ascii_only:true}
+			// mangle:false
 			// mangle:{
 			// 	except:['$super', '$', 'exports', 'require']
 			// }
