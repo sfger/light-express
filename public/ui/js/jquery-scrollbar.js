@@ -39,15 +39,15 @@ $.fn.scrollbar = function(options){
 			adjust_scroll_bar();
 			function set_scroll_bar_top(e){
 				if($(this).is(':animated')) return false;
-				let _sh = this.scrollTop;
+				var _sh = this.scrollTop;
 				if(e){
-					let originalEvent = e.originalEvent;
+					var originalEvent = e.originalEvent;
 					_sh = this.scrollTop - (originalEvent.wheelDelta || -(originalEvent.detail/3)*120)/1.15;
 				}
-				let scroll_height = this.scrollHeight - this.clientHeight;
+				var scroll_height = this.scrollHeight - this.clientHeight;
 				_sh = _sh>scroll_height ? scroll_height: _sh;
 				_sh = _sh<0 ? 0 : _sh;
-				let top_val = _sh / (this.scrollHeight) * this.clientHeight;
+				var top_val = _sh / this.scrollHeight * this.clientHeight;
 				var time = e&&230||0;
 				// this.querySelector('.scrollbar-outter').style.top = _sh + 'px';
 				$('>.scrollbar-outter>.scrollbar-inner', box).animate({'top':top_val+'px'}, time);

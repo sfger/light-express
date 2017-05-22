@@ -76,7 +76,7 @@ gulp.task('js', ['del'], function(){
 	]).pipe(uglify({
 		compress:{properties:false,comparisons:false},
 		output:{quote_keys:true, ascii_only:true},
-		mangle:false,
+		mangle:false
 		// mangle:{
 		// 	except:['$super', '$', 'exports', 'require']
 		// }
@@ -113,7 +113,7 @@ gulp.task('webpack', ['del'], function(cb){
 		new webpack.optimize.UglifyJsPlugin({
 			compress:{properties:false,comparisons:false},
 			output:{quote_keys:true, ascii_only:true},
-			mangle:false,
+			mangle:false
 			// mangle:{
 			// 	except:['$super', '$', 'exports', 'require']
 			// }
@@ -123,7 +123,6 @@ gulp.task('webpack', ['del'], function(cb){
 		cwd:'./public/'+dir+'/',
 		nobrace:true
 	});
-	console.log(entrysArray);
 	if(!entrysArray.length) return cb();
 	// console.log(entrysArray);
 	// process.exit();
