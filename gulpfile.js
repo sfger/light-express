@@ -75,12 +75,12 @@ gulp.task('js', ['del'], function(){
 		'!./public/**/parts/*.js'
 	]).pipe(uglify({
 		ie8:true,
-		compress:{properties:false,comparisons:false},
-		output:{quote_keys:true, ascii_only:true}
+		compress:{properties:false, comparisons:false},
+		output:{quote_keys:true, ascii_only:true},
 		// mangle:false
-		// mangle:{
-		// 	except:['$super', '$', 'exports', 'require']
-		// }
+		mangle:{
+			reserved:['$super']
+		}
 	})).pipe(gulp.dest('dist/'+dist));
 });
 gulp.task('html', ['del'], function(){
@@ -113,12 +113,12 @@ gulp.task('webpack', ['del'], function(cb){
 	config.plugins = [
 		new webpack.optimize.UglifyJsPlugin({
 			ie8: true,
-			compress:{properties:false,comparisons:false},
-			output:{quote_keys:true, ascii_only:true}
+			compress:{properties:false, comparisons:false},
+			output:{quote_keys:true, ascii_only:true},
 			// mangle:false
-			// mangle:{
-			// 	except:['$super', '$', 'exports', 'require']
-			// }
+			mangle:{
+				reserved:['$super']
+			}
 		})
 	];
 	var entrysArray = glob.sync("**/*.@(entry).@(js?(x)|ts?(x))", {
