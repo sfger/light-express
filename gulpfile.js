@@ -1,10 +1,10 @@
 var argsOptions = require('./config/options');
 var args    = require('args');
-var options = args.Options.parse(argsOptions);
+var options = args.options(argsOptions);
 
 var parsed_args;
 try{
-	parsed_args = args.parser(process.argv).parse(options);
+	parsed_args = args.parse(process.argv);
 	if(parsed_args.help) throw new Error();
 }catch(e){
 	console.log(options.getHelp());
@@ -45,7 +45,7 @@ var gulp         = require('gulp'),
 	glob         = require('glob'),
 	del          = require('del'),
 	gutil        = require("gulp-util"),
-	minifycss    = require('gulp-minify-css'),
+	cleanCss     = require('gulp-clean-css'),
 	// jshint       = require('gulp-jshint'),
 	uglify       = require('gulp-uglify'),
 	// rename       = require('gulp-rename'),
@@ -64,7 +64,7 @@ gulp.task('del', function(cb){
 gulp.task('css', ['del'], function(){
 	var dist = '*'===project ? '' : project;
 	return gulp.src('public/'+project+'/**/*.css')
-	.pipe(minifycss())
+	.pipe(cleanCss(({compatibility:"ie7"})))
 	.pipe(gulp.dest('dist/'+dist));
 });
 gulp.task('js', ['del'], function(){
