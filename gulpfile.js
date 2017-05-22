@@ -73,8 +73,14 @@ gulp.task('js', ['del'], function(){
 		'public/'+project+'/**/*.js',
 		'!./public/'+project+'/**/*.@(entry).js',
 		'!./public/**/parts/*.js'
-	]).pipe(uglify())
-	.pipe(gulp.dest('dist/'+dist));
+	]).pipe(uglify({
+		compress:{properties:false,comparisons:false},
+		output:{quote_keys:true, ascii_only:true},
+		mangle:false,
+		// mangle:{
+		// 	except:['$super', '$', 'exports', 'require']
+		// }
+	})).pipe(gulp.dest('dist/'+dist));
 });
 gulp.task('html', ['del'], function(){
 	var dist = '*'===project ? '' : project;
@@ -101,23 +107,23 @@ gulp.task('sprite', ['del'], function(){
 });
 
 gulp.task('webpack', ['del'], function(cb){
+	var dir = '*'===project ? '' : project;
 	var webpack = require("webpack");
 	config.plugins = [
 		new webpack.optimize.UglifyJsPlugin({
-			// compress:{properties:false,comparisons:false},
-			// output:{quote_keys:true, ascii_only:true},
-			// mangle:false,
-			mangle:{
-				except:['$super', '$', 'exports', 'require']
-			}
+			compress:{properties:false,comparisons:false},
+			output:{quote_keys:true, ascii_only:true},
+			mangle:false,
+			// mangle:{
+			// 	except:['$super', '$', 'exports', 'require']
+			// }
 		})
 	];
-	var dir = project;
-	var entrysArray = glob.sync("**/*.@(entry).@(js?(x)|ts)", {
+	var entrysArray = glob.sync("**/*.@(entry).@(js?(x)|ts?(x))", {
 		cwd:'./public/'+dir+'/',
-		nodir:true,
 		nobrace:true
 	});
+	console.log(entrysArray);
 	if(!entrysArray.length) return cb();
 	// console.log(entrysArray);
 	// process.exit();
