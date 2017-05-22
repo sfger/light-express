@@ -50,6 +50,7 @@
     "gulp-sftp": "^0.1.5",
     "gulp-util": "^3.0.7",
     "html-loader": "^0.4.0",
+    "jshint": "^2.9.4",
     "jsx-loader": "^0.13.2",
     "postcss-image-inliner": "^1.0.6",
     "postcss-sprites": "^4.2.0",
