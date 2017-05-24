@@ -64,7 +64,7 @@ gulp.task('del', function(cb){
 gulp.task('css', ['del'], function(){
 	var dist = '*'===project ? '' : project;
 	return gulp.src('public/'+project+'/**/*.css')
-	.pipe(cleanCss(({compatibility:"ie7"})))
+	.pipe(cleanCss({compatibility:"ie7"}))
 	.pipe(gulp.dest('dist/'+dist));
 });
 gulp.task('js', ['del'], function(){
