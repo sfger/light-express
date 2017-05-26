@@ -15,12 +15,15 @@ export function num(state=0, action){
 export function list(state=[], action){
 	switch(action.type){
 		case 'PUSH':{
-			state.push(action.text);
-			return state;
+			return [
+				...state,
+				action.text
+			];
 		}
 		case "POP":{
-			state.pop();
-			return state;
+			let ret = [...state];
+			ret.pop();
+			return ret;
 		}
 		default:{
 			return state;
