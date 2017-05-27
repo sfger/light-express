@@ -14,7 +14,7 @@
 
 .imgc img { vertical-align: middle; max-width: 100%; max-height: 100%; }
 
-.imge { vertical-align: middle; font-size: 12px; font-size: 1rem; line-height: normal; }
+.imge { vertical-align: middle; font-size: 14px; font-size: 1rem; line-height: normal; }
 
 .ib { vertical-align: middle; }
 
@@ -34,7 +34,7 @@
 
 .ib-row:before, .ib-row .iecp { content: ""; height: 100%; font-size: 0; line-height: 0; width: 0; }
 
-.ib-col, .ib-col-full { vertical-align: top; font-size: 12px; font-size: 1rem; line-height: normal; }
+.ib-col, .ib-col-full { vertical-align: top; font-size: 14px; font-size: 1rem; line-height: normal; }
 
 .ib-col-full { width: 100%; }
 
@@ -64,13 +64,13 @@
 
 .grid { display: -webkit-box; display: -webkit-flex; display: -moz-flex; display: -ms-flexbox; display: flex; width: 100%; }
 
-@media \0screen { .grid { display: table; } }
+@media \0screen { .grid { display: table; }
+	.grid.layout-auto { table-layout: auto; }
+	.grid.layout-fixed { table-layout: fixed; } }
 
-@media screen and (min-width: 0\0) and (min-resolution: 0.001dpcm) { .grid { display: table; } }
-
-.grid.layout-auto { table-layout: auto; }
-
-.grid.layout-fixed { table-layout: fixed; }
+@media screen and (min-width: 0\0) and (min-resolution: 0.001dpcm) { .grid { display: table; }
+	.grid.layout-auto { table-layout: auto; }
+	.grid.layout-fixed { table-layout: fixed; } }
 
 .grid.grid-column { display: block; -webkit-box-direction: normal; -webkit-box-orient: vertical; -webkit-flex-direction: column; -moz-flex-direction: column; -ms-flex-direction: column; flex-direction: column; display: -webkit-box; display: -webkit-flex; display: -moz-flex; display: -ms-flexbox; display: flex; }
 
@@ -100,11 +100,15 @@
 
 @media screen and (min-width: 0\0) and (min-resolution: 0.001dpcm) { .grid .col { display: table-cell; vertical-align: top; } }
 
+_:-ms-lang(x), .grid .col { display: inline-block\9; }
+
 .grid .col-rest { -webkit-box-flex: 1; -webkit-flex: 1 1 auto; -moz-box-flex: 1; -moz-flex: 1 1 auto; -ms-flex: 1 1 auto; flex: 1 1 auto; width: 100%; }
 
 @media \0screen { .grid .col-rest { display: table-cell; vertical-align: top; } }
 
 @media screen and (min-width: 0\0) and (min-resolution: 0.001dpcm) { .grid .col-rest { display: table-cell; vertical-align: top; } }
+
+_:-ms-lang(x), .grid .col-rest { display: inline-block\9; }
 
 /* Original style from softwaremaniacs.org (c) Ivan Sagalaev <Maniac@SoftwareManiacs.Org> */
 .hljs { display: block; overflow-x: auto; padding: 0.5em; background: #eaeaea; -webkit-text-size-adjust: none; }
@@ -161,11 +165,11 @@ html.full-screen #page, html.full-screen .home-page { height: 100%; }
 
 .navi-box h3 { font-size: 16px; }
 
-.navi-box a { vertical-align: middle; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; vertical-align: middle; width: 133px; height: 32px; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; font: 14px/32px "Microsoft YaHei"; border: none; -webkit-border-radius: 3px; -moz-border-radius: 3px; border-radius: 3px; color: rgba(255, 255, 255, 0); box-shadow: 0 12.8px 16.8px -11.2px rgba(8, 8, 8, 0); text-align: center; background: transparent; cursor: pointer; text-decoration: none; -webkit-transition: background,box-shadow 0.35s ease-out; transition: background,box-shadow 0.35s ease-out; -webkit-border-radius: 4px; -moz-border-radius: 4px; border-radius: 4px; padding: 2px 5px; margin: 5px; _margin: 5px 11px; transition: all 0.314s ease-in 0s; font-size: 16px; border: 1px solid #fff; line-height: 25px; text-decoration: none; color: white; }
+.navi-box a { vertical-align: middle; vertical-align: middle; width: 133px; height: 32px; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; line-height: 30px; border: 1px solid #fff; -webkit-border-radius: 3px; -moz-border-radius: 3px; border-radius: 3px; color: rgba(255, 255, 255, 0); box-shadow: 0 12.8px 16.8px -11.2px rgba(8, 8, 8, 0); text-align: center; background: transparent; cursor: pointer; text-decoration: none; -webkit-transition: background,box-shadow 0.35s ease-out; transition: background,box-shadow 0.35s ease-out; padding: 2px 5px; margin: 5px; _margin: 5px 11px; transition: all 0.314s ease-in 0s; font-size: 16px; text-decoration: none; color: white; }
 
 .navi-box a:hover { background-color: rgba(13, 13, 13, 0); }
 
-.navi-box a:active { outline: thin dotted; outline-offset: -2px; box-shadow: 0 13.76px 21.92px -8px transparent; background-color: transparent; }
+.navi-box a:active { box-shadow: 0 13.76px 21.92px -8px transparent; background-color: transparent; }
 
 .navi-box a:hover { background: white; color: #666; /*transform:rotate(3deg);*/ }
 

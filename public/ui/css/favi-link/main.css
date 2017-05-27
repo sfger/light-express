@@ -232,7 +232,7 @@ _:-ms-lang(x), .grid .col-rest { display: inline-block\9; }
 
 .tab-ctn .tab-header .title { margin: 0 3px; }
 
-.tab-ctn .tab-header .closer { vertical-align: middle; width: 16px; height: 16px; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; font: 14px/14px "Microsoft YaHei"; border: 1px solid transparent; -webkit-border-radius: 3px; -moz-border-radius: 3px; border-radius: 3px; color: rgba(255, 255, 255, 0); box-shadow: 0 6.4px 8.4px -5.6px rgba(8, 8, 8, 0); text-align: center; background: transparent; cursor: pointer; text-decoration: none; -webkit-transition: background,box-shadow 0.35s ease-out; transition: background,box-shadow 0.35s ease-out; font: bold 16px/1.234 SimSun; color: #333; }
+.tab-ctn .tab-header .closer { font: bold 16px SimHei; vertical-align: middle; width: 16px; height: 16px; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; line-height: 16px; -webkit-border-radius: 3px; -moz-border-radius: 3px; border-radius: 3px; color: rgba(255, 255, 255, 0); box-shadow: 0 6.4px 8.4px -5.6px rgba(8, 8, 8, 0); text-align: center; background: transparent; cursor: pointer; text-decoration: none; -webkit-transition: background,box-shadow 0.35s ease-out; transition: background,box-shadow 0.35s ease-out; color: #333; }
 
 .tab-ctn .tab-header .closer:hover { background-color: rgba(13, 13, 13, 0); }
 

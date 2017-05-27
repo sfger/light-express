@@ -1,97 +1,70 @@
-// import React from 'react';
-// import ReactDOM from 'react-dom';
+import React from 'react';
+import ReactDOM from 'react-dom';
+import {Provider, connect} from 'react-redux';
 import {createStore, combineReducers} from 'redux';
 import * as reducers from './parts/reducers';
-__non_webpack_require__.config({
-	baseUrl: '../../',
-	urlArgs: document.getElementById("mainjs").getAttribute("data-version"),
-	map: {"*":{css:"require-css"}},
-	paths: {
-		'react': 'public/js/react.min',
-		'react-dom': 'public/js/react-dom.min'
-	},
-	shim: {
-		'react-dom':{deps:["react"]}
-	}
+const store = createStore(combineReducers(reducers), {
+	num:3,
+	list:['test','list']
 });
-__non_webpack_require__(['react', 'react-dom'], function(React, ReactDOM){
-	// function reducer(s, t){
-	// 	let num = s.num;
-	// 	switch(t.type){
-	// 		case 'ADD':{
-	// 			num++;
-	// 			break;
-	// 		}
-	// 		default:{
-	// 			num;
-	// 		}
-	// 	}
-	// 	return {num};
-	// }
-	const store = createStore(combineReducers(reducers), {
-		num:3,
-		list:['test','list']
-	});
-	const {dispatch, subscribe, getState} = store;
+const {dispatch,getState} = store;
 
-	let CommentBox = React.createClass({
-		getInitialState: function(){
-			return {count:0};
-		},
-		getDefaultProps : function () {
-			return {
-				title:'Hello World'
-			};
-		},
-		test: function(){
-			this.setState({
-				count:this.state.count + 1,
-			}, function(){
-				console.log(222,this.state.count);
-				console.log(this.props.a, this.props.row);
-			});
-			console.log(111,this.state.count);
-		},
-		num: function(){
+let CommentBox = ({row,a,b,num,list,add_num,list_push,list_pop})=>{
+	return (
+		<div className="commentBox">
+			<div>
+				<a href="javascript:" data-test="test">row:{row},a:{a},b:{b}</a>
+			</div>
+			<div>
+				<a href="javascript:" onClick={add_num}>Add num</a>
+				<span>{num}</span>
+			</div>
+			<div>
+				<a href="javascript:" onClick={list_push}>Push list</a>
+				&nbsp;
+				<a href="javascript:" onClick={list_pop}>Pop list</a>
+				<ul>
+					{
+						list.map(function(one){
+							return <li key={one}>{one}</li>;
+						})
+					}
+				</ul>
+			</div>
+		</div>
+	);
+};
+
+const mapStateToProps = (state) => {
+	return {
+		num: state.num,
+		list: state.list
+	}
+};
+const mapDispatchToProps = (dispatch) => {
+	return {
+		count_click: () => {
 			dispatch({type:'ADD'});
 		},
-		list: function(){
-			dispatch({type:'PUSH', text:Number(String(Math.random()).slice(2)).toString(16)});
+		add_num: () => {
+			dispatch({type:'ADD'});
 		},
-		render: function(){
-			return (
-				<div className="commentBox">
-					<div>
-						<a href="javascript:" data-test="test" onClick={this.test}>{this.props.title}! I am a CommentBox. Counter: {this.state.count}</a>
-					</div>
-					<div>
-						<a href="javascript:" onClick={this.num}>Add num</a>
-						<span>{getState().num}</span>
-					</div>
-					<div>
-						<a href="javascript:" onClick={this.list}>Push list</a>
-						<ul>
-							{
-								getState().list.map(function(one){
-									return <li>{one}</li>;
-								})
-							}
-						</ul>
-					</div>
-				</div>
-			);
+		list_push: () => {
+			// dispatch({type:'PUSH', text:'test'})
+			if(getState().list.length>=5) return false;
+			dispatch({type:'PUSH', text:Number(String(Math.random()).slice(2)).toString(16)})
+		},
+		list_pop: () => {
+			dispatch({type:'POP'})
 		}
-	});
-	let test = {a:'aaa', b:'bbb'};
-
-	function render(){
-		ReactDOM.render(
-			<CommentBox row={'row'} {...test} />,
-			document.querySelector('#page')
-		);
 	}
-	render();
+};
+const ListShow = connect(mapStateToProps, mapDispatchToProps)(CommentBox);
 
-	let unsubscribe = subscribe(render);
-	// unsubscribe();
-});
+let test = {a:'aaa', b:'bbb'};
+ReactDOM.render(
+	<Provider store={store}>
+		<ListShow row={'row'} {...test} />
+	</Provider>,
+	document.querySelector('#page')
+);

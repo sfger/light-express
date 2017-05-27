@@ -128,11 +128,15 @@ audio, canvas, video { vertical-align: middle; }
 
 @media screen and (min-width: 0\0) and (min-resolution: 0.001dpcm) { .grid .col { display: table-cell; vertical-align: top; } }
 
+_:-ms-lang(x), .grid .col { display: inline-block\9; }
+
 .grid .col-rest { -webkit-box-flex: 1; -webkit-flex: 1 1 auto; -moz-box-flex: 1; -moz-flex: 1 1 auto; -ms-flex: 1 1 auto; flex: 1 1 auto; width: 100%; }
 
 @media \0screen { .grid .col-rest { display: table-cell; vertical-align: top; } }
 
 @media screen and (min-width: 0\0) and (min-resolution: 0.001dpcm) { .grid .col-rest { display: table-cell; vertical-align: top; } }
+
+_:-ms-lang(x), .grid .col-rest { display: inline-block\9; }
 
 @-webkit-keyframes radioOut { 0% { -webkit-transform: scale(0);
 		transform: scale(0);
@@ -160,7 +164,7 @@ audio, canvas, video { vertical-align: middle; }
 		opacity: 0;
 		filter: alpha(opacity=0); } }
 
-.btn { vertical-align: middle; width: 130px; height: 45px; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; font: 14px/43px "Microsoft YaHei"; border: 1px solid #39f; -webkit-border-radius: 3px; -moz-border-radius: 3px; border-radius: 3px; color: #cc6600; box-shadow: 0 18px 23.625px -15.75px #42a1ff; text-align: center; background: #39f; cursor: pointer; text-decoration: none; -webkit-transition: background,box-shadow 0.35s ease-out; transition: background,box-shadow 0.35s ease-out; position: relative; margin: 100px; color: white; }
+.btn { vertical-align: middle; width: 130px; height: 45px; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; line-height: 45px; border: none; -webkit-border-radius: 3px; -moz-border-radius: 3px; border-radius: 3px; color: #cc6600; box-shadow: 0 18px 23.625px -15.75px #42a1ff; text-align: center; background: #39f; cursor: pointer; text-decoration: none; -webkit-transition: background,box-shadow 0.35s ease-out; transition: background,box-shadow 0.35s ease-out; position: relative; margin: 100px; color: white; }
 
 .btn:hover { background-color: #4da6ff; }
 

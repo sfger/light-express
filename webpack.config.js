@@ -40,24 +40,24 @@ module.exports = {
 		}
 	},
 	externals: {
-		jquery: {
-			amd: 'jquery',
-			root: 'jQuery',
-			commonjs: 'jquery',
-			commonjs2: 'jquery'
-		},
-		react: {
-			amd: 'react',
-			root: 'React',
-			commonjs: 'react',
-			commonjs2: 'react'
-		},
-		'react-dom': {
-			amd: 'react-dom',
-			root: 'ReactDOM',
-			commonjs: 'react-dom',
-			commonjs2: 'react-dom'
-		}
+		// jquery: {
+		// 	amd: 'jquery',
+		// 	root: 'jQuery',
+		// 	commonjs: 'jquery',
+		// 	commonjs2: 'jquery'
+		// },
+		// react: {
+		// 	amd: 'react',
+		// 	root: 'React',
+		// 	commonjs: 'react',
+		// 	commonjs2: 'react'
+		// },
+		// 'react-dom': {
+		// 	amd: 'react-dom',
+		// 	root: 'ReactDOM',
+		// 	commonjs: 'react-dom',
+		// 	commonjs2: 'react-dom'
+		// }
 	},
 	module:{
 		rules:[
