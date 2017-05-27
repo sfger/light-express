@@ -16,7 +16,8 @@
 		.icon{@include size(16px);}
 		.title{margin:0 3px;@include sln;}
 		.closer{
-			@include button(16px,16px,transparent);font:bold 16px/1.234 SimSun;color:#333;
+			font:bold 16px SimHei;
+			@include button(16px,16px,transparent,none);color:#333;
 			&:hover{background:#ccc;}
 		}
 	}

@@ -59,10 +59,7 @@ const mapDispatchToProps = (dispatch) => {
 		}
 	}
 };
-const ListShow = connect(
-	mapStateToProps,
-	mapDispatchToProps
-)(CommentBox);
+const ListShow = connect(mapStateToProps, mapDispatchToProps)(CommentBox);
 
 let test = {a:'aaa', b:'bbb'};
 ReactDOM.render(

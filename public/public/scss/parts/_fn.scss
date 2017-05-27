@@ -215,13 +215,17 @@ $color_warning  :#f90 !default;
 	$width,
 	$height,
 	$bgcolor:$color_theme,
-	$border:1px solid $bgcolor,
+	$border:none,
 	$hover:1,
 	$active:1,
 	$animation:null
 ){
 	@include ib;@include size($width, $height);@include user-select(none);
-	font: 14px/#{$height - nth($border,1)*2} "Microsoft YaHei";border:$border;
+	@if($border and $border!=none){
+		line-height: #{$height - nth($border,1)*2};border:$border;
+	}@else{
+		line-height:$height;border:$border;
+	}
 	@include border-radius(3px);color:invert($bgcolor);
 	@if($height==auto){
 		$height:1rem;
