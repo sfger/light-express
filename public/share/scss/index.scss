@@ -30,9 +30,10 @@ html{
 	h1,h3{font-size:25px;margin-bottom:10px;text-align:center;font-weight:normal;}
 	h3{font-size:16px;}
 	a{
+		box-sizing:border-box;
 		@include ib;@include button(133px,32px,transparent,1px solid #fff);
-		padding:2px 5px;margin:5px;_margin:5px 11px;
-		transition:all 0.314s ease-in 0s;
+		margin:5px;_margin:5px 11px;
+		transition:background,color 0.314s ease-in 0s;
 		font-size:16px;text-decoration:none;color:white;
 		&:hover{background:white;color:#666;/*transform:rotate(3deg);*/}
 	}
