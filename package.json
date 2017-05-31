@@ -20,7 +20,7 @@
     "gulp-clean-css": "^3.3.1",
     "gulp-uglify": "^3.0.0",
     "morgan": "^1.8.1",
-    "node-sass": "^4.5.2",
+    "node-sass": "^4.5.3",
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
     "react-redux": "^5.0.5",
