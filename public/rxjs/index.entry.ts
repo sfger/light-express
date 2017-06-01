@@ -24,7 +24,7 @@ var state = Rx.Observable.merge(increase, decrease, input, textchange).scan((sta
 // 	document.querySelector('#hello').innerHTML = 'Hello ' + state.inputValue;
 // });
 
-var prevState = {count:0, inputValue:''};
+var prevState:any = {};
 state.subscribe((state) => {
 	if (state.count !== prevState.count) {
 		document.querySelector('#count').innerHTML = state.count;
