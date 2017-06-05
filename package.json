@@ -6,7 +6,7 @@
     "start": "node ./bin/www"
   },
   "dependencies": {
-    "@types/jquery": "^2.0.39",
+    "@types/jquery": "^2.0.46",
     "args": "^3.0.1",
     "babel-loader": "^7.0.0",
     "babel-preset-es2015-native-modules": "^6.9.4",
