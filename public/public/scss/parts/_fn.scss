@@ -423,12 +423,20 @@ $color_warning  :#f90 !default;
 		&.layout-auto{table-layout:auto;}
 		&.layout-fixed{table-layout:fixed;}
 	}
+	&.inline-grid{
+		@include inline-flex;width:auto;
+		@media \0screen{display:inline-table;}
+		@media screen and (min-width:0\0) and (min-resolution:.001dpcm){display:inline-table;}
+	}
 	&.grid-column{
 		display:block;
 		>.col,>.col-reset{display:block;}
 		>.col-reset{height:100%;}
 		@include flex-direction(column);@include flexbox;
 	}
+}
+.test{
+	@include grid;
 }
 @mixin col($width:null){
 	@media \0screen{display:table-cell;vertical-align:top;}
