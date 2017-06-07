@@ -75,10 +75,11 @@ gulp.task('js', ['del'], function(){
 		'!./public/**/parts/*.js'
 	]).pipe(uglify({
 		ie8:true,
-		compress:{properties:false, comparisons:false},
-		output:{quote_keys:true, ascii_only:true},
-		// mangle:false
-		mangle:{
+		compress: {screw_ie8:false, unsafe_comps:false, properties:false, comparisons:false},
+		output  : {screw_ie8:false, quote_keys:true, ascii_only:true},
+		// mangle  : false
+		mangle: {
+			screw_ie8:false,
 			reserved:['$super']
 		}
 	})).pipe(gulp.dest('dist/'+dist));
@@ -112,11 +113,12 @@ gulp.task('webpack', ['del'], function(cb){
 	var webpack = require("webpack");
 	config.plugins = [
 		new webpack.optimize.UglifyJsPlugin({
-			ie8: true,
-			compress:{properties:false, comparisons:false},
-			output:{quote_keys:true, ascii_only:true},
-			// mangle:false
-			mangle:{
+			ie8:true,
+			compress: {screw_ie8:false, unsafe_comps:false, properties:false, comparisons:false},
+			output  : {screw_ie8:false, quote_keys:true, ascii_only:true},
+			// mangle  : false
+			mangle: {
+				screw_ie8:false,
 				reserved:['$super']
 			}
 		})
