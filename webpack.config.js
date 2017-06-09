@@ -34,7 +34,7 @@ module.exports = {
 			path.join(__dirname, "public"),
 			"node_modules"
 		],
-		extensions:['.ts', '.vue', '.js', '.jsx', 'png', 'jpg'],
+		extensions:['.ts', '.vue', '.css', '.less', '.scss', '.sass', '.js', '.jsx', 'png', 'jpg'],
 		alias: {
 			root: path.resolve(__dirname, 'public/'),
 		}
@@ -78,7 +78,7 @@ module.exports = {
 			{test:/\.ts$/, loader:'ts-loader'},
 			{
 				test:/\.jsx?$/,
-				exclude:/(node_modules|bower_components)/,
+				// exclude:/(node_modules|bower_components)/,
 				use:[
 					{
 						loader:'babel-loader',
@@ -86,7 +86,12 @@ module.exports = {
 							presets: [
 								// ['es2015', {modules:false}],
 								['es2015'],
-								'react'
+								// 'stage-0',
+								'react',
+							],
+							plugins: [
+								// ["transform-runtime", {polyfill:false, regenerator:true}],
+								["import", {libraryName:"antd", style:'css'}]
 							]
 						}
 					}
@@ -98,8 +103,13 @@ module.exports = {
 				use:[ 'style-loader', 'css-loader', 'sass-loader' ]
 			},
 			{
+				test:/\.less/,
+				// exclude:/(node_modules|bower_components)/,
+				use:[ 'style-loader', 'css-loader', 'less-loader' ]
+			},
+			{
 				test:/\.css$/,
-				exclude:/(node_modules|bower_components)/,
+				// exclude:/(node_modules|bower_components)/,
 				use:[ 'style-loader', 'css-loader' ]
 			},
 			{
