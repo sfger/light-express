@@ -435,9 +435,6 @@ $color_warning  :#f90 !default;
 		@include flex-direction(column);@include flexbox;
 	}
 }
-.test{
-	@include grid;
-}
 @mixin col($width:null){
 	@media \0screen{display:table-cell;vertical-align:top;}
 	@media screen and (min-width:0\0) and (min-resolution:.001dpcm){display:table-cell;vertical-align:top;}

@@ -61,7 +61,7 @@ let test = {a:'aaa', b:'bbb'};
 function render(){
 	ReactDOM.render(
 		<CommentBox row={'row'} {...test} />,
-			document.querySelector('#page')
+		document.querySelector('#page')
 	);
 }
 render();
