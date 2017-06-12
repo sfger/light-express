@@ -92,6 +92,7 @@ module.exports = {
 							plugins: [
 								['syntax-dynamic-import'],
 								['transform-async-to-generator'],
+								["transform-class-properties"],
 								// ['transform-regenerator'],
 								// ['transform-runtime'],
 								["transform-runtime", {polyfill:false, regenerator:true}],
