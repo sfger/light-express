@@ -78,7 +78,7 @@ module.exports = {
 			{test:/\.ts$/, loader:'ts-loader'},
 			{
 				test:/\.jsx?$/,
-				// exclude:/(node_modules|bower_components)/,
+				exclude:/(node_modules)/,
 				use:[
 					{
 						loader:'babel-loader',
@@ -86,11 +86,15 @@ module.exports = {
 							presets: [
 								// ['es2015', {modules:false}],
 								['es2015'],
-								// 'stage-0',
+								'stage-3',
 								'react',
 							],
 							plugins: [
-								// ["transform-runtime", {polyfill:false, regenerator:true}],
+								['syntax-dynamic-import'],
+								['transform-async-to-generator'],
+								// ['transform-regenerator'],
+								// ['transform-runtime'],
+								["transform-runtime", {polyfill:false, regenerator:true}],
 								["import", {libraryName:"antd", style:'css'}]
 							]
 						}
@@ -99,22 +103,22 @@ module.exports = {
 			},
 			{
 				test:/\.scss/,
-				exclude:/(node_modules|bower_components)/,
+				exclude:/(node_modules)/,
 				use:[ 'style-loader', 'css-loader', 'sass-loader' ]
 			},
 			{
 				test:/\.less/,
-				// exclude:/(node_modules|bower_components)/,
+				// exclude:/(node_modules)/,
 				use:[ 'style-loader', 'css-loader', 'less-loader' ]
 			},
 			{
 				test:/\.css$/,
-				// exclude:/(node_modules|bower_components)/,
+				// exclude:/(node_modules)/,
 				use:[ 'style-loader', 'css-loader' ]
 			},
 			{
 				test:/\.(png|jpg)$/,
-				exclude:/(node_modules|bower_components)/,
+				exclude:/(node_modules)/,
 				use:[
 					{
 						loader:'url-loader',

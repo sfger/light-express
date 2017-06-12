@@ -1,12 +1,11 @@
-// import "babel-polyfill";
 import React from 'react';
 import ReactDOM from 'react-dom';
 let mountNode = document.querySelector('#page');
 
-// (async function(){
-// 	await Promise.resolve();
-// 	console.log('test');
-// }());
+(async function(){
+	await Promise.resolve();
+	console.log('test');
+}());
 
 import { Button, Radio, Icon } from 'antd';
 
