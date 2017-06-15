@@ -1,7 +1,7 @@
 var argsOptions = require('./config/options');
 var args    = require('args');
 var options = args.options(argsOptions);
-var uglifyjs_config = {
+var uglifyjs2_config = {
 	ie8:true,
 	compress: {screw_ie8:false, unsafe_comps:false, properties:false, comparisons:false},
 	output  : {screw_ie8:false, quote_keys:true, ascii_only:true},
@@ -10,6 +10,9 @@ var uglifyjs_config = {
 		screw_ie8:false,
 		reserved:['$super']
 	}
+};
+var uglifyjs3_config = {
+	ie8:true
 };
 
 var parsed_args;
@@ -83,7 +86,7 @@ gulp.task('js', ['del'], function(){
 		'public/'+project+'/**/*.js',
 		'!./public/'+project+'/**/*.@(entry).js',
 		'!./public/**/parts/*.js'
-	]).pipe(uglify(uglifyjs_config)).pipe(gulp.dest('dist/'+dist));
+	]).pipe(uglify(uglifyjs3_config)).pipe(gulp.dest('dist/'+dist));
 });
 gulp.task('html', ['del'], function(){
 	var dist = '*'===project ? '' : project;
@@ -113,7 +116,7 @@ gulp.task('webpack', ['del'], function(cb){
 	var dir = '*'===project ? '' : project;
 	var webpack = require("webpack");
 	config.plugins = [
-		new webpack.optimize.UglifyJsPlugin(uglifyjs_config)
+		new webpack.optimize.UglifyJsPlugin(uglifyjs2_config)
 	];
 	var entrysArray = glob.sync("**/*.@(entry).@(js?(x)|ts?(x))", {
 		cwd:'./public/'+dir+'/',
