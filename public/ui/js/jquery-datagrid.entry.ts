@@ -385,6 +385,7 @@ $.fn.datagrid = function(options, ...args){
 			options.onCreate && options.onCreate.bind(this)();
 		},//}}}
 		update: function(options){// {{{
+			if($(this.render).hasClass('state-loading')) return false;
 			let that = this;
 			$(this.render).addClass('datagrid-render-ctn state-loading');
 			setTimeout(function(){
