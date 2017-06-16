@@ -456,7 +456,6 @@ $.fn.datagrid = function(options, ...args){
 			this.reAlign();
 		},//}}}
 		resetTableHeight: function(val){
-			console.log('val');
 			$(this.render).height(val);
 			set_table_height(val, this);
 			return this;
