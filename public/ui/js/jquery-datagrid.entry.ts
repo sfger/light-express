@@ -1,6 +1,50 @@
 declare var $:any;
 import "../../public/js/requestAnimationFrame";
-import {createElement} from "../../public/js/parts/fn";
+// import {createElement} from "../../public/js/parts/fn";
+function getType(obj){//{{{
+	return Object.prototype.toString.call(obj).slice(8, -1).toLowerCase();
+}//}}}
+function createElement(node){//{{{
+	var cd = '',
+		at = [],
+		attr = null,
+		children = null,
+		fn = createElement,
+		node_type = getType(node);
+	if(node_type === 'array'){
+		for(var j in node) cd += fn(node[j]);
+	}else{
+		if(node_type==="string" || node_type=="number"){
+			cd = node;
+		}else if(node_type==='object' && node.name){
+			attr = node.attr, children = node.children, at = [];
+			if(attr){
+				for(var key in attr){
+					if(key=='className'){
+						at.push('class="' + attr[key] + '"');
+						continue;
+					}else if(key=='style'){
+						var style = attr[key];
+						var ot = getType(style);
+						attr[key] = '';
+						if(ot=='object'){
+							for(var sk in style){
+								attr[key] += sk + ':' + style[sk] + ';';
+							}
+						}else if(ot=='string'){
+							attr[key] = style;
+						}
+					}
+					at.push('' + key + '="' + attr[key] + '"');
+				}
+			}
+			if(at.length) at.unshift('');
+			if(children && getType(children) !== 'array') children = [children];
+			cd = '<' + node.name + at.join(' ') + '>' + (children ? fn(children) : '') + '</' + node.name + '>';
+		} else cd = '';
+	}
+	return cd;
+}//}}}
 $.fn.datagrid = function(options, ...args){
 	if('string'===$.type(options)){//{{{
 		let ret = this.toArray().map(function(one){
@@ -246,6 +290,11 @@ $.fn.datagrid = function(options, ...args){
 			});
 		}
 	}//}}}
+	function set_table_height(val, that, $autoView){
+		$autoView = $autoView || $('.auto-view', that.render);
+		let header_height = $autoView.find('.head-wrapper')[0].offsetHeight;
+		$('.body-wrapper', that.render).css({height:val - header_height});
+	}
 	function resize_table(that){//{{{
 		let $tables = $('table', that.render);
 		let $autoView  = $('.auto-view', that.render);
@@ -314,7 +363,7 @@ $.fn.datagrid = function(options, ...args){
 		tp1.css({width:'auto'});
 		tp0.parent().css({width:'auto', overflow:'hidden'});
 		requestAnimationFrame(function(){
-			$('.body-wrapper', that.render).css({height:that.render.offsetHeight - $autoView.find('.head-wrapper')[0].offsetHeight});
+			set_table_height(that.render.offsetHeight, that, $autoView);
 			let bar_width = auto.offsetWidth - auto.clientWidth;
 			$autoView.css({width: $autoView.find('table')[1].offsetWidth + bar_width});
 			requestAnimationFrame(function(){
@@ -405,6 +454,12 @@ $.fn.datagrid = function(options, ...args){
 			}
 			this.reAlign();
 		},//}}}
+		resetTableHeight: function(val){
+			console.log('val');
+			$(this.render).height(val);
+			set_table_height(val, this);
+			return this;
+		},
 		reAlign: function(){//{{{
 			/* TODO :
 			 * 1、全部行、全部列、单行、单列对齐重新对齐功能

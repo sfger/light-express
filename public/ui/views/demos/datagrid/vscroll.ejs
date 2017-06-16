@@ -17,13 +17,17 @@
 .my-datagrid{height:400px;width:50%;overflow:hidden;float:left;}
 .warn{color:#ff0101;}
 .normal{color:#008f1f;}
+.btn-group a{margin-right:10px;}
 </style>
 </head>
 <body>
 <div id="page">
+	<div class="btn-group">
+		<a id="btn-refresh" href="javascript:">刷新数据</a>
+		<a id="btn-reset-height" href="javascript:">改变窗口高度</a>
+	</div>
 	<div class="my-datagrid"></div>
 	<div class="my-datagrid"></div>
-	<a id="btn-refresh" href="javascript:">刷新数据</a>
 </div>
 <!--[if lt IE 9]>
 <script src="../../../../public/js/es5-shim.js"></script>
@@ -167,7 +171,11 @@ var stime = Date.now();
 var $grid = $('.my-datagrid');
 $grid.datagrid(options);
 $('#btn-refresh').click(function(){
-	$grid.eq(-1).datagrid('update', {data:gen_data});
+	$grid.datagrid('update', {data:gen_data});
+});
+$('#btn-reset-height').click(function(){
+	var height = 500 + Math.random()*250;
+	$grid.datagrid('resetTableHeight', height);
 });
 /*
 setInterval(function(){
