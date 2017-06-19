@@ -20,9 +20,9 @@ window.app = new Vue({
 		}
 	},
 	methods:{
-		onChange: function(val, ...arg){
-			this.selected = val;
-			console.log(arg);
+		pushData: function(val, ...arg){
+			console.log('sss', val, arg);
+			this.list.push({text:val});
 		}
 	}
 });

@@ -290,11 +290,11 @@ $.fn.datagrid = function(options, ...args){
 			});
 		}
 	}//}}}
-	function set_table_height(val, that, $autoView){
+	function set_table_height(val, that, $autoView=null){// {{{
 		$autoView = $autoView || $('.auto-view', that.render);
 		let header_height = $autoView.find('.head-wrapper')[0].offsetHeight;
 		$('.body-wrapper', that.render).css({height:val - header_height});
-	}
+	}// }}}
 	function resize_table(that){//{{{
 		let $tables = $('table', that.render);
 		let $autoView  = $('.auto-view', that.render);
@@ -455,11 +455,11 @@ $.fn.datagrid = function(options, ...args){
 			}
 			this.reAlign();
 		},//}}}
-		resetTableHeight: function(val){
+		resetTableHeight: function(val){// {{{
 			$(this.render).height(val);
 			set_table_height(val, this);
 			return this;
-		},
+		},// }}}
 		reAlign: function(){//{{{
 			/* TODO :
 			 * 1、全部行、全部列、单行、单列对齐重新对齐功能
