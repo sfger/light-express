@@ -1,6 +1,7 @@
 import test from "./index.vue";
+let Vue = window.Vue;
 Vue.component('app', test);
-window.app = new Vue({
+var app = window.app = new Vue({
 	el: '#app',
 	// render: function(c){
 	// 	return c('app', {
@@ -32,5 +33,5 @@ setTimeout(function(){
 		{text:'a'},
 		{text:'b'},
 		{text:'c'}
-	]
+	];
 }, 1200);
