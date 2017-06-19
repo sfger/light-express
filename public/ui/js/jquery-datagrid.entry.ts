@@ -290,11 +290,11 @@ $.fn.datagrid = function(options, ...args){
 			});
 		}
 	}//}}}
-	function set_table_height(value, that, $autoView=null){
+	function set_table_height(value, that, $autoView=null){// {{{
 		$autoView = $autoView || $('.auto-view', that.render);
 		let header_height = $autoView.find('.head-wrapper')[0].offsetHeight;
 		$('.body-wrapper', that.render).css({height:value - header_height});
-	}
+	}// }}}
 	function resize_table(that){//{{{
 		let $tables = $('table', that.render);
 		let $autoView  = $('.auto-view', that.render);

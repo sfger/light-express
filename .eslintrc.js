@@ -8,7 +8,6 @@ module.exports = {
         "node"     : true
     },
     "extends": "eslint:recommended",
-    "installedESLint": true,
     "parserOptions": {
 		"ecmaVersion": 8, // or 7
         "ecmaFeatures": {

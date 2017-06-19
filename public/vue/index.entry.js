@@ -1,6 +1,7 @@
 import test from "./index.vue";
+let Vue = window.Vue;
 Vue.component('app', test);
-window.app = new Vue({
+var app = window.app = new Vue({
 	el: '#app',
 	// render: function(c){
 	// 	return c('app', {
@@ -20,9 +21,9 @@ window.app = new Vue({
 		}
 	},
 	methods:{
-		onChange: function(val, ...arg){
-			this.selected = val;
-			console.log(arg);
+		pushData: function(val, ...arg){
+			console.log('sss', val, arg);
+			this.list.push({text:val});
 		}
 	}
 });
@@ -32,5 +33,5 @@ setTimeout(function(){
 		{text:'a'},
 		{text:'b'},
 		{text:'c'}
-	]
+	];
 }, 1200);
