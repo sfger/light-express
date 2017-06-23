@@ -22,7 +22,7 @@ html{
 	100%{transform:translateY(0);}
 }
 .navi-box{
-	width:505px;animation:dropDown 0.5s;
+	width:505px;animation:dropDown 0.5s linear;
 	@media screen and (max-width:640px){width:80%;}
 	@include border-radius(8px);@include background-color-rgba(#000,0.3);
 	text-align:center;_background:darken(#ade8aa,51%);

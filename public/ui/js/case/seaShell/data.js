@@ -115,6 +115,8 @@ define(function(){
 			name: '协议、文档、标准',
 			children:[
 				{name:'CSS Reference', url:'http://cssreference.io/'},
+				{name:'easings.net', url:'http://easings.net/'}，
+				{name:'CubicBezier', url:'http://cubic-bezier.com'}，
 				{name:'ES6', url:'http://es6.ruanyifeng.com/'},
 				{name:'VUE cheatsheet', url:'https://vuejs-tips.github.io/cheatsheet/'},
 				{name:'VUE SSR', url:'https://ssr.vuejs.org/en/'},
