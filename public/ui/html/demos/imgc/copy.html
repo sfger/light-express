@@ -16,7 +16,7 @@ background:linear-gradient(to right, rgba(255, 255, 255, 0), white 50%, white);
 }
 @media \0screen{
 .ellipsis:after{width:20px;margin-left:-20px;background:white;}
-}</style></head><body><div class="ellipsis"><div id="test"></div></div><a href="javascript:" id="list">Copy</a><script>String.prototype.repeat = function(len){
+}</style></head><body><div class="ellipsis"><div id="test"></div></div><a href="javascript:" id="list">Copy</a><!--<script src="http://cdn01.1haitao.com/public/js/jquery.js"></script>--><script>String.prototype.repeat = function(len){
 var ret = '';
 for(var i=0; i<len; i++) ret += this;
 return ret;
@@ -31,7 +31,12 @@ init: function(){
 var input = this.input = document.createElement('a');
 input.style.cssText = "width:1px;height:1px;line-height:0;font-size:1px;overflow:hidden;color:transparent;border:none;position:fixed;right:0;bottom:0;background:transparent;box-shadow:none;";
 document.body.appendChild(input);
+var that = this;
+input.oncopy = function(e){
+that.onCopy.call(that,e||window.event);
+};
 },
+onCopy: null,
 string: function(str){
 str = String(str);
 var input = this.input;
@@ -56,4 +61,7 @@ window.getSelection().removeAllRanges()
 copy.init();
 $('list').onclick = function(e){
 copy.string(Math.random());
+};
+copy.onCopy = function(e){
+console.log(this,e);
 };</script></body></html>
