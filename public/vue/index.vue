@@ -32,7 +32,7 @@ export default {
 			},
 			set: function(val){
 				console.log('select input',val);
-				this.$emit('input', val,1,2,3,4);
+				this.$emit('input',val,1,2,3,4);
 			}
 		}
 	},

@@ -231,12 +231,12 @@ define(function(){
 			name: 'Tech',
 			children:[
 				{name:'SinaAppEngine', url:'http://sae.sina.com.cn/'},
-				{name:'MSDN', url:'http://msdn.microsoft.com/en-us/library/ms683218%28VS.85%29.aspx'},
+				{name:'MSDN', url:'http://msdn.microsoft.com/en-us/library/ms683218%28VS.85%29.aspx', target:'_blank'},
 				{name:'Google Developers', url:'https://developers.google.com/academy/apis/commerce/?hl=zh-cn'},
 				{name:'Google Developers CN', url:'https://developers.google.cn/'},
 				{name:'谷歌流量分析', url:'https://www.google.com/analytics/web/?hl=zh-CN', target:'_blank'},
 				{name:'Java document', url:'http://docs.oracle.com/javase/6/docs/api/overview-summary.html'},
-				{name:'Codeplex', url:'http://www.codeplex.com/'}
+				{name:'Codeplex', url:'http://www.codeplex.com/', target:"_blank"}
 			]
 		},
 		//}}}

@@ -23,7 +23,7 @@ var app = window.app = new Vue({
 	methods:{
 		pushData: function(val, ...arg){
 			console.log('sss', val, arg);
-			this.list.push({text:val});
+			val && this.list.push({text:val});
 		}
 	}
 });
