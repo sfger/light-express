@@ -72,7 +72,7 @@
     "postcss-sprites": "^4.2.0",
     "postcss-urlrev": "^2.0.0",
     "precss": "^1.3.0",
-    "redux": "^3.7.0",
+    "redux": "^3.7.1",
     "url-loader": "^0.5.9",
     "webpack-dev-server": "^2.5.0"
   }
