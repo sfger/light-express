@@ -117,6 +117,7 @@ _:-ms-lang(x), .grid .col { display: inline-block\9; }
 _:-ms-lang(x), .grid .col-rest { display: inline-block\9; }
 
 /* Original style from softwaremaniacs.org (c) Ivan Sagalaev <Maniac@SoftwareManiacs.Org> */
+
 .hljs { display: block; overflow-x: auto; padding: 0.5em; background: #eaeaea; -webkit-text-size-adjust: none; }
 
 .hljs, .hljs-subst, .hljs-tag .hljs-title, .nginx .hljs-title { color: black; }
