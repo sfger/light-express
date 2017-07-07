@@ -77,14 +77,19 @@ define(function(){
 		{
 			name: 'Web-UI',
 			children:[
+				{name:'iscroll', url:'https://github.com/cubiq/iscroll/'},
+				{name:'better-scroll', url:'https://github.com/ustbhuangyi/better-scroll'},
+				{name:'infinite-scroll', url:'https://infinite-scroll.com/'},
 				{name:'AntDesign', url:'https://ant.design/'},
-				{name:'iscroll', url:'http://iscrolljs.com/'},
 				{name:'force.js', url:'http://easings.net/'},
+				{name:'Popmotion', url:'https://github.com/Popmotion/popmotion'},
+				{name:'redom', url:'https://github.com/redom/redom'},
 				{name:'mobx', url:'https://mobxjs.github.io/mobx/index.html'},
 				{name:'javascript', url:'http://www.javascripting.com/'},
 				{name:'Material', url:'http://www.material-ui.com/#/'},
 				{name:'Pure', url:'https://github.com/yahoo/pure'},
 				{name:'AntV', url:'http://antv.alipay.com/', target:'_blank'},
+				{name:'createjs', url:'http://www.createjs.cc/'},
 				{name:'G2', url:'https://g2.alipay.com/'},
 				{name:'x-tag', url:'http://x-tag.github.io/overview'},
 				{name:'SnapSVG', url:'http://snapsvg.io/'},
@@ -115,6 +120,7 @@ define(function(){
 			name: '协议、文档、标准',
 			children:[
 				{name:'CSS Reference', url:'http://cssreference.io/'},
+				{name:'Google Developers', url:'https://developers.google.com/web/'},
 				{name:'easings.net', url:'http://easings.net/'},
 				{name:'CubicBezier', url:'http://cubic-bezier.com'},
 				{name:'ES6', url:'http://es6.ruanyifeng.com/'},
@@ -257,8 +263,9 @@ define(function(){
 				//}}}
 				//Video{{{
 				{
-					name: '视频',
+					name: '音/视频',
 					children:[
+						{name:'51VOA', url:'http://www.51voa.com/'},
 						{name:'优酷', url:'http://www.youku.com'},
 						{name:'PPS', url:'http://www.pps.tv'},
 						{name:'土豆', url:'http://www.tudou.com/'},
