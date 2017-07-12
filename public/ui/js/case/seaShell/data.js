@@ -80,15 +80,12 @@ define(function(){
 				{name:'iscroll', url:'https://github.com/cubiq/iscroll/'},
 				{name:'better-scroll', url:'https://github.com/ustbhuangyi/better-scroll'},
 				{name:'infinite-scroll', url:'https://infinite-scroll.com/'},
-				{name:'AntDesign', url:'https://ant.design/'},
 				{name:'force.js', url:'http://easings.net/'},
 				{name:'Popmotion', url:'https://github.com/Popmotion/popmotion'},
 				{name:'redom', url:'https://github.com/redom/redom'},
 				{name:'mobx', url:'https://mobxjs.github.io/mobx/index.html'},
 				{name:'javascript', url:'http://www.javascripting.com/'},
-				{name:'Material', url:'http://www.material-ui.com/#/'},
 				{name:'Pure', url:'https://github.com/yahoo/pure'},
-				{name:'AntV', url:'http://antv.alipay.com/', target:'_blank'},
 				{name:'createjs', url:'http://www.createjs.cc/'},
 				{name:'G2', url:'https://g2.alipay.com/'},
 				{name:'x-tag', url:'http://x-tag.github.io/overview'},
@@ -115,18 +112,35 @@ define(function(){
 			]
 		},
 		//}}}
+		//Design{{{
+		{
+			name: 'Design',
+			children: [
+				{name:'Material', url:'http://www.material-ui.com/#/'},
+				{name:'Material design lite', url:'https://github.com/google/material-design-lite'},
+				{name:'AntDesign', url:'https://ant.design/'},
+				{name:'AntV', url:'http://antv.alipay.com/', target:'_blank'},
+			]
+		},
+		//}}}
 		//Standard&Tools{{{
 		{
 			name: '协议、文档、标准',
 			children:[
+				{name:'ECMAScript', url:'https://github.com/tc39'},
+				{name:'ES6', url:'http://es6.ruanyifeng.com/'},
+				{name:'es2017', url:'https://frontendmasters.gitbooks.io/front-end-handbook-2017/content/'},
+				{name:'es6-es7', url:'http://exploringjs.com/es2016-es2017/index.html'},
 				{name:'CSS Reference', url:'http://cssreference.io/'},
 				{name:'Google Developers', url:'https://developers.google.com/web/'},
 				{name:'easings.net', url:'http://easings.net/'},
 				{name:'CubicBezier', url:'http://cubic-bezier.com'},
-				{name:'ES6', url:'http://es6.ruanyifeng.com/'},
+				{name:'NodeJS CMS keystone', url:'https://github.com/keystonejs/keystone'},
+				{name:'egg', url:'https://eggjs.org/'},
 				{name:'VUE cheatsheet', url:'https://vuejs-tips.github.io/cheatsheet/'},
 				{name:'VUE SSR', url:'https://ssr.vuejs.org/en/'},
 				{name:'svgjs', url:'http://svgjs.com/'},
+				{name:'DateFns', url:'https://github.com/date-fns/date-fns'},
 				{name:'MathJS', url:'http://mathjs.org/'},
 				{name:'w3help', url:'http://www.w3help.org/'},
 				{name:'awesome', url:'https://github.com/lnishan/awesome-competitive-programming'},
@@ -138,10 +152,8 @@ define(function(){
 				{name:'Docsify', url:'https://docsify.js.org/#/'},
 				{name:'JS标准参考中文', url:'http://javascript.ruanyifeng.com/'},
 				{name:'csstriggers', url:'https://csstriggers.com/'},
-				{name:'es2017', url:'https://frontendmasters.gitbooks.io/front-end-handbook-2017/content/'},
 				{name:'CSharp', url:'https://www.microsoft.com/net/tutorials/csharp/getting-started'},
 				{name:'CSharp Video', url:'https://mva.microsoft.com/en-us/training-courses/c-fundamentals-for-absolute-beginners-16169?l=Lvld4EQIC_2706218949'},
-				{name:'es6-es7', url:'http://exploringjs.com/es2016-es2017/index.html'},
 				{name:'Google API Design', url:'https://cloud.google.com/apis/design/'},
 				{name:'grid-flex', url:'http://www.xingbofeng.com/css-grid-flex/'},
 				{name:'IETransformsTranslator', url:'http://www.useragentman.com/IETransformsTranslator/'},
@@ -150,7 +162,6 @@ define(function(){
 				{name:'JSON', url:'http://www.json.org/'},
 				{name:'Git Magic', url:'http://www-cs-students.stanford.edu/~blynn/gitmagic/intl/zh_cn/ch09.html'},
 				{name:'Git cmd', url:'https://shfshanyue.github.io/cheat-sheets/git'},
-				{name:'egg', url:'https://eggjs.org/'},
 				{name:'AlloyTouch', url:'http://alloyteam.github.io/AlloyTouch/index.html'},
 				{name:'Gitmoji', url:'https://github.com/carloscuesta/gitmoji'},
 				{name:'WXOpen', url:'https://mp.weixin.qq.com/'},

@@ -42,10 +42,10 @@
     "ts-loader": "^2.2.2",
     "typescript": "^2.4.1",
     "vue": "^2.3.4",
-    "vue-loader": "^13.0.0",
+    "vue-loader": "^13.0.1",
     "vue-template-compiler": "^2.3.4",
     "vuex": "^2.3.1",
-    "webpack": "^3.1.0"
+    "webpack": "^3.2.0"
   },
   "devDependencies": {
     "babel-core": "^6.25.0",
