@@ -349,7 +349,10 @@ $.fn.datagrid = function(options, ...args){
 				if($(list).is(':animated')) return false;
 				let scroll_height = tb3.scrollHeight - tb3.clientHeight;
 				let _sh = tb3.scrollTop - (originalEvent.wheelDelta || -(originalEvent.detail/3)*120);
+				_sh = _sh>scroll_height ? scroll_height: _sh;
+				_sh = _sh<0 ? 0 : _sh;
 				$(list).animate({scrollTop:'+'+(_sh>scroll_height?scroll_height:_sh)+'px'}, 230);
+				if(_sh!==$(list).scrollTop()) return false;
 			});
 			if(options.autoRowHeight){
 				align_cell_row($('table:odd', that.render).toArray().map(function(table){

@@ -118,8 +118,10 @@ define(function(){
 			children: [
 				{name:'Material', url:'http://www.material-ui.com/#/'},
 				{name:'Material design lite', url:'https://github.com/google/material-design-lite'},
+				{name:'Material design icons', url:'https://github.com/google/material-design-icons'},
 				{name:'AntDesign', url:'https://ant.design/'},
 				{name:'AntV', url:'http://antv.alipay.com/', target:'_blank'},
+				{name:'coolhue', url:'https://github.com/webkul/coolhue', target:'_blank'}
 			]
 		},
 		//}}}
