@@ -3,16 +3,23 @@ __non_webpack_require__.config({
 	urlArgs: document.getElementById("requirejs").getAttribute("data-version"),
 	map: {"*":{css:"require-css"}},
 	paths: {
-		'jquery': '../../public/js/jquery'
+		'jquery': '../../public/js/jquery',
+		'es5-shim': '../../public/js/es5-shim'
 	},
 	shim: {
-		// 'jquery-layout':{deps:["jquery"]},
-		// 'jquery-tree':  {deps:["jquery"]},
-		// 'jquery-tabs':  {deps:["jquery"]}
+		// 'jquery-layout':{deps:["jquery", "es5-shim"]},
+		// 'jquery-tree':  {deps:["jquery", "es5-shim"]},
+		// 'jquery-tabs':  {deps:["jquery", "es5-shim"]}
 	}
 });
-__non_webpack_require__(['jquery'], function($){
-	require('../../../../public/js/es5-shim');
+__non_webpack_require__([
+	'jquery',
+	'es5-shim'
+	// 'jquery-layout',
+	// 'jquery-tree',
+	// 'jquery-tabs'
+], function($){
+	// require('../../../../public/js/es5-shim');
 	require('../../jquery-layout');
 	require('../../jquery-tree');
 	require('../../jquery-tabs');

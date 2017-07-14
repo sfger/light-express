@@ -153,6 +153,7 @@ define(function(){
 				{name:'cssTriggers', url:'https://csstriggers.com/'},
 				{name:'Docsify', url:'https://docsify.js.org/#/'},
 				{name:'JS标准参考中文', url:'http://javascript.ruanyifeng.com/'},
+				{name:'FrontEndHandbook', url:'https://github.com/xitu/front-end-handbook-2017'},
 				{name:'csstriggers', url:'https://csstriggers.com/'},
 				{name:'CSharp', url:'https://www.microsoft.com/net/tutorials/csharp/getting-started'},
 				{name:'CSharp Video', url:'https://mva.microsoft.com/en-us/training-courses/c-fundamentals-for-absolute-beginners-16169?l=Lvld4EQIC_2706218949'},
