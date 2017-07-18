@@ -7,9 +7,8 @@ $is_modern:0;
 		.view-wrapper{z-index:-1;}
 		position:relative;@include background-color-rgba(black,0.692);color:transparent;
 		&:before{
-			content:"正在加载……";display:block;
+			content:"正在加载……";display:block;height:15px;line-height:1;text-align:center;color:white;
 			@include absolute(left 0 right 0 top 0 bottom 0,5);margin:auto;
-			height:15px;line-height:15px;text-align:center;color:white;
 		}
 	}
 }

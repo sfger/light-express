@@ -564,7 +564,7 @@ $.fn.datagrid = function(options, ...args){
 			this.sortElement = sortElement = sortElement || $('.head-wrapper [data-field='+field+']', this.render)[0];
 			if(preSortElement){
 				if(sortElement===preSortElement){ // 同一列
-					if(order===preSortElement.order) return this; // 排序没变中断
+					if(order===preSortElement.order) return this; // 排序无变化
 					options.data = options.data.reverse();
 				}
 				$('.sort-mark', preSortElement).removeClass('asc desc');

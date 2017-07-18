@@ -78,7 +78,7 @@ _:-ms-lang(x), .grid .col-rest { display: inline-block\9; }
 .datagrid-render-ctn.state-loading { position: relative; background-color: rgba(0, 0, 0, 0.692); color: transparent; }
 .datagrid-render-ctn.state-loading .view-wrapper { z-index: -1; }
 @media \0screen\,screen\9 { .datagrid-render-ctn.state-loading { filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#B0000000,endColorstr=#B0000000); } }
-.datagrid-render-ctn.state-loading:before { content: "正在加载……"; display: block; position: absolute; top: 0; right: 0; bottom: 0; left: 0; z-index: 5; margin: auto; height: 15px; line-height: 15px; text-align: center; color: white; }
+.datagrid-render-ctn.state-loading:before { content: "正在加载……"; display: block; height: 15px; line-height: 1; text-align: center; color: white; position: absolute; top: 0; right: 0; bottom: 0; left: 0; z-index: 5; margin: auto; }
 .datagrid-ctn { max-width: 100%; overflow: hidden; vertical-align: middle; }
 .datagrid-ctn .view-wrapper { position: relative; *white-space: nowrap; *overflow: hidden; }
 .datagrid-ctn .col-view { *display: inline; *zoom: 1; }
