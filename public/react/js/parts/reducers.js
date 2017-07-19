@@ -1,4 +1,4 @@
-export function num(state=0, action){
+function num(state=0, action){
 	switch(action.type){
 		case 'ADD':{
 			return state + 1;
@@ -12,7 +12,7 @@ export function num(state=0, action){
 	}
 }
 
-export function list(state=[], action){
+function list(state=[], action){
 	switch(action.type){
 		case 'PUSH':{
 			return [
@@ -30,3 +30,8 @@ export function list(state=[], action){
 		}
 	}
 }
+
+export{
+	num,
+	list
+};

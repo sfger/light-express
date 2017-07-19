@@ -1,6 +1,7 @@
 var path = require('path');
 var glob = require('glob');
 var webpack = require('webpack');
+var es3ifyPlugin = require('es3ify-webpack-plugin');
 var entrysArray = glob.sync("**/*.@(entry).@(js?(x)|ts)", {
 	cwd:'./public/',
 	nobrace:true
@@ -131,6 +132,7 @@ module.exports = {
 		]
 	},
 	plugins:[
+		new es3ifyPlugin(),
 		new webpack.optimize.ModuleConcatenationPlugin()
 	]
 };
