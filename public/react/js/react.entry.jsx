@@ -2,7 +2,7 @@ import React,{Component} from 'react';
 import ReactDOM from 'react-dom';
 import {Provider, connect} from 'react-redux';
 import {createStore, combineReducers} from 'redux';
-import * as reducers from './parts/reducers';
+import reducers from './parts/reducers';
 // console.log(reducers)
 const store = createStore(combineReducers(reducers), {
 	num:3,
@@ -77,10 +77,12 @@ let CommentBox = ({row,a,b,num,list,add_num,list_push,list_pop})=>{
 */
 
 const mapStateToProps = (state) => {
-	return {
-		num: state.num,
-		list: state.list
-	}
+	console.log(state);
+	// return {
+	// 	num: state.num,
+	// 	list: state.list
+	// }
+	return {...state};
 };
 const mapDispatchToProps = (dispatch) => {
 	return {
@@ -105,7 +107,7 @@ const ListShow = connect(mapStateToProps, mapDispatchToProps)(CommentBox);
 let test = {a:'aaa', b:'bbb'};
 ReactDOM.render(
 	<Provider store={store}>
-		<ListShow row={'row'} {...test} />
+		<ListShow row={'testRow'} {...test} />
 	</Provider>,
 	document.querySelector('#page')
 );

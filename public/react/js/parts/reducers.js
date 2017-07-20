@@ -31,7 +31,5 @@ function list(state=[], action){
 	}
 }
 
-export{
-	num,
-	list
-};
+let reducers = {num, list};
+export default reducers;
