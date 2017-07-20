@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import {Provider, connect} from 'react-redux';
 import {createStore, combineReducers} from 'redux';
 import reducers from './parts/reducers';
-// console.log(reducers)
 const store = createStore(combineReducers(reducers), {
 	num:3,
 	list:['test','list']
@@ -13,7 +12,9 @@ const {dispatch,getState} = store;
 class CommentBox extends Component{
 	constructor(props) {
 		super(props);
-		// this.state = {};
+		this.state = {
+			nu:0
+		};
 	}
 	componentWillMount(test){
 		console.log('will', this);
@@ -21,12 +22,22 @@ class CommentBox extends Component{
 	componentDidMount(test){
 		console.log('did', this);
 	}
+	add_nu(e){
+		console.log(e);
+		this.setState({
+			nu: this.state.nu+1
+		});
+	}
 	render(){
 		let {row,a,b,num,list,add_num,list_push,list_pop} = this.props;
 		return (
 			<div className="commentBox">
 				<div>
 					<a href="javascript:" data-test="test">row:{row},a:{a},b:{b}</a>
+				</div>
+				<div>
+					<a href="javascript:" onClick={this.add_nu.bind(this)}>Add nu</a>
+					<span>{this.state.nu}</span>
 				</div>
 				<div>
 					<a href="javascript:" onClick={add_num}>Add num</a>
@@ -77,7 +88,7 @@ let CommentBox = ({row,a,b,num,list,add_num,list_push,list_pop})=>{
 */
 
 const mapStateToProps = (state) => {
-	console.log(state);
+	// console.log(state);
 	// return {
 	// 	num: state.num,
 	// 	list: state.list
