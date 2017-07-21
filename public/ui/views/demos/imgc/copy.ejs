@@ -30,7 +30,9 @@
 <div class="ellipsis">
   <div id="test"></div>
 </div>
-<a href="javascript:" id="list">Copy</a>
+<a href="javascript:" id="copy1">Copy1</a>
+<br />
+<a href="javascript:" id="copy2">Copy2</a>
 <!-- <script src="http://cdn01.1haitao.com/public/js/jquery.js"></script> -->
 <script>
 String.prototype.repeat = function(len){
@@ -42,47 +44,57 @@ var $ = function(selector){
 	return document.getElementById(selector);
 };
 $('test').innerHTML = 'test '.repeat('549');
-
-var copy = {
-	input : null,
-	init: function(){
+(function(window){
+	function COPY(){
 		var input = this.input = document.createElement('a');
 		input.contenteditable = true;
 		input.style.cssText = "width:1px;height:1px;line-height:0;font-size:1px;overflow:hidden;color:transparent;border:none;position:fixed;right:0;bottom:0;background:transparent;box-shadow:none;";
 		document.body.appendChild(input);
 		var that = this;
+		this.onCopy = null;
 		input.oncopy = function(e){
-			that.onCopy.call(that,e||window.event);
+			if(typeof that.onCopy === 'function') that.onCopy.call(that,e||window.event);
 		};
-	},
-	onCopy: null,
-	string: function(str){
-		str = String(str);
-		var input = this.input;
-		input.innerHTML = str;
-		if(document.selection){  
-			document.selection.empty();
-			var range = document.body.createTextRange();  
-			range.moveToElementText(input);  
-			range.select();  
-			document.execCommand('copy');
-			document.selection.empty();
-		}else if(window.getSelection){  
-			var range = document.createRange();  
-			range.selectNodeContents(input);  
-			window.getSelection().removeAllRanges();
-			window.getSelection().addRange(range);  
-			document.execCommand('copy');
-			window.getSelection().removeAllRanges()
+	};
+	COPY.prototype = {
+		string: function(str){
+			str = String(str);
+			var input = this.input;
+			input.innerHTML = str;
+			if(document.selection){  
+				document.selection.empty();
+				var range = document.body.createTextRange();  
+				range.moveToElementText(input);  
+				range.select();  
+				document.execCommand('copy');
+				document.selection.empty();
+			}else if(window.getSelection){  
+				var range = document.createRange();  
+				range.selectNodeContents(input);  
+				window.getSelection().removeAllRanges();
+				window.getSelection().addRange(range);  
+				document.execCommand('copy');
+				window.getSelection().removeAllRanges()
+			}
 		}
-	}
+	};
+	return window.COPY = COPY;
+})(window);
+var copy1 = new COPY();
+$('copy1').onclick = function(e){
+	copy1.string(Math.random());
 };
-copy.init();
-$('list').onclick = function(e){
-	copy.string(Math.random());
+copy1.onCopy = function(e){
+	alert('copy1');
+	console.log(this,e);
 };
-copy.onCopy = function(e){
-	alert('test');
+
+var copy2 = new COPY();
+$('copy2').onclick = function(e){
+	copy2.string(Math.random());
+};
+copy2.onCopy = function(e){
+	alert('copy2');
 	console.log(this,e);
 };
 </script>

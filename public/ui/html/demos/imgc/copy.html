@@ -16,7 +16,7 @@ background:linear-gradient(to right, rgba(255, 255, 255, 0), white 50%, white);
 }
 @media \0screen{
 .ellipsis:after{width:20px;margin-left:-20px;background:white;}
-}</style></head><body><div class="ellipsis"><div id="test"></div></div><a href="javascript:" id="list">Copy</a><!--<script src="http://cdn01.1haitao.com/public/js/jquery.js"></script>--><script>String.prototype.repeat = function(len){
+}</style></head><body><div class="ellipsis"><div id="test"></div></div><a href="javascript:" id="copy1">Copy1</a><br /><a href="javascript:" id="copy2">Copy2</a><!--<script src="http://cdn01.1haitao.com/public/js/jquery.js"></script>--><script>String.prototype.repeat = function(len){
 var ret = '';
 for(var i=0; i<len; i++) ret += this;
 return ret;
@@ -25,19 +25,19 @@ var $ = function(selector){
 return document.getElementById(selector);
 };
 $('test').innerHTML = 'test '.repeat('549');
-var copy = {
-input : null,
-init: function(){
+(function(window){
+function COPY(){
 var input = this.input = document.createElement('a');
 input.contenteditable = true;
 input.style.cssText = "width:1px;height:1px;line-height:0;font-size:1px;overflow:hidden;color:transparent;border:none;position:fixed;right:0;bottom:0;background:transparent;box-shadow:none;";
 document.body.appendChild(input);
 var that = this;
+this.onCopy = null;
 input.oncopy = function(e){
-that.onCopy.call(that,e||window.event);
+if(typeof that.onCopy === 'function') that.onCopy.call(that,e||window.event);
 };
-},
-onCopy: null,
+};
+COPY.prototype = {
 string: function(str){
 str = String(str);
 var input = this.input;
@@ -59,11 +59,21 @@ window.getSelection().removeAllRanges()
 }
 }
 };
-copy.init();
-$('list').onclick = function(e){
-copy.string(Math.random());
+return window.COPY = COPY;
+})(window);
+var copy1 = new COPY();
+var copy2 = new COPY();
+$('copy1').onclick = function(e){
+copy1.string(Math.random());
 };
-copy.onCopy = function(e){
-alert('test');
+copy1.onCopy = function(e){
+alert('copy1');
+console.log(this,e);
+};
+$('copy2').onclick = function(e){
+copy2.string(Math.random());
+};
+copy2.onCopy = function(e){
+alert('copy2');
 console.log(this,e);
 };</script></body></html>
