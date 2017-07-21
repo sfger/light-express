@@ -234,6 +234,8 @@ define(function(){
 		{
 			name: '小工具',
 			children:[
+				{name:'choco', url:'https://chocolatey.org/'},
+				{name:'latex', url:'http://www.latex-project.org/'},
 				{name:'Emmet', url:'http://docs.emmet.io/'},
 				{name:'Sizzy', url:'http://sizzy.co/'},
 				{name:'截图工具', url:'https://www.snipaste.com/index.html'},

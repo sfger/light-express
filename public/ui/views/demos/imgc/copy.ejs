@@ -44,7 +44,7 @@ var $ = function(selector){
 	return document.getElementById(selector);
 };
 $('test').innerHTML = 'test '.repeat('549');
-(function(window){
+(function(window, document){
 	function COPY(){
 		var input = this.input = document.createElement('a');
 		input.contenteditable = true;
@@ -79,7 +79,7 @@ $('test').innerHTML = 'test '.repeat('549');
 		}
 	};
 	return window.COPY = COPY;
-})(window);
+})(window, window.document);
 var copy1 = new COPY();
 $('copy1').onclick = function(e){
 	copy1.string(Math.random());

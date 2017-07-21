@@ -25,7 +25,7 @@ var $ = function(selector){
 return document.getElementById(selector);
 };
 $('test').innerHTML = 'test '.repeat('549');
-(function(window){
+(function(window, document){
 function COPY(){
 var input = this.input = document.createElement('a');
 input.contenteditable = true;
@@ -60,9 +60,8 @@ window.getSelection().removeAllRanges()
 }
 };
 return window.COPY = COPY;
-})(window);
+})(window, window.document);
 var copy1 = new COPY();
-var copy2 = new COPY();
 $('copy1').onclick = function(e){
 copy1.string(Math.random());
 };
@@ -70,6 +69,7 @@ copy1.onCopy = function(e){
 alert('copy1');
 console.log(this,e);
 };
+var copy2 = new COPY();
 $('copy2').onclick = function(e){
 copy2.string(Math.random());
 };
