@@ -7,7 +7,7 @@
   },
   "dependencies": {
     "@types/jquery": "^3.2.9",
-    "antd": "^2.12.1",
+    "antd": "^2.12.2",
     "args": "^3.0.4",
     "babel-loader": "^7.1.1",
     "babel-plugin-import": "^1.2.1",
@@ -76,6 +76,6 @@
     "precss": "^2.0.0",
     "redux": "^3.7.2",
     "url-loader": "^0.5.9",
-    "webpack-dev-server": "^2.5.1"
+    "webpack-dev-server": "^2.6.1"
   }
 }
