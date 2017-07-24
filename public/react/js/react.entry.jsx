@@ -1,13 +1,22 @@
 import React,{Component} from 'react';
 import ReactDOM from 'react-dom';
-import {Provider, connect} from 'react-redux';
 import {createStore, combineReducers} from 'redux';
+import {Provider, connect} from 'react-redux';
+// import { Router, Route, browserHistory } from 'react-router';
+import {BrowserRouter as Router, Route, Link} from 'react-router-dom';
+import {createBrowserHistory} from 'history';
+import {syncHistoryWithStore, routerReducer} from 'react-router-redux';
 import reducers from './parts/reducers';
-const store = createStore(combineReducers(reducers), {
+const store = createStore(combineReducers({
+	...reducers,
+	routing: routerReducer
+}), {
 	num:3,
 	list:['test','list']
 });
 const {dispatch,getState} = store;
+// const history = createBrowserHistory();
+const history = syncHistoryWithStore(createBrowserHistory(), store);
 
 class CommentBox extends Component{
 	constructor(props) {
@@ -118,7 +127,19 @@ const ListShow = connect(mapStateToProps, mapDispatchToProps)(CommentBox);
 let test = {a:'aaa', b:'bbb'};
 ReactDOM.render(
 	<Provider store={store}>
-		<ListShow row={'testRow'} {...test} />
+		<Router history={history}>
+			<div>
+				<ul>
+					<li><Link to="/">Home</Link></li>
+					<li><Link to="/react/index.html">index</Link></li>
+					<li><Link to="/react/test.html">test</Link></li>
+				</ul>
+				<Route path="/react/index.html" component={ListShow} />
+				<Route path="/react/test.html" render={()=>{
+					return <div>hello world</div>
+				}} />
+			</div>
+		</Router>
 	</Provider>,
 	document.querySelector('#page')
 );
