@@ -3,8 +3,8 @@ import ReactDOM from 'react-dom';
 import {createStore, combineReducers} from 'redux';
 import {Provider, connect} from 'react-redux';
 // import { Router, Route, browserHistory } from 'react-router';
-import {BrowserRouter as Router, Route, Link} from 'react-router-dom';
-import {createBrowserHistory} from 'history';
+import {BrowserRouter, HashRouter as Router, Route, Link} from 'react-router-dom';
+import {createBrowserHistory, createHashHistory} from 'history';
 import {syncHistoryWithStore, routerReducer} from 'react-router-redux';
 import reducers from './parts/reducers';
 const store = createStore(combineReducers({
@@ -16,14 +16,17 @@ const store = createStore(combineReducers({
 });
 const {dispatch,getState} = store;
 // const history = createBrowserHistory();
-const history = syncHistoryWithStore(createBrowserHistory(), store);
+const history = syncHistoryWithStore(createHashHistory(), store);
 
 class CommentBox extends Component{
+	state = {
+		nu:12
+	};
 	constructor(props) {
 		super(props);
-		this.state = {
-			nu:0
-		};
+		// this.state = {
+		// 	nu:0
+		// };
 	}
 	componentWillMount(test){
 		console.log('will', this);
@@ -131,11 +134,13 @@ ReactDOM.render(
 			<div>
 				<ul>
 					<li><Link to="/">Home</Link></li>
-					<li><Link to="/react/index.html">index</Link></li>
-					<li><Link to="/react/test.html">test</Link></li>
+					<li><Link to="/index">index</Link></li>
+					<li><Link to="/test">test</Link></li>
 				</ul>
-				<Route path="/react/index.html" component={ListShow} />
-				<Route path="/react/test.html" render={()=>{
+				<Route path="/index" render={()=>{
+					return <ListShow row={'testRow'} {...test} />
+				}}/>
+				<Route path="/test" render={()=>{
 					return <div>hello world</div>
 				}} />
 			</div>
