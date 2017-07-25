@@ -1,4 +1,6 @@
 @charset "utf-8";
+// @import "./fn";
+
 .cf{@include cf;}
 .imgc{@include imgc;}
 .imge{@include imge;}
@@ -46,6 +48,8 @@
 		width:auto!important;
 		font-weight:normal!important;
 		color: #666!important;
+	}
+	&,*{
 		word-break:break-all!important;
 		word-wrap:break-word!important;
 	}
