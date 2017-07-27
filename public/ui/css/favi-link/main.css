@@ -84,15 +84,15 @@ audio, canvas, video { vertical-align: middle; }
 
 .txt-jt:after, .txt-jt .iecp { vertical-align: middle; width: 100%; height: 0px; overflow: hidden; line-height: 0; padding: 0; border: none; }
 
-.txt-clean { word-break: break-all !important; word-wrap: break-word !important; }
-
-.txt-clean * { text-align: left !important; float: none !important; vertical-align: baseline !important; background: transparent !important; text-decoration: none !important; font-size: 14px !important; border: none !important; box-shadow: none !important; display: inline !important; margin: 0 !important; padding: 0 !important; height: auto !important; width: auto !important; font-weight: normal !important; color: #666 !important; word-break: break-all !important; word-wrap: break-word !important; }
+.txt-clean * { text-align: left !important; float: none !important; vertical-align: baseline !important; background: transparent !important; text-decoration: none !important; font-size: 14px !important; border: none !important; box-shadow: none !important; display: inline !important; margin: 0 !important; padding: 0 !important; height: auto !important; width: auto !important; font-weight: normal !important; color: #666 !important; }
 
 .txt-clean *:empty { display: none; }
 
 .txt-clean *:before { content: normal; }
 
 .txt-clean *:after { content: normal; }
+
+.txt-clean, .txt-clean * { word-break: break-all !important; word-wrap: break-word !important; }
 
 .txt-clean a { pointer-events: none !important; }
 

@@ -1,8 +1,8 @@
 <template>
 	<div id="app">
 		<transition-group appear name="fade" tag="ol" v-if="!!list.length">
-			<li is="list-item" v-for="(item,i) in list" :item="item" @remove="remove(i)" :key="item">
-				<template scope="props" slot="index">这是第{{i+1}}个元素{{props.txt}}</template>
+			<li is="list-item" v-for="(item,i) in list" :item="item" @remove="remove(i)" :key="item.text">
+				<template scope="props" slot="index">这是第{{i+1}}个元素{{props.txt}} {{$attrs.aaa + ' ' + $attrs.bbb}}</template>
 			</li>
 		</transition-group>
 		<ol v-else>
@@ -20,6 +20,7 @@
 <script>
 import item from './item.vue';
 export default {
+	inheritAttrs: false,
 	name: 'app',
 	props: ['value', 'list'],
 	components: {

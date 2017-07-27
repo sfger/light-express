@@ -38,6 +38,7 @@ module.exports = {
 		],
 		extensions:['.ts', '.vue', '.css', '.less', '.scss', '.sass', '.js', '.jsx', 'png', 'jpg'],
 		alias: {
+			'vue$': 'vue/dist/vue.esm.js',
 			root: path.resolve(__dirname, 'public/'),
 		}
 	},
