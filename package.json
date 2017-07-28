@@ -6,7 +6,7 @@
     "start": "node ./bin/www"
   },
   "dependencies": {
-    "@types/jquery": "^3.2.9",
+    "@types/jquery": "^3.2.10",
     "antd": "^2.12.2",
     "args": "^3.0.4",
     "babel-loader": "^7.1.1",

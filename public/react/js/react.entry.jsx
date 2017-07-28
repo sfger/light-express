@@ -137,6 +137,9 @@ ReactDOM.render(
 					<li><Link to="/index">index</Link></li>
 					<li><Link to="/test">test</Link></li>
 				</ul>
+				<Route path="/" exact render={()=>{
+					return <div>home</div>
+				}}/>
 				<Route path="/index" render={()=>{
 					return <ListShow row={'testRow'} {...test} />
 				}}/>
