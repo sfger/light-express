@@ -53,6 +53,7 @@ define(function(){
 				{name:'伯乐在线', url:'http://web.jobbole.com/'},
 				{name:'auto', url:'https://aotu.io/'},
 				{name:'码农头条', url:'http://hao.caibaojian.com/'},
+				{name:'LeaVerou', url:'http://lea.verou.me/'},
 				{name:'阮一峰', url:'http://www.ruanyifeng.com/blog/', target:"_blank"},
 				{name:'张鑫旭', url:'http://www.zhangxinxu.com'},
 				{name:'awesomes', url:'https://www.awesomes.cn/'},
@@ -66,9 +67,8 @@ define(function(){
 				{name:'36kr', url:'http://www.36kr.com/'},
 				{name:'前端观察', url:'http://www.qianduan.net/'},
 				{name:'博客园', url:'http://www.cnblogs.com/', target:"_blank"},
-				{name:'coco1s', url:'http://www.cnblogs.com/coco1s'},
-				{name:'ziyunfei', url:'http://www.cnblogs.com/ziyunfei/'},
-				{name:'八度空间', url:'http://www.cnblogs.com/lateink/'},
+				{name:'coco1s', url:'http://www.cnblogs.com/coco1s', target:"_blank"},
+				{name:'ziyunfei', url:'http://www.cnblogs.com/ziyunfei/', target:"_blank"},
 				{name:'imququ', url:'https://imququ.com/'},
 				{name:'hacker-scripts', url:'https://github.com/NARKOZ/hacker-scripts'}
 			]
@@ -238,6 +238,7 @@ define(function(){
 				{name:'latex', url:'http://www.latex-project.org/'},
 				{name:'Emmet', url:'http://docs.emmet.io/'},
 				{name:'Sizzy', url:'http://sizzy.co/'},
+				{name:'CSS3Test', url:'http://css3test.com/'},
 				{name:'截图工具', url:'https://www.snipaste.com/index.html'},
 				{name:'Less', url:'https://github.com/groenewege/vim-less', target:'_blank'},
 				{name:'Emmet VIM', url:'https://github.com/mattn/emmet-vim'},
