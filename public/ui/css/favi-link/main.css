@@ -84,7 +84,7 @@ audio, canvas, video { vertical-align: middle; }
 
 .txt-jt:after, .txt-jt .iecp { vertical-align: middle; width: 100%; height: 0px; overflow: hidden; line-height: 0; padding: 0; border: none; }
 
-.txt-clean * { text-align: left !important; float: none !important; vertical-align: baseline !important; background: transparent !important; text-decoration: none !important; font-size: 14px !important; font-size: inherit !important; border: none !important; box-shadow: none !important; display: inline !important; margin: 0 !important; padding: 0 !important; height: auto !important; width: auto !important; font-weight: normal !important; font-weight: inherit !important; color: #666 !important; color: inherit !important; }
+.txt-clean * { text-align: left !important; float: none !important; vertical-align: baseline !important; background: transparent !important; text-decoration: none !important; font-size: 14px !important; font-size: inherit !important; border: none !important; box-shadow: none !important; display: inline !important; margin: 0 !important; padding: 0 !important; height: auto !important; width: auto !important; font-weight: normal !important; font-weight: inherit !important; line-height: normal !important; line-height: inherit !important; color: #666 !important; color: inherit !important; }
 
 .txt-clean *:empty { display: none; }
 

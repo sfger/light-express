@@ -134,6 +134,6 @@ module.exports = {
 	},
 	plugins:[
 		new es3ifyPlugin(),
-		new webpack.optimize.ModuleConcatenationPlugin()
+		// new webpack.optimize.ModuleConcatenationPlugin()
 	]
 };

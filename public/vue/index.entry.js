@@ -1,11 +1,11 @@
 // import Vue from 'vue/dist/vue.common.js';
 import Vue from 'vue';
 // let Vue = window.Vue;
-console.log(Vue);
+// console.log(Vue);
 import App from "./index.vue";
+// var App = import("./index.vue").then(m => m.default);;
 // Vue.component('App', App);
 
-console.log('tet');
 var app = window.app = new Vue({
 	el: '#app',
 	// render: function(c){
@@ -23,6 +23,7 @@ var app = window.app = new Vue({
 	// },
 	data: {
 		list:[],
+		bind:{ccc:'ccc', ddd:'ddd'},
 		aaa:'aaa',
 		bbb:'bbb',
 		selected:'2'
