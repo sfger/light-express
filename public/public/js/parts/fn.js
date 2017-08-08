@@ -203,7 +203,7 @@ function numberFromFormat(str){//{{{
 }//}}}
 function buildRegString(s){//{{{
 	if(!s) return s;
-	return String(s).replace(/[\(\)\^\$\*\?\+\\.\\-]/g, function(i){
+	return String(s).replace(/[()^$*?+.-\\]/g, function(i){
 		return '\\' + i;
 	});
 }//}}}
@@ -213,6 +213,19 @@ function isStrHasTrunkWith(str, trunk, delimeter){//{{{
 		delimeter = buildRegString(delimeter);
 		return new RegExp('(['+delimeter+']|^)'+trunk+'(['+delimeter+']|$)').test(str);
 	}else return new RegExp(trunk).test(str);
+}//}}}
+/* *
+ * @time : setTimeout的延迟时间
+ * @fn   : 延迟执行的函数
+ * @arg  : 要传给fn函数的参数
+ * */
+function wait(time, fn, ...arg){//{{{
+	return new Promise(function(resolve){
+		var timer = setTimeout(async function(...arg){
+			if(fn) await fn(...arg);
+			resolve(timer);
+		}, time, ...arg);
+	});
 }//}}}
 // var title = "ECCO Men's Darren High Moonless 43 (US Men's 9-9.5) D - Medium";
 // var one = "43 (US Men's 9-9.5)";
@@ -345,6 +358,7 @@ function getCurrentScript(){//{{{
 }//}}}
 
 export{
+	wait,
 	strtotime, pad, date, getType, createElement,
 	numberFormat, numberFromFormat,
 	buildRegString, isStrHasTrunkWith,
