@@ -54,6 +54,7 @@ define(function(){
 				{name:'auto', url:'https://aotu.io/'},
 				{name:'码农头条', url:'http://hao.caibaojian.com/'},
 				{name:'LeaVerou', url:'http://lea.verou.me/'},
+				{name:'九章算法', url:'http://www.jiuzhang.com/'},
 				{name:'阮一峰', url:'http://www.ruanyifeng.com/blog/', target:"_blank"},
 				{name:'张鑫旭', url:'http://www.zhangxinxu.com'},
 				{name:'awesomes', url:'https://www.awesomes.cn/'},

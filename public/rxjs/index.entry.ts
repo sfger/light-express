@@ -15,7 +15,7 @@ var decrease = Rx.Observable.fromEvent(decreaseButton, 'click')//.startWith({cou
 });
 
 var inputElement:any = document.querySelector('#input');
-var input = Rx.Observable.fromEvent(inputElement, 'input').startWith({target:{value:inputElement.value}})
+var input = Rx.Observable.fromEvent(inputElement, 'input').throttleTime(300).startWith({target:{value:inputElement.value}})
 .map(event => state => {
 	return Object.assign({}, state, {inputValue: event.target.value});
 });
