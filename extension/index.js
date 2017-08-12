@@ -1,4 +1,4 @@
-var fs = require('fs');
+var fs   = require('fs');
 var path = require('path');
 var root = path.normalize(process.cwd());
 var static_dir = path.normalize(root + '/public');
@@ -39,7 +39,6 @@ var extension = {
 			return path.normalize(extension.static_dir + path.dirname(file) + '/' + one);
 		});
 	},
-
 	get_read_stream_iterator: function*(list){
 		for(var i=0,il=list.length; i<il; i++){
 			yield fs.createReadStream(list[i], {autoClose:false});
@@ -65,7 +64,6 @@ var extension = {
 		extension.pipe_data(iterator, writer, next);
 		return true;
 	},
-
 	staticHttpCombo: (req, res, next) => {
 		if(req.path in extension.map_combo_file){
 			extension.pipe_stream_list_to_writer(extension.get_combo_file_list(req.path), res, next());
@@ -110,7 +108,6 @@ var extension = {
 		}
 		return true;
 	},
-
 	autoAddRoutes: (app, dirPath, routePath, defer) => {
 		Promise.all(fs.readdirSync(dirPath).map(file=>{
 			return new Promise((resolve, reject)=>{
@@ -177,21 +174,23 @@ var extension = {
 		var sass    = require('node-sass');
 		var postcss = require('postcss');
 		sass.render({
-			// data      : 'body{background:blue; a{color:black;}}',
 			alias        : {
 				'@' : '/components/scss/',
 				'~' : '/node_modules/'
 			},
-			includePaths : [path.normalize(static_dir+'/public/scss')],
-			linefeed     : 'lf',
 			file         : in_file,
-			importer: function(url){
+			// includePaths : [path.normalize(static_dir+'/public/scss')],
+			importer     : function(url, prev){
 				let leading = url.charAt(0);
 				let map     = this.options.alias;
-				if(leading in map) url = path.normalize(root + map[leading] + url.slice(1));
+				if(leading in map){
+					url = path.normalize(root + map[leading] + url.slice(1));
+					url = path.relative(path.dirname(prev), url);
+				}
 				return {file:url};
 			},
 			indentWidth  : 1,
+			linefeed     : 'lf',
 			indentType   : 'tab',
 			outputStyle  : 'compact'
 		}, (error, result)=>{
