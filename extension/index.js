@@ -40,23 +40,26 @@ var extension = {
 		});
 	},
 	get_read_stream_iterator: function*(list){
-		for(var i=0,il=list.length; i<il; i++){
-			yield fs.createReadStream(list[i], {autoClose:false});
+		for(let item of list){
+			yield fs.createReadStream(item, {autoClose:false});
 		}
 	},
 	pipe_data: (iterator, writer, next) => {
 		var item = iterator.next();
-		if(!item.done){
+		if(item.done){
+			writer.end('');
+		}else{
 			item = item.value;
 			try{
 				item.pipe(writer, {end:false});
-				item.on('end', ()=>extension.pipe_data(iterator, writer, next));
+				item.on('end', ()=>{
+					fs.close(item.fd);
+					extension.pipe_data(iterator, writer, next);
+				});
 			}catch(e){
 				console.log(e);
 				return next();
 			}
-		}else{
-			writer.end('');
 		}
 	},
 	pipe_stream_list_to_writer: (list, writer, next) => {
