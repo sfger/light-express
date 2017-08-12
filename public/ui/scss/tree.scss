@@ -1,4 +1,4 @@
 @charset "utf-8";
 $basePath:'../../public/';
-@import "base";
-@import "parts/ui-tree";
+@import "@base";
+@import "@parts/ui-tree";

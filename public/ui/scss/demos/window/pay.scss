@@ -1,6 +1,6 @@
 @charset "utf-8";
-@import "base.scss";
-@import "parts/ui-window.scss";
+@import "@base.scss";
+@import "@parts/ui-window.scss";
 
 #pay-window{
 	.window-wrapper{box-shadow:0 0 3px red;border:5px solid #666;width:auto;height:auto;*width:476px;}

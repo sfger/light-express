@@ -1,5 +1,5 @@
 @charset "utf-8";
-@import "base";
+@import "@base";
 
 .circle{
 	@include background-circle(100px,red,1,white,1px);

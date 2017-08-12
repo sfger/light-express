@@ -1,5 +1,5 @@
 @charset "utf-8";
-@import "parts/fn";
+@import "@parts/fn";
 .picker-container{
     display:block;@include fixed(top 0 left 0,200);
     font:10px "Helvetica Neue",Helvetica,Arial,sans-serif;
