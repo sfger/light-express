@@ -1,7 +1,9 @@
+var fs = require('fs');
 var path = require('path');
-var static_dir = path.normalize(process.cwd() + '/public');
+var root = path.normalize(process.cwd());
+var static_dir = path.normalize(root + '/public');
 var view_dir   = static_dir;
-var route_dir  = path.normalize(process.cwd() + '/routes');
+var route_dir  = path.normalize(root + '/routes');
 
 function read_json_file(p, cache=false){//{{{
 	var path = require('path');
@@ -25,7 +27,7 @@ function minify_html(str){//{{{
 	return str;
 }//}}}
 
-var extension  = {
+var extension = {
 	static_dir,
 	route_dir,
 	view_dir,
@@ -33,14 +35,12 @@ var extension  = {
 		'/ui/js/case/seaShell/_test_.js' : 'data.js,data.js'
 	},
 	get_combo_file_list: file => {
-		var path = require('path');
 		return extension.map_combo_file[file].split(',').map(one => {
 			return path.normalize(extension.static_dir + path.dirname(file) + '/' + one);
 		});
 	},
 
 	get_read_stream_iterator: function*(list){
-		var fs = require('fs');
 		for(var i=0,il=list.length; i<il; i++){
 			yield fs.createReadStream(list[i], {autoClose:false});
 		}
@@ -67,7 +67,6 @@ var extension  = {
 	},
 
 	staticHttpCombo: (req, res, next) => {
-		var path = require('path');
 		if(req.path in extension.map_combo_file){
 			extension.pipe_stream_list_to_writer(extension.get_combo_file_list(req.path), res, next());
 			return false;
@@ -113,7 +112,6 @@ var extension  = {
 	},
 
 	autoAddRoutes: (app, dirPath, routePath, defer) => {
-		var fs = require('fs');
 		Promise.all(fs.readdirSync(dirPath).map(file=>{
 			return new Promise((resolve, reject)=>{
 				fs.stat(dirPath+'/'+file, (err, stats)=>{
@@ -151,8 +149,6 @@ var extension  = {
 		this.res.send(ret);
 	},
 	writeStaticCache: (url, ret) => {
-		var fs = require('fs');
-		var path = require('path');
 		// console.log(url);
 		if(typeof url == 'object' && url.length) url = url[0];
 		var url_path = url.replace(/^\/|\/$/g, '');
@@ -167,8 +163,6 @@ var extension  = {
 		});
 	},
 	mkdirRecursive: (dirpath, mode, callback)=>{
-		var fs = require('fs');
-		var path = require('path');
 		fs.exists(dirpath, (exists)=>{
 			if(exists){
 				callback(dirpath);
@@ -180,15 +174,23 @@ var extension  = {
 		});
 	},
 	nodeSass: (in_file, out_file, defer, next)=>{
-		var fs      = require('fs');
-		var path    = require('path');
 		var sass    = require('node-sass');
 		var postcss = require('postcss');
 		sass.render({
 			// data      : 'body{background:blue; a{color:black;}}',
+			alias        : {
+				'@' : '/components/scss/',
+				'~' : '/node_modules/'
+			},
 			includePaths : [path.normalize(static_dir+'/public/scss')],
 			linefeed     : 'lf',
 			file         : in_file,
+			importer: function(url){
+				let leading = url.charAt(0);
+				let map     = this.options.alias;
+				if(leading in map) url = path.normalize(root + map[leading] + url.slice(1));
+				return {file:url};
+			},
 			indentWidth  : 1,
 			indentType   : 'tab',
 			outputStyle  : 'compact'
@@ -226,7 +228,6 @@ var extension  = {
 		});
 	},
 	compile_list_to_writer: (list, res, next) => {
-		var path = require('path');
 		Promise.all(list.map(css_path=>{
 			return new Promise((resolve, reject)=>{
 				var css_dir   = path.normalize(path.dirname(css_path) + '/');
@@ -254,8 +255,6 @@ var extension  = {
 		return true;
 	},
 	merge_tpl_list: (list, out_file, next) => {
-		var fs = require('fs');
-		var path = require('path');
 		var data = {};
 		try{
 			list.forEach((one) => {
@@ -283,8 +282,6 @@ var extension  = {
 		});
 	},
 	dir_compile: (dir, defer) => {
-		var fs = require('fs');
-		var path = require('path');
 		fs.readdir(extension.static_dir + dir, (err, files)=>{
 			files.length && Promise.all(files.map((one)=>{
 				return new Promise((resolve, reject)=>{
@@ -309,7 +306,6 @@ var extension  = {
 	 * 具有合并多个模块文件为一个的功能
 	 * */
 	Compile2JS: (req, res, next) => {
-		var path = require('path');
 		if(!/\/tpl\/.*\.js$/.test(req.path)) return next&&next();
 		var out_file   = path.normalize(extension.static_dir + req.path);
 		var out_path   = path.normalize(path.dirname(out_file) + '/');

@@ -1,0 +1,7 @@
+@charset "utf-8";
+input,select,textarea,button{
+	height:32px;line-height:30px;vertical-align:middle;
+	border:1px solid $color_weak;
+	&:focus{border:1px solid $color_theme;}
+}
+textarea{line-height:1.5;}
