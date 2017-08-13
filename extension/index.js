@@ -46,7 +46,7 @@ var extension = {
 			if(!exist){
 				console.log('File does not exist:', item);
 				let err = new Error('Not Found');
-				err.status = '404';
+				err.status = 404;
 				yield err;
 			}
 		}
@@ -69,10 +69,9 @@ var extension = {
 		}else{
 			item = item.value;
 			if(item instanceof Error){
-				writer.status(item.status);
-				return writer.render(item.status, {
-					message:item.message,
-					error:{}
+				return writer.status(item.status).render(String(item.status), {
+					message: item.message,
+					error: {}
 				});
 			}
 			item.pipe(writer, {end:false});

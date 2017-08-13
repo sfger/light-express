@@ -26,12 +26,12 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookie());
 // app.locals.__version__ = '__version__';
 app.use(session({name:'_SSID_', keys:['skey1', 'skey2']}));
+app.use(logger('dev'));
+app.use(Extension.CompileSCSS);
+app.use(Extension.Compile2JS);
+app.use(Extension.staticHttpCombo);
 
 new Promise((resolve, reject) => {
-	app.use(logger('dev'));
-	app.use(Extension.CompileSCSS);
-	app.use(Extension.Compile2JS);
-	app.use(Extension.staticHttpCombo);
 	Extension.autoAddRoutes(app, Extension.route_dir, '/', {resolve, reject});
 }).then(() => {
 	app.use(express.static(Extension.static_dir, {
@@ -43,11 +43,15 @@ new Promise((resolve, reject) => {
 		next(err);
 	});
 	app.use((err, req, res/*, next*/) => {
-		var status = err.status || 500;
-		res.status(status);
-		res.render(String(status), {
-			message:err.message,
-			error:{}
+		console.log('ERROR:', err);
+		// var status = err.status || '500';
+		// res.status(status).render(status, {
+		// 	message:err.message,
+		// 	error:{}
+		// });
+		res.status(404).render('404', {
+			message: 'Not Found',
+			error: {}
 		});
 	});
 }).catch(function(err){
