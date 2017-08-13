@@ -45,7 +45,7 @@ new Promise((resolve, reject) => {
 	app.use((err, req, res/*, next*/) => {
 		var status = err.status || 500;
 		res.status(status);
-		res.render(status, {
+		res.render(String(status), {
 			message:err.message,
 			error:{}
 		});

@@ -39,9 +39,27 @@ var extension = {
 			return path.normalize(extension.static_dir + path.dirname(file) + '/' + one);
 		});
 	},
-	get_read_stream_iterator: function*(list){
+	get_read_stream_iterator: function*(list, writer){
+		let exist = true;
 		for(let item of list){
-			yield fs.createReadStream(item, {autoClose:false});
+			exist = fs.existsSync(item);
+			if(!exist){
+				console.log('File does not exist:', item);
+				let err = new Error('Not Found');
+				err.status = '404';
+				yield err;
+			}
+		}
+		if(exist && list.length){
+			let types = {
+				"js": "application/x-javascript",
+				"css": "text/css"
+			};
+			let type = list[0].split('.').pop();
+			writer.writeHead(200, {"Content-Type":types[type]});
+			for(let item of list){
+				yield fs.createReadStream(item, {autoClose:false});
+			}
 		}
 	},
 	pipe_data: (iterator, writer, next) => {
@@ -50,35 +68,31 @@ var extension = {
 			writer.end('');
 		}else{
 			item = item.value;
-			try{
-				item.pipe(writer, {end:false});
-				item.on('end', ()=>{
-					fs.close(item.fd);
-					extension.pipe_data(iterator, writer, next);
+			if(item instanceof Error){
+				writer.status(item.status);
+				return writer.render(item.status, {
+					message:item.message,
+					error:{}
 				});
-			}catch(e){
-				console.log(e);
-				return next();
 			}
+			item.pipe(writer, {end:false});
+			item.on('end', ()=>{
+				fs.close(item.fd);
+				extension.pipe_data(iterator, writer, next);
+			});
 		}
 	},
 	pipe_stream_list_to_writer: (list, writer, next) => {
-		var iterator = extension.get_read_stream_iterator(list);
+		let iterator = extension.get_read_stream_iterator(list, writer);
 		extension.pipe_data(iterator, writer, next);
-		return true;
 	},
 	staticHttpCombo: (req, res, next) => {
 		if(req.path in extension.map_combo_file){
-			extension.pipe_stream_list_to_writer(extension.get_combo_file_list(req.path), res, next());
-			return false;
+			return extension.pipe_stream_list_to_writer(extension.get_combo_file_list(req.path), res, next());
 		}
 		if(/\?\?/.test(req.originalUrl)){
 			var file_list = req.originalUrl.slice(req.originalUrl.indexOf('??')+2).split('?')[0].split(',');
 			var type      = file_list[file_list.length-1].split('.').reverse()[0];
-			var types     = {
-				"js": "application/x-javascript",
-				"css": "text/css"
-			};
 			if(type==='js' || type==='css'){
 				// 跳转，如：http://localhost/public/js??jquery.js,require.js?_a=1&v=20160101
 				//        => http://localhost/public/js/??jquery.js,require.js?_a=1&v=20160101
@@ -101,7 +115,6 @@ var extension = {
 				}
 			});
 			if('js'===type){
-				res.writeHead(200, {"Content-Type":types[type]});
 				extension.pipe_stream_list_to_writer(list, res, next);
 			}else{
 				extension.compile_list_to_writer(list, res, next);
