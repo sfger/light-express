@@ -179,7 +179,8 @@ var extension = {
 		sass.render({
 			alias        : {
 				'@' : '/components/scss/',
-				'~' : '/node_modules/'
+				'~' : '/node_modules/',
+				'/' : '/public/'
 			},
 			file         : in_file,
 			// includePaths : [path.normalize(static_dir+'/public/scss')],
