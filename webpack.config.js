@@ -1,6 +1,6 @@
 var path = require('path');
 var glob = require('glob');
-var webpack = require('webpack');
+// var webpack = require('webpack');
 var es3ifyPlugin = require('es3ify-webpack-plugin');
 var entrysArray = glob.sync("**/*.@(entry).@(js?(x)|ts)", {
 	cwd:'./public/',
@@ -95,11 +95,12 @@ module.exports = {
 							plugins: [
 								['syntax-dynamic-import'],
 								['transform-async-to-generator'],
-								["transform-class-properties"],
+								['transform-class-properties'],
+								['transform-decorators-legacy'],
 								// ['transform-regenerator'],
 								// ['transform-runtime'],
-								["transform-runtime", {polyfill:false, regenerator:true}],
-								["import", {libraryName:"antd", style:'css'}]
+								['transform-runtime', {polyfill:false, regenerator:true}],
+								['import', {libraryName:"antd", style:'css'}]
 							]
 						}
 					}
