@@ -69,6 +69,7 @@
 
 .grid{
 	@include grid;
+	&.inline-grid{@include inline-grid;width:auto;}
 	&.vt-top{
 		@include align-items(flex-start);
 		.col,.col-rest{vertical-align:top;}

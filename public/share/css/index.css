@@ -98,6 +98,12 @@
 
 .grid.grid-column > .col-reset { height: 100%; }
 
+.grid.inline-grid { display: -webkit-inline-box; display: -webkit-inline-flex; display: -moz-inline-flex; display: -ms-inline-flexbox; display: inline-flex; width: auto; }
+
+@media \0screen { .grid.inline-grid { display: inline-table; } }
+
+@media screen and (min-width: 0\0) and (min-resolution: 0.001dpcm) { .grid.inline-grid { display: inline-table; } }
+
 .grid.vt-top { -webkit-box-align: start; -ms-flex-align: start; -webkit-align-items: flex-start; -moz-align-items: flex-start; align-items: flex-start; }
 
 .grid.vt-top .col, .grid.vt-top .col-rest { vertical-align: top; }
