@@ -1,5 +1,6 @@
 declare var $:any;
 import "../../public/js/requestAnimationFrame";
+// import "../scss/datagrid.scss";
 // import {createElement} from "../../public/js/parts/fn";
 function getType(obj){//{{{
 	return Object.prototype.toString.call(obj).slice(8, -1).toLowerCase();
@@ -45,39 +46,39 @@ function createElement(node){//{{{
 	}
 	return cd;
 }//}}}
-	function getHW(el, type){//{{{
-		if(!el) return false;
-		el.style && (el.style[type] = '');
-		return el['offset'+(type==='width'?'Width':'Height')];
-	}//}}}
-	function align_cell_column(arr, type){//{{{
-		for(let i=0,il=arr.length; i<il; i++){
-			let column = arr[i];
-			let max = column.map(function(one){
-				return getHW(one, type);
-			}).reduce(function(a, b){
-				return a>=b ? a : b;
-			}, 0) + Math.ceil(il/2) + 'px';
-			column.forEach(function(t){
-				if(t&&t.style) t.style[type] = max;
-			});
-		}
-	}//}}}
-	function align_cell_row(arr, type){//{{{
-		let len = arr.length;
-		for(let i=0,il=arr[0].length; i<il; i++){
-			let j=0, row = [];
-			while(j < len) row.push(arr[j++][i]);
-			let max = row.map(function(one){
-				return getHW(one, type);
-			}).reduce(function(a, b){
-				return a>=b ? a : b;
-			}, 0) + Math.ceil(len/2) + 'px';
-			row.forEach(function(t){
-				if(t&&t.style) t.style[type] = max;
-			});
-		}
-	}//}}}
+function getHW(el, type){//{{{
+	if(!el) return false;
+	el.style && (el.style[type] = '');
+	return el['offset'+(type==='width'?'Width':'Height')];
+}//}}}
+function align_cell_column(arr, type){//{{{
+	for(let i=0,il=arr.length; i<il; i++){
+		let column = arr[i];
+		let max = column.map(function(one){
+			return getHW(one, type);
+		}).reduce(function(a, b){
+			return a>=b ? a : b;
+		}, 0) + Math.ceil(il/2) + 'px';
+		column.forEach(function(t){
+			if(t&&t.style) t.style[type] = max;
+		});
+	}
+}//}}}
+function align_cell_row(arr, type){//{{{
+	let len = arr.length;
+	for(let i=0,il=arr[0].length; i<il; i++){
+		let j=0, row = [];
+		while(j < len) row.push(arr[j++][i]);
+		let max = row.map(function(one){
+			return getHW(one, type);
+		}).reduce(function(a, b){
+			return a>=b ? a : b;
+		}, 0) + Math.ceil(len/2) + 'px';
+		row.forEach(function(t){
+			if(t&&t.style) t.style[type] = max;
+		});
+	}
+}//}}}
 $.fn.datagrid = function(options, ...args){
 	if('string'===$.type(options)){//{{{
 		let ret = this.toArray().map(function(one){
