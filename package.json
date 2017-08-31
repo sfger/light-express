@@ -23,7 +23,7 @@
     "body-parser": "^1.17.2",
     "cookie-parser": "^1.4.3",
     "cookie-session": "^2.0.0-beta.2",
-    "css-loader": "^0.28.5",
+    "css-loader": "^0.28.7",
     "debug": "^3.0.1",
     "ejs": "^2.5.7",
     "es3ify-webpack-plugin": "0.0.1",
