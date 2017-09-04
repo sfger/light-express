@@ -7,7 +7,7 @@
   },
   "dependencies": {
     "@types/jquery": "^3.2.12",
-    "antd": "^2.12.8",
+    "antd": "^2.13.0",
     "args": "^3.0.4",
     "babel-loader": "^7.1.2",
     "babel-plugin-import": "^1.4.0",
@@ -49,7 +49,7 @@
     "style-loader": "^0.18.2",
     "sugarss": "^1.0.0",
     "ts-loader": "^2.3.4",
-    "typescript": "^2.5.1",
+    "typescript": "^2.5.2",
     "vue": "^2.4.2",
     "vue-loader": "^13.0.4",
     "vue-template-compiler": "^2.4.2",
