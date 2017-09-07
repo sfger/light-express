@@ -5,6 +5,12 @@ var static_dir = path.normalize(root + '/public');
 var view_dir   = static_dir;
 var route_dir  = path.normalize(root + '/routes');
 
+var webpackDev    = require("webpack-dev-middleware");
+var webpack       = require("webpack");
+var webpackConfig = require('../webpack.config.js');
+var compiler      = webpack(webpackConfig);
+var webpackDevMiddleware = webpackDev(compiler, {stats:{colors:true}});
+
 function read_json_file(p, cache=false){//{{{
 	var path = require('path');
 	var json = {};
@@ -28,6 +34,7 @@ function minify_html(str){//{{{
 }//}}}
 
 var extension = {
+	webpackDevMiddleware,
 	static_dir,
 	route_dir,
 	view_dir,
@@ -40,6 +47,12 @@ var extension = {
 		});
 	},
 	get_read_stream_iterator: function*(list, writer){
+		// var mfs   = webpackDevMiddleware.fileSystem;
+		// var fname = webpackDevMiddleware.getFilenameFromUrl("D:/projects/gh/light-express/dist/", compiler, "/ui/js/jquery-datagrid.js");
+		// console.log('.......');
+		// console.log(fname);
+		// console.log('.......');
+		// console.log(mfs.readFileSync(fname).toString());
 		let exist = true;
 		for(let item of list){
 			exist = fs.existsSync(item);

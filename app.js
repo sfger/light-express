@@ -10,15 +10,9 @@ var logger     = require('morgan');
 var cookie     = require('cookie-parser');
 var session    = require('cookie-session');
 var bodyParser = require('body-parser');
-var webpackDev = require("webpack-dev-middleware");
-var webpack    = require("webpack");
-var compiler   = webpack(require('./webpack.config.js'));
 var Extension  = require('./extension');
-app.use(webpackDev(compiler, {
-	stats:{colors:true}
-}));
-
-app.Extension = Extension;
+app.Extension  = Extension;
+app.use(Extension.webpackDevMiddleware);
 app.set('views', Extension.view_dir);
 app.set('view engine', 'ejs');
 app.use(bodyParser.json());
