@@ -40,27 +40,18 @@ var extension = {
 	static_dir,
 	route_dir,
 	view_dir,
-	map_combo_file : {
-		'/ui/js/case/seaShell/_test_.js' : 'data.js,data.js'
-	},
-	get_combo_file_list: file => {
-		return extension.map_combo_file[file].split(',').map(one => {
-			return path.normalize(extension.static_dir + path.dirname(file) + '/' + one);
-		});
-	},
 	get_read_stream_iterator: function*(list, writer){
-		// var fname = webpackDevMiddleware.getFilenameFromUrl("/ui/js/jquery-datagrid.js", compiler);
-		// console.log('.......');
-		// console.log(fname);
-		// fname = path.normalize(fname);
-		// console.log('.......');
-		// console.log(memoryfs.readFileSync(fname).toString());
 		let exist = true;
+		let reg = new RegExp('^'+webpackConfig.context.replace(/[()^$*?+.-\\]/g, function(i){
+			return '\\' + i;
+		}));
 		for(let item of list){
 			if(!fs.existsSync(item)){
 				// console.log(item);
-				let stat = memoryfs.statSync(item.replace(webpackConfig.context, webpackConfig.output.path));
-				if(!stat.isFile()){
+				try{
+					let stat = memoryfs.statSync(item.replace(reg, webpackConfig.output.path));
+					if( !stat.isFile() ) throw new Error('no file');
+				}catch(e){
 					exist = false;
 					console.log('File does not exist:', item);
 					let err = new Error('Not Found');
@@ -69,31 +60,29 @@ var extension = {
 				}
 			}
 		}
-		if(exist && list.length){
-			let types = {
-				"js"  : "application/x-javascript",
-				"css" : "text/css"
-			};
-			let type = list[0].split('.').pop();
-			writer.writeHead(200, {"Content-Type":types[type]});
-			for(let item of list){
-				// console.log('fs:', item);
-				let stream;
-				if( !fs.existsSync(item) ){
-					let source = item.replace(webpackConfig.context, webpackConfig.output.path);
-					// console.log('mfs:', source);
-					source = memoryfs.readFileSync(source);
-					// console.log(source);
-					stream = new Readable({autoClose:false});
-					stream._destroy = function(){};
-					stream.push(source.toString()+"\n", 'utf8');
-					stream.push(null);
-				}else{
-					stream = fs.createReadStream(item, {autoClose:false});
-					stream._destroy = function(){};
-				}
-				yield stream;
+		if( !(exist && list.length) ) return false;
+		let types = {
+			"js"  : "application/x-javascript",
+			"css" : "text/css"
+		};
+		let type = list[0].split('.').pop();
+		writer.writeHead(200, {"Content-Type":types[type]});
+		for(let item of list){
+			// console.log('fs:', item);
+			let stream;
+			if( !fs.existsSync(item) ){
+				let source = item.replace(reg, webpackConfig.output.path);
+				// console.log('mfs:', source);
+				source = memoryfs.readFileSync(source);
+				// console.log(source);
+				stream = new Readable({autoClose:false});
+				stream.push(source.toString()+"\n", 'utf8');
+				stream.push(null);
+			}else{
+				stream = fs.createReadStream(item, {autoClose:false});
 			}
+			stream._destroy = function(){};
+			yield stream;
 		}
 	},
 	pipe_data: (iterator, writer, next) => {
@@ -113,7 +102,7 @@ var extension = {
 				if(item.fd) fs.close(item.fd);
 				item.destroy();
 				extension.pipe_data(iterator, writer, next);
-				console.log('item', item);
+				// console.log('item', item);
 			});
 		}
 	},
@@ -122,9 +111,6 @@ var extension = {
 		extension.pipe_data(iterator, writer, next);
 	},
 	staticHttpCombo: (req, res, next) => {
-		if(req.path in extension.map_combo_file){
-			return extension.pipe_stream_list_to_writer(extension.get_combo_file_list(req.path), res, next());
-		}
 		if(/\?\?/.test(req.originalUrl)){
 			var file_list = req.originalUrl.slice(req.originalUrl.indexOf('??')+2).split('?')[0].split(',');
 			var type      = file_list[file_list.length-1].split('.').reverse()[0];
@@ -143,11 +129,7 @@ var extension = {
 			var list = [];
 			file_list.forEach(one=>{
 				var file = req.path + one;
-				if(extension.map_combo_file[file]){
-					list = list.concat(extension.get_combo_file_list(file));
-				}else{
-					list.push(path.normalize(extension.static_dir + file));
-				}
+				list.push(path.normalize(extension.static_dir + file));
 			});
 			if('js'===type){
 				extension.pipe_stream_list_to_writer(list, res, next);

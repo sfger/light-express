@@ -21,35 +21,31 @@ app.use(cookie());
 // app.locals.__version__ = '__version__';
 app.use(session({name:'_SSID_', keys:['skey1', 'skey2']}));
 app.use(logger('dev'));
-app.use(Extension.CompileSCSS);
-app.use(Extension.Compile2JS);
-app.use(Extension.staticHttpCombo);
 
 new Promise((resolve, reject) => {
-	Extension.autoAddRoutes(app, Extension.route_dir, '/', {resolve, reject});
-}).then(() => {
 	app.use(express.static(Extension.static_dir, {
 		index:'index.html'
 	}));
+	app.use(Extension.CompileSCSS);
+	app.use(Extension.Compile2JS);
+	app.use(Extension.staticHttpCombo);
+	Extension.autoAddRoutes(app, Extension.route_dir, '/', {resolve, reject});
+}).then(() => {
 	app.use((req, res, next) => {
-		var err = new Error('Not Found');
+		let err = new Error('Not Found');
 		err.status = 404;
 		next(err);
 	});
-	app.use((err, req, res/*, next*/) => {
+	app.use((err, req, res, next) => {
 		console.log('ERROR:', err);
-		// var status = err.status || '500';
-		// res.status(status).render(status, {
-		// 	message:err.message,
-		// 	error:{}
-		// });
-		res.status(404).render('404', {
-			message: 'Not Found',
-			error: {}
+		let status = String(err.status || 500);
+		next && res.status(status).render(status, {
+			message:err.message,
+			error:err
 		});
 	});
 }).catch(function(err){
-	console.log(err);
+	console.log('Global Error', err);
 });
 module.exports = app;
 /* vim:set fdm=marker tabstop=4 shiftwidth=4 softtabstop=4: */
