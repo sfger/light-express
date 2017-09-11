@@ -22,15 +22,15 @@ entrysArray.forEach((one) => {
 // console.log(entryMap);
 
 module.exports = {
-	context: path.normalize(__dirname + '/public'),
-	entry:entryMap,
+	context: path.normalize(__dirname + '/public/'),
+	entry: entryMap,
 	output:{
-		path:__dirname+'/dist/',
-		filename:'[name].js',
-		chunkFilename:'[name].js',
-		libraryTarget:"umd"
-		// library:'test',
-		// publicPath:'../dist/'
+		path: path.normalize(__dirname+'/dist/'),
+		filename: '[name].js',
+		chunkFilename: '[name].js',
+		libraryTarget: "umd"
+		// library: 'test',
+		// publicPath: '../dist/'
 	},
 	resolve:{
 		modules: [

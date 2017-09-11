@@ -1,15 +1,17 @@
-var fs   = require('fs');
-var path = require('path');
-var root = path.normalize(process.cwd());
+var fs         = require('fs');
+var path       = require('path');
+var root       = path.normalize(process.cwd());
+var Readable   = require('stream').Readable;
 var static_dir = path.normalize(root + '/public');
 var view_dir   = static_dir;
 var route_dir  = path.normalize(root + '/routes');
 
-var webpackDev    = require("webpack-dev-middleware");
-var webpack       = require("webpack");
-var webpackConfig = require('../webpack.config.js');
-var compiler      = webpack(webpackConfig);
+var webpackDev           = require("webpack-dev-middleware");
+var webpack              = require("webpack");
+var webpackConfig        = require('../webpack.config.js');
+var compiler             = webpack(webpackConfig);
 var webpackDevMiddleware = webpackDev(compiler, {stats:{colors:true}});
+var memoryfs             = webpackDevMiddleware.fileSystem;
 
 function read_json_file(p, cache=false){//{{{
 	var path = require('path');
@@ -47,31 +49,47 @@ var extension = {
 		});
 	},
 	get_read_stream_iterator: function*(list, writer){
-		// var mfs   = webpackDevMiddleware.fileSystem;
-		// var fname = webpackDevMiddleware.getFilenameFromUrl("D:/projects/gh/light-express/dist/", compiler, "/ui/js/jquery-datagrid.js");
+		// var fname = webpackDevMiddleware.getFilenameFromUrl("/ui/js/jquery-datagrid.js", compiler);
 		// console.log('.......');
 		// console.log(fname);
+		// fname = path.normalize(fname);
 		// console.log('.......');
-		// console.log(mfs.readFileSync(fname).toString());
+		// console.log(memoryfs.readFileSync(fname).toString());
 		let exist = true;
 		for(let item of list){
-			exist = fs.existsSync(item);
-			if(!exist){
-				console.log('File does not exist:', item);
-				let err = new Error('Not Found');
-				err.status = 404;
-				yield err;
+			if(!fs.existsSync(item)){
+				// console.log(item);
+				let stat = memoryfs.statSync(item.replace(webpackConfig.context, webpackConfig.output.path));
+				if(!stat.isFile()){
+					exist = false;
+					console.log('File does not exist:', item);
+					let err = new Error('Not Found');
+					err.status = 404;
+					yield err;
+				}
 			}
 		}
 		if(exist && list.length){
 			let types = {
-				"js": "application/x-javascript",
-				"css": "text/css"
+				"js"  : "application/x-javascript",
+				"css" : "text/css"
 			};
 			let type = list[0].split('.').pop();
 			writer.writeHead(200, {"Content-Type":types[type]});
 			for(let item of list){
-				yield fs.createReadStream(item, {autoClose:false});
+				// console.log('fs:', item);
+				if( !fs.existsSync(item) ){
+					let source = item.replace(webpackConfig.context, webpackConfig.output.path);
+					// console.log('mfs:', source);
+					source = memoryfs.readFileSync(source);
+					// console.log(source);
+					var stream = new Readable({autoClose:false});
+					stream.push(source.toString()+"\n", 'utf8');
+					stream.push(null);
+					yield stream;
+				}else{
+					yield fs.createReadStream(item, {autoClose:false});
+				}
 			}
 		}
 	},
@@ -89,7 +107,8 @@ var extension = {
 			}
 			item.pipe(writer, {end:false});
 			item.on('end', ()=>{
-				fs.close(item.fd);
+				// console.log('item:', item, item.fd);
+				item && item.fd && fs.close(item.fd);
 				extension.pipe_data(iterator, writer, next);
 			});
 		}
@@ -259,7 +278,7 @@ var extension = {
 		Promise.all(list.map(css_path=>{
 			return new Promise((resolve, reject)=>{
 				var css_dir   = path.normalize(path.dirname(css_path) + '/');
-				var scss_dir  = css_dir.replace(/([\\\/])css([\\\/])/, "$1scss$2");
+				var scss_dir  = css_dir.replace(/([\\/])css([\\/])/, "$1scss$2");
 				var scss_path = scss_dir + path.basename(css_path, '.css') + '.scss';
 				extension.mkdirRecursive(css_dir, 777, ()=>{
 					extension.nodeSass(scss_path, css_path, {resolve, reject}, next);
@@ -319,7 +338,7 @@ var extension = {
 							extension.dir_compile(file_path+'/', {resolve, reject});
 						}else{
 							if('.json'!==path.extname(file_path)){
-								var req = {path:path.normalize(file_path.replace(/([\\\/])htpl([\\\/])/, "$1tpl$2")+'.js').replace(/\\/g, '/')};
+								var req = {path:path.normalize(file_path.replace(/([\\/])htpl([\\/])/, "$1tpl$2")+'.js').replace(/\\/g, '/')};
 								extension.Compile2JS(req, {});
 								resolve(path.normalize(extension.static_dir + file_path));
 							}else resolve(null);
@@ -337,9 +356,9 @@ var extension = {
 		if(!/\/tpl\/.*\.js$/.test(req.path)) return next&&next();
 		var out_file   = path.normalize(extension.static_dir + req.path);
 		var out_path   = path.normalize(path.dirname(out_file) + '/');
-		var in_path    = path.normalize(out_path.replace(/([\\\/])tpl([\\\/])/, "$1htpl$2"));
+		var in_path    = path.normalize(out_path.replace(/([\\/])tpl([\\/])/, "$1htpl$2"));
 		var in_file    = in_path + path.basename(out_file, '.js');
-		var path_patch = in_file.split(/([\\\/])(htpl)([\\\/])/).slice(0, 4);
+		var path_patch = in_file.split(/([\\/])(htpl)([\\/])/).slice(0, 4);
 		path_patch.push('map.json');
 		extension.mkdirRecursive(out_path, 777, ()=>{
 			var list = [];
@@ -347,7 +366,7 @@ var extension = {
 			var stpl = map[req.path.replace(/\.js$/,'').slice(1)];
 			if( stpl ){ // 多模块合并
 				stpl.split(',').forEach((one) => {
-					list.push(out_path.replace(/([\\\/])tpl([\\\/])/, "$1htpl$2") + one + '.tpl');
+					list.push(out_path.replace(/([\\/])tpl([\\/])/, "$1htpl$2") + one + '.tpl');
 				});
 			}else{
 				list.push(in_file);
