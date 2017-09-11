@@ -6,15 +6,14 @@ var static_dir = path.normalize(root + '/public');
 var view_dir   = static_dir;
 var route_dir  = path.normalize(root + '/routes');
 
-var webpackDev           = require("webpack-dev-middleware");
-var webpack              = require("webpack");
-var webpackConfig        = require('../webpack.config.js');
-var compiler             = webpack(webpackConfig);
-var webpackDevMiddleware = webpackDev(compiler, {stats:{colors:true}});
-var memoryfs             = webpackDevMiddleware.fileSystem;
+var webpack       = require("webpack");
+var webpackConfig = require('../webpack.config.js');
+var compiler      = webpack(webpackConfig);
+var WebpackDev    = require("webpack-dev-middleware");
+var webpackDev    = WebpackDev(compiler, {stats:{colors:true}});
+var memoryfs      = webpackDev.fileSystem;
 
 function read_json_file(p, cache=false){//{{{
-	var path = require('path');
 	var json = {};
 	p = path.normalize(p);
 	try{
@@ -36,12 +35,14 @@ function minify_html(str){//{{{
 }//}}}
 
 var extension = {
-	webpackDevMiddleware,
+	webpackDev,
 	static_dir,
 	route_dir,
 	view_dir,
 	get_read_stream_iterator: function*(list, writer){
 		let exist = true;
+		let err = new Error('Not Found');
+		err.status = 404;
 		let reg = new RegExp('^'+webpackConfig.context.replace(/[()^$*?+.-\\]/g, function(i){
 			return '\\' + i;
 		}));
@@ -54,13 +55,13 @@ var extension = {
 				}catch(e){
 					exist = false;
 					console.log('File does not exist:', item);
-					let err = new Error('Not Found');
-					err.status = 404;
-					yield err;
 				}
 			}
 		}
-		if( !(exist && list.length) ) return false;
+		if( !(exist && list.length) ){
+			yield err;
+			return false;
+		}
 		let types = {
 			"js"  : "application/x-javascript",
 			"css" : "text/css"
@@ -68,14 +69,11 @@ var extension = {
 		let type = list[0].split('.').pop();
 		writer.writeHead(200, {"Content-Type":types[type]});
 		for(let item of list){
-			// console.log('fs:', item);
 			let stream;
 			if( !fs.existsSync(item) ){
 				let source = item.replace(reg, webpackConfig.output.path);
-				// console.log('mfs:', source);
 				source = memoryfs.readFileSync(source);
-				// console.log(source);
-				stream = new Readable({autoClose:false});
+				stream = new Readable();
 				stream.push(source.toString()+"\n", 'utf8');
 				stream.push(null);
 			}else{

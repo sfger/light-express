@@ -12,7 +12,7 @@ var session    = require('cookie-session');
 var bodyParser = require('body-parser');
 var Extension  = require('./extension');
 app.Extension  = Extension;
-app.use(Extension.webpackDevMiddleware);
+app.use(Extension.webpackDev);
 app.set('views', Extension.view_dir);
 app.set('view engine', 'ejs');
 app.use(bodyParser.json());
