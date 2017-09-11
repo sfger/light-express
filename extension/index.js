@@ -78,18 +78,21 @@ var extension = {
 			writer.writeHead(200, {"Content-Type":types[type]});
 			for(let item of list){
 				// console.log('fs:', item);
+				let stream;
 				if( !fs.existsSync(item) ){
 					let source = item.replace(webpackConfig.context, webpackConfig.output.path);
 					// console.log('mfs:', source);
 					source = memoryfs.readFileSync(source);
 					// console.log(source);
-					var stream = new Readable({autoClose:false});
+					stream = new Readable({autoClose:false});
+					stream._destroy = function(){};
 					stream.push(source.toString()+"\n", 'utf8');
 					stream.push(null);
-					yield stream;
 				}else{
-					yield fs.createReadStream(item, {autoClose:false});
+					stream = fs.createReadStream(item, {autoClose:false});
+					stream._destroy = function(){};
 				}
+				yield stream;
 			}
 		}
 	},
@@ -107,9 +110,10 @@ var extension = {
 			}
 			item.pipe(writer, {end:false});
 			item.on('end', ()=>{
-				// console.log('item:', item, item.fd);
-				item && item.fd && fs.close(item.fd);
+				if(item.fd) fs.close(item.fd);
+				item.destroy();
 				extension.pipe_data(iterator, writer, next);
+				console.log('item', item);
 			});
 		}
 	},
