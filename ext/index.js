@@ -1,18 +1,25 @@
-var fs         = require('fs');
-var path       = require('path');
-var root       = path.normalize(process.cwd());
-var Readable   = require('stream').Readable;
-var static_dir = path.normalize(root + '/public');
-var view_dir   = static_dir;
-var route_dir  = path.normalize(root + '/routes');
-
+var fs            = require('fs');
+var path          = require('path');
+var root          = path.normalize(process.cwd());
+var Readable      = require('stream').Readable;
+var static_dir    = path.normalize(root + '/public');
+var view_dir      = static_dir;
+var route_dir     = path.normalize(root + '/routes');
 var webpack       = require("webpack");
 var webpackConfig = require('../webpack.config.js');
 var WebpackDev    = require("webpack-dev-middleware");
-var memoryfs      = webpackDev.fileSystem;
 var compiler      = webpack(webpackConfig);
 var webpackDev    = WebpackDev(compiler, {stats:{colors:true}});
-
+var memoryfs      = webpackDev.fileSystem;
+let mimes = {
+	"js"  : "application/x-javascript",
+	"css" : "text/css"
+};
+let reg = {
+	static_dir: new RegExp('^'+webpackConfig.context.replace(/[()^$*?+.-\\]/g, function(i){
+		return '\\' + i;
+	}))
+};
 function read_json_file(p, cache=false){//{{{
 	var json = {};
 	p = path.normalize(p);
@@ -33,24 +40,18 @@ function minify_html(str){//{{{
 	// str = str.replace(/([^\\])(')/g, "$1\\$2"); // '
 	return str;
 }//}}}
-
 var ext = {
 	webpackDev,
 	static_dir,
 	route_dir,
 	view_dir,
-	get_read_stream_iterator: function*(list, writer){
+	pipe_stream_list_to_writer: async function(list, writer){
+		// 先判断所有文件是否存在
 		let exist = true;
-		let err = new Error('Not Found');
-		err.status = 404;
-		let reg = new RegExp('^'+webpackConfig.context.replace(/[()^$*?+.-\\]/g, function(i){
-			return '\\' + i;
-		}));
 		for(let item of list){
-			if(!fs.existsSync(item)){
-				// console.log(item);
+			if( !fs.existsSync(item) ){
 				try{
-					let stat = memoryfs.statSync(item.replace(reg, webpackConfig.output.path));
+					let stat = memoryfs.statSync(item.replace(reg.static_dir, webpackConfig.output.path));
 					if( !stat.isFile() ) throw new Error('no file');
 				}catch(e){
 					exist = false;
@@ -59,54 +60,38 @@ var ext = {
 			}
 		}
 		if( !(exist && list.length) ){
-			yield err;
-			return false;
+			return writer.status(404).render('404', {
+				message: 'Not Found',
+				error: {}
+			});
 		}
-		let types = {
-			"js"  : "application/x-javascript",
-			"css" : "text/css"
-		};
+
+		// 处理文件内容
 		let type = list[0].split('.').pop();
-		writer.writeHead(200, {"Content-Type":types[type]});
+		writer.writeHead(200, {"Content-Type":mimes[type]});
 		for(let item of list){
 			let stream;
-			if( !fs.existsSync(item) ){
-				let source = item.replace(reg, webpackConfig.output.path);
+			if( fs.existsSync(item) ){ // FS
+				stream = fs.createReadStream(item, {autoClose:false});
+			}else{ // MemoryFS
+				let source = item.replace(reg.static_dir, webpackConfig.output.path);
 				source = memoryfs.readFileSync(source);
 				stream = new Readable();
 				stream.push(source.toString()+"\n", 'utf8');
 				stream.push(null);
-			}else{
-				stream = fs.createReadStream(item, {autoClose:false});
 			}
 			stream._destroy = function(){};
-			yield stream;
-		}
-	},
-	pipe_data: (iterator, writer, next) => {
-		var item = iterator.next();
-		if(item.done){
-			writer.end('');
-		}else{
-			item = item.value;
-			if(item instanceof Error){
-				return writer.status(item.status).render(String(item.status), {
-					message: item.message,
-					error: {}
+			await new Promise(function(resolve){
+				stream.pipe(writer, {end:false});
+				stream.on('end', ()=>{ // 文件流完成后再处理下一个文件，防止返回的顺序不对。
+					if(item.fd) fs.close(item.fd);
+					stream.destroy();
+					resolve();
+					// console.log('stream', stream);
 				});
-			}
-			item.pipe(writer, {end:false});
-			item.on('end', ()=>{
-				if(item.fd) fs.close(item.fd);
-				item.destroy();
-				ext.pipe_data(iterator, writer, next);
-				// console.log('item', item);
 			});
 		}
-	},
-	pipe_stream_list_to_writer: (list, writer, next) => {
-		let iterator = ext.get_read_stream_iterator(list, writer);
-		ext.pipe_data(iterator, writer, next);
+		writer.end();
 	},
 	staticHttpCombo: (req, res, next) => {
 		if(/\?\?/.test(req.originalUrl)){
