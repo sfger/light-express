@@ -389,7 +389,7 @@ $.fn.datagrid = function(options, ...args){
 			options.onCreate && options.onCreate.bind(this)();
 		},//}}}
 		update: function(options){// {{{
-			// if($(this.render).hasClass('state-loading')) return false;
+			if($(this.render).hasClass('state-loading')) return false;
 			let that = this;
 			$(this.render).addClass('datagrid-render-ctn state-loading');
 			setTimeout(function(){
@@ -484,9 +484,8 @@ $.fn.datagrid = function(options, ...args){
 					});
 				}
 				requestAnimationFrame(function(){
-					let state = that.userOptions.onUpdate.bind(that)();
-					if(that.userOptions.onUpdate && state===false) return false;
 					$(that.render).removeClass('state-loading');
+					that.userOptions.onUpdate && that.userOptions.onUpdate.bind(that)();
 				});
 			});
 			return this;

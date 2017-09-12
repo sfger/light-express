@@ -36,8 +36,8 @@ return a[field] - b[field];
 }
 };
 var options = {
-data          : [],
-// data          : gen_data,
+//data          : [],
+data          : gen_data,
 rowNum        : true,
 autoRowHeight : true,
 autoColWidth  : true,
@@ -133,10 +133,12 @@ return val;
 ],
 onUpdate:function(){
 console.log('Load time: ' + (Date.now()-stime));
+/*
 if(!this.userOptions.data.length){
 $grid.datagrid('update', {data:gen_data});
 return false;
 }
+*/
 }
 };
 var stime = Date.now();
