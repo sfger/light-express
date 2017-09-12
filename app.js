@@ -22,13 +22,13 @@ app.use(cookie());
 app.use(session({name:'_SSID_', keys:['skey1', 'skey2']}));
 app.use(logger('dev'));
 
-app.use(express.static(ext.static_dir, {
-	index:'index.html'
-}));
 app.use(ext.CompileSCSS);
 app.use(ext.Compile2JS);
 app.use(ext.staticHttpCombo);
 ext.autoAddRoutes(app, ext.route_dir, '/').then(() => {
+	app.use(express.static(ext.static_dir, {
+		index:'index.html'
+	}));
 	app.use((req, res, next) => {
 		let err = new Error('Not Found');
 		err.status = 404;

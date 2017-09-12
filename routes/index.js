@@ -45,7 +45,7 @@ router.get(['/', '/*.html'], function(req, res, next){
 					return "//placeholdit.imgix.net/~text?txtsize=33&txt="+text+"&w="+width+"&h="+height+"&bg=" + bg +"&txtcolor=" + color;
 				}
 			}
-		}, req.app.Extension.dist.bind({req:req, res:res, distPath:url_path}));
+		}, req.app.ext.dist.bind({req:req, res:res, distPath:url_path}));
 	});
 });
 

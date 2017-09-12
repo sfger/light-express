@@ -1,6 +1,6 @@
 declare var $:any;
 import "../../public/js/requestAnimationFrame";
-// import "../scss/datagrid.scss";
+import "../scss/datagrid.scss";
 // import {createElement} from "../../public/js/parts/fn";
 function getType(obj){//{{{
 	return Object.prototype.toString.call(obj).slice(8, -1).toLowerCase();
@@ -389,7 +389,7 @@ $.fn.datagrid = function(options, ...args){
 			options.onCreate && options.onCreate.bind(this)();
 		},//}}}
 		update: function(options){// {{{
-			if($(this.render).hasClass('state-loading')) return false;
+			// if($(this.render).hasClass('state-loading')) return false;
 			let that = this;
 			$(this.render).addClass('datagrid-render-ctn state-loading');
 			setTimeout(function(){
@@ -405,9 +405,9 @@ $.fn.datagrid = function(options, ...args){
 		_setOptions: function(options){// {{{
 			let old_options = this.userOptions;
 			if(old_options){
-				if(options.data){
+				if(options.data&&options.data.length){
 					let data = old_options.data;
-					if(data[0].tr || data[0].frozenTr || data[0].frozenEndTr){
+					if(data&&data.length&&(data[0].tr || data[0].frozenTr || data[0].frozenEndTr)){
 						data.forEach(function(rowData){
 							delete rowData.tr;
 							if(old_options.frozenColumns.length) delete rowData.frozenTr;
@@ -484,8 +484,9 @@ $.fn.datagrid = function(options, ...args){
 					});
 				}
 				requestAnimationFrame(function(){
+					let state = that.userOptions.onUpdate.bind(that)();
+					if(that.userOptions.onUpdate && state===false) return false;
 					$(that.render).removeClass('state-loading');
-					that.userOptions.onUpdate && that.userOptions.onUpdate.bind(that)();
 				});
 			});
 			return this;

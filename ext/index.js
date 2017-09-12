@@ -11,11 +11,11 @@ var WebpackDev    = require("webpack-dev-middleware");
 var compiler      = webpack(webpackConfig);
 var webpackDev    = WebpackDev(compiler, {stats:{colors:true}});
 var memoryfs      = webpackDev.fileSystem;
-let mimes = {
+var mimes = {
 	"js"  : "application/x-javascript",
 	"css" : "text/css"
 };
-let reg = {
+var reg = {
 	static_dir: new RegExp('^'+webpackConfig.context.replace(/[()^$*?+.-\\]/g, function(i){
 		return '\\' + i;
 	}))
@@ -313,7 +313,7 @@ var ext = {
 			})).then(defer.resolve);
 		});
 	},
-	/*
+	/* *
 	 * 每次请求模块文件时，动态编译相应的模块文件
 	 * 具有合并多个模块文件为一个的功能
 	 * */
