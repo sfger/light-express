@@ -124,12 +124,12 @@ var ext = {
 		}
 		return true;
 	},
-	autoAddRoutes: (app, dirPath, routePath, defer) => {
-		Promise.all(fs.readdirSync(dirPath).map(file=>{
-			return new Promise((resolve, reject)=>{
+	autoAddRoutes: (app, dirPath, routePath) => {
+		return Promise.all(fs.readdirSync(dirPath).map(file=>{
+			return new Promise((resolve)=>{
 				fs.stat(dirPath+'/'+file, (err, stats)=>{
 					if( stats.isDirectory() ){
-						ext.autoAddRoutes(app, dirPath+'/'+file, routePath+file+'/', {resolve, reject});
+						ext.autoAddRoutes(app, dirPath+'/'+file, routePath+file+'/').then(resolve);
 					}else if( stats.isFile() ){
 						var list = file.split('.');
 						if(list.length==2 && list[1]==='js'){
@@ -138,15 +138,11 @@ var ext = {
 							console.log("Auto add route!\n\tPath: ", path, '\n\tModule: ', module);
 							app.use('/', require('..'+module));
 						}
-						resolve();
-					}else{
-						resolve();
 					}
+					resolve();
 				});
 			});
-		})).then(()=>{
-			defer.resolve();
-		});
+		}));
 	},
 	dist: function(err, ret){
 		var req = this.req;
