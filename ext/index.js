@@ -84,7 +84,8 @@ var ext = {
 			await new Promise(function(resolve){
 				stream.pipe(writer, {end:false});
 				stream.on('end', ()=>{ // 文件流完成后再处理下一个文件，防止返回的顺序不对。
-					if(item.fd) fs.close(item.fd);
+					// console.log(item, stream.fd);
+					if(stream.fd) fs.close(stream.fd);
 					stream.destroy();
 					resolve();
 					// console.log('stream', stream);
