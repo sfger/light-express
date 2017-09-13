@@ -21,7 +21,14 @@ entrysArray.forEach((one) => {
 // 	'webpack-dev-server/client?http://localhost',
 // ];
 // console.log(entryMap);
-
+var moduleResolver = ["module-resolver", {
+	root: [root],
+	alias: {
+		"@": "/components",
+		"~": "/public"
+	},
+	extensions:[".js", ".jsx", ".ts", ".tsx"]
+}];
 module.exports = {
 	context: path.normalize(__dirname + '/public/'),
 	entry: entryMap,
@@ -41,7 +48,6 @@ module.exports = {
 		extensions:['.ts', '.vue', '.css', '.less', '.scss', '.sass', '.js', '.jsx', 'png', 'jpg'],
 		alias: {
 			'vue$': 'vue/dist/vue.esm.js',
-			root: path.resolve(__dirname, 'public/'),
 		}
 	},
 	externals: {
@@ -71,16 +77,26 @@ module.exports = {
 				loader: 'vue-loader',
 				options: {
 					loaders: {
-						// Since sass-loader (weirdly) has SCSS as its default parse mode, we map
-						// the "scss" and "sass" values for the lang attribute to the right configs here.
-						// other preprocessors should work out of the box, no loader config like this necessary.
 						'scss': 'vue-style-loader!css-loader!sass-loader',
 						'sass': 'vue-style-loader!css-loader!sass-loader?indentedSyntax'
 					}
-					// other vue-loader options go here
 				}
 			},
-			{test:/\.ts$/, loader:'ts-loader'},
+			{
+				test:/\.ts$/,
+				// loader:'ts-loader'
+				exclude:/(node_modules)/,
+				use:[
+					{
+						loader:'ts-loader',
+						options:{
+							// plugins: [
+							// 	moduleResolver
+							// ]
+						}
+					}
+				]
+			},
 			{
 				test:/\.jsx?$/,
 				exclude:/(node_modules)/,
@@ -102,7 +118,8 @@ module.exports = {
 								// ['transform-regenerator'],
 								// ['transform-runtime'],
 								['transform-runtime', {polyfill:false, regenerator:true}],
-								['import', {libraryName:"antd", style:'css'}]
+								['import', {libraryName:"antd", style:'css'}],
+								moduleResolver
 							]
 						}
 					}

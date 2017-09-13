@@ -1,11 +1,12 @@
 var path = require('path');
 var root = path.resolve(__dirname);
+console.log(root);
 module.exports = {
 	alias        : {
-		'@' : '/components/scss/',
-		'~' : '/node_modules/',
-		'/' : '/public/'
+		'@' : '/components/',
+		'~' : '/public/'
 	},
+	includePaths : [root+'/node_modules/'],
 	importer     : function(url, prev){
 		let leading = url.charAt(0);
 		let map     = this.options.alias;

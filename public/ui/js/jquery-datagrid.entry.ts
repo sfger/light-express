@@ -1,7 +1,9 @@
 declare var $:any;
 import "../../public/js/requestAnimationFrame";
 import "../scss/datagrid.scss";
-// import {createElement} from "../../public/js/parts/fn";
+// import "~/public/js/requestAnimationFrame.js";
+// import "~/ui/scss/datagrid.scss";
+// import {createElement} from "~/public/js/parts/fn.js";
 function getType(obj){//{{{
 	return Object.prototype.toString.call(obj).slice(8, -1).toLowerCase();
 }//}}}

@@ -1,6 +1,6 @@
 @charset "utf-8";
-@import "@base";
+@import "@scss/base";
 ul li{list-style:none;}
-@import "parts/ui-mobile";
+@import "@scss/parts/ui-mobile";
 .iScrollVerticalScrollbar{width:5px!important;}
 .iScrollIndicator{background:rgba(99,99,99,0.498039)!important;}

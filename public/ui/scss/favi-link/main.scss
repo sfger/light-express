@@ -1,8 +1,8 @@
-@import "@base";
+@import "@scss/base";
 $basePath: '../../../public/';
-@import "@parts/ui-layout";
-@import "@parts/ui-tree";
-@import "@parts/ui-tabs";
+@import "@scss/parts/ui-layout";
+@import "@scss/parts/ui-tree";
+@import "@scss/parts/ui-tabs";
 html,body{height:100%;overflow:hidden;font-size:16px;}
 @media screen and (min-width:300px){
 }
