@@ -1,7 +1,8 @@
 var path = require('path');
 var glob = require('glob');
-let root = path.resolve(__dirname);
+var root = path.resolve(__dirname);
 // var webpack = require('webpack');
+var sassconfig = require('./sass.config.js');
 var es3ifyPlugin = require('es3ify-webpack-plugin');
 var entrysArray = glob.sync("**/*.@(entry).@(js?(x)|ts)", {
 	cwd:'./public/',
@@ -118,26 +119,7 @@ module.exports = {
 					loader: "css-loader"
 				}, {
 					loader: "sass-loader",
-					options: {
-						alias        : {
-							'@' : '/components/scss/',
-							'~' : '/node_modules/',
-							'/' : '/public/'
-						},
-						importer     : function(url, prev){
-							let leading = url.charAt(0);
-							let map     = this.options.alias;
-							if(leading in map){
-								url = path.normalize(root + map[leading] + url.slice(1));
-								url = path.relative(path.dirname(prev), url);
-							}
-							return {file:url};
-						},
-						indentWidth  : 1,
-						linefeed     : 'lf',
-						indentType   : 'tab',
-						outputStyle  : 'compact'
-					}
+					options: sassconfig
 				}]
 			},
 			{

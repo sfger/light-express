@@ -7,6 +7,7 @@ var view_dir      = static_dir;
 var route_dir     = path.normalize(root + '/routes');
 var webpack       = require("webpack");
 var webpackConfig = require('../webpack.config.js');
+var sassconfig    = require('../sass.config.js');
 var WebpackDev    = require("webpack-dev-middleware");
 var compiler      = webpack(webpackConfig);
 var webpackDev    = WebpackDev(compiler, {stats:{colors:true}});
@@ -186,28 +187,8 @@ var ext = {
 	nodeSass: (in_file, out_file, defer, next)=>{
 		var sass    = require('node-sass');
 		var postcss = require('postcss');
-		sass.render({
-			alias        : {
-				'@' : '/components/scss/',
-				'~' : '/node_modules/',
-				'/' : '/public/'
-			},
-			file         : in_file,
-			// includePaths : [path.normalize(static_dir+'/public/scss')],
-			importer     : function(url, prev){
-				let leading = url.charAt(0);
-				let map     = this.options.alias;
-				if(leading in map){
-					url = path.normalize(root + map[leading] + url.slice(1));
-					url = path.relative(path.dirname(prev), url);
-				}
-				return {file:url};
-			},
-			indentWidth  : 1,
-			linefeed     : 'lf',
-			indentType   : 'tab',
-			outputStyle  : 'compact'
-		}, (error, result)=>{
+		sassconfig.file = in_file;
+		sass.render(sassconfig, (error, result)=>{
 			if(error){
 				console.log(error);
 				console.log(error.status);
