@@ -96,35 +96,25 @@ var ext = {
 		writer.end();
 	},
 	staticHttpCombo: (req, res, next) => {
-		if(/\?\?/.test(req.originalUrl)){
-			var file_list = req.originalUrl.slice(req.originalUrl.indexOf('??')+2).split('?')[0].split(',');
-			var type      = file_list[file_list.length-1].split('.').reverse()[0];
-			if(type==='js' || type==='css'){
-				// 跳转，如：http://localhost/public/js??jquery.js,require.js?_a=1&v=20160101
-				//        => http://localhost/public/js/??jquery.js,require.js?_a=1&v=20160101
-				if(req.path[req.path.length-1]!=='/'){
-					res.redirect(req.originalUrl.replace(/\?\?/, '/??'));
-					// res.writeHead(302);
-					return res.end('');
-				}
-			}else{ //暂时支持css和js，其它暂时没必要处理
-				return next();
-			}
+		if( !/\?\?/.test(req.originalUrl) ) return next();
+		var file_list = req.originalUrl.slice(req.originalUrl.indexOf('??')+2).split('?')[0].split(',');
+		var type      = file_list[file_list.length-1].split('.').reverse()[0];
+		if(!~['js','css'].indexOf(type)) return next();
 
-			var list = [];
-			file_list.forEach(one=>{
-				var file = req.path + one;
-				list.push(path.normalize(ext.static_dir + file));
-			});
-			if('js'===type){
-				ext.pipe_stream_list_to_writer(list, res, next);
-			}else{
-				ext.compile_list_to_writer(list, res, next);
-			}
-		}else{
-			next();
+		// 跳转，如：http://localhost/public/js??jquery.js,require.js?_a=1&v=20160101
+		//        => http://localhost/public/js/??jquery.js,require.js?_a=1&v=20160101
+		if(req.path[req.path.length-1]!=='/'){
+			res.redirect(req.originalUrl.replace(/\?\?/, '/??'));
+			// res.writeHead(302);
+			return res.end();
 		}
-		return true;
+
+		var list = file_list.map(one=>{
+			var file = req.path + one;
+			return path.normalize(ext.static_dir + file);
+		});
+		if('js'===type) ext.pipe_stream_list_to_writer(list, res, next);
+		else ext.compile_list_to_writer(list, res, next);
 	},
 	autoAddRoutes: (app, dirPath, routePath) => {
 		return Promise.all(fs.readdirSync(dirPath).map(file=>{
@@ -148,15 +138,10 @@ var ext = {
 	},
 	dist: function(err, ret){
 		var req = this.req;
-		if(err){
-			console.log(err);
-			return false;
-		}
+		if(err) return console.log(err);
 		// console.log(ext);
 		if(req.query.minify!=='0') ret = minify_html(ret);
-		if(req.query.dist!=='0'){
-			ext.writeStaticCache(this.distPath || req.route.path, ret);
-		}
+		if(req.query.dist!=='0') ext.writeStaticCache(this.distPath || req.route.path, ret);
 		this.res.send(ret);
 	},
 	writeStaticCache: (url, ret) => {
@@ -240,22 +225,16 @@ var ext = {
 		return true;
 	},
 	CompileSCSS: (req, res, next) => {
-		if(/.*\.css$/.test(req.path)){
-			var css_path = path.normalize(ext.static_dir + req.path);
-			ext.compile_list_to_writer([css_path], res, next);
-		}else{
-			next();
-		}
-		return true;
+		if( !/.*\.css$/.test(req.path) ) return next();
+		var css_path = path.normalize(ext.static_dir + req.path);
+		ext.compile_list_to_writer([css_path], res, next);
 	},
 	merge_tpl_list: (list, out_file, next) => {
 		var data = {};
 		try{
 			list.forEach((one) => {
 				var s = fs.readFileSync(one, {encoding:'utf8', flag:'r'});
-				if(~['tpl', 'ejs', 'html', 'htm'].indexOf(path.extname(one).slice(1))){
-					s = minify_html(s);
-				}
+				if( ~['tpl', 'ejs', 'html', 'htm'].indexOf(path.extname(one).slice(1)) ) s = minify_html(s);
 				data[path.basename(one)] = s;
 			});
 			fs.writeFile(out_file, "define("+JSON.stringify(data)+");", {mode:'777'}, function(){
