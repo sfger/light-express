@@ -51,9 +51,9 @@
     "sugarss": "^1.0.0",
     "ts-loader": "^2.3.7",
     "typescript": "^2.5.2",
-    "vue": "^2.4.3",
+    "vue": "^2.4.4",
     "vue-loader": "^13.0.4",
-    "vue-template-compiler": "^2.4.3",
+    "vue-template-compiler": "^2.4.4",
     "vuex": "^2.4.0",
     "webpack": "^3.5.6",
     "webpack-dev-middleware": "^1.12.0"
