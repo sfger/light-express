@@ -1,8 +1,5 @@
-declare var $:any;
-import "../../public/js/requestAnimationFrame";
-import "../scss/datagrid.scss";
-// import "~/public/js/requestAnimationFrame.js";
-// import "~/ui/scss/datagrid.scss";
+import "~/public/js/requestAnimationFrame.js";
+import "~/ui/scss/datagrid.scss";
 // import {createElement} from "~/public/js/parts/fn.js";
 function getType(obj){//{{{
 	return Object.prototype.toString.call(obj).slice(8, -1).toLowerCase();
@@ -114,8 +111,7 @@ $.fn.datagrid = function(options, ...args){
 		frozenEndColumns : [],        // 冻结列
 		columns          : []         // 普通列
 	}, options);//}}}
-	let handler  = function(box, options){ return new handler.prototype.init(box, options); };
-	let browser:any = {};// {{{
+	let browser = {};// {{{
 	let ie = /MSIE (\d+)\.?/.exec(navigator.userAgent);
 	if(ie && ie.length && ie[1]){
 		browser.ie = true;
@@ -234,7 +230,7 @@ $.fn.datagrid = function(options, ...args){
 				});
 			});
 		}//}}}
-		let ret:any = {//{{{
+		let ret = {//{{{
 			name:'div', attr:{'class':'datagrid-ctn'}, children:{
 				name:'div',
 				attr:{'class':'view-wrapper grid' + (options.autoRowHeight ? ' autoRowHeight' : '')},
@@ -308,14 +304,14 @@ $.fn.datagrid = function(options, ...args){
 		$autoTable.css({width:500000});
 		let options = that.userOptions;
 		function update_scroll_offset(){
-			let aview:any = tp0[0].parentNode;
+			let aview = tp0[0].parentNode;
 			aview.scrollLeft = this.scrollLeft;
 			if(options.frozenColumns.length){
-				let fview:any = $tables[1].parentNode;
+				let fview = $tables[1].parentNode;
 				fview.scrollTop = this.scrollTop;
 			}
 			if(options.frozenEndColumns.length){
-				let feview:any = $('.frozen-end table', that.render)[1].parentNode;
+				let feview = $('.frozen-end table', that.render)[1].parentNode;
 				feview.scrollTop = this.scrollTop;
 			}
 		}
@@ -345,8 +341,8 @@ $.fn.datagrid = function(options, ...args){
 			$([$tables[1], $tables[5]]).off('mousewheel DOMMouseScroll').on('mousewheel DOMMouseScroll', function(e){
 				// let data = that.relatedData;
 				// if(data) $([data.frozenTr, data.frozenEndTr, data.tr].filter(function(item){ return item; })).removeClass('hover');
-				let originalEvent:any = e.originalEvent;
-				let tb3:any = $tables[3].parentNode;
+				let originalEvent = e.originalEvent;
+				let tb3 = $tables[3].parentNode;
 				let list = [tb3, $tables[1].parentNode];
 				if($tables[5]) list.push($tables[5].parentNode);
 				if($(list).is(':animated')) return false;
@@ -382,6 +378,7 @@ $.fn.datagrid = function(options, ...args){
 			});
 		});
 	}//}}}
+	function handler(box, options){ return new handler.prototype.init(box, options); };
 	handler.prototype = {
 		sortOrderDesc: false, //true:desc, false:asc
 		init: function(box, options){//{{{
@@ -424,7 +421,7 @@ $.fn.datagrid = function(options, ...args){
 			return options;
 		},// }}}
 		_update: function(options){//{{{
-			let that = this;
+			// let that = this;
 			let box  = this.render;
 			this.columns          = [];
 			this.frozenColumns    = [];
@@ -440,15 +437,15 @@ $.fn.datagrid = function(options, ...args){
 
 			options.data.forEach(function(rowData, rowNum){
 				if(options.frozenColumns.length){
-					let tbody:any = $('.frozen-view .body tbody', box)[0];
+					let tbody = $('.frozen-view .body tbody', box)[0];
 					rowData.frozenTr = tbody.rows[rowNum];
 				}
 				if(options.frozenEndColumns.length){
-					let tbody:any = $('.frozen-end .body tbody', box)[0];
+					let tbody = $('.frozen-end .body tbody', box)[0];
 					rowData.frozenEndTr = tbody.rows[rowNum];
 				}
 				if(options.columns.length){
-					let tbody:any = $('.auto-view .body tbody', box)[0];
+					let tbody = $('.auto-view .body tbody', box)[0];
 					rowData.tr = tbody.rows[rowNum];
 				}
 			});
@@ -496,7 +493,7 @@ $.fn.datagrid = function(options, ...args){
 			let that = this;
 			let $box = $(this.render);
 			if(!options.remoteSort) $box.on('click', '.field.sortable', function(){
-				let cell:any = $('.cell', this)[0];
+				let cell = $('.cell', this)[0];
 				that.sortBy({
 					field: $(cell).data('field'),
 					order: !cell.order||that.sortOrderDesc
@@ -505,7 +502,7 @@ $.fn.datagrid = function(options, ...args){
 			if(options.triggerRow && (options.frozenColumns.length || options.frozenEndColumns.length)) $box.on({
 				mouseenter: function(e){
 					let target = this;
-					let box:any = e.delegateTarget;
+					let box = e.delegateTarget;
 					if(box._triggering_in){
 						cancelAnimationFrame(box._triggering_in);
 						box._triggering_in = null;
@@ -518,7 +515,7 @@ $.fn.datagrid = function(options, ...args){
 					});
 				},
 				mouseleave: function(e){
-					let box:any = e.delegateTarget;
+					let box = e.delegateTarget;
 					if(box._triggering_out){
 						cancelAnimationFrame(box._triggering_out);
 						box._triggering_out = null;

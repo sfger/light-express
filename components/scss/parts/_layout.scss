@@ -8,6 +8,11 @@
 .ib{@include ib;}
 .badge{border-radius:50%;overflow:hidden;}
 .img-ctn{@include imgc(1);}
+.flex-img-ctn{
+	@include relative;
+	>img{@include absolute(left 0 top 0);width:100%;}
+	.img-ctn{@include absolute(left 0 top 0);@include size(100%);}
+}
 
 .ib-row{@include imgc(0,'',left);}
 .ib-col,.ib-col-full{@include imge(top);}

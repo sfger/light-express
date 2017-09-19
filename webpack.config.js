@@ -130,7 +130,7 @@ module.exports = {
 				use: [{
 					loader: "style-loader",
 					options: {
-						insertAt: 'top'
+						insertAt: 'bottom'
 					}
 				}, {
 					loader: "css-loader"

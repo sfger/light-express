@@ -12,7 +12,7 @@
 <meta name="keywords" content="" />
 <meta name="description" content="" />
 <style type="text/css" media="all">
-.my-datagrid{height:400px;width:50%;overflow:hidden;float:left;}
+.my-datagrid,.my-datagrid.datagrid-render-ctn{height:400px;width:50%;overflow:hidden;float:left;}
 *{padding:0;margin:0;font-size:14px;}
 .warn{color:#ff0101;}
 .normal{color:#008f1f;}
@@ -32,6 +32,7 @@
 <script src="../../../../public/js/es5-shim.js"></script>
 <script src="../../../../public/js/es5-sham.js"></script>
 <![endif]-->
+<script src="../../../../public/js/es6-shim.js"></script>
 <script id="requirejs" data-version="<%- __version__ %>" src="../../../../public/js/require.js?<%- __version__ %>"></script>
 <script>
 require.config({
