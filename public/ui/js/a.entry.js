@@ -13,7 +13,7 @@ function multicast(target, key, descriptor){
 }
 
 class Collection {
-	items:Array<Number> = [];
+	items:Array<any> = [];
 	constructor(){}
 	@multicast
 	append(item, ...args:Array<any>){
