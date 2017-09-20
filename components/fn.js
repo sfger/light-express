@@ -1,8 +1,4 @@
-/* fn.js
- * */
-
 /* String */
-//{{{ strtotime
 /**
  * @param[in] str 日期字符串 如：2012-12-12 12:12:21
  * @return 返回时间戳
@@ -11,8 +7,6 @@ function strtotime(str){
 	//if(!str || (typeof str.replace != 'function')) return false;
 	return Date.parse( str.replace(/-/g, '/') )/1000;
 }
-//}}}
-//{{{ pad
 /* *
  * @param[in] n 被填冲的字符串
  * @param[in] c 要填冲的长度
@@ -26,8 +20,6 @@ function pad(n, c, s){
 	}
 	return n;
 }
-//}}}
-// date{{{
 /**
  * @param[in] format 格式化的格式
  * @param[in] timestamp 时间戳
@@ -145,11 +137,10 @@ function date(format, timestamp){
 		return ret;
 	});
 }
-//}}}
-function getType(obj){//{{{
+function getType(obj){
 	return Object.prototype.toString.call(obj).slice(8, -1).toLowerCase();
-}//}}}
-function createElement(node){//{{{
+}
+function createElement(node){
 	var cd = '',
 		at=[],
 		attr = null,
@@ -189,48 +180,48 @@ function createElement(node){//{{{
 		} else cd = '';
 	}
 	return cd;
-}//}}}
-function numberFormat(n, x, c){//{{{
+}
+function numberFormat(n, x, c){
 	if(isNaN(n)) return n;
 	n = n||0, x = x||0, c = c||3;
 	n = Number(n).toFixed(x);
 	var end = x===0 ? '$' : '\\.';
 	return n.replace(new RegExp("\\B(?=(\\d{"+c+"})+(?="+end+"))", 'g'), ',');
-}//}}}
+}
 // console.log(numberFormat(22222222.22222, 5, 3));
-function numberFromFormat(str){//{{{
+function numberFromFormat(str){
 	return Number(str.replace(/,/g, ''));
-}//}}}
-function buildRegString(s){//{{{
+}
+function buildRegString(s){
 	if(!s) return s;
 	return String(s).replace(/[()^$*?+.-\\]/g, function(i){
 		return '\\' + i;
 	});
-}//}}}
-function isStrHasTrunkWith(str, trunk, delimeter){//{{{
+}
+function isStrHasTrunkWith(str, trunk, delimeter){
 	trunk = buildRegString(trunk);
 	if(delimeter){
 		delimeter = buildRegString(delimeter);
 		return new RegExp('(['+delimeter+']|^)'+trunk+'(['+delimeter+']|$)').test(str);
 	}else return new RegExp(trunk).test(str);
-}//}}}
+}
 /* *
  * @time : setTimeout的延迟时间
  * @fn   : 延迟执行的函数
  * @arg  : 要传给fn函数的参数
  * */
-function wait(time, fn, ...arg){//{{{
+function wait(time, fn, ...arg){
 	return new Promise(function(resolve){
 		var timer = setTimeout(async function(...arg){
 			if(fn) await fn(...arg);
 			resolve(timer);
 		}, time, ...arg);
 	});
-}//}}}
+}
 // var title = "ECCO Men's Darren High Moonless 43 (US Men's 9-9.5) D - Medium";
 // var one = "43 (US Men's 9-9.5)";
 // console.log( isStrHasTrunkWith(title, title, ' ') );
-function domCountDown(option){//{{{
+function domCountDown(option){
 	var that = this;
 	var get_timestamp = function(){ return parseInt(+new Date()/1000, 10); };
 	var etime = get_timestamp() + option.time;
@@ -246,8 +237,8 @@ function domCountDown(option){//{{{
 	};
 	that.__count_down_timer__ = setTimeout(function(){timer_fn();}, 0);
 	return true;
-}//}}}
-// var instance = new domCountDown({//{{{
+}
+// var instance = new domCountDown({
 // 	render: dom_node,
 // 	time: 5,
 // 	formatter: function(second){
@@ -256,8 +247,8 @@ function domCountDown(option){//{{{
 // 	onCountComplete: function(){
 // 		dom_node.innerHTML = '结束';
 // 	}
-// });//}}}
-function throttle(fn, delay, mustRunDelay){//{{{
+// });
+function throttle(fn, delay, mustRunDelay){
 	var timer = null;
 	var t_start;
 	return function() {
@@ -277,9 +268,9 @@ function throttle(fn, delay, mustRunDelay){//{{{
 			}, delay);
 		}
 	};
-}//}}}
+}
 
-function isPlainObject(obj){//{{{
+function isPlainObject(obj){
 	if(getType(obj)!=="object" || obj.nodeType || isWindow(obj)) return false;
 	try{
 		if(obj.constructor && !Object.prototype.hasOwnProperty.call(obj.constructor.prototype, "isPrototypeOf")) return false;
@@ -287,9 +278,9 @@ function isPlainObject(obj){//{{{
 		return false;
 	}
 	return true;
-}//}}}
+}
 /* Object */
-function extend(){//{{{
+function extend(){
 	var i = 1,
 		target = arguments[0],
 		deep = false,
@@ -322,15 +313,15 @@ function extend(){//{{{
 		}
 	}
 	return target;
-}//}}}
+}
 
 /* BOM|Browser */
-function isWindow(obj){//判断是否为window对象{{{
+function isWindow(obj){//判断是否为window对象
 	return obj!=null && obj==obj.window;
-}//}}}
+}
 
 /* DOM|Browser */
-function getCurrentScript(){//{{{
+function getCurrentScript(){
 	if(document.currentScript) return document.currentScript;
 	var stack;
 	try {
@@ -355,7 +346,7 @@ function getCurrentScript(){//{{{
 			return node;
 		}
 	}
-}//}}}
+}
 
 export{
 	wait,

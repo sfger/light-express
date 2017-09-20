@@ -8,19 +8,17 @@ function multicast(target, key, descriptor){
 			let item = list;
 			return func.apply(this, [item].concat(rest));
 		}
-	}
+	};
 	return descriptor;
 }
 
 class Collection {
-	// items:Array<any> = [];
-	items = [];
-	constructor(){
-	}
-
+	items:Array<Number> = [];
+	constructor(){}
 	@multicast
 	append(item, ...args:Array<any>){
 		// console.log(item, Array.prototype.slice.call(arguments));
+		console.log(args);
 		this.items.push(item);
 		return this.items.slice(-1)[0];    
 	}
