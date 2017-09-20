@@ -21,7 +21,7 @@ var reg = {
 		return '\\' + i;
 	}))
 };
-function read_json_file(p, cache=false){//{{{
+function read_json_file(p, cache=false){
 	var json = {};
 	p = path.normalize(p);
 	try{
@@ -33,14 +33,14 @@ function read_json_file(p, cache=false){//{{{
 		console.log(e);
 	}
 	return json;
-}//}}}
-function minify_html(str){//{{{
+}
+function minify_html(str){
 	str = (str||'').replace(/(\/?>)\s+|\s+(?=<)/g, '$1');
 	// str = str.replace(/\\/g, "\\\\");
 	str = str.replace(/\s*([\r\n]+)\s*/g, '$1');
 	// str = str.replace(/([^\\])(')/g, "$1\\$2"); // '
 	return str;
-}//}}}
+}
 var ext = {
 	webpackDev,
 	static_dir,

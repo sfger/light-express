@@ -1,4 +1,4 @@
-$.fn.slider = function(options){//{{{
+$.fn.slider = function(options){
 	options = $.extend(true, {
 		interval: 3e3,
 		auto: true,
@@ -106,4 +106,4 @@ $.fn.slider = function(options){//{{{
 		if(ui) ui.iSlider = instance;
 		else $this.data('ui', {iSlider:instance});
 	});
-};//}}}
+};

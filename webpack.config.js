@@ -22,10 +22,10 @@ entrysArray.forEach((one) => {
 // ];
 // console.log(entryMap);
 var moduleResolver = ["module-resolver", {
-	root: [root],
+	// root: [root],
 	alias: {
-		"@": "/components",
-		"~": "/public"
+		"@": root+"/components",
+		"~": root+"/public"
 	},
 	extensions:[".js", ".jsx", ".ts", ".tsx"]
 }];
@@ -105,8 +105,8 @@ module.exports = {
 						loader:'babel-loader',
 						options:{
 							presets: [
-								// ['es2015', {modules:false}],
-								['es2015'],
+								['es2015', {modules:false}],
+								// ['es2015'],
 								'stage-3',
 								'react',
 							],

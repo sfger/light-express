@@ -1,4 +1,3 @@
-/* vim: set fdm=marker : */
 $.fn.accordion = function(options){
 	var type = $.type(options);
 	if(type==='string'){

@@ -10,13 +10,13 @@
 	}
 }(this, function($, date_helper){
 	$.fn.datePicker = function(o){
-		var op = $.extend(true, {//{{{
+		var op = $.extend(true, {
 			type: 'date', // date|dateTime
 			monthNum:1,
 			proxy:$('body'),
 			onComplete:function(){}
-		}, o);//}}}
-		//tpl{{{
+		}, o);
+		//tpl
 		var tpl = '<div class="dtp-ctn">' +
 			'<a href="javascript:" class="dtp-switcher dtp-prev">&lt;</a>' +
 			'<ul class="dtp-header">' +
@@ -52,7 +52,7 @@
 				'</label>' +
 			'</div>' +
 		'</div>';
-		//}}}
+		
 		function date_parser(str){
 			var parse_timer_array = str.split(/[\ \-\:]/);
 			for(var x =0; x<parse_timer_array.length; x++){
@@ -61,13 +61,13 @@
 			}
 			return Date.UTC.apply(null, parse_timer_array)/1000 + (new Date().getTimezoneOffset()*60);
 		}
-		function draw_ui(val, render){//{{{
+		function draw_ui(val, render){
 			var n;
 			var ret = $(tpl);
 			var dh  = date_helper().set_date(val);
 			var init_date = new date_helper(render.value ? date_parser(render.value) : '');
 
-			if('dateTime'===op.type || 'dateHour'===op.type){//{{{
+			if('dateTime'===op.type || 'dateHour'===op.type){
 				$('.dtp-time', ret).show();
 				$('.dtp-hour input', ret).attr('value', init_date.php_date('H'));
 				$('.dtp-minute input', ret).attr('value', init_date.php_date('i'));
@@ -84,18 +84,18 @@
 					return s;
 				});
 
-			}//}}}
+			}
 
-			if(op.monthNum>1){//{{{
+			if(op.monthNum>1){
 				var $ul = ret.find('.dtp-header');
 				var $list = ret.find('.dtp-list');
 				for(n=0; n<op.monthNum-1; n++){
 					$ul.append($ul.find('li').eq(0).clone());
 					$list.append($list.find('.dtp-item').eq(0).clone());
 				}
-			}//}}}
+			}
 
-			for(n=0; n<op.monthNum; n++){//{{{
+			for(n=0; n<op.monthNum; n++){
 				var abd;
 				if(op.minDate){
 					switch(typeof op.minDate){
@@ -130,7 +130,7 @@
 				if(render && render.ui && render.ui.renderTo) render.ui.renderTo.innerHTML = ret.html();
 				else ret.appendTo('body');
 				dh.get_offset_date(1, 'm');
-			}//}}}
+			}
 			return ret.get(0);
 		}
 		function set_date_val(input, li){

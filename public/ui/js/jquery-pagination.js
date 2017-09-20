@@ -231,4 +231,3 @@ $.fn.pagination = function(options){
 			$this.data('ui', {iPagination:instance});
 	});
 };
-/* vim: set fdm=marker */

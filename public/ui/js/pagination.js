@@ -155,4 +155,3 @@
 	};
 	return window.pagination = pagination;
 })(window);
-/* vim: set fdm=marker */

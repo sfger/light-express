@@ -375,4 +375,3 @@ $.fn.tree = function(options){
 		else $this.data('ui', {iTree:instance});
 	});
 };
-/* vim: set fdm=marker : */

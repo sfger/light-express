@@ -243,4 +243,3 @@ $.fn.menu = function(method, op){
 		else $this.data('ui', {iMenu:instance});
 	});
 };
-/* vim: set fdm=marker : */

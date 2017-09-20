@@ -216,4 +216,3 @@ $.fn.tabs = function(options){
 		else $this.data('ui', {iTab:instance});
 	});
 };
-/* vim: set fdm=marker : */

@@ -1,56 +1,12 @@
-import "~/public/js/requestAnimationFrame.js";
 import "~/ui/scss/datagrid.scss";
-// import {createElement} from "~/public/js/parts/fn.js";
-function getType(obj){//{{{
-	return Object.prototype.toString.call(obj).slice(8, -1).toLowerCase();
-}//}}}
-function createElement(node){//{{{
-	var cd = '',
-		at = [],
-		attr = null,
-		children = null,
-		fn = createElement,
-		node_type = getType(node);
-	if(node_type === 'array'){
-		for(var j in node) cd += fn(node[j]);
-	}else{
-		if(node_type==="string" || node_type=="number"){
-			cd = node;
-		}else if(node_type==='object' && node.name){
-			attr = node.attr, children = node.children, at = [];
-			if(attr){
-				for(var key in attr){
-					if(key=='className'){
-						at.push('class="' + attr[key] + '"');
-						continue;
-					}else if(key=='style'){
-						var style = attr[key];
-						var ot = getType(style);
-						attr[key] = '';
-						if(ot=='object'){
-							for(var sk in style){
-								attr[key] += sk + ':' + style[sk] + ';';
-							}
-						}else if(ot=='string'){
-							attr[key] = style;
-						}
-					}
-					at.push('' + key + '="' + attr[key] + '"');
-				}
-			}
-			if(at.length) at.unshift('');
-			if(children && getType(children) !== 'array') children = [children];
-			cd = '<' + node.name + at.join(' ') + '>' + (children ? fn(children) : '') + '</' + node.name + '>';
-		} else cd = '';
-	}
-	return cd;
-}//}}}
-function getHW(el, type){//{{{
+import "~/public/js/requestAnimationFrame.js";
+import {createElement} from "@/fn.js";
+function getHW(el, type){
 	if(!el) return false;
 	el.style && (el.style[type] = '');
 	return el['offset'+(type==='width'?'Width':'Height')];
-}//}}}
-function align_cell_column(arr, type){//{{{
+}
+function align_cell_column(arr, type){
 	for(let i=0,il=arr.length; i<il; i++){
 		let column = arr[i];
 		let max = column.map(function(one){
@@ -62,8 +18,8 @@ function align_cell_column(arr, type){//{{{
 			if(t&&t.style) t.style[type] = max;
 		});
 	}
-}//}}}
-function align_cell_row(arr, type){//{{{
+}
+function align_cell_row(arr, type){
 	let len = arr.length;
 	for(let i=0,il=arr[0].length; i<il; i++){
 		let j=0, row = [];
@@ -77,9 +33,9 @@ function align_cell_row(arr, type){//{{{
 			if(t&&t.style) t.style[type] = max;
 		});
 	}
-}//}}}
+}
 $.fn.datagrid = function(options, ...args){
-	if('string'===$.type(options)){//{{{
+	if('string'===$.type(options)){
 		let ret = this.toArray().map(function(one){
 			let ui = $(one).data('ui');
 			if(ui && ui.iDatagrid){
@@ -92,9 +48,9 @@ $.fn.datagrid = function(options, ...args){
 		if(0===len) return this;
 		if(1===len) return ret[0];
 		else return ret;
-	}//}}}
+	}
 	if(!options.columns.length) throw new Error('datagrid must have columns option！');
-	options = $.extend(true, {//{{{
+	options = $.extend(true, {
 		align            : 'center',  // 内容对齐方式
 		colWidth         : 80,        // 默认单元格内容宽度
 		rowNum           : false,     // 是否显示行号
@@ -110,14 +66,14 @@ $.fn.datagrid = function(options, ...args){
 		frozenColumns    : [],        // 冻结列
 		frozenEndColumns : [],        // 冻结列
 		columns          : []         // 普通列
-	}, options);//}}}
+	}, options);
 	let browser = {};// {{{
 	let ie = /MSIE (\d+)\.?/.exec(navigator.userAgent);
 	if(ie && ie.length && ie[1]){
 		browser.ie = true;
 		browser.version = Number(ie[1]);
 	}// }}}
-	function get_table(options, that){//{{{
+	function get_table(options, that){
 		function get_head_rows(rows, colsType){//{{{
 			if(!rows || (colsType=='frozenColumns')&&!options.frozenColumns.length) return [];
 			if(!rows || (colsType=='frozenEndColumns')&&!options.frozenEndColumns.length) return [];
@@ -230,7 +186,7 @@ $.fn.datagrid = function(options, ...args){
 				});
 			});
 		}//}}}
-		let ret = {//{{{
+		let ret = {
 			name:'div', attr:{'class':'datagrid-ctn'}, children:{
 				name:'div',
 				attr:{'class':'view-wrapper grid' + (options.autoRowHeight ? ' autoRowHeight' : '')},
@@ -256,8 +212,8 @@ $.fn.datagrid = function(options, ...args){
 					}]
 				}]
 			}
-		};//}}}
-		if(options.frozenColumns.length) ret.children.children.unshift({//{{{
+		};
+		if(options.frozenColumns.length) ret.children.children.unshift({
 			name:'div', attr:{'class':'col col-view frozen-view frozen-start'}, children:[{
 				name:'div', attr:{'class':'head-wrapper'}, children:{
 					name:'table', attr:{'class':'frozen head'}, children:{
@@ -271,8 +227,8 @@ $.fn.datagrid = function(options, ...args){
 					}
 				}
 			}]
-		});//}}}
-		if(options.frozenEndColumns.length) ret.children.children.push({//{{{
+		});
+		if(options.frozenEndColumns.length) ret.children.children.push({
 			name:'div', attr:{'class':'col col-view frozen-view frozen-end'}, children:[{
 				name:'div', attr:{'class':'head-wrapper'}, children:{
 					name:'table', attr:{'class':'frozen head'}, children:{
@@ -286,15 +242,15 @@ $.fn.datagrid = function(options, ...args){
 					}
 				}
 			}]
-		});//}}}
+		});
 		return createElement(ret);
-	}//}}}
-	function set_table_height(value, that, $autoView=null){// {{{
+	}
+	function set_table_height(value, that, $autoView=null){
 		$autoView = $autoView || $('.auto-view', that.render);
 		let header_height = $autoView.find('.head-wrapper')[0].offsetHeight;
 		$('.body-wrapper', that.render).css({height:value - header_height});
-	}// }}}
-	function resize_table(that){//{{{
+	}
+	function resize_table(that){
 		let $tables = $('table', that.render);
 		let $autoView  = $('.auto-view', that.render);
 		let $autoTable = $('table', $autoView).parent();
@@ -377,17 +333,17 @@ $.fn.datagrid = function(options, ...args){
 				});
 			});
 		});
-	}//}}}
+	}
 	function handler(box, options){ return new handler.prototype.init(box, options); };
 	handler.prototype = {
 		sortOrderDesc: false, //true:desc, false:asc
-		init: function(box, options){//{{{
+		init: function(box, options){
 			this.render = box;
 			this.update(options);
 			this.init_event(options);
 			options.onCreate && options.onCreate.bind(this)();
-		},//}}}
-		update: function(options){// {{{
+		},
+		update: function(options){
 			if($(this.render).hasClass('state-loading')) return false;
 			let that = this;
 			$(this.render).addClass('datagrid-render-ctn state-loading');
@@ -400,8 +356,8 @@ $.fn.datagrid = function(options, ...args){
 				}else that._update(options);
 			}, 0);
 			return this;
-		},// }}}
-		_setOptions: function(options){// {{{
+		},
+		_setOptions: function(options){
 			let old_options = this.userOptions;
 			if(old_options){
 				if(options.data&&options.data.length){
@@ -419,8 +375,8 @@ $.fn.datagrid = function(options, ...args){
 				options = $.extend(true, {}, this.userOptions, options);
 			}
 			return options;
-		},// }}}
-		_update: function(options){//{{{
+		},
+		_update: function(options){
 			// let that = this;
 			let box  = this.render;
 			this.columns          = [];
@@ -457,13 +413,13 @@ $.fn.datagrid = function(options, ...args){
 				this.sortBy({field:sort.field, order:sort.order});
 			}
 			this.reAlign();
-		},//}}}
-		resetTableHeight: function(value){// {{{
+		},
+		resetTableHeight: function(value){
 			$(this.render).height(value);
 			set_table_height(value, this);
 			return this;
-		},// }}}
-		reAlign: function(){//{{{
+		},
+		reAlign: function(){
 			/* TODO :
 			 * 1、全部行、全部列、单行、单列对齐重新对齐功能
 			 * */
@@ -488,8 +444,8 @@ $.fn.datagrid = function(options, ...args){
 				});
 			});
 			return this;
-		},//}}}
-		init_event: function(options){//{{{
+		},
+		init_event: function(options){
 			let that = this;
 			let $box = $(this.render);
 			if(!options.remoteSort) $box.on('click', '.field.sortable', function(){
@@ -527,8 +483,8 @@ $.fn.datagrid = function(options, ...args){
 					});
 				}
 			}, '.body-wrapper tr');
-		},//}}}
-		sortType: {//{{{
+		},
+		sortType: {
 			'string': function(a, b){ // this指{field:field, order:order}
 				let field = this.field;
 				let x = a[field];
@@ -540,13 +496,13 @@ $.fn.datagrid = function(options, ...args){
 				let field = this.field;
 				return a[field] - b[field];
 			}
-		},//}}}
-		getFieldOption: function(fieldName){//{{{
+		},
+		getFieldOption: function(fieldName){
 			return this.allColumns.filter(function(one){
 				return one.field===fieldName;
 			})[0];
-		},//}}}
-		getColumnSortFunction: function({order, field}){//{{{
+		},
+		getColumnSortFunction: function({order, field}){
 			let field_option = this.getFieldOption(field); // 列的选项
 			if(!field_option){
 				console.log({order, field}, 'Field not found......');
@@ -555,8 +511,8 @@ $.fn.datagrid = function(options, ...args){
 			let sort_type = field_option.dataType || this.userOptions.dataType || 'string'; // 排序的类型
 			let fn        = field_option.sort     || this.sortType[sort_type]; // 排序的函数
 			return function(a, b){ return fn.call({order, field}, a, b) * (order ? -1 : 1); };
-		},//}}}
-		sortBy: function({order, field}, sortElement){//{{{
+		},
+		sortBy: function({order, field}, sortElement){
 			//order: (true||'desc')->desc, (false||not 'desc')->asc
 			let options        = this.userOptions;
 			let preSortElement = this.sortElement;
@@ -582,8 +538,8 @@ $.fn.datagrid = function(options, ...args){
 				}, 0);
 			}, 0);
 			return this;
-		},//}}}
-		sort_table_dom: function(options){//{{{
+		},
+		sort_table_dom: function(options){
 			let frozenTrDoc    = document.createDocumentFragment(),
 				frozenEndTrDoc = document.createDocumentFragment(),
 				trDoc          = document.createDocumentFragment(),
@@ -632,15 +588,14 @@ $.fn.datagrid = function(options, ...args){
 			}
 			frozenTrDoc = null, trDoc = null, frozenTbody = null, tbody = null;
 			return this;
-		}//}}}
+		}
 	};
 	handler.prototype.init.prototype = handler.prototype;
-	return this.each(function(){//{{{
+	return this.each(function(){
 		let $this = $(this);
 		let instance = handler(this, $.extend(true, {}, options));
 		let ui = $this.data('ui');
 		if(ui) ui.iDatagrid = instance;
 		else $this.data('ui', {iDatagrid:instance});
-	});//}}}
+	});
 };
-// vim: fdm=marker

@@ -1,4 +1,3 @@
-/* vim: set fdm=marker : */
 $.fn.scrollbar = function(options){
 	var type = $.type(options);
 	if(type==='string'){
