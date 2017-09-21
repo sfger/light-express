@@ -11,7 +11,7 @@ var cookie     = require('cookie-parser');
 var session    = require('cookie-session');
 var bodyParser = require('body-parser');
 var ext        = require('./ext');
-app.ext  = ext;
+app.ext        = ext;
 app.use(ext.webpackDev);
 app.set('views', ext.view_dir);
 app.set('view engine', 'ejs');

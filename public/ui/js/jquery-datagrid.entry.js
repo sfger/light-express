@@ -68,12 +68,12 @@ $.fn.datagrid = function(options, ...args){
 		frozenEndColumns : [],        // 冻结列
 		columns          : []         // 普通列
 	}, options);
-	let browser = {};// {{{
+	let browser = {};
 	let ie = /MSIE (\d+)\.?/.exec(navigator.userAgent);
 	if(ie && ie.length && ie[1]){
 		browser.ie = true;
 		browser.version = Number(ie[1]);
-	}// }}}
+	}
 	function get_table(options, that){
 		function get_head_rows(rows, colsType){//{{{
 			if(!rows || (colsType=='frozenColumns')&&!options.frozenColumns.length) return [];
