@@ -30,10 +30,10 @@ var moduleResolver = ["module-resolver", {
 	extensions:[".js", ".jsx", ".ts", ".tsx"]
 }];
 module.exports = {
-	context: path.normalize(__dirname + '/public/'),
+	context: path.normalize(root + '/public/'),
 	entry: entryMap,
 	output:{
-		path: path.normalize(__dirname+'/dist/'),
+		path: path.normalize(root + '/dist/'),
 		filename: '[name].js',
 		chunkFilename: '[name].js',
 		libraryTarget: "umd"
@@ -42,7 +42,7 @@ module.exports = {
 	},
 	resolve:{
 		modules: [
-			path.join(__dirname, "public"),
+			path.join(root, "public"),
 			"node_modules"
 		],
 		extensions:['.ts', '.vue', '.css', '.less', '.scss', '.sass', '.js', '.jsx', 'png', 'jpg'],

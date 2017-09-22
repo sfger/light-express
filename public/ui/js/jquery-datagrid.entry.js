@@ -557,7 +557,7 @@ $.fn.datagrid = function(options, ...args){
 						frozenTbody.style.display = 'none';
 					})();
 					frozenTrDoc.appendChild(frozenTr);
-					if(options.rowNum) $('td:eq(0) .cell', frozenTr).text(rowNum+1);
+					if(options.rowNum) $('td:eq(0) .cell', frozenTr).text(options.startRowNum + rowNum);
 				}
 				if(frozenEndTr){
 					frozenEndTbody||(function(){
