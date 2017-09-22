@@ -7,7 +7,7 @@
   },
   "dependencies": {
     "@types/jquery": "^3.2.12",
-    "antd": "^2.13.2",
+    "antd": "^2.13.3",
     "args": "^3.0.4",
     "babel-loader": "^7.1.2",
     "babel-plugin-import": "^1.5.0",
