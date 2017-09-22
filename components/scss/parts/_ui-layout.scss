@@ -19,3 +19,4 @@
 }
 .layout-south,.layout-north{height:25px;}
 .layout-west,.layout-east{width:210px;}
+.drag-image{@include absolute(null,100);@include background-color-rgba(#000,0.35);}

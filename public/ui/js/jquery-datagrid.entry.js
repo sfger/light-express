@@ -53,6 +53,8 @@ $.fn.datagrid = function(options, ...args){
 	if(!options.columns.length) throw new Error('datagrid must have columns option！');
 	options = $.extend(true, {
 		align            : 'center',  // 内容对齐方式
+		autoRowHeight    : true,      // 单元格高度是否自动对齐
+		autoColWidth     : true,      // 单元格宽度是否自动对齐
 		colWidth         : 80,        // 默认单元格内容宽度
 		rowNum           : false,     // 是否显示行号
 		startRowNum      : 1,         // 行号开始值
@@ -62,8 +64,6 @@ $.fn.datagrid = function(options, ...args){
 		sort             : null,      // 排序选项
 		dataType         : 'string',  // 数据类型
 		remoteSort       : false,     // 是否服务器排序
-		autoRowHeight    : true,      // 单元格高度是否自动对齐
-		autoColWidth     : true,      // 单元格宽度是否自动对齐
 		frozenColumns    : [],        // 冻结列
 		frozenEndColumns : [],        // 冻结列
 		columns          : []         // 普通列

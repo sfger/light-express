@@ -108,24 +108,18 @@ $.fn.layout = function(options){
 						height     : that.getElementHeight(that.box)
 					});
 					var $proxy = this.proxy ? $(this.proxy).show() : $(this).clone().html('').appendTo(document.body);
-					this.proxy = $proxy.get(0);
+					this.proxy = $proxy.addClass('drag-image').get(0);
 					$proxy.css({
-						position   : 'absolute',
-						opacity    : 0.5,
-						filter     : 'alpha(opacity=50)',
-						zIndex     : 100,
 						width      : this.offsetWidth,
 						height     : this.offsetHeight,
 						top        : $(this).position().top,
-						left       : $(this).position().left,
-						background : 'black'
+						left       : $(this).position().left
 					});
 					var document_events = {
 						'mousemove': function(e){
 							that.disableSelection();
 							if($proxy.hasClass('bar-east') || $proxy.hasClass('bar-west')) $proxy.css({left:e.pageX});
 							else $proxy.css({top:e.pageY});
-							return false;
 						},
 						'mouseup': function(e){
 							$([bar.proxy, box.cover]).hide();
