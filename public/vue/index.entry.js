@@ -1,5 +1,5 @@
 // import Vue from 'vue/dist/vue.common.js';
-import Vue from 'vue';
+// import Vue from 'vue';
 // let Vue = window.Vue;
 // console.log(Vue);
 import App from "./index.vue";
@@ -23,7 +23,7 @@ var app = window.app = new Vue({
 	// },
 	data: {
 		list:[],
-		bind:{ccc:'ccc', ddd:'ddd'},
+		bind:{ccc:'attr-c', ddd:'attr-d'},
 		aaa:'aaa',
 		bbb:'bbb',
 		selected:'2'
