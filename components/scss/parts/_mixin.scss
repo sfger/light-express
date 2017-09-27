@@ -245,7 +245,7 @@ $color_warning  :#f90 !default;
 			}
 		}
 		&:active{
-			// outline:thin dotted;outline-offset:-2px;
+			// outline:thin dotted;outline-offset:-2px;outline-radius:5px;
 			box-shadow: 0 #{$height*0.43} #{$height*0.685} #{-$height*0.25} darken($bgcolor,5%);
 			background-color:darken($bgcolor,5%);
 			&[data-animation]{

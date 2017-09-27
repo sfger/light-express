@@ -90,9 +90,7 @@ module.exports = {
 					{
 						loader:'ts-loader',
 						options:{
-							// plugins: [
-							// 	moduleResolver
-							// ]
+							configFile: 'tsconfig.json'
 						}
 					}
 				]
