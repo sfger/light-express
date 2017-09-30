@@ -1,7 +1,7 @@
 var fs            = require('fs');
 var path          = require('path');
 var root          = path.normalize(process.cwd());
-var Readable      = require('stream').Readable;
+var {Readable}    = require('stream');
 var static_dir    = path.normalize(root + '/public');
 var view_dir      = static_dir;
 var route_dir     = path.normalize(root + '/routes');
