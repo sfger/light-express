@@ -6,7 +6,7 @@
     "start": "node ./bin/www"
   },
   "dependencies": {
-    "@types/jquery": "^3.2.12",
+    "@types/jquery": "^3.2.13",
     "antd": "^2.13.4",
     "args": "^3.0.4",
     "babel-loader": "^7.1.2",
@@ -32,9 +32,9 @@
     "gulp-uglify": "^3.0.0",
     "history": "^4.7.2",
     "morgan": "^1.9.0",
-    "mysql": "^2.14.1",
+    "mysql": "^2.15.0",
     "node-sass": "^4.5.3",
-    "postcss": "^6.0.12",
+    "postcss": "^6.0.13",
     "postcss-image-inliner": "^1.0.6",
     "postcss-sprites": "^4.2.0",
     "postcss-urlrev": "^2.0.0",
