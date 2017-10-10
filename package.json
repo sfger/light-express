@@ -27,7 +27,7 @@
     "debug": "^3.1.0",
     "ejs": "^2.5.7",
     "es3ify-webpack-plugin": "0.0.1",
-    "express": "^4.16.1",
+    "express": "^4.16.2",
     "gulp-clean-css": "^3.9.0",
     "gulp-uglify": "^3.0.0",
     "history": "^4.7.2",
