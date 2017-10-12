@@ -1,7 +1,7 @@
-var express = require('express');
 var fs      = require('fs');
-var router  = express.Router();
 var path    = require('path');
+var express = require('express');
+var router  = express.Router();
 
 router.get(['/*.ejs', '/*.tpl', '/*.md', '/*.markdown', '/*.txt'], function(req, res, next){
 	var err = new Error('Not Found');
