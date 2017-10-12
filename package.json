@@ -7,8 +7,8 @@
   },
   "dependencies": {
     "@types/jquery": "^3.2.13",
-    "antd": "^2.13.4",
-    "args": "^3.0.5",
+    "antd": "^2.13.5",
+    "args": "^3.0.7",
     "babel-loader": "^7.1.2",
     "babel-plugin-import": "^1.6.0",
     "babel-plugin-module-resolver": "^2.7.1",
@@ -51,10 +51,10 @@
     "ts-loader": "^2.3.7",
     "typescript": "^2.5.3",
     "vue": "^2.4.4",
-    "vue-loader": "^13.2.1",
+    "vue-loader": "^13.3.0",
     "vue-template-compiler": "^2.4.4",
-    "vuex": "^2.4.1",
-    "webpack": "^3.6.0",
+    "vuex": "^3.0.0",
+    "webpack": "^3.7.1",
     "webpack-dev-middleware": "^1.12.0"
   },
   "devDependencies": {
