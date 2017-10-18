@@ -6,7 +6,7 @@
     "start": "node ./bin/www"
   },
   "dependencies": {
-    "@types/jquery": "^3.2.14",
+    "@types/jquery": "^3.2.15",
     "antd": "^2.13.6",
     "args": "^3.0.7",
     "babel-loader": "^7.1.2",
@@ -54,7 +54,7 @@
     "vue-loader": "^13.3.0",
     "vue-template-compiler": "^2.5.2",
     "vuex": "^3.0.0",
-    "webpack": "^3.8.0",
+    "webpack": "^3.8.1",
     "webpack-dev-middleware": "^1.12.0"
   },
   "devDependencies": {
