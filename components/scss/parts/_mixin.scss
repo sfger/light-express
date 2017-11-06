@@ -184,6 +184,10 @@ $color_warning  :#f90 !default;
 @mixin absolute($args:null, $index:null){@include position(absolute, $args, $index);}
 @mixin fixed($args:null, $index:null){@include position(fixed, $args, $index);}
 @mixin relative($args:null, $index:null){@include position(relative, $args, $index);}
+@mixin sticky($args:null, $index:null){
+	position:-webkit-sticky;
+	@include position(sticky, $args, $index);
+}
 
 @mixin keyframes($name){
 	// @-moz-keyframes #{$name}{@content}
