@@ -22,10 +22,12 @@ entrysArray.forEach((one) => {
 // ];
 // console.log(entryMap);
 var moduleResolver = ["module-resolver", {
-	// root: [root],
+	root: [root],
 	alias: {
-		"@": root+"/components",
-		"~": root+"/public"
+		"^@(.+)": "./components/\\1",
+		"^~(.+)": "./public/\\1"
+		// "@": root+"/components",
+		// "~": root+"/public"
 	},
 	extensions:[".js", ".jsx", ".ts", ".tsx"]
 }];

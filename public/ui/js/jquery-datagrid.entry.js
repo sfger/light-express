@@ -1,6 +1,6 @@
-import "~/ui/scss/datagrid.scss";
-import "~/public/js/requestAnimationFrame.js";
-import {createElement} from "@/fn.js";
+import "~ui/scss/datagrid.scss";
+import "~public/js/requestAnimationFrame.js";
+import {createElement} from "@fn.js";
 // import "./a.entry.js";
 function getHW(el, type){
 	if(!el) return false;
