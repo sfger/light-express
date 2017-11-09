@@ -14,6 +14,10 @@ $color_theme    :#39f !default;
 $color_success  :#0c6 !default;
 $color_error    :#f30 !default;
 $color_warning  :#f90 !default;
+@mixin font-size($px){
+	font-size: #{$px}px;
+	font-size: #{(100/375*$px)}vw;
+}
 
 @import "flex";
 
