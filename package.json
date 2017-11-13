@@ -7,7 +7,7 @@
   },
   "dependencies": {
     "@types/jquery": "^3.2.16",
-    "antd": "^2.13.9",
+    "antd": "^2.13.10",
     "args": "^3.0.7",
     "babel-loader": "^7.1.2",
     "babel-plugin-import": "^1.6.2",
@@ -33,7 +33,7 @@
     "history": "^4.7.2",
     "morgan": "^1.9.0",
     "mysql": "^2.15.0",
-    "node-sass": "^4.6.0",
+    "node-sass": "^4.6.1",
     "postcss": "^6.0.14",
     "postcss-image-inliner": "^1.0.6",
     "postcss-sprites": "^4.2.0",
