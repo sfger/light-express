@@ -93,9 +93,13 @@ $color_warning  :#f90 !default;
 	$max:if($max==1,'max-','');
 	@if($lineHeight){
 		line-height:$lineHeight;
-		#{$max+'height'}:$line*$lineHeight;
+		@if not unitless($lineHeight) {
+			#{$max+'height'}:$line*$lineHeight;
+		}
 	}
-	-webkit-line-clamp:$line;
+	@if($line!=2){
+		-webkit-line-clamp:$line;
+	}
 }
 // .mln2{@include mln;}
 // .mln3{@include mln(3,3px);}
