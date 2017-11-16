@@ -50,9 +50,9 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, nav, 
 
 .flex-img-ctn { position: relative; }
 
-.flex-img-ctn > img { position: absolute; top: 0; left: 0; width: 100%; }
+.flex-img-ctn > img, .flex-img-ctn .img-ctn { position: absolute; top: 0; left: 0; width: 100%; }
 
-.flex-img-ctn .img-ctn { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+.flex-img-ctn .img-ctn { height: 100%; }
 
 .ib-row { font-size: 0; text-align: left; }
 
@@ -64,15 +64,15 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, nav, 
 
 .ib-row.ib-col, .ib-row.ib-col-full { font-size: 0; }
 
-.txt-lt { text-align: left; }
+.txt-lt { text-align: left !important; }
 
-.txt-rt { text-align: right; }
+.txt-rt { text-align: right !important; }
 
-.txt-ct { text-align: center; }
+.txt-ct { text-align: center !important; }
 
-.txt-jt { text-align: justify; }
+.txt-jt { text-align: justify !important; }
 
-.txt-jt.ie-pure-txt { text-justify: distribute-all-lines; }
+.txt-jt.ie-pure-txt { text-justify: distribute-all-lines !important; }
 
 .txt-jt:after { content: ''; }
 
@@ -92,13 +92,13 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, nav, 
 
 .txt-clean br, .txt-clean img { display: none !important; }
 
-.vt-top { vertical-align: top; }
+.vt-top { vertical-align: top !important; }
 
-.vt-mid { vertical-align: middle; }
+.vt-mid { vertical-align: middle !important; }
 
-.vt-btm { vertical-align: bottom; }
+.vt-btm { vertical-align: bottom !important; }
 
-.vt-bsl { vertical-align: baseline; }
+.vt-bsl { vertical-align: baseline !important; }
 
 .grid { display: -webkit-box; display: -webkit-flex; display: -moz-flex; display: -ms-flexbox; display: flex; width: 100%; }
 

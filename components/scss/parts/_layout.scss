@@ -10,8 +10,8 @@
 .img-ctn{@include imgc(1);}
 .flex-img-ctn{
 	@include relative;
-	>img{@include absolute(left 0 top 0);width:100%;}
-	.img-ctn{@include absolute(left 0 top 0);@include size(100%);}
+	>img,.img-ctn{@include absolute(left 0 top 0);width:100%;}
+	.img-ctn{height:100%;}
 }
 
 .ib-row{@include imgc(0,'',left);}
@@ -20,12 +20,12 @@
 .ib-row{
 	&.ib-col,&.ib-col-full{font-size:0;}
 }
-.txt-lt{text-align:left;}
-.txt-rt{text-align:right;}
-.txt-ct{text-align:center;}
+.txt-lt{text-align:left !important;}
+.txt-rt{text-align:right !important;}
+.txt-ct{text-align:center !important;}
 .txt-jt{
-	text-align:justify;
-	&.ie-pure-txt{text-justify:distribute-all-lines;}
+	text-align:justify !important;
+	&.ie-pure-txt{text-justify:distribute-all-lines !important;}
 	&:after{content:'';}
 	&:after,.iecp{
 		@include ib;@include size(100%,0px);
@@ -59,18 +59,15 @@
 		color:#666!important;
 		color:inherit!important;
 	}
-	&,*{
-		word-break:break-all!important;
-		word-wrap:break-word!important;
-	}
+	&,*{word-break:break-all!important;word-wrap:break-word!important;}
 	a,button,input{pointer-events:none!important;}
 	br,img{display:none!important;}
 }
 
-.vt-top{vertical-align:top;}
-.vt-mid{vertical-align:middle;}
-.vt-btm{vertical-align:bottom;}
-.vt-bsl{vertical-align:baseline;}
+.vt-top{vertical-align:top !important;}
+.vt-mid{vertical-align:middle !important;}
+.vt-btm{vertical-align:bottom !important;}
+.vt-bsl{vertical-align:baseline !important;}
 
 .grid{
 	@include grid;
