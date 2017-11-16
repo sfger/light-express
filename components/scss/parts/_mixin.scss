@@ -14,9 +14,9 @@ $color_theme    :#39f !default;
 $color_success  :#0c6 !default;
 $color_error    :#f30 !default;
 $color_warning  :#f90 !default;
-@mixin font-size($px){
+@mixin font-size($px,$w:375){
 	font-size: #{$px}px;
-	font-size: #{(100/375*$px)}vw;
+	font-size: #{($px*100/$w)}vw;
 }
 
 @import "flex";
@@ -62,8 +62,7 @@ $color_warning  :#f90 !default;
 }
 %inline-block{@extend %ib;}
 @mixin inline-block($vertical-align:middle){
-	@extend %ib;
-	vertical-align:$vertical-align;//*vertical-align:auto;
+	@extend %ib;vertical-align:$vertical-align;//*vertical-align:auto;
 }
 @mixin ib($vertical-align:middle){@include inline-block($vertical-align);}
 // .test{@include ib(baseline);}
@@ -97,9 +96,7 @@ $color_warning  :#f90 !default;
 			#{$max+'height'}:$line*$lineHeight;
 		}
 	}
-	@if($line!=2){
-		-webkit-line-clamp:$line;
-	}
+	@if($line!=2){-webkit-line-clamp:$line;}
 }
 // .mln2{@include mln;}
 // .mln3{@include mln(3,3px);}
@@ -113,15 +110,9 @@ $color_warning  :#f90 !default;
 	@include reset_font_size($rem);
 }
 %imge{@include imge;}
-@mixin imgc($is_image:1, $selecor:img, $align:center, $vertical-align:middle, $rem:1rem){
+@mixin imgc($is_image:1, $selecor:img, $align:center, $vertical-align:null, $rem:1rem){
 	font-size:0;text-align:$align;
-	@if($is_modern==0){
-		&:before,.iecp{@include ib($vertical-align);}
-		&:before,.iecp{content:"";height:100%;font-size:0;line-height:0;width:0;}
-	}@else{
-		&:before{@include ib($vertical-align);}
-		&:before,{content:"";height:100%;font-size:0;line-height:0;width:0;}
-	}
+	&:before,#{if($is_modern==0,'.iecp',null)}{@include ib($vertical-align);content:"";height:100%;font-size:0;line-height:0;width:0;}
 	@if($selecor!=''){
 		#{$selecor}{
 			@include ib($vertical-align);
@@ -134,7 +125,7 @@ $color_warning  :#f90 !default;
 	}
 }
 %imgc{@include imgc;}
-// $is_modern:0;
+// $is_modern:1;
 // .test{@include imgc;}
 
 @mixin opacity($val:0.5){opacity:$val;filter:alpha(opacity=$val*100);}
@@ -282,7 +273,7 @@ $color_warning  :#f90 !default;
 // Returns the opposite direction of each direction in a list
 // @param {List} $directions - List of initial directions
 // @return {List} - List of opposite directions
-@function opposite-direction($directions) {
+@function opposite-direction($directions){
 	$opposite-directions:();
 	$direction-map:(
 		'top'    : 'bottom',
@@ -307,7 +298,7 @@ $color_warning  :#f90 !default;
 // .selector{background-position:opposite-direction(top right);}
 
 //生成 三角
-@mixin triangle($direction, $position, $color:currentcolor, $size:1em) {
+@mixin triangle($direction, $position, $color:currentcolor, $size:1em){
 	$direction:if(function-exists("to-lower-case")==true,to-lower-case($direction),$direction);
 	@if not index(top right bottom left, $direction){
 		@warn "Direction must be one of `top`, `right`, `bottom` or `left`; currently `#{$direction}`.";
