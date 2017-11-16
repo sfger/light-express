@@ -61,11 +61,11 @@ $color_warning  :#f90 !default;
 	vertical-align:middle;//*vertical-align:auto;
 }
 %inline-block{@extend %ib;}
-@mixin inline-block($vertical-align:middle){
+@mixin inline-block($vertical-align:null){
 	@extend %ib;vertical-align:$vertical-align;//*vertical-align:auto;
 }
-@mixin ib($vertical-align:middle){@include inline-block($vertical-align);}
-// .test{@include ib(baseline);}
+@mixin ib($vertical-align:null){@include inline-block($vertical-align);}
+// .test{@include ib(middle);}
 
 @mixin size($width:auto, $height:$width, $prefix:null){
 	@if $prefix and not index(min max, $prefix){
