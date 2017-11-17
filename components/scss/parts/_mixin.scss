@@ -19,9 +19,9 @@ $color_warning  :#f90 !default;
 	$expr: if($type==string, unquote($expr), $expr);
 	@return $expr;
 }
-.test{
-	line-height:expr(15/15+'%');
-}
+// .test{
+// 	line-height:expr(15/15+'%');
+// }
 @mixin font-size($px,$w:375){
 	font-size: #{$px}px;
 	font-size: #{($px*100/$w)}vw;
