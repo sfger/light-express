@@ -14,6 +14,8 @@ $color_theme    :#39f !default;
 $color_success  :#0c6 !default;
 $color_error    :#f30 !default;
 $color_warning  :#f90 !default;
+@import "flex";
+
 @function expr($expr){
 	$type: type-of($expr);
 	$expr: if($type==string, unquote($expr), $expr);
@@ -26,8 +28,6 @@ $color_warning  :#f90 !default;
 	font-size: #{$px}px;
 	font-size: #{($px*100/$w)}vw;
 }
-
-@import "flex";
 
 // css3 -webkit-,-moz-,-ms-,-o- 的前缀简写
 // 第一个参数为属性和值，第二个参数则是前缀
