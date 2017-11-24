@@ -10,7 +10,13 @@ var webpackConfig = require('../webpack.config.js');
 var sassconfig    = require('../sass.config.js');
 var WebpackDev    = require("webpack-dev-middleware");
 var compiler      = webpack(webpackConfig);
-var webpackDev    = WebpackDev(compiler, {stats:{colors:true}});
+var webpackDev    = WebpackDev(compiler, {
+	watchOptions: {
+		aggregateTimeout: 300,
+		poll: true
+	},
+	stats:{colors:true}
+});
 var memoryfs      = webpackDev.fileSystem;
 var mimes = {
 	"js"  : "application/x-javascript",
