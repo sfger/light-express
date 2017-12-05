@@ -7,7 +7,7 @@
   },
   "dependencies": {
     "@types/jquery": "^3.2.16",
-    "antd": "^2.13.11",
+    "antd": "^3.0.0",
     "args": "^3.0.8",
     "babel-loader": "^7.1.2",
     "babel-plugin-import": "^1.6.2",
@@ -53,7 +53,7 @@
     "vue-loader": "^13.5.0",
     "vue-template-compiler": "^2.5.9",
     "vuex": "^3.0.1",
-    "webpack": "^3.9.1",
+    "webpack": "^3.10.0",
     "webpack-dev-middleware": "^1.12.2"
   },
   "devDependencies": {
