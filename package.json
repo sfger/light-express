@@ -7,10 +7,10 @@
   },
   "dependencies": {
     "@types/jquery": "^3.2.16",
-    "antd": "^3.0.0",
+    "antd": "^3.0.1",
     "args": "^3.0.8",
     "babel-loader": "^7.1.2",
-    "babel-plugin-import": "^1.6.2",
+    "babel-plugin-import": "^1.6.3",
     "babel-plugin-module-resolver": "^3.0.0",
     "babel-plugin-transform-async-to-generator": "^6.24.1",
     "babel-plugin-transform-class-properties": "^6.24.1",
