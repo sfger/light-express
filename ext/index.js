@@ -13,6 +13,7 @@ var compiler      = webpack(webpackConfig);
 var webpackDev    = WebpackDev(compiler, {
 	// lazy: true,
 	watchOptions: {
+		ignored: /node_modules/,
 		aggregateTimeout: 500,
 		poll: false
 	},
