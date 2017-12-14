@@ -11,9 +11,10 @@ var sassconfig    = require('../sass.config.js');
 var WebpackDev    = require("webpack-dev-middleware");
 var compiler      = webpack(webpackConfig);
 var webpackDev    = WebpackDev(compiler, {
+	// lazy: true,
 	watchOptions: {
-		aggregateTimeout: 300,
-		poll: true
+		aggregateTimeout: 500,
+		poll: false
 	},
 	stats:{colors:true}
 });
