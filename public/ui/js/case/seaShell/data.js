@@ -92,6 +92,7 @@ define(function(){
 				{name:'mobx', url:'https://mobxjs.github.io/mobx/index.html'},
 				{name:'javascript', url:'http://www.javascripting.com/'},
 				{name:'Pure', url:'https://github.com/yahoo/pure'},
+				{name:'Popmotion', url:'https://popmotion.io/api/', target:"_blank"},
 				{name:'createjs', url:'http://www.createjs.cc/'},
 				{name:'x-tag', url:'http://x-tag.github.io/overview'},
 				{name:'SnapSVG', url:'http://snapsvg.io/'},
@@ -125,6 +126,7 @@ define(function(){
 				{name:'Material design lite', url:'https://github.com/google/material-design-lite'},
 				{name:'Material design icons', url:'https://github.com/google/material-design-icons'},
 				{name:'AntDesign', url:'https://ant.design/'},
+				{name:'ProAntDesign', url:'https://pro.ant.design/index-cn'},
 				{name:'AntV', url:'http://antv.alipay.com/', target:'_blank'},
 				{name:'coolhue', url:'https://github.com/webkul/coolhue', target:'_blank'}
 			]
@@ -266,7 +268,9 @@ define(function(){
 				{name:'Google Developers CN', url:'https://developers.google.cn/'},
 				{name:'谷歌流量分析', url:'https://www.google.com/analytics/web/?hl=zh-CN', target:'_blank'},
 				{name:'Java document', url:'http://docs.oracle.com/javase/6/docs/api/overview-summary.html'},
-				{name:'Codeplex', url:'http://www.codeplex.com/', target:"_blank"}
+				{name:'Google Interview', url:'https://github.com/jwasham/coding-interview-university', target:"_blank"},
+				{name:'GitFlightRules', url:'https://github.com/k88hudson/git-flight-rules', target:"_blank"},
+				{name:'Codeplex', url:'http://www.codeplex.com/', target:"_blank"},
 			]
 		},
 		//}}}
