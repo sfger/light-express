@@ -34,7 +34,7 @@
     "morgan": "^1.9.0",
     "mysql": "^2.15.0",
     "node-sass": "^4.7.2",
-    "postcss": "^6.0.15",
+    "postcss": "^6.0.16",
     "postcss-image-inliner": "^1.0.6",
     "postcss-sprites": "^4.2.0",
     "postcss-urlrev": "^2.0.0",
@@ -54,7 +54,7 @@
     "vue-template-compiler": "^2.5.13",
     "vuex": "^3.0.1",
     "webpack": "^3.10.0",
-    "webpack-dev-middleware": "^2.0.3"
+    "webpack-dev-middleware": "^2.0.4"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",
