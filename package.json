@@ -54,7 +54,8 @@
     "vue-template-compiler": "^2.5.13",
     "vuex": "^3.0.1",
     "webpack": "^3.10.0",
-    "webpack-dev-middleware": "^2.0.4"
+    "webpack-dev-middleware": "^2.0.4",
+    "webpack-md5-hash": "0.0.6"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",
