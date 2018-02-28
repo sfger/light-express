@@ -180,8 +180,12 @@ $color_warning  :#f90 !default;
 	position:$position;
 	@each $o in top right bottom left{
 		$i: index($args, $o);
-		@if $i and $i+1<=length($args) and type-of(nth($args,$i+1))==number{
-			#{$o}:nth($args,$i+1);
+		left: auto;
+		@if $i and $i+1<=length($args) {
+			$val: nth($args, $i+1);
+			@if type-of($val)==number or $val==auto {
+				#{$o}: $val;
+			}
 		}
 	}
 	@if($index){
