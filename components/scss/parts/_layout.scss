@@ -7,7 +7,7 @@
 
 .ib{@include ib;}
 .badge{border-radius:50%;overflow:hidden;}
-.img-ctn{@include imgc(1);}
+.img-ctn{@include imgc(1);white-space:nowrap;}
 .flex-img-ctn{
 	@include relative;
 	>img,.img-ctn{@include absolute(left 0 top 0);width:100%;}

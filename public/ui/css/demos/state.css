@@ -40,7 +40,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, nav, 
 
 .badge { border-radius: 50%; overflow: hidden; }
 
-.img-ctn { font-size: 0; text-align: center; }
+.img-ctn { font-size: 0; text-align: center; white-space: nowrap; }
 
 .img-ctn:before, .img-ctn .iecp { content: ""; height: 100%; font-size: 0; line-height: 0; width: 0; }
 
