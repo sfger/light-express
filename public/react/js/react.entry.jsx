@@ -3,8 +3,8 @@ import ReactDOM from 'react-dom';
 import {createStore, combineReducers} from 'redux';
 import {Provider, connect} from 'react-redux';
 // import { Router, Route, browserHistory } from 'react-router';
-// import {BrowserRouter as Router, Route, Link} from 'react-router-dom';
-import {HashRouter as Router, Route, Link} from 'react-router-dom';
+// import {HashRouter as Router, Route, Link} from 'react-router-dom';
+import {Router, Route, Link} from 'react-router-dom';
 import {createBrowserHistory, createHashHistory} from 'history';
 import {syncHistoryWithStore, routerReducer} from 'react-router-redux';
 import reducers from './parts/reducers';
@@ -16,8 +16,8 @@ const store = createStore(combineReducers({
 	list:['test','list']
 });
 const {dispatch,getState} = store;
-// const history = createBrowserHistory();
-const history = syncHistoryWithStore(createHashHistory(), store);
+// const history = syncHistoryWithStore(createHashHistory(), store);
+const history = createBrowserHistory();
 
 class CommentBox extends Component{
 	state = {
@@ -134,15 +134,15 @@ ReactDOM.render(
 		<Router history={history}>
 			<div>
 				<ul>
-					<li><Link to="/">Home</Link></li>
+					<li><Link to={location.pathname}>Home</Link></li>
 					<li><Link to="/index">index</Link></li>
 					<li><Link to="/test">test</Link></li>
 				</ul>
-				<Route path="/" exact render={()=>{
-					return <div>home</div>
+				<Route path={location.pathname} exact render={()=>{
+					return <ListShow row={'testRow'} {...test} />
 				}}/>
 				<Route path="/index" render={()=>{
-					return <ListShow row={'testRow'} {...test} />
+					return <div>home</div>
 				}}/>
 				<Route path="/test" render={()=>{
 					return <div>hello world</div>

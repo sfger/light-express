@@ -16,15 +16,15 @@
 
 .badge { border-radius: 50%; overflow: hidden; }
 
-.img-ctn { font-size: 0; text-align: center; }
+.img-ctn { font-size: 0; text-align: center; white-space: nowrap; }
 
 .img-ctn:before, .img-ctn .iecp { content: ""; height: 100%; font-size: 0; line-height: 0; width: 0; }
 
 .img-ctn img { max-width: 100%; max-height: 100%; }
 
-.flex-img-ctn { position: relative; }
+.flex-img-ctn { position: relative; left: auto; left: auto; left: auto; left: auto; }
 
-.flex-img-ctn > img, .flex-img-ctn .img-ctn { position: absolute; top: 0; left: 0; width: 100%; }
+.flex-img-ctn > img, .flex-img-ctn .img-ctn { position: absolute; left: auto; top: 0; left: auto; left: auto; left: auto; left: 0; width: 100%; }
 
 .flex-img-ctn .img-ctn { height: 100%; }
 
@@ -135,7 +135,6 @@ _:-ms-lang(x), .grid .col { display: inline-block\9; }
 _:-ms-lang(x), .grid .col-rest { display: inline-block\9; }
 
 /* Original style from softwaremaniacs.org (c) Ivan Sagalaev <Maniac@SoftwareManiacs.Org> */
-
 .hljs { display: block; overflow-x: auto; padding: 0.5em; background: #eaeaea; -webkit-text-size-adjust: none; }
 
 .hljs, .hljs-subst, .hljs-tag .hljs-title, .nginx .hljs-title { color: black; }
@@ -216,9 +215,9 @@ html.full-screen #page, html.full-screen .home-page { height: 100%; }
 
 .article-page .md-ctn h1 { margin: 1.024em; text-align: center; }
 
-.article-page .md-ctn h2, .article-page .md-ctn h3, .article-page .md-ctn h4, .article-page .md-ctn h5, .article-page .md-ctn h6 { margin: 2em 0 1em 0; position: relative; text-indent: 12px; }
+.article-page .md-ctn h2, .article-page .md-ctn h3, .article-page .md-ctn h4, .article-page .md-ctn h5, .article-page .md-ctn h6 { margin: 2em 0 1em 0; position: relative; left: auto; left: auto; left: auto; left: auto; text-indent: 12px; }
 
-.article-page .md-ctn h2:before, .article-page .md-ctn h3:before, .article-page .md-ctn h4:before, .article-page .md-ctn h5:before, .article-page .md-ctn h6:before { content: ''; display: block; width: 4px; height: 100%; position: absolute; left: 0; background: #333; }
+.article-page .md-ctn h2:before, .article-page .md-ctn h3:before, .article-page .md-ctn h4:before, .article-page .md-ctn h5:before, .article-page .md-ctn h6:before { content: ''; display: block; width: 4px; height: 100%; position: absolute; left: auto; left: auto; left: auto; left: auto; left: 0; background: #333; }
 
 .article-page .md-ctn h1 { font-size: 22px; }
 

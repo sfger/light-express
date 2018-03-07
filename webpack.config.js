@@ -2,7 +2,7 @@ var path = require('path');
 var glob = require('glob');
 var root = path.resolve(__dirname);
 var webpack = require('webpack');
-var WebpackMd5Hash = require('webpack-md5-hash');
+// var WebpackMd5Hash = require('webpack-md5-hash');
 var sassconfig = require('./sass.config.js');
 var es3ifyPlugin = require('es3ify-webpack-plugin');
 var entrysArray = glob.sync("**/*.@(entry).@(js?(x)|ts)", {
@@ -166,6 +166,6 @@ module.exports = {
 	plugins:[
 		new es3ifyPlugin(),
 		new webpack.optimize.ModuleConcatenationPlugin(),
-		new WebpackMd5Hash()
+		// new WebpackMd5Hash()
 	]
 };
