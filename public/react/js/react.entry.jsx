@@ -16,6 +16,8 @@ const store = createStore(combineReducers({
 	list:['test','list']
 });
 const {dispatch,getState} = store;
+// console.log(dispatch.toString());
+// console.log(subscribe,store);
 // const history = syncHistoryWithStore(createHashHistory(), store);
 const history = createBrowserHistory();
 
@@ -29,13 +31,13 @@ class CommentBox extends Component{
 		// 	nu:0
 		// };
 	}
-	componentWillMount(test){
+	componentWillMount(){
 		console.log('will', this);
 	}
-	componentDidMount(test){
+	componentDidMount(){
 		console.log('did', this);
 	}
-	add_nu(e){
+	add_nu = e => {
 		console.log(e);
 		this.setState({
 			nu: this.state.nu+1
@@ -49,7 +51,7 @@ class CommentBox extends Component{
 					<a href="javascript:" data-test="test">row:{row},a:{a},b:{b}</a>
 				</div>
 				<div>
-					<a href="javascript:" onClick={this.add_nu.bind(this)}>Add nu</a>
+					<a href="javascript:" onClick={this.add_nu}>Add nu</a>
 					<span>{this.state.nu}</span>
 				</div>
 				<div>
@@ -113,18 +115,19 @@ const mapDispatchToProps = (dispatch) => {
 		count_click: () => {
 			dispatch({type:'ADD'});
 		},
-		add_num: () => {
+		add_num: (e) => {
+			console.log(e);
 			dispatch({type:'ADD'});
 		},
 		list_push: () => {
 			// dispatch({type:'PUSH', text:'test'})
 			if(getState().list.length>=5) return false;
-			dispatch({type:'PUSH', text:Number(String(Math.random()).slice(2)).toString(16)})
+			dispatch({type:'PUSH', text:Number(String(Math.random()).slice(2)).toString(16)});
 		},
 		list_pop: () => {
-			dispatch({type:'POP'})
+			dispatch({type:'POP'});
 		}
-	}
+	};
 };
 const ListShow = connect(mapStateToProps, mapDispatchToProps)(CommentBox);
 
@@ -139,13 +142,13 @@ ReactDOM.render(
 					<li><Link to="/test">test</Link></li>
 				</ul>
 				<Route path={location.pathname} exact render={()=>{
-					return <ListShow row={'testRow'} {...test} />
+					return <ListShow row={'testRow'} {...test} />;
 				}}/>
 				<Route path="/index" render={()=>{
-					return <div>home</div>
+					return <div>home</div>;
 				}}/>
 				<Route path="/test" render={()=>{
-					return <div>hello world</div>
+					return <div>hello world</div>;
 				}} />
 			</div>
 		</Router>
