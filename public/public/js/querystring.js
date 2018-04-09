@@ -83,4 +83,5 @@ var queryString = {
 };
 
 var s = queryString.stringify({a:1, b:'(2)', c:[1,2,3]}, {traditional:true});
-console.log(s);
+
+var q = queryString.parse('a=1&b=2&c=3');
