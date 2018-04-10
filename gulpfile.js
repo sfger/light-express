@@ -98,13 +98,14 @@ gulp.task('html', ['del'], function(){
 });
 gulp.task('img', ['del'], function(){
 	var dist = '*'===project ? '' : project;
-	return gulp.src([
+	var list = [
 		'public/'+project+'/**/*.jpg',
 		'public/'+project+'/**/*.ico',
 		'public/'+project+'/**/*.gif',
 		'public/'+project+'/**/*.png',
-		'public/favicon.ico'
-	]).pipe(gulp.dest('dist/'+dist));
+	];
+	if( !dist ) list.push( 'public/favicon.ico');
+	return gulp.src(list).pipe(gulp.dest('dist/'+dist));
 });
 gulp.task('sprite', ['del'], function(){
 	var dist = '*'===project ? '' : project;
