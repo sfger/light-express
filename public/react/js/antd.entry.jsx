@@ -8,8 +8,8 @@ let mountNode = document.querySelector('#page');
 	console.log('test');
 }());
 
+import "antd/dist/antd.less"; 
 import { Button, Radio, Icon } from 'antd';
-
 class ButtonSize extends React.Component {
 	state = {
 		size: 'default'

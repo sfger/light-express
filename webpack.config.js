@@ -109,7 +109,7 @@ module.exports = {
 						loader:'babel-loader',
 						options:{
 							presets: [
-								['es2015'],
+								['es2015', {modules:false}],
 								// ['es2015'],
 								'stage-3',
 								'react',
@@ -122,7 +122,7 @@ module.exports = {
 								// ['transform-regenerator'],
 								// ['transform-runtime'],
 								['transform-runtime', {polyfill:false, regenerator:true}],
-								['import', {libraryName:"antd", style:'css'}],
+								// ['import', {libraryName:"antd", style:'css'}],
 								moduleResolver
 							]
 						}
@@ -144,9 +144,18 @@ module.exports = {
 				}]
 			},
 			{
-				test:/\.less$/,
-				// exclude:/(node_modules)/,
-				use:[ 'style-loader', 'css-loader', 'less-loader' ]
+				test: /\.less$/,
+				use: [{
+					loader: "style-loader",
+					options: {
+						insertAt: 'bottom'
+					}
+				}, {
+					loader: 'css-loader'
+				}, {
+					loader: 'less-loader',
+					options: { javascriptEnabled: true }
+				}]
 			},
 			{
 				test:/\.css$/,
@@ -170,7 +179,8 @@ module.exports = {
 		new webpack.optimize.ModuleConcatenationPlugin(),
 		// new WebpackMd5Hash()
 	],
-	performance: {
-		hints: "error"
-	}
+	performance: false
+	// performance: {
+	// 	hints: "error"
+	// }
 };
