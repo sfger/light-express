@@ -66,6 +66,7 @@ var gulp         = require('gulp'),
 	replace      = require('gulp-replace'),
 	sftp         = require('gulp-sftp'),
 	config = require('./webpack.config.js');
+config.mode = "production";
 gulp.task('del', function(cb){
 	var dir = '*'===project ? '' : project;
 	// console.log(dir);
@@ -116,9 +117,9 @@ gulp.task('sprite', ['del'], function(){
 gulp.task('webpack', ['del'], function(cb){
 	var dir = '*'===project ? '' : project;
 	var webpack = require("webpack");
-	config.plugins = [
-		new webpack.optimize.UglifyJsPlugin(uglifyjs2_config)
-	];
+	// config.plugins = [
+	// 	new webpack.optimize.UglifyJsPlugin(uglifyjs2_config)
+	// ];
 	var entrysArray = glob.sync("**/*.@(entry).@(js?(x)|ts?(x))", {
 		cwd:'./public/'+dir+'/',
 		nobrace:true

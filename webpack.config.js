@@ -33,6 +33,7 @@ var moduleResolver = ["module-resolver", {
 	extensions:[".js", ".jsx", ".ts", ".tsx"]
 }];
 module.exports = {
+	mode: 'development',
 	context: path.normalize(root + '/public/'),
 	entry: entryMap,
 	output:{
@@ -102,12 +103,13 @@ module.exports = {
 			{
 				test:/\.jsx?$/,
 				exclude:/(node_modules)/,
+				type:"javascript/auto",
 				use:[
 					{
 						loader:'babel-loader',
 						options:{
 							presets: [
-								['es2015', {modules:false}],
+								['es2015'],
 								// ['es2015'],
 								'stage-3',
 								'react',
@@ -167,5 +169,8 @@ module.exports = {
 		new es3ifyPlugin(),
 		new webpack.optimize.ModuleConcatenationPlugin(),
 		// new WebpackMd5Hash()
-	]
+	],
+	performance: {
+		hints: "error"
+	}
 };
