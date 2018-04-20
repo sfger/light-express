@@ -13,7 +13,7 @@ module.exports = {
 		"ecmaVersion": 8, // or 7
         "ecmaFeatures": {
             "experimentalObjectRestSpread": true,
-            "jsx": true
+			"jsx": true
         },
         "sourceType": "module"
     },
