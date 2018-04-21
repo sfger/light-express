@@ -42,15 +42,15 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, nav, 
 
 .badge { border-radius: 50%; overflow: hidden; }
 
-.img-ctn { font-size: 0; text-align: center; }
+.img-ctn { font-size: 0; text-align: center; white-space: nowrap; }
 
 .img-ctn:before, .img-ctn .iecp { content: ""; height: 100%; font-size: 0; line-height: 0; width: 0; }
 
 .img-ctn img { max-width: 100%; max-height: 100%; }
 
-.flex-img-ctn { position: relative; }
+.flex-img-ctn { position: relative; left: auto; left: auto; left: auto; left: auto; }
 
-.flex-img-ctn > img, .flex-img-ctn .img-ctn { position: absolute; top: 0; left: 0; width: 100%; }
+.flex-img-ctn > img, .flex-img-ctn .img-ctn { position: absolute; left: auto; top: 0; left: auto; left: auto; left: auto; left: 0; width: 100%; }
 
 .flex-img-ctn .img-ctn { height: 100%; }
 
@@ -184,7 +184,7 @@ _:-ms-lang(x), .grid .col-rest { display: inline-block\9; }
 
 .layout-west, .layout-east { width: 210px; }
 
-.drag-image { position: absolute; z-index: 100; background-color: rgba(0, 0, 0, 0.35); }
+.drag-image { position: absolute; left: auto; left: auto; left: auto; left: auto; z-index: 100; background-color: rgba(0, 0, 0, 0.35); }
 
 @media \0screen\,screen\9 { .drag-image { filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#59000000,endColorstr=#59000000); } }
 
@@ -236,7 +236,7 @@ _:-ms-lang(x), .grid .col-rest { display: inline-block\9; }
 
 .tab-ctn .tab-header li { font-size: 14px; font-size: 1rem; line-height: normal; }
 
-.tab-ctn .tab-header li { position: relative; bottom: -1px; margin: 0px 1px; border: 1px solid #ccc; border-bottom: none; list-style: none; }
+.tab-ctn .tab-header li { position: relative; left: auto; left: auto; left: auto; bottom: -1px; left: auto; margin: 0px 1px; border: 1px solid #ccc; border-bottom: none; list-style: none; }
 
 .tab-ctn .tab-header li.current a { background: white; border-bottom-color: white; }
 
@@ -264,7 +264,7 @@ _:-ms-lang(x), .grid .col-rest { display: inline-block\9; }
 
 .tab-ctn .tab-panel { overflow: auto; border-top: 1px solid #ccc; }
 
-.tab-ctn .tab-panel .itab { display: none; position: relative; top: 0; left: 0; }
+.tab-ctn .tab-panel .itab { display: none; position: relative; left: auto; top: 0; left: auto; left: auto; left: auto; left: 0; }
 
 .tab-ctn .tab-panel .show { display: block; }
 

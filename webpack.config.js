@@ -118,7 +118,7 @@ module.exports = {
 								['syntax-dynamic-import'],
 								['transform-async-to-generator'],
 								['transform-decorators-legacy'],
-								['transform-class-properties']
+								['transform-class-properties'],
 								['transform-runtime', {polyfill:false, regenerator:true}],
 								// ['import', {libraryName:"antd", style:'css'}],
 								moduleResolver
