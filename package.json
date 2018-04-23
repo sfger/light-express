@@ -7,7 +7,7 @@
   },
   "dependencies": {
     "@types/jquery": "^3.3.1",
-    "antd": "^3.4.1",
+    "antd": "^3.4.2",
     "args": "^4.0.0",
     "babel-loader": "^7.1.4",
     "babel-plugin-import": "^1.7.0",
@@ -31,7 +31,7 @@
     "gulp-clean-css": "^3.9.3",
     "gulp-uglify": "^3.0.0",
     "history": "^4.7.2",
-    "less": "^3.0.1",
+    "less": "^3.0.2",
     "less-loader": "^4.1.0",
     "morgan": "^1.9.0",
     "mysql": "^2.15.0",
