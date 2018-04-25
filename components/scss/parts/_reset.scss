@@ -10,6 +10,7 @@ a,button,input select,textarea{font:inherit;color:inherit;}
 fieldset,img{border:none;}
 [hidden]{display:none;}
 :focus{outline:none;}
+input::-ms-clear,input::-ms-reveal{display:none;}
 article,aside,details,figcaption,figure,footer,header,hgroup,main,nav,section,summary{display:block;}
 audio,canvas,video{@include ib;}
 // ::-webkit-scrollbar{width:10px;height:10px;}

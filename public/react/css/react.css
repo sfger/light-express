@@ -28,6 +28,8 @@ fieldset, img { border: none; }
 
 :focus { outline: none; }
 
+input::-ms-clear, input::-ms-reveal { display: none; }
+
 article, aside, details, figcaption, figure, footer, header, hgroup, main, nav, section, summary { display: block; }
 
 .imgc { font-size: 0; text-align: center; }
