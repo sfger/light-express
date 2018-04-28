@@ -109,17 +109,18 @@ module.exports = {
 						loader:'babel-loader',
 						options:{
 							presets: [
-								['es2015', {modules:false}],
+								["es2015", {modules:false}],
 								// ['es2015'],
-								'stage-3',
-								'react',
+								"stage-3",
+								"react"
 							],
 							plugins: [
-								['syntax-dynamic-import'],
-								['transform-async-to-generator'],
-								['transform-decorators-legacy'],
-								['transform-class-properties'],
-								['transform-runtime', {polyfill:false, regenerator:true}],
+								["syntax-dynamic-import"],
+								["transform-async-to-generator"],
+								["transform-decorators-legacy"],
+								["transform-class-properties"],
+								["transform-runtime", {polyfill:false, regenerator:true}],
+								// ["@babel/plugin-transform-flow-strip-types"],
 								// ['import', {libraryName:"antd", style:'css'}],
 								moduleResolver
 							]
@@ -132,7 +133,7 @@ module.exports = {
 				use: [{
 					loader: "style-loader",
 					options: {
-						insertAt: 'bottom'
+						insertAt: "bottom"
 					}
 				}, {
 					loader: "css-loader"
