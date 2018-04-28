@@ -1,2 +1,2 @@
-import {createElement} from "@/fn";
-console.log(createElement);
+// import {createElement} from "@/fn";
+// console.log(createElement);

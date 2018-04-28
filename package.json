@@ -36,7 +36,7 @@
     "morgan": "^1.9.0",
     "mysql": "^2.15.0",
     "node-sass": "^4.9.0",
-    "postcss": "^6.0.21",
+    "postcss": "^6.0.22",
     "postcss-image-inliner": "^1.0.6",
     "postcss-sprites": "^4.2.0",
     "postcss-urlrev": "^2.0.0",
@@ -81,7 +81,6 @@
     "jshint": "^2.9.5",
     "jsx-loader": "^0.13.2",
     "redux": "^4.0.0",
-    "url-loader": "^1.0.1",
-    "webpack-cli": "^2.0.15"
+    "url-loader": "^1.0.1"
   }
 }
