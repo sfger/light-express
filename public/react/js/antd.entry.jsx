@@ -8,8 +8,18 @@ let mountNode = document.querySelector('#page');
 	console.log('test');
 }());
 
-import "antd/dist/antd.less"; 
-import { Button, Radio, Icon } from 'antd';
+// import "antd/dist/antd.less"; 
+// import { Radio, Button, Icon } from 'antd';
+
+import Radio from 'antd/es/radio';
+import 'antd/lib/radio/style';
+
+import Button from 'antd/es/button';
+import 'antd/lib/button/style';
+
+import Icon from 'antd/es/Icon';
+import 'antd/lib/icon/style';
+
 class ButtonSize extends React.Component {
 	state = {
 		size: 'default'
@@ -28,7 +38,7 @@ class ButtonSize extends React.Component {
 		const size = this.state.size;
 		return (
 			<div>
-				<Radio.Group value={size} onChange={this.handleSizeChange}>
+				<Radio.Group defaultValue={size} onChange={this.handleSizeChange}>
 					<Radio.Button value="large">Large</Radio.Button>
 					<Radio.Button value="default">Default</Radio.Button>
 					<Radio.Button value="small">Small</Radio.Button>
