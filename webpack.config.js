@@ -35,6 +35,7 @@ var moduleResolver = ["module-resolver", {
 module.exports = {
 	mode: 'development',
 	context: path.normalize(root + '/public/'),
+	// devtool: false,
 	entry: entryMap,
 	output:{
 		path: path.normalize(root + '/dist/'),
