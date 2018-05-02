@@ -9,16 +9,16 @@ let mountNode = document.querySelector('#page');
 }());
 
 // import "antd/dist/antd.less"; 
-// import { Radio, Button, Icon } from 'antd';
+import { Radio, Button, Icon } from 'antd';
 
-import Radio from 'antd/es/radio';
-import 'antd/lib/radio/style';
+// import Radio from 'antd/es/radio';
+// import 'antd/lib/radio/style';
 
-import Button from 'antd/es/button';
-import 'antd/lib/button/style';
+// import Button from 'antd/es/button';
+// import 'antd/lib/button/style';
 
-import Icon from 'antd/es/Icon';
-import 'antd/lib/icon/style';
+// import Icon from 'antd/es/Icon';
+// import 'antd/lib/icon/style';
 
 class ButtonSize extends React.Component {
 	state = {

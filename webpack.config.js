@@ -122,7 +122,7 @@ module.exports = {
 								["transform-class-properties"],
 								["transform-runtime", {polyfill:false, regenerator:true}],
 								// ["@babel/plugin-transform-flow-strip-types"],
-								// ['import', {libraryName:"antd", style:'css'}],
+								["import", { "libraryName": "antd", "libraryDirectory": "es", "style": true }],
 								moduleResolver
 							]
 						}
