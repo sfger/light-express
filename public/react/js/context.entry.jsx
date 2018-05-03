@@ -121,26 +121,32 @@ class App extends Component{
 						<li><Link to="/test">test</Link></li>
 					</ul>
 					<div ref={this.ref}></div>
-					<Route path={location.pathname} exact render={()=>{
-						let test = {a:'aaaa', b:'bbb'};
-						return (
-							<listContext.Provider value={this.state.array}>
-								<numContext.Provider value={this.state.count}>
-									<CommentBox row={'testRow'} {...test} />
-								</numContext.Provider>
-							</listContext.Provider>
-						);
-					}}/>
-					<Route path="/index" render={()=>{
-						return <div>home</div>;
-					}}/>
-					<Route path="/test" render={()=>{
-						return <div>hello world</div>;
-					}} />
+					<listContext.Provider value={this.state.array}>
+						<numContext.Provider value={this.state.count}>
+							<Route path={location.pathname} exact component={main} />
+						</numContext.Provider>
+					</listContext.Provider>
+					<Route path="/index" component={home} />
+					<Route path="/test" component={test} />
 				</div>
 			</Router>
 		);
 	}
+}
+
+function main(){
+	let test = {a:'aaaa', b:'bbb'};
+	return (
+		<CommentBox row={'testRow'} {...test} />
+	);
+}
+
+function home(){
+	return <div>home</div>;
+}
+
+function test(){
+	return <div>hello world</div>;
 }
 
 ReactDOM.render(<App />, document.querySelector('#page'));

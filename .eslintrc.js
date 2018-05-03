@@ -34,6 +34,7 @@ module.exports = {
 		"__version__"             : true
 	},
 	"rules": {
+		"react/jsx-no-bind": ["error"],
 		"react/jsx-uses-vars": ["error"],
 		"react/jsx-uses-react": ["error"],
 		"react/prop-types": ["off"],
