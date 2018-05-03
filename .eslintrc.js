@@ -7,17 +7,24 @@ module.exports = {
         "es6"      : true,
         "node"     : true
     },
-    "extends": "eslint:recommended",
+	"extends": [
+		"eslint:recommended",
+		"plugin:react/recommended"
+	],
 	"parser": "babel-eslint",
     "parserOptions": {
 		"ecmaVersion": 8, // or 7
         "ecmaFeatures": {
-            "experimentalObjectRestSpread": true,
-			"jsx": true
+			"jsx": true,
+            "experimentalObjectRestSpread": true
         },
         "sourceType": "module"
     },
-    "plugins" : [ "react" ],
+    "plugins" : [
+		'markdown',
+		'react',
+		'babel'
+	],
 	"globals" : {
 		"window"                  : true,
 		"EJS"                     : true,
@@ -27,6 +34,7 @@ module.exports = {
 		"__version__"             : true
 	},
     "rules": {
+		"react/prop-types": ["off"],
 		"no-console"      : ["off"],
 		"no-empty"        : ["off"],
         "indent"          : ["warn", "tab", {"SwitchCase":1}],

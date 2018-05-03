@@ -3,14 +3,9 @@ import ReactDOM from 'react-dom';
 // import { Router, Route, browserHistory } from 'react-router';
 // import {HashRouter as Router, Route, Link} from 'react-router-dom';
 import {Router, Route, Link} from 'react-router-dom';
-import {createBrowserHistory, createHashHistory} from 'history';
-import {syncHistoryWithStore, routerReducer} from 'react-router-redux';
-import reducers from './parts/reducers';
+import {createBrowserHistory} from 'history';
 let numContext = React.createContext();
 let listContext = React.createContext();
-// console.log(dispatch.toString());
-// console.log(subscribe,store);
-// const history = syncHistoryWithStore(createHashHistory(), store);
 const history = createBrowserHistory();
 
 class CommentBox extends Component{
@@ -27,7 +22,7 @@ class CommentBox extends Component{
 		});
 	}
 	render(){
-		let {row,a,b,} = this.props;
+		let {row,a,b} = this.props;
 		return (
 			<div className="commentBox">
 				<div>
@@ -56,7 +51,7 @@ class CommentBox extends Component{
 					)}
 				</listContext.Consumer>
 			</div>
-		)
+		);
 	}
 }
 class App extends Component{
@@ -134,17 +129,17 @@ class App extends Component{
 									<CommentBox row={'testRow'} {...test} />
 								</numContext.Provider>
 							</listContext.Provider>
-						)
+						);
 					}}/>
 					<Route path="/index" render={()=>{
-						return <div>home</div>
+						return <div>home</div>;
 					}}/>
 					<Route path="/test" render={()=>{
-						return <div>hello world</div>
+						return <div>hello world</div>;
 					}} />
 				</div>
 			</Router>
-		)
+		);
 	}
 }
 
