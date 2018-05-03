@@ -1,26 +1,26 @@
 module.exports = {
-    "env"          : {
-        "browser"  : true,
-        "commonjs" : true,
+	"env"          : {
+		"browser"  : true,
+		"commonjs" : true,
 		"jquery"   : true,
 		"amd"      : true,
-        "es6"      : true,
-        "node"     : true
-    },
+		"es6"      : true,
+		"node"     : true
+	},
 	"extends": [
 		"eslint:recommended",
 		"plugin:react/recommended"
 	],
 	"parser": "babel-eslint",
-    "parserOptions": {
+	"parserOptions": {
 		"ecmaVersion": 8, // or 7
-        "ecmaFeatures": {
+		"ecmaFeatures": {
 			"jsx": true,
-            "experimentalObjectRestSpread": true
-        },
-        "sourceType": "module"
-    },
-    "plugins" : [
+			"experimentalObjectRestSpread": true
+		},
+		"sourceType": "module"
+	},
+	"plugins" : [
 		'markdown',
 		'react',
 		'babel'
@@ -33,12 +33,14 @@ module.exports = {
 		"__non_webpack_require__" : true,
 		"__version__"             : true
 	},
-    "rules": {
+	"rules": {
+		"react/jsx-uses-vars": ["error"],
+		"react/jsx-uses-react": ["error"],
 		"react/prop-types": ["off"],
-		"no-console"      : ["off"],
-		"no-empty"        : ["off"],
-        "indent"          : ["warn", "tab", {"SwitchCase":1}],
-        "linebreak-style" : ["error", "unix"],
-        "semi"            : ["warn", "always"]
-    }
+		"no-console": ["off"],
+		"no-empty": ["off"],
+		"indent": ["warn", "tab", {"SwitchCase":1}],
+		"linebreak-style": ["error", "unix"],
+		"semi": ["warn", "always"]
+	}
 };
