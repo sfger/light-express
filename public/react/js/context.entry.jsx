@@ -51,13 +51,7 @@ class CommentBox extends Component{
 							<a href="javascript:" onClick={list_push}>Push list</a>
 							&nbsp;
 							<a href="javascript:" onClick={list_pop}>Pop list</a>
-							<ul>
-								{
-									list.map(function(one){
-										return <li key={one}>{one}</li>
-									})
-								}
-							</ul>
+							<ul>{ list.map(one => <li key={one}>{one}</li>) }</ul>
 						</div>
 					)}
 				</listContext.Consumer>
@@ -131,7 +125,9 @@ class App extends Component{
 						<li><Link to="/index">index</Link></li>
 						<li><Link to="/test">test</Link></li>
 					</ul>
+					<div ref={this.ref}></div>
 					<Route path={location.pathname} exact render={()=>{
+						let test = {a:'aaaa', b:'bbb'};
 						return (
 							<listContext.Provider value={this.state.array}>
 								<numContext.Provider value={this.state.count}>
@@ -152,5 +148,4 @@ class App extends Component{
 	}
 }
 
-let test = {a:'aaa', b:'bbb'};
 ReactDOM.render(<App />, document.querySelector('#page'));

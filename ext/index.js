@@ -9,6 +9,11 @@ var webpack       = require("webpack");
 var webpackConfig = require('../webpack.config.js');
 var sassconfig    = require('../sass.config.js');
 var WebpackDev    = require("webpack-dev-middleware");
+var debug         = require('debug');
+var distDebug     = debug('Dist HTML:');
+distDebug.enabled = true;
+var scssDebug     = debug('SCSS comple:');
+scssDebug.enabled = true;
 var compiler      = webpack(webpackConfig);
 var webpackDev    = WebpackDev(compiler, {
 	// lazy: true,
@@ -162,7 +167,7 @@ var ext = {
 		ext.mkdirRecursive(path.dirname(url_path), 777, ()=>{
 			fs.writeFile(url_path, ret, (err)=>{
 				if(err) throw err;
-				console.log('Dist ' + url_path + ' succeed!');
+				distDebug(url_path);
 			});
 		});
 	},
@@ -205,8 +210,8 @@ var ext = {
 				}).then(result=>{
 					// console.log(result.css);
 					fs.writeFile(out_file, result.css, {mode:'777'}, ()=>{
-						console.log(`Compile ${out_file} success`);
-						// return next();
+						scssDebug(out_file);
+						// return next&&next();
 					});
 					defer.resolve(result.css);
 				});
@@ -281,10 +286,10 @@ var ext = {
 			})).then(defer.resolve);
 		});
 	},
-	/* *
+	/**
 	 * 每次请求模块文件时，动态编译相应的模块文件
 	 * 具有合并多个模块文件为一个的功能
-	 * */
+	 */
 	Compile2JS: (req, res, next) => {
 		if(!/\/tpl\/.*\.js$/.test(req.path)) return next&&next();
 		var out_file   = path.normalize(ext.static_dir + req.path);
