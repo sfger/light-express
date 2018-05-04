@@ -1,8 +1,0 @@
-@charset "utf-8";
-@import "@scss/base";
-@include useKeyframes(radioOut);
-.btn{
-	@include button(130px,45px,$color_theme,$animation:1);margin:100px;
-	color:white;
-	// &:before{background-color:red;}
-}

@@ -77,22 +77,22 @@ gulp.task('del', function(cb){
 });
 gulp.task('css', ['del'], function(){
 	var dist = '*'===project ? '' : project;
-	return gulp.src('public/'+project+'/**/*.css')
+	return gulp.src('src/'+project+'/**/*.css')
 		.pipe(cleanCss({compatibility:"ie7"}))
 		.pipe(gulp.dest('dist/'+dist));
 });
 gulp.task('js', ['del'], function(){
 	var dist = '*'===project ? '' : project;
 	return gulp.src([
-		'public/'+project+'/**/*.js',
-		'!./public/'+project+'/**/*.@(entry).js',
-		'!./public/**/parts/*.js'
+		'src/'+project+'/**/*.js',
+		'!./src/'+project+'/**/*.@(entry).js',
+		'!./src/**/parts/*.js'
 	]).pipe(uglify(uglifyjs3_config)).pipe(gulp.dest('dist/'+dist));
 });
 gulp.task('html', ['del'], function(){
 	var dist = '*'===project ? '' : project;
-	var src = ['public/'+project+'/**/*.html'];
-	if('*'===project) src.push('public/*.html');
+	var src = ['src/'+project+'/**/*.html'];
+	if('*'===project) src.push('src/*.html');
 	return gulp.src(src)
 		.pipe(replace(/__version__/gi, timeString))
 		.pipe(gulp.dest('dist/'+dist));
@@ -100,17 +100,17 @@ gulp.task('html', ['del'], function(){
 gulp.task('img', ['del'], function(){
 	var dist = '*'===project ? '' : project;
 	var list = [
-		'public/'+project+'/**/*.jpg',
-		'public/'+project+'/**/*.ico',
-		'public/'+project+'/**/*.gif',
-		'public/'+project+'/**/*.png',
+		'src/'+project+'/**/*.jpg',
+		'src/'+project+'/**/*.ico',
+		'src/'+project+'/**/*.gif',
+		'src/'+project+'/**/*.png',
 	];
-	if( !dist ) list.push( 'public/favicon.ico');
+	if( !dist ) list.push( 'src/favicon.ico');
 	return gulp.src(list).pipe(gulp.dest('dist/'+dist));
 });
 gulp.task('sprite', ['del'], function(){
 	var dist = '*'===project ? '' : project;
-	return gulp.src('public/'+project+'/**/*')
+	return gulp.src('src/'+project+'/**/*')
 		.pipe(gulp.dest('dist/'+dist));
 });
 
@@ -121,7 +121,7 @@ gulp.task('webpack', ['del'], function(cb){
 	// 	new webpack.optimize.UglifyJsPlugin(uglifyjs2_config)
 	// ];
 	var entrysArray = glob.sync("**/*.@(entry).@(js?(x)|ts?(x))", {
-		cwd:'./public/'+dir+'/',
+		cwd:'./src/'+dir+'/',
 		nobrace:true
 	});
 	if(!entrysArray.length) return cb();
@@ -141,7 +141,7 @@ gulp.task('webpack', ['del'], function(cb){
 // gulp.task('dist', function(){
 // 	return gulp.start('css', 'img', 'html', 'tpl', 'webpack', 'js');
 // });
-// gulp.task('public', function(){
+// gulp.task('src', function(){
 // 	return gulp.src('dist/'+project+'/**/*')
 // 	.pipe(gulp.dest('dist/list'));
 // });

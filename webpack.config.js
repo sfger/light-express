@@ -6,7 +6,7 @@ var webpack = require('webpack');
 var sassconfig = require('./sass.config.js');
 var es3ifyPlugin = require('es3ify-webpack-plugin');
 var entrysArray = glob.sync("**/*.@(entry).@(js?(x)|ts)", {
-	cwd:'./public/',
+	cwd:'./src/',
 	nobrace:true
 });
 // console.log(entrysArray);
@@ -23,18 +23,18 @@ entrysArray.forEach((one) => {
 // ];
 // console.log(entryMap);
 var moduleResolver = ["module-resolver", {
-	root: [root],
+	root: ['./'],
 	alias: {
 		"^@(.+)": "./components/\\1",
-		"^~(.+)": "./public/\\1"
+		"^~(.+)": "./src/\\1"
 		// "@": root+"/components",
-		// "~": root+"/public"
+		// "~": root+"/src"
 	},
 	extensions:[".js", ".jsx", ".ts", ".tsx"]
 }];
 module.exports = {
 	mode: 'development',
-	context: path.normalize(root + '/public/'),
+	context: path.normalize(root + '/src/'),
 	// devtool: false,
 	entry: entryMap,
 	output:{
@@ -48,7 +48,7 @@ module.exports = {
 	},
 	resolve:{
 		modules: [
-			path.join(root, "public"),
+			path.join(root, "src"),
 			"node_modules"
 		],
 		extensions:['.ts', '.vue', '.css', '.less', '.scss', '.sass', '.js', '.jsx', 'png', 'jpg'],

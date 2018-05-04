@@ -3,7 +3,7 @@ var root = path.resolve(__dirname);
 module.exports = {
 	alias        : {
 		'@' : '/components/',
-		'~' : '/public/'
+		'~' : '/src/'
 	},
 	includePaths : [root+'/node_modules/'],
 	importer     : function(url, prev){
