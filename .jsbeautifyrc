@@ -9,7 +9,7 @@
 	"brace_preserve_inline": true,
     "max_preserve_newlines": 10000,
 	"space_in_paren": true,
-    "jslint_happy": false,
+    "jslint_happy": true,
     "space_after_anon_function": false,
     "space_before_conditional": true,
     "keep_array_indentation": false,
