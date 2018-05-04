@@ -1,30 +1,30 @@
 @charset "utf-8"; //解决中文报错
 $is_modern:0 !default; // 兼容低版本ie
 $is_mobile:0 !default; // 兼容PC
-
 $base_font_size :14px !default;
-$color_black    :black !default;
-$color_dark     :#333 !default;
-$color_default  :#666 !default;
-$color_light    :#999 !default;
-$color_weak     :#ccc !default;
-$color_shadow   :#f5f5f5 !default;
-$color_white    :white !default;
-$color_theme    :#39f !default;
-$color_success  :#0c6 !default;
-$color_error    :#f30 !default;
-$color_warning  :#f90 !default;
+$color_black :black !default;
+$color_dark :#333 !default;
+$color_default :#666 !default;
+$color_light :#999 !default;
+$color_weak :#ccc !default;
+$color_shadow :#f5f5f5 !default;
+$color_white :white !default;
+$color_theme :#39f !default;
+$color_success :#0c6 !default;
+$color_error :#f30 !default;
+$color_warning :#f90 !default;
 @import "flex";
 
-@function expr($expr){
+@function expr($expr) {
 	$type: type-of($expr);
 	$expr: if($type==string, unquote($expr), $expr);
 	@return $expr;
 }
+
 // .test{
 // 	line-height:expr(15/15+'%');
 // }
-@mixin font-size($px,$w:375){
+@mixin font-size($px, $w:375) {
 	font-size: #{$px}px;
 	font-size: #{($px*100/$w)}vw;
 }
@@ -32,153 +32,249 @@ $color_warning  :#f90 !default;
 // css3 -webkit-,-moz-,-ms-,-o- 的前缀简写
 // 第一个参数为属性和值，第二个参数则是前缀
 // @mixin prefix($map, $vendors:webkit moz ms o){
-@mixin prefix($map, $vendors:webkit){
-	@each $prop,$value in $map{
-		@if $vendors{
-			@each $vendor in $vendors{
-				#{'-'+$vendor+'-'+$prop}:$value;
+@mixin prefix($map, $vendors:webkit) {
+	@each $prop, $value in $map {
+		@if $vendors {
+			@each $vendor in $vendors {
+				#{'-'+$vendor+'-'+$prop}: $value;
 			}
 		}
 		#{$prop}:#{$value};
 	}
 }
-@mixin prefix-val($map, $vendors:webkit){
-	@each $prop,$value in $map{
-		@if $vendors{
-			@each $vendor in $vendors{
+
+@mixin prefix-val($map, $vendors:webkit) {
+	@each $prop, $value in $map {
+		@if $vendors {
+			@each $vendor in $vendors {
 				#{$prop}:#{'-'+$vendor+'-'+$value};
 			}
 		}
 		#{$prop}:#{$value};
 	}
 }
+
 // sass:
 // .list{@include prefix((transform:rotate(0deg),transition:all .2s ease-out));}
 // .test{@include prefix((transition:#{top 1s,transform 1s,left 1s}));}
 // .element{@include prefix((transform:translate(-50%, -50%) rotate(45deg)), webkit ms);}
-%cf{
-	@if($is_modern==0){*zoom:1;}
-	&:before,&:after{content:"";display:table;}
-	&:after{clear:both;overflow:hidden;}
-}
-@mixin cf{@extend %cf;}
-
-%ib{
-	display:inline-block;
-	@if($is_modern==0){*display:inline;*zoom:1;}
-	vertical-align:middle;//*vertical-align:auto;
-}
-%inline-block{@extend %ib;}
-@mixin inline-block($vertical-align:null){
-	@extend %ib;vertical-align:$vertical-align;//*vertical-align:auto;
-}
-@mixin ib($args...){@include inline-block($args...);}
-// .test{@include ib(middle);}
-
-@mixin size($width:auto, $height:$width, $prefix:null){
-	@if $prefix and not index(min max, $prefix){
-		@warn "If there is a prefix, it must be:[min|max]`, but got:`#{$prefix}`.";
-	}@else{
-		$prefix:if($prefix,$prefix+'-','');
-		#{$prefix+'width'}:$width;
-		#{$prefix+'height'}:$height;
+%cf {
+	@if($is_modern==0) {
+		*zoom: 1;
+	}
+	&:before, &:after {
+		content: "";
+		display: table;
+	}
+	&:after {
+		clear: both;
+		overflow: hidden;
 	}
 }
-// 单行溢出省略
-%sln{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-@mixin sln(){@extend %sln;}
-// .test{@include sln;}
 
-// webkit多行溢出省略
-%mln{
-	overflow:hidden;text-overflow:ellipsis;
-	display:-webkit-box;-webkit-box-orient:vertical;
-	-webkit-line-clamp:2;
+@mixin cf {
+	@extend %cf;
 }
-@mixin mln($line:2,$lineHeight:null,$max:''){
+
+%ib {
+	display: inline-block;
+	@if($is_modern==0) {
+		*display: inline;
+		*zoom: 1;
+	}
+	vertical-align:middle; //*vertical-align:auto;
+}
+
+%inline-block {
+	@extend %ib;
+}
+
+@mixin inline-block($vertical-align:null) {
+	@extend %ib;
+	vertical-align: $vertical-align; //*vertical-align:auto;
+}
+
+@mixin ib($args...) {
+	@include inline-block($args...);
+}
+
+// .test{@include ib(middle);}
+@mixin size($width:auto, $height:$width, $prefix:null) {
+	@if $prefix and not index(min max, $prefix) {
+		@warn "If there is a prefix, it must be:[min|max]`, but got:`#{$prefix}`.";
+	}
+	@else {
+		$prefix: if($prefix, $prefix+'-', '');
+		#{$prefix+'width'}: $width;
+		#{$prefix+'height'}: $height;
+	}
+}
+
+// 单行溢出省略
+%sln {
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+@mixin sln() {
+	@extend %sln;
+}
+
+// .test{@include sln;}
+// webkit多行溢出省略
+%mln {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+	-webkit-line-clamp: 2;
+}
+
+@mixin mln($line:2, $lineHeight:null, $max:'') {
 	@extend %mln;
-	$max:if($max==1,'max-','');
-	@if($lineHeight){
-		line-height:$lineHeight;
+	$max: if($max==1, 'max-', '');
+	@if($lineHeight) {
+		line-height: $lineHeight;
 		@if not unitless($lineHeight) {
-			#{$max+'height'}:$line*$lineHeight;
+			#{$max+'height'}: $line*$lineHeight;
 		}
 	}
-	@if($line!=2){-webkit-line-clamp:$line;}
+	@if($line !=2) {
+		-webkit-line-clamp: $line;
+	}
 }
+
 // .mln2{@include mln;}
 // .mln3{@include mln(3,3px);}
 // .mln3-max{@include mln(3,3px,1);}
-
 // 通用居中样式
 // 使用见_layout.scss
-@mixin reset_font_size($rem:1rem){font-size:$base_font_size;font-size:$rem;line-height:normal;}
-@mixin imge($vertical-align:middle, $rem:1rem){
+@mixin reset_font_size($rem:1rem) {
+	font-size: $base_font_size;
+	font-size: $rem;
+	line-height: normal;
+}
+
+@mixin imge($vertical-align:middle, $rem:1rem) {
 	@include inline-block($vertical-align);
 	@include reset_font_size($rem);
 }
-%imge{@include imge;}
-@mixin imgc($is_image:1, $selecor:img, $align:center, $vertical-align:null, $rem:1rem){
-	font-size:0;text-align:$align;
-	&:before,#{if($is_modern==0,'.iecp',null)}{@include ib($vertical-align);content:"";height:100%;font-size:0;line-height:0;width:0;}
-	@if($selecor!=''){
-		#{$selecor}{
+
+%imge {
+	@include imge;
+}
+
+@mixin imgc($is_image:1, $selecor:img, $align:center, $vertical-align:null, $rem:1rem) {
+	font-size: 0;
+	text-align: $align;
+	&:before, #{if($is_modern==0,'.iecp',null)} {
+		@include ib($vertical-align);
+		content: "";
+		height: 100%;
+		font-size: 0;
+		line-height: 0;
+		width: 0;
+	}
+	@if($selecor !='') {
+		#{$selecor} {
 			@include ib($vertical-align);
-			@if($is_image==1){
-				@include size(100%,100%,max);
-			}@elseif($selecor!=img){
+			@if($is_image==1) {
+				@include size(100%, 100%, max);
+			}
+			@elseif($selecor !=img) {
 				@include reset_font_size($rem);
 			}
 		}
 	}
 }
-%imgc{@include imgc;}
+
+%imgc {
+	@include imgc;
+}
+
 // $is_modern:1;
 // .test{@include imgc;}
-
-@mixin opacity($val:0.5){opacity:$val;filter:alpha(opacity=$val*100);}
+@mixin opacity($val:0.5) {
+	opacity: $val;
+	filter: alpha(opacity=$val*100);
+}
 
 // @param
 // $color - 普通的十六进制颜色值 #123456
 // $alpha - 透明度0 ~ 1
-@mixin background-color-rgba($color, $alpha){
-	$rgba       : rgba($color,$alpha);
-	$ie-hex-str : ie-hex-str($rgba);
-	background-color:$rgba;
-	@media \0screen\,screen\9{filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#{$ie-hex-str},endColorstr=#{$ie-hex-str});}
-}
-@mixin user-select($val){@include prefix((user-select:$val),webkit moz ms);}
-@mixin box-sizing($mode:content-box){@include prefix((box-sizing:$mode),webkit moz);}
-@mixin border-radius($n:0){@include prefix((border-radius:$n),webkit moz);}
-@mixin border-top-left-radius($n:0){@include prefix((border-top-left-radius:$n),webkit moz);}
-@mixin border-top-right-radius($n:0){@include prefix((border-top-right-radius:$n),webkit moz);}
-@mixin border-bottom-left-radius($n:0){@include prefix((border-bottom-left-radius:$n),webkit moz);}
-@mixin border-bottom-right-radius($n:0){@include prefix((border-bottom-right-radius:$n),webkit moz);}
-@mixin background-circle($size, $color, $empty:null, $emptyColor:white, $borderWidth:1px){
-	@include size($size);text-align:center;border-radius:50%;
-	@if $empty {
-		border:$borderWidth solid $color;background:$emptyColor;
-	}@else{
-		background:$color;
+@mixin background-color-rgba($color, $alpha) {
+	$rgba: rgba($color, $alpha);
+	$ie-hex-str: ie-hex-str($rgba);
+	background-color: $rgba;
+	@media \0screen\,screen\9 {
+		filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#{$ie-hex-str}, endColorstr=#{$ie-hex-str});
 	}
-	@media \0screen{
-		@include relative(null,1);border:none;background:transparent;
-		&:before{
-			content:"";@include absolute(left 0 top 0,-2);
-			border-left:$size dotted $color;border-top:$size dotted $color;
+}
+
+@mixin user-select($val) {
+	@include prefix((user-select: $val), webkit moz ms);
+}
+
+@mixin box-sizing($mode:content-box) {
+	@include prefix((box-sizing: $mode), webkit moz);
+}
+
+@mixin border-radius($n:0) {
+	@include prefix((border-radius: $n), webkit moz);
+}
+
+@mixin border-top-left-radius($n:0) {
+	@include prefix((border-top-left-radius: $n), webkit moz);
+}
+
+@mixin border-top-right-radius($n:0) {
+	@include prefix((border-top-right-radius: $n), webkit moz);
+}
+
+@mixin border-bottom-left-radius($n:0) {
+	@include prefix((border-bottom-left-radius: $n), webkit moz);
+}
+
+@mixin border-bottom-right-radius($n:0) {
+	@include prefix((border-bottom-right-radius: $n), webkit moz);
+}
+
+@mixin background-circle($size, $color, $empty:null, $emptyColor:white, $borderWidth:1px) {
+	@include size($size);
+	text-align: center;
+	border-radius: 50%;
+	@if $empty {
+		border: $borderWidth solid $color;
+		background: $emptyColor;
+	}
+	@else {
+		background: $color;
+	}
+	@media \0screen {
+		@include relative(null, 1);
+		border: none;
+		background: transparent;
+		&:before {
+			content: "";
+			@include absolute(left 0 top 0, -2);
+			border-left: $size dotted $color;
+			border-top: $size dotted $color;
 		}
-		@if($empty){
-			&:after{
-				content:"";@include absolute(left $borderWidth top $borderWidth, -1);
-				border-left:($size - $borderWidth*2) dotted $emptyColor;
-				border-top:($size - $borderWidth*2) dotted $emptyColor;
+		@if($empty) {
+			&:after {
+				content: "";
+				@include absolute(left $borderWidth top $borderWidth, -1);
+				border-left: ($size - $borderWidth*2) dotted $emptyColor;
+				border-top: ($size - $borderWidth*2) dotted $emptyColor;
 			}
 		}
 	}
 }
-@mixin position($position, $args, $index:null){
-	position:$position;
-	@each $o in top right bottom left{
+
+@mixin position($position, $args, $index:null) {
+	position: $position;
+	@each $o in top right bottom left {
 		$i: index($args, $o);
 		left: auto;
 		@if $i and $i+1<=length($args) {
@@ -188,25 +284,40 @@ $color_warning  :#f90 !default;
 			}
 		}
 	}
-	@if($index){
-		z-index:$index;
+	@if($index) {
+		z-index: $index;
 	}
 }
-@mixin absolute($args:null, $index:null){@include position(absolute, $args, $index);}
-@mixin fixed($args:null, $index:null){@include position(fixed, $args, $index);}
-@mixin relative($args:null, $index:null){@include position(relative, $args, $index);}
-@mixin sticky($args:null, $index:null){
-	position:-webkit-sticky;
+
+@mixin absolute($args:null, $index:null) {
+	@include position(absolute, $args, $index);
+}
+
+@mixin fixed($args:null, $index:null) {
+	@include position(fixed, $args, $index);
+}
+
+@mixin relative($args:null, $index:null) {
+	@include position(relative, $args, $index);
+}
+
+@mixin sticky($args:null, $index:null) {
+	position: -webkit-sticky;
 	@include position(sticky, $args, $index);
 }
 
-@mixin keyframes($name){
+@mixin keyframes($name) {
 	// @-moz-keyframes #{$name}{@content}
 	// @-o-keyframes #{$name}{@content}
 	// @-ms-keyframes #{$name}{@content}
-	@-webkit-keyframes #{$name}{@content}
-	@keyframes #{$name}{@content}
+	@-webkit-keyframes #{$name} {
+		@content
+	}
+	@keyframes #{$name} {
+		@content
+	}
 }
+
 // @include keyframes(name){
 // 	0%{margin-top:0;}
 // 	25%{margin-top:-10px;}
@@ -214,147 +325,188 @@ $color_warning  :#f90 !default;
 // 	75%{margin-top:-10px;}
 // 	100%{margin-top:0;}
 // }
-
-@mixin useKeyframes($name){
-	@if($name==radioOut){
-		@include keyframes($name){
-			0%{@include prefix((transform:scale(0)),webkit);@include opacity(0.55);}
-			99%{@include prefix((transform:scale(1.75)),webkit);@include opacity(0.05);}
-			100%{@include prefix((transform:scale(0)),webkit);@include opacity(0);}
+@mixin useKeyframes($name) {
+	@if($name==radioOut) {
+		@include keyframes($name) {
+			0% {
+				@include prefix((transform: scale(0)), webkit);
+				@include opacity(0.55);
+			}
+			99% {
+				@include prefix((transform: scale(1.75)), webkit);
+				@include opacity(0.05);
+			}
+			100% {
+				@include prefix((transform: scale(0)), webkit);
+				@include opacity(0);
+			}
 		}
 	}
 }
-// @include useKeyframes(radioOut);
 
-@mixin button(
-	$width,
-	$height,
-	$bgcolor:$color_theme,
-	$border:none,
-	$hover:1,
-	$active:1,
-	$animation:null
-){
-	@include ib;@include size($width, $height);@include user-select(none);
-	@if($border and $border!=none){
-		line-height: #{$height - nth($border,1)*2};border:$border;
-	}@else{
-		line-height:$height;border:$border;
+// @include useKeyframes(radioOut);
+@mixin button( $width,
+$height,
+$bgcolor:$color_theme,
+$border:none,
+$hover:1,
+$active:1,
+$animation:null) {
+	@include ib;
+	@include size($width, $height);
+	@include user-select(none);
+	@if($border and $border !=none) {
+		line-height: #{$height - nth($border,1)*2};
+		border: $border;
 	}
-	@include border-radius(3px);color:invert($bgcolor);
-	@if($height==auto){
-		$height:1rem;
+	@else {
+		line-height: $height;
+		border: $border;
 	}
-	box-shadow: 0 #{$height*0.4} #{$height*0.525} #{-$height*0.35} lighten($bgcolor,3%);
-	text-align:center;background:$bgcolor;cursor:pointer;text-decoration:none;
+	@include border-radius(3px);
+	color:invert($bgcolor);
+	@if($height==auto) {
+		$height: 1rem;
+	}
+	box-shadow: 0 #{$height*0.4} #{$height*0.525} #{-$height*0.35} lighten($bgcolor, 3%);
+	text-align:center;
+	background:$bgcolor;
+	cursor:pointer;
+	text-decoration:none;
 	@include prefix((transition:#{"background,box-shadow"} 0.35s ease-out));
-	@if($hover){
-		&:hover{background-color:lighten($bgcolor,5%);}
+	@if($hover) {
+		&:hover {
+			background-color: lighten($bgcolor, 5%);
+		}
 	}
-	@if($active){
-		@if($animation){
-			@include relative;//overflow:hidden;
-			&:before{
-				content:'';@include size(100%,0);padding-top:100%;margin:auto;
-				@include absolute(left 0 right 0 bottom 0 top 0,-1);@include border-radius(50%);
+	@if($active) {
+		@if($animation) {
+			@include relative; //overflow:hidden;
+			&:before {
+				content: '';
+				@include size(100%, 0);
+				padding-top: 100%;
+				margin: auto;
+				@include absolute(left 0 right 0 bottom 0 top 0, -1);
+				@include border-radius(50%);
 			}
 		}
-		&:active{
+		&:active {
 			// outline:thin dotted;outline-offset:-2px;outline-radius:5px;
-			box-shadow: 0 #{$height*0.43} #{$height*0.685} #{-$height*0.25} darken($bgcolor,5%);
-			background-color:darken($bgcolor,5%);
-			&[data-animation]{
-				@if($animation){
-					@include prefix((transform:translateZ(0)));
-					&:before{
-						@include prefix-val((background-image:radial-gradient(lighten($bgcolor,50%),lighten($bgcolor,50%) 100%)));
-						@include prefix((animation:radioOut 0.25s ease-in-out 0s 1 forwards),webkit);
+			box-shadow: 0 #{$height*0.43} #{$height*0.685} #{-$height*0.25} darken($bgcolor, 5%);
+			background-color: darken($bgcolor, 5%);
+			&[data-animation] {
+				@if($animation) {
+					@include prefix((transform: translateZ(0)));
+					&:before {
+						@include prefix-val((background-image: radial-gradient(lighten($bgcolor, 50%), lighten($bgcolor, 50%) 100%)));
+						@include prefix((animation: radioOut 0.25s ease-in-out 0s 1 forwards), webkit);
 					}
 				}
 			}
 		}
 	}
 }
-@mixin placeholder{
-	&::-webkit-input-placeholder{@content} // Chrome, Safari, Opera
-	&:-moz-placeholder{@content} // Mozilla Firefox 4-18使用伪类
-	&::-moz-placeholder{@content} // Firefox 19+
-	&:-ms-input-placeholder{@content} // IE 10+
+
+@mixin placeholder {
+	&::-webkit-input-placeholder {
+		@content
+	} // Chrome, Safari, Opera
+	&:-moz-placeholder {
+		@content
+	} // Mozilla Firefox 4-18使用伪类
+	&::-moz-placeholder {
+		@content
+	} // Firefox 19+
+	&:-ms-input-placeholder {
+		@content
+	} // IE 10+
 }
 
 // Returns the opposite direction of each direction in a list
 // @param {List} $directions - List of initial directions
 // @return {List} - List of opposite directions
-@function opposite-direction($directions){
-	$opposite-directions:();
-	$direction-map:(
-		'top'    : 'bottom',
-		'right'  : 'left',
-		'bottom' : 'top',
-		'left'   : 'right',
-		'center' : 'center',
-		'ltr'    : 'rtl',
-		'rtl'    : 'ltr'
-	);
-	@each $direction in $directions{
+@function opposite-direction($directions) {
+	$opposite-directions: ();
+	$direction-map: ( 'top': 'bottom',
+	'right': 'left',
+	'bottom': 'top',
+	'left': 'right',
+	'center': 'center',
+	'ltr': 'rtl',
+	'rtl': 'ltr');
+	@each $direction in $directions {
 		$direction: to-lower-case($direction);
 		@if map-has-key($direction-map, $direction) {
 			$opposite-directions: append($opposite-directions, unquote(map-get($direction-map, $direction)));
-		} @else {
+		}
+		@else {
 			@warn "No opposite direction can be found for `#{$direction}`. Direction omitted.";
 		}
 	}
 	@return $opposite-directions;
 }
+
 // 例：scss
 // .selector{background-position:opposite-direction(top right);}
-
 //生成 三角
-@mixin triangle($direction, $position, $color:currentcolor, $size:1em){
-	$direction:if(function-exists("to-lower-case")==true,to-lower-case($direction),$direction);
-	@if not index(top right bottom left, $direction){
+@mixin triangle($direction, $position, $color:currentcolor, $size:1em) {
+	$direction: if(function-exists("to-lower-case")==true, to-lower-case($direction), $direction);
+	@if not index(top right bottom left, $direction) {
 		@warn "Direction must be one of `top`, `right`, `bottom` or `left`; currently `#{$direction}`.";
-	}@else{
-		@include absolute($position);@include size(0);
-		border-#{opposite-direction($direction)}:$size solid $color;
+	}
+	@else {
+		@include absolute($position);
+		@include size(0);
+		border-#{opposite-direction($direction)}: $size solid $color;
 		$perpendicular-border: $size solid transparent;
-		@if index(top bottom,$direction){
-			border-left:   $perpendicular-border;
-			border-right:  $perpendicular-border;
-		}@else if index(right left,$direction){
+		@if index(top bottom, $direction) {
+			border-left: $perpendicular-border;
+			border-right: $perpendicular-border;
+		}
+		@else if index(right left, $direction) {
 			border-bottom: $perpendicular-border;
-			border-top:    $perpendicular-border;
+			border-top: $perpendicular-border;
 		}
 	}
 }
+
 // 列：scss
 // .selector{@include triangle(right,top 5px right -5px,#EA3434,5px);}
-
-@mixin toolTip($direction, $position, $arrSize, $bgColor:white, $borderColor:black, $innerClass:'tool-tip-inner'){
-	$dirMap : ('top':'bottom', 'right':'left', 'bottom':'top', 'left':'right');
-	$od     : map-get($dirMap, $direction);// 反方向
-	$n      : if(index(right bottom, $direction),2,1);
-	padding-#{$direction}:nth($arrSize, $n);// padding使用相应宽/高的值，使可以hover到tip上显示
-	.#{$innerClass}{
-		position:relative;padding:5px;background:$bgColor;border-radius:8px;border:1px solid $borderColor;
-		&:before,&:after,.before,.after{
-			@include absolute($position);@include size(0);content:'';
-			border-style:solid;border-color:transparent;
-			border-#{$od}:nth($arrSize,1) solid $borderColor;
-			@if index(top bottom, $direction){
-				border-left-width  : nth($arrSize,1);
-				border-right-width : nth($arrSize,2);
-			}@else if index(left right, $direction){
-				border-top-width    : nth($arrSize,1);
-				border-bottom-width : nth($arrSize,2);
+@mixin toolTip($direction, $position, $arrSize, $bgColor:white, $borderColor:black, $innerClass:'tool-tip-inner') {
+	$dirMap: ('top':'bottom', 'right':'left', 'bottom':'top', 'left':'right');
+	$od: map-get($dirMap, $direction); // 反方向
+	$n: if(index(right bottom, $direction), 2, 1);
+	padding-#{$direction}: nth($arrSize, $n); // padding使用相应宽/高的值，使可以hover到tip上显示
+	.#{$innerClass} {
+		position: relative;
+		padding: 5px;
+		background: $bgColor;
+		border-radius: 8px;
+		border: 1px solid $borderColor;
+		&:before, &:after, .before, .after {
+			@include absolute($position);
+			@include size(0);
+			content: '';
+			border-style: solid;
+			border-color: transparent;
+			border-#{$od}: nth($arrSize, 1) solid $borderColor;
+			@if index(top bottom, $direction) {
+				border-left-width: nth($arrSize, 1);
+				border-right-width: nth($arrSize, 2);
+			}
+			@else if index(left right, $direction) {
+				border-top-width: nth($arrSize, 1);
+				border-bottom-width: nth($arrSize, 2);
 			}
 		}
-		&:after,.after{
+		&:after, .after {
 			@include absolute($direction nth($position, index($position, $direction)+1)+1);
-			border-#{$od}-color:$bgColor;
+			border-#{$od}-color: $bgColor;
 		}
 	}
 }
+
 // .tip{
 // 	@include ib;width:100px;margin-top:15px;margin-right:15px;
 // 	word-break:break-line;word-wrap:break-word;
@@ -363,108 +515,205 @@ $color_warning  :#f90 !default;
 // 	.tip-content{padding:15px;}
 // 	@include tip-box(top, left 13px top -13px, 10px 10px);
 // }
-
-@mixin stateList($height           : 30px,
-                 $radius           : 3px,
-                 $width            : 2px,
-				 $left             : $height/2,
-                 $style            : solid,
-                 $color            : #999,
-                 $stateActiveClass : 'state-active',
-                 $activeColor      : red,
-                 $growing          : 0,
-				 $hoverActive      : 0,
-                 $shadow           : 5px,
-                 $shadowColor      : currentcolor){
-	li{
-		@include relative;margin-left:$left+$radius*2;height:$height;
-		line-height:$height;list-style:none;
-		&:before{
+@mixin stateList($height: 30px,
+$radius: 3px,
+$width: 2px,
+$left: $height/2,
+$style: solid,
+$color: #999,
+$stateActiveClass: 'state-active',
+$activeColor: red,
+$growing: 0,
+$hoverActive: 0,
+$shadow: 5px,
+$shadowColor: currentcolor) {
+	li {
+		@include relative;
+		margin-left: $left+$radius*2;
+		height: $height;
+		line-height: $height;
+		list-style: none;
+		&:before {
 			@include absolute(left (-$left) top (-$height/2));
-			content:'';height:$height;border-left:$width $style $color;
+			content: '';
+			height: $height;
+			border-left: $width $style $color;
 		}
-		&:first-child:before{display:none;}
-		&:after{
+		&:first-child:before {
+			display: none;
+		}
+		&:after {
 			@include absolute(left (-$left - $radius + $width/2) top ($height/2)-$radius);
-			@include border-radius(50%);box-shadow:0 0 $shadow $shadowColor;
-			z-index:1;content:'';border:$radius $style $color;
+			@include border-radius(50%);
+			box-shadow: 0 0 $shadow $shadowColor;
+			z-index: 1;
+			content: '';
+			border: $radius $style $color;
 		}
-		&.#{$stateActiveClass}{
-			color:$activeColor;
-			$borderColor:$color;
-			@if(1==$growing){
-				$borderColor:$activeColor
+		&.#{$stateActiveClass} {
+			color: $activeColor;
+			$borderColor: $color;
+			@if(1==$growing) {
+				$borderColor: $activeColor
 			}
-			&:before{border-color:$borderColor;}
-			&:after{border-color:$activeColor;box-shadow:0 0 $shadow $activeColor;}
+			&:before {
+				border-color: $borderColor;
+			}
+			&:after {
+				border-color: $activeColor;
+				box-shadow: 0 0 $shadow $activeColor;
+			}
 		}
-		@if(1==$hoverActive){
-			&:hover{@extend .#{$stateActiveClass};}
+		@if(1==$hoverActive) {
+			&:hover {
+				@extend .#{$stateActiveClass};
+			}
 		}
 	}
-}
-@mixin stateStep($width:100%, $color:#ccc, $colorDone:#0dffaf){
-    width:$width;padding:50px 150px 80px;margin:auto;
-    .step-progress{position:relative;height:8px;background:$color;}
-    .step-progress-done{@include absolute(left 0 top 0);height:8px;background:$colorDone;}
-    .step-position{
-        @include size(28px);@include absolute(top -10px);
-        margin-left:-7px;font:18px/28px "Microsoft YaHei";text-align:center;color:white;
-        @media screen and (min-width:0){@include border-radius(50%);background-color:$color;}
-        .step-arrow{
-            display:block;@include size(0);margin-top:-22px;margin-left:-12px;
-            border:12px solid $color;border-right:0px solid white;
-			border-top:8px solid white;border-bottom:8px solid white;
-            &.arrow-done{border-left-color:$colorDone;}
-        }
-        &.position-done{
-            @media screen and (min-width:0){background-color:$colorDone;}
-            .step-arrow{border-left-color:$colorDone;}
-        }
-        &.first-position .step-arrow{border-color:transparent;}
-        .step-label{font:12px/normal NSimSun;color:#999;margin-top:20px;width:500%;margin-left:-200%;}
-    }
 }
 
-@mixin grid(){
-	@include flexbox;width:100%;
-	@media \0screen{
-		display:table;
-		&.layout-auto{table-layout:auto;}
-		&.layout-fixed{table-layout:fixed;}
+@mixin stateStep($width:100%, $color:#ccc, $colorDone:#0dffaf) {
+	width: $width;
+	padding: 50px 150px 80px;
+	margin: auto;
+	.step-progress {
+		position: relative;
+		height: 8px;
+		background: $color;
 	}
-	@media screen and (min-width:0\0) and (min-resolution:.001dpcm){
-		display:table;
-		&.layout-auto{table-layout:auto;}
-		&.layout-fixed{table-layout:fixed;}
+	.step-progress-done {
+		@include absolute(left 0 top 0);
+		height: 8px;
+		background: $colorDone;
 	}
-	&.inline-grid{
-		@include inline-flex;width:auto;
-		@media \0screen{display:inline-table;}
-		@media screen and (min-width:0\0) and (min-resolution:.001dpcm){display:inline-table;}
-	}
-	&.grid-column{
-		display:block;
-		>.col,>.col-reset{display:block;}
-		>.col-reset{height:100%;}
-		@include flex-direction(column);@include flexbox;
+	.step-position {
+		@include size(28px);
+		@include absolute(top -10px);
+		margin-left: -7px;
+		font: 18px/28px "Microsoft YaHei";
+		text-align: center;
+		color: white;
+		@media screen and (min-width: 0) {
+			@include border-radius(50%);
+			background-color: $color;
+		}
+		.step-arrow {
+			display: block;
+			@include size(0);
+			margin-top: -22px;
+			margin-left: -12px;
+			border: 12px solid $color;
+			border-right: 0px solid white;
+			border-top: 8px solid white;
+			border-bottom: 8px solid white;
+			&.arrow-done {
+				border-left-color: $colorDone;
+			}
+		}
+		&.position-done {
+			@media screen and (min-width: 0) {
+				background-color:$colorDone;
+			}
+			.step-arrow {
+				border-left-color: $colorDone;
+			}
+		}
+		&.first-position .step-arrow {
+			border-color: transparent;
+		}
+		.step-label {
+			font: 12px/normal NSimSun;
+			color: #999;
+			margin-top: 20px;
+			width: 500%;
+			margin-left: -200%;
+		}
 	}
 }
-@mixin inline-grid{
+
+@mixin grid() {
+	@include flexbox;
+	width: 100%;
+	@media \0screen {
+		display: table;
+		&.layout-auto {
+			table-layout: auto;
+		}
+		&.layout-fixed {
+			table-layout: fixed;
+		}
+	}
+	@media screen and (min-width:0\0) and (min-resolution:.001dpcm) {
+		display: table;
+		&.layout-auto {
+			table-layout: auto;
+		}
+		&.layout-fixed {
+			table-layout: fixed;
+		}
+	}
+	&.inline-grid {
+		@include inline-flex;
+		width: auto;
+		@media \0screen {
+			display: inline-table;
+		}
+		@media screen and (min-width:0\0) and (min-resolution:.001dpcm) {
+			display: inline-table;
+		}
+	}
+	&.grid-column {
+		display: block;
+		>.col, >.col-reset {
+			display: block;
+		}
+		>.col-reset {
+			height: 100%;
+		}
+		@include flex-direction(column);
+		@include flexbox;
+	}
+}
+
+@mixin inline-grid {
 	@include inline-flex;
-	@media \0screen{display:inline-table;}
-	@media screen and (min-width:0\0) and (min-resolution:.001dpcm){display:inline-table;}
+	@media \0screen {
+		display: inline-table;
+	}
+	@media screen and (min-width:0\0) and (min-resolution:.001dpcm) {
+		display: inline-table;
+	}
 }
-@mixin col($width:null){
-	@media \0screen{display:table-cell;vertical-align:top;}
-	@media screen and (min-width:0\0) and (min-resolution:.001dpcm){display:table-cell;vertical-align:top;}
-	@at-root_:-ms-lang(x),#{&}{display:inline-block\9;}
-	@include flex(0,0,if($width,$width,auto));width:$width;
+
+@mixin col($width:null) {
+	@media \0screen {
+		display: table-cell;
+		vertical-align: top;
+	}
+	@media screen and (min-width:0\0) and (min-resolution:.001dpcm) {
+		display: table-cell;
+		vertical-align: top;
+	}
+	@at-root_:-ms-lang(x), #{&} {
+		display: inline-block\9;
+	}
+	@include flex(0, 0, if($width, $width, auto));
+	width:$width;
 }
-@mixin col-auto($grow:0,$shrink:0,$basis:auto){
-	$width:if($grow==1 and $basis==auto,100%,$basis);
-	@media \0screen{display:table-cell;vertical-align:top;}
-	@media screen and (min-width:0\0) and (min-resolution:.001dpcm){display:table-cell;vertical-align:top;}
-	@at-root_:-ms-lang(x),#{&}{display:inline-block\9;}
-	@include flex($grow,$shrink,$basis);width:#{$width};
+
+@mixin col-auto($grow:0, $shrink:0, $basis:auto) {
+	$width: if($grow==1 and $basis==auto, 100%, $basis);
+	@media \0screen {
+		display: table-cell;
+		vertical-align: top;
+	}
+	@media screen and (min-width:0\0) and (min-resolution:.001dpcm) {
+		display: table-cell;
+		vertical-align: top;
+	}
+	@at-root_:-ms-lang(x), #{&} {
+		display: inline-block\9;
+	}
+	@include flex($grow, $shrink, $basis);
+	width:#{$width};
 }

@@ -1,93 +1,184 @@
 @charset "utf-8";
 // @import "./fn";
+.cf {
+	@include cf;
+}
 
-.cf{@include cf;}
-.imgc{@include imgc;}
-.imge{@include imge;}
+.imgc {
+	@include imgc;
+}
 
-.ib{@include ib;}
-.badge{border-radius:50%;overflow:hidden;}
-.img-ctn{@include imgc(1);white-space:nowrap;}
-.flex-img-ctn{
+.imge {
+	@include imge;
+}
+
+.ib {
+	@include ib;
+}
+
+.badge {
+	border-radius: 50%;
+	overflow: hidden;
+}
+
+.img-ctn {
+	@include imgc(1);
+	white-space: nowrap;
+}
+
+.flex-img-ctn {
 	@include relative;
-	>img,.img-ctn{@include absolute(left 0 top 0);width:100%;}
-	.img-ctn{height:100%;}
+	>img, .img-ctn {
+		@include absolute(left 0 top 0);
+		width: 100%;
+	}
+	.img-ctn {
+		height: 100%;
+	}
 }
 
-.ib-row{@include imgc(0,'',left);}
-.ib-col,.ib-col-full{@include imge(top);}
-.ib-col-full{width:100%;}
-.ib-row{
-	&.ib-col,&.ib-col-full{font-size:0;}
+.ib-row {
+	@include imgc(0, '', left);
 }
-.txt-lt{text-align:left !important;}
-.txt-rt{text-align:right !important;}
-.txt-ct{text-align:center !important;}
-.txt-jt{
-	text-align:justify !important;
-	&.ie-pure-txt{text-justify:distribute-all-lines !important;}
-	&:after{content:'';}
-	&:after,.iecp{
-		@include ib;@include size(100%,0px);
-		overflow:hidden;line-height:0;padding:0;border:none;
+
+.ib-col, .ib-col-full {
+	@include imge(top);
+}
+
+.ib-col-full {
+	width: 100%;
+}
+
+.ib-row {
+	&.ib-col, &.ib-col-full {
+		font-size: 0;
 	}
-	// .i{@include ib;font-style:normal;}
 }
-.txt-clean{
-	*{
-		&:empty{display:none;}
-		&:before{content:normal;}
-		&:after{content:normal;}
-		text-align:left!important;
-		float:none!important;
-		vertical-align:baseline!important;
-		background:transparent!important;
-		text-decoration:none!important;
-		font-size:14px!important;
-		font-size:inherit!important;
-		border:none!important;
-		box-shadow:none!important;
-		display:inline!important;
-		margin:0!important;
-		padding:0!important;
-		height:auto!important;
-		width:auto!important;
-		font-weight:normal!important;
-		font-weight:inherit!important;
+
+.txt-lt {
+	text-align: left !important;
+}
+
+.txt-rt {
+	text-align: right !important;
+}
+
+.txt-ct {
+	text-align: center !important;
+}
+
+.txt-jt {
+	text-align: justify !important;
+	&.ie-pure-txt {
+		text-justify: distribute-all-lines !important;
+	}
+	&:after {
+		content: '';
+	}
+	&:after, .iecp {
+		@include ib;
+		@include size(100%, 0px);
+		overflow: hidden;
+		line-height: 0;
+		padding: 0;
+		border: none;
+	} // .i{@include ib;font-style:normal;}
+}
+
+.txt-clean {
+	* {
+		&:empty {
+			display: none;
+		}
+		&:before {
+			content: normal;
+		}
+		&:after {
+			content: normal;
+		}
+		text-align:left !important;
+		float:none !important;
+		vertical-align:baseline !important;
+		background:transparent !important;
+		text-decoration:none !important;
+		font-size:14px !important;
+		font-size:inherit !important;
+		border:none !important;
+		box-shadow:none !important;
+		display:inline !important;
+		margin:0 !important;
+		padding:0 !important;
+		height:auto !important;
+		width:auto !important;
+		font-weight:normal !important;
+		font-weight:inherit !important;
 		line-height:normal !important;
 		line-height:inherit !important;
-		color:#666!important;
-		color:inherit!important;
+		color:#666 !important;
+		color:inherit !important;
 	}
-	&,*{word-break:break-all!important;word-wrap:break-word!important;}
-	a,button,input{pointer-events:none!important;}
-	br,img{display:none!important;}
+	&, * {
+		word-break: break-all !important;
+		word-wrap: break-word !important;
+	}
+	a, button, input {
+		pointer-events: none !important;
+	}
+	br, img {
+		display: none !important;
+	}
 }
 
-.vt-top{vertical-align:top !important;}
-.vt-mid{vertical-align:middle !important;}
-.vt-btm{vertical-align:bottom !important;}
-.vt-bsl{vertical-align:baseline !important;}
+.vt-top {
+	vertical-align: top !important;
+}
 
-.grid{
+.vt-mid {
+	vertical-align: middle !important;
+}
+
+.vt-btm {
+	vertical-align: bottom !important;
+}
+
+.vt-bsl {
+	vertical-align: baseline !important;
+}
+
+.grid {
 	@include grid;
-	&.inline-grid{@include inline-grid;width:auto;}
-	&.vt-top{
+	&.inline-grid {
+		@include inline-grid;
+		width: auto;
+	}
+	&.vt-top {
 		@include align-items(flex-start);
-		.col,.col-rest{vertical-align:top;}
+		.col, .col-rest {
+			vertical-align: top;
+		}
 	}
-	&.vt-btm{
+	&.vt-btm {
 		@include align-items(flex-end);
-		.col,.col-rest{vertical-align:bottom;}
+		.col, .col-rest {
+			vertical-align: bottom;
+		}
 	}
-	&.vt-mid{
+	&.vt-mid {
 		@include align-items(center);
-		.col,.col-rest{vertical-align:middle;}
+		.col, .col-rest {
+			vertical-align: middle;
+		}
 	}
-	&.vt-bsl{
+	&.vt-bsl {
 		@include align-items(baseline);
-		.col,.col-rest{vertical-align:baseline;}
+		.col, .col-rest {
+			vertical-align: baseline;
+		}
 	}
-	.col{@include col;}
-	.col-rest{@include col-auto(1,1,auto);}
+	.col {
+		@include col;
+	}
+	.col-rest {
+		@include col-auto(1, 1, auto);
+	}
 }
