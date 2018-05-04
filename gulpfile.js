@@ -1,16 +1,16 @@
 var argsOptions = require('./config/options');
 var args    = require('args');
 var options = args.options(argsOptions);
-var uglifyjs2_config = {
-	ie8:true,
-	compress: {screw_ie8:false, unsafe_comps:false, properties:false, comparisons:false},
-	output  : {screw_ie8:false, quote_keys:true, ascii_only:true},
-	// mangle  : false
-	mangle: {
-		screw_ie8:false,
-		reserved:['$super']
-	}
-};
+// var uglifyjs2_config = {
+// 	ie8:true,
+// 	compress: {screw_ie8:false, unsafe_comps:false, properties:false, comparisons:false},
+// 	output  : {screw_ie8:false, quote_keys:true, ascii_only:true},
+// 	// mangle  : false
+// 	mangle: {
+// 		screw_ie8:false,
+// 		reserved:['$super']
+// 	}
+// };
 var uglifyjs3_config = {
 	ie8:true
 };
@@ -78,8 +78,8 @@ gulp.task('del', function(cb){
 gulp.task('css', ['del'], function(){
 	var dist = '*'===project ? '' : project;
 	return gulp.src('public/'+project+'/**/*.css')
-	.pipe(cleanCss({compatibility:"ie7"}))
-	.pipe(gulp.dest('dist/'+dist));
+		.pipe(cleanCss({compatibility:"ie7"}))
+		.pipe(gulp.dest('dist/'+dist));
 });
 gulp.task('js', ['del'], function(){
 	var dist = '*'===project ? '' : project;
@@ -94,8 +94,8 @@ gulp.task('html', ['del'], function(){
 	var src = ['public/'+project+'/**/*.html'];
 	if('*'===project) src.push('public/*.html');
 	return gulp.src(src)
-	.pipe(replace(/__version__/gi, timeString))
-	.pipe(gulp.dest('dist/'+dist));
+		.pipe(replace(/__version__/gi, timeString))
+		.pipe(gulp.dest('dist/'+dist));
 });
 gulp.task('img', ['del'], function(){
 	var dist = '*'===project ? '' : project;
@@ -111,7 +111,7 @@ gulp.task('img', ['del'], function(){
 gulp.task('sprite', ['del'], function(){
 	var dist = '*'===project ? '' : project;
 	return gulp.src('public/'+project+'/**/*')
-	.pipe(gulp.dest('dist/'+dist));
+		.pipe(gulp.dest('dist/'+dist));
 });
 
 gulp.task('webpack', ['del'], function(cb){
@@ -152,5 +152,5 @@ gulp.task('default', task_list, function(){
 	if('*'===project) project = '';
 	server.remotePath += project;
 	return gulp.src('dist/'+project+'/**/*')
-	.pipe(sftp(server));
+		.pipe(sftp(server));
 });
