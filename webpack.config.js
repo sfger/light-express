@@ -1,17 +1,18 @@
-var path = require('path');
-var glob = require('glob');
-var root = path.resolve(__dirname);
-var webpack = require('webpack');
-// var WebpackMd5Hash = require('webpack-md5-hash');
-var sassconfig = require('./sass.config.js');
-var es3ifyPlugin = require('es3ify-webpack-plugin');
-var entrysArray = glob.sync("**/*.@(entry).@(js?(x)|ts)", {
+const path = require('path');
+const glob = require('glob');
+const root = path.resolve(__dirname);
+const webpack = require('webpack');
+const { VueLoaderPlugin } = require('vue-loader')
+// let WebpackMd5Hash = require('webpack-md5-hash');
+let sassconfig = require('./sass.config.js');
+let es3ifyPlugin = require('es3ify-webpack-plugin');
+let entrysArray = glob.sync("**/*.@(entry).@(js?(x)|ts)", {
 	cwd:'./src/',
 	nobrace:true
 });
 // console.log(entrysArray);
 // process.exit();
-var entryMap = {};
+let entryMap = {};
 entrysArray.forEach((one) => {
 	entryMap[one.replace(/\.entry\.(jsx?|ts)?$/, '')] = './' + one;
 });
@@ -22,7 +23,7 @@ entrysArray.forEach((one) => {
 // 	'webpack-dev-server/client?http://localhost',
 // ];
 // console.log(entryMap);
-var moduleResolver = ["module-resolver", {
+let moduleResolver = ["module-resolver", {
 	root: ['./'],
 	alias: {
 		"^@(.+)": "./components/\\1",
@@ -81,12 +82,12 @@ module.exports = {
 			{
 				test: /\.vue$/,
 				loader: 'vue-loader',
-				options: {
-					loaders: {
-						'scss': 'vue-style-loader!css-loader!sass-loader',
-						'sass': 'vue-style-loader!css-loader!sass-loader?indentedSyntax'
-					}
-				}
+				// options: {
+				// 	loaders: {
+				// 		'scss': 'vue-style-loader!css-loader!sass-loader',
+				// 		'sass': 'vue-style-loader!css-loader!sass-loader?indentedSyntax'
+				// 	}
+				// }
 			},
 			{
 				test:/\.ts$/,
@@ -132,7 +133,7 @@ module.exports = {
 			{
 				test: /\.scss$/,
 				use: [{
-					loader: "style-loader",
+					loader: "vue-style-loader",
 					options: {
 						insertAt: "bottom"
 					}
@@ -146,7 +147,7 @@ module.exports = {
 			{
 				test: /\.less$/,
 				use: [{
-					loader: "style-loader",
+					loader: "vue-style-loader",
 					options: {
 						insertAt: 'bottom'
 					}
@@ -154,13 +155,12 @@ module.exports = {
 					loader: 'css-loader'
 				}, {
 					loader: 'less-loader',
-					options: { javascriptEnabled: true }
 				}]
 			},
 			{
 				test:/\.css$/,
 				// exclude:/(node_modules)/,
-				use:[ 'style-loader', 'css-loader' ]
+				use:[ 'vue-style-loader', 'css-loader' ]
 			},
 			{
 				test:/\.(png|jpg)$/,
@@ -177,6 +177,7 @@ module.exports = {
 	plugins:[
 		new es3ifyPlugin(),
 		new webpack.optimize.ModuleConcatenationPlugin(),
+		new VueLoaderPlugin(),
 		// new WebpackMd5Hash()
 	],
 	performance: false
