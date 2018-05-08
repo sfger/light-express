@@ -151,7 +151,7 @@ gulp.task('deploy', function(){
 	return gulp.src('dist/'+project+'/**/*')
 		.pipe(sftp(server));
 });
-let tasks = ['del', 'css', 'img', 'webpack', 'js', 'html', 'deploy'];
+let tasks = ['del', 'css', 'img', 'webpack', 'js'];
 if('test'===parsed_args.server) tasks.push('html');
 tasks.push('deploy');
 gulp.task('default', gulp.series.call(null, tasks));

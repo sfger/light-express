@@ -35,6 +35,10 @@
 Object.defineProperty = function(obj, key, value){
 	obj[key] = value.value||value;
 };
+Object.setPrototypeOf = function(obj, proto){
+	obj.prototype = proto;
+	return obj;
+};
 </script>
 <![endif]-->
 <script src="../../../../public/js/es6-shim.js"></script>

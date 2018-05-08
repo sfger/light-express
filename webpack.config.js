@@ -36,7 +36,7 @@ let moduleResolver = ["module-resolver", {
 module.exports = {
 	mode: 'development',
 	context: path.normalize(root + '/src/'),
-	// devtool: false,
+	devtool: false,
 	entry: entryMap,
 	output:{
 		path: path.normalize(root + '/dist/'),
@@ -82,16 +82,9 @@ module.exports = {
 			{
 				test: /\.vue$/,
 				loader: 'vue-loader',
-				// options: {
-				// 	loaders: {
-				// 		'scss': 'vue-style-loader!css-loader!sass-loader',
-				// 		'sass': 'vue-style-loader!css-loader!sass-loader?indentedSyntax'
-				// 	}
-				// }
 			},
 			{
 				test:/\.ts$/,
-				// loader:'ts-loader'
 				exclude:/(node_modules)/,
 				use:[
 					{

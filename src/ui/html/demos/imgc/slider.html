@@ -10,6 +10,7 @@ shim:{
 }
 });
 require(['jquery', 'IScroll'],function($, IScroll){
+document.querySelector('.scroller').addEventListener('touchmove', function(e){ e.preventDefault(); }, { passive: false })
 $('button').click(function(){
 $('.slide-ctn').addClass('slide-in');
 });

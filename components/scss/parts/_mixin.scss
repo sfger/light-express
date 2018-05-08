@@ -13,6 +13,9 @@ $color_theme :#39f !default;
 $color_success :#0c6 !default;
 $color_error :#f30 !default;
 $color_warning :#f90 !default;
+$hack_ie8: "\\0screen";
+$hack_ie9: "screen and (min-width:0\\0) and (min-resolution:.001dpcm)";
+$hack_ie10p: "_:-ms-lang(x)";
 @import "flex";
 
 @function expr($expr) {
@@ -207,7 +210,8 @@ $color_warning :#f90 !default;
 	$rgba: rgba($color, $alpha);
 	$ie-hex-str: ie-hex-str($rgba);
 	background-color: $rgba;
-	@media \0screen\,screen\9 {
+	@media #{$hack_ie8} {
+		background-color: transparent;
 		filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#{$ie-hex-str}, endColorstr=#{$ie-hex-str});
 	}
 }
@@ -251,7 +255,7 @@ $color_warning :#f90 !default;
 	@else {
 		background: $color;
 	}
-	@media \0screen {
+	@media #{$hack_ie8} {
 		@include relative(null, 1);
 		border: none;
 		background: transparent;
@@ -634,7 +638,7 @@ $shadowColor: currentcolor) {
 @mixin grid() {
 	@include flexbox;
 	width: 100%;
-	@media \0screen {
+	@media #{$hack_ie8} {
 		display: table;
 		&.layout-auto {
 			table-layout: auto;
@@ -643,7 +647,7 @@ $shadowColor: currentcolor) {
 			table-layout: fixed;
 		}
 	}
-	@media screen and (min-width:0\0) and (min-resolution:.001dpcm) {
+	@media #{$hack_ie9} {
 		display: table;
 		&.layout-auto {
 			table-layout: auto;
@@ -655,10 +659,10 @@ $shadowColor: currentcolor) {
 	&.inline-grid {
 		@include inline-flex;
 		width: auto;
-		@media \0screen {
+		@media #{$hack_ie8} {
 			display: inline-table;
 		}
-		@media screen and (min-width:0\0) and (min-resolution:.001dpcm) {
+		@media #{$hack_ie9} {
 			display: inline-table;
 		}
 	}
@@ -677,43 +681,43 @@ $shadowColor: currentcolor) {
 
 @mixin inline-grid {
 	@include inline-flex;
-	@media \0screen {
+	@media #{$hack_ie8} {
 		display: inline-table;
 	}
-	@media screen and (min-width:0\0) and (min-resolution:.001dpcm) {
+	@media #{$hack_ie9} {
 		display: inline-table;
 	}
 }
 
 @mixin col($width:null) {
-	@media \0screen {
+	@media #{$hack_ie8} {
 		display: table-cell;
 		vertical-align: top;
 	}
-	@media screen and (min-width:0\0) and (min-resolution:.001dpcm) {
+	@media #{$hack_ie9} {
 		display: table-cell;
 		vertical-align: top;
 	}
-	@at-root_:-ms-lang(x), #{&} {
+	@at-root #{$hack_ie10p}, #{&} {
 		display: inline-block\9;
 	}
 	@include flex(0, 0, if($width, $width, auto));
-	width:$width;
+	width: $width;
 }
 
 @mixin col-auto($grow:0, $shrink:0, $basis:auto) {
 	$width: if($grow==1 and $basis==auto, 100%, $basis);
-	@media \0screen {
+	@media #{$hack_ie8} {
 		display: table-cell;
 		vertical-align: top;
 	}
-	@media screen and (min-width:0\0) and (min-resolution:.001dpcm) {
+	@media #{$hack_ie9} {
 		display: table-cell;
 		vertical-align: top;
 	}
-	@at-root_:-ms-lang(x), #{&} {
+	@at-root #{$hack_ie10p}, #{&} {
 		display: inline-block\9;
 	}
 	@include flex($grow, $shrink, $basis);
-	width:#{$width};
+	width: $width;
 }

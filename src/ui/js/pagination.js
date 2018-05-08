@@ -1,7 +1,7 @@
 (function(window){
 	"use strict";
 	var pagination = function(options){
-		options = light.util.extend({
+		options = $.extend(true, {
 			useAjax:false,
 			dataSize:0,
 			pageSize:25,
@@ -149,7 +149,7 @@
 		for(var i=0; i<options.renders.length; i++){
 			//options.render = options.renders[i];
 			options.renders[i].ui = {
-				iPagination:pagination(light.util.extend(true, {render:options.renders[i]}, options))
+				iPagination:pagination($.extend(true, {render:options.renders[i]}, options))
 			};
 		}
 	};

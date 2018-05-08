@@ -1,38 +1,99 @@
 @charset "utf-8";
 $basePath:'../' !default;
-.tree-container{
-	width:auto;overflow:auto;background:white;
-	ul{
-		&[data-deep="1"]{/*@include ib(top);*/display:inline-block;vertical-align:top;min-width:100%;}
-		li{
-			ul{
-				width:auto;height:auto;_line-height:0;_font-size:0;
-				ul{display:none;}
+.tree-container {
+	width: auto;
+	overflow: auto;
+	background: white;
+	ul {
+		&[data-deep="1"] {
+			/*@include ib(top);*/
+			display: inline-block;
+			vertical-align: top;
+			min-width: 100%;
+		}
+		li {
+			ul {
+				width: auto;
+				height: auto;
+				_line-height: 0;
+				_font-size: 0;
+				ul {
+					display: none;
+				}
 			}
-			ul,li{width:auto;vertical-align:middle;list-style:none;}
+			ul, li {
+				width: auto;
+				vertical-align: middle;
+				list-style: none;
+			}
 		}
-		li a{
-			display:block;white-space:nowrap;line-height:normal;height:19px;
-			color:black;_font-size:16px; text-decoration:none;background:transparent;cursor:pointer;
-			&:hover,&.hover{background:#e1e1e1;}
-			&.current{background:#d1d1d1;}
+		li a {
+			display: block;
+			white-space: nowrap;
+			line-height: normal;
+			height: 19px;
+			color: black;
+			_font-size: 16px;
+			text-decoration: none;
+			background: transparent;
+			cursor: pointer;
+			&:hover, &.hover {
+				background: #e1e1e1;
+			}
+			&.current {
+				background: #d1d1d1;
+			}
 		}
 	}
-	.indent,.join,.hit,.file,.folder,.checkbox,.title{
-		@extend %ib;cursor:pointer;width:16px;height:18px;//line-height:18px;overflow:hidden;
+	.indent, .join, .hit, .file, .folder, .checkbox, .title {
+		@extend %ib;
+		cursor: pointer;
+		width: 16px;
+		height: 18px; //line-height:18px;overflow:hidden;
 	}
-	.title{width:auto;padding:0 0 0 2px;}
-	.checkbox,.checkbox-some,.checkbox-all,.indent,.join,.hit,.folder,.hit-open,.file{
-		background-image: url(#{$basePath}/img/tree_icons.png);background-repeat:no-repeat;background-attachment:scroll;
+	.title {
+		width: auto;
+		padding: 0 0 0 2px;
 	}
-	.checkbox{background-position:-208px -18px;}
-	.checkbox-some{background-position:-240px -18px;}
-	.checkbox-all{background-position:-224px -18px;}
-	.indent{background-position:-176px 0;}
-	.join{background-position:-192px 0;}
-	.hit{background-position:-128px 0;}
-	.folder{background-position:-208px 0;}
-	.hit-open{background-position:-144px 0;}
-	.file{background-position:-240px 0;}
+	.checkbox, .checkbox-some, .checkbox-all, .indent, .join, .hit, .folder, .hit-open, .file {
+		background-image: url(#{$basePath}/img/tree_icons.png);
+		background-repeat: no-repeat;
+		background-attachment: scroll;
+	}
+	.checkbox {
+		background-position: -208px -18px;
+	}
+	.checkbox-some {
+		background-position: -240px -18px;
+	}
+	.checkbox-all {
+		background-position: -224px -18px;
+	}
+	.indent {
+		background-position: -176px 0;
+	}
+	.join {
+		background-position: -192px 0;
+	}
+	.hit {
+		background-position: -128px 0;
+	}
+	.folder {
+		background-position: -208px 0;
+	}
+	.hit-open {
+		background-position: -144px 0;
+	}
+	.file {
+		background-position: -240px 0;
+	}
 }
-.tree-draging-proxy{display:none;position:absolute;padding:2px 8px;border:1px solid #ccc;background:#eee;border-radius:3px;}
+
+.tree-draging-proxy {
+	display: none;
+	position: absolute;
+	padding: 2px 8px;
+	border: 1px solid #ccc;
+	background: #eee;
+	border-radius: 3px;
+}

@@ -1,131 +1,258 @@
 @charset "utf-8";
 $is_mobile:1 !default; // 兼容PC
-*,*:before,*:after,*::before,*::after{@include box-sizing(border-box);}
-html{font-size:100px;font-size:calc(100vw/3.75);}
-body,.page{font-size:0.14rem;}
-html,body,.page{
-	@include size(100%);overflow:hidden;color:#666;
-	font-family:PingFangSC-Regular,"Droid Sans Regular","Rotobo";
+*, *:before, *:after, *::before, *::after {
+	@include box-sizing(border-box);
 }
-body{position:relative;overflow-x:hidden;} // safari滚动条的问题
-.hidden{display:none;}
-a{color:$color_default;}
 
-@include keyframes(stateLoading){
-    0%{@include prefix((transform:rotate(0deg)));}
-    24%{@include prefix((transform:rotate(180deg)));}
-    58%{@include prefix((transform:rotate(290deg)));}
-    100%{@include prefix((transform:rotate(360deg)));}
+html {
+	font-size: 100px;
+	font-size: calc(100vw/3.75);
 }
+
+body, .page {
+	font-size: 0.14rem;
+}
+
+html, body, .page {
+	@include size(100%);
+	overflow: hidden;
+	color: #666;
+	font-family: PingFangSC-Regular, "Droid Sans Regular", "Rotobo";
+}
+
+body {
+	position: relative;
+	overflow-x: hidden;
+} // safari滚动条的问题
+.hidden {
+	display: none;
+}
+
+a {
+	color: $color_default;
+}
+
+@include keyframes(stateLoading) {
+	0% {
+		@include prefix((transform: rotate(0deg)));
+	}
+	24% {
+		@include prefix((transform: rotate(180deg)));
+	}
+	58% {
+		@include prefix((transform: rotate(290deg)));
+	}
+	100% {
+		@include prefix((transform: rotate(360deg)));
+	}
+}
+
 // @keyframes stateLoading{
 //     0%{transform:rotate(0deg);}
 //     24%{transform:rotate(180deg);}
 //     58%{transform:rotate(290deg);}
 //     100%{transform:rotate(360deg);}
 // }
-.icon-loading,#stateLoading{
-	@include ib;@include size(0.4rem);border-radius:100%;
-	@include prefix((animation:stateLoading 1s linear 0s infinite normal));
-	border:0.03rem solid $color_blue;border-right-color:transparent;
-	border-left-color:lighten($color_blue, 7.5%);
-	border-bottom-color:lighten($color_blue, 25%);
+.icon-loading, #stateLoading {
+	@include ib;
+	@include size(0.4rem);
+	border-radius: 100%;
+	@include prefix((animation: stateLoading 1s linear 0s infinite normal));
+	border: 0.03rem solid $color_blue;
+	border-right-color: transparent;
+	border-left-color: lighten($color_blue, 7.5%);
+	border-bottom-color: lighten($color_blue, 25%);
 }
 
-.arrow-left{
-	&:before{content:"";@include triangle(left, left 0.10rem top 0.11rem,#666,0.11rem);}
-	&:after {content:"";@include triangle(left, left 0.12rem top 0.11rem,white,0.11rem);}
+.arrow-left {
+	&:before {
+		content: "";
+		@include triangle(left, left 0.10rem top 0.11rem, #666, 0.11rem);
+	}
+	&:after {
+		content: "";
+		@include triangle(left, left 0.12rem top 0.11rem, white, 0.11rem);
+	}
 }
-.checkbox{
-	@include prefix((appearance:none));@include ib;@include size(0.18rem);border-radius:50%;
-	line-height:0.16rem;color:#d6d6d6;border:0.01rem solid;text-align:center;
-	&:after{content:"\2713";}
-	&:checked{color:white;background:$color_blue;border-color:$color_blue;}
+
+.checkbox {
+	@include prefix((appearance: none));
+	@include ib;
+	@include size(0.18rem);
+	border-radius: 50%;
+	line-height: 0.16rem;
+	color: #d6d6d6;
+	border: 0.01rem solid;
+	text-align: center;
+	&:after {
+		content: "\2713";
+	}
+	&:checked {
+		color: white;
+		background: $color_blue;
+		border-color: $color_blue;
+	}
 }
 
 // 头部固定，内容滚动
-.page{
-	-webkit-tap-highlight-color:rgba(#000,0);-webkit-touch-callout:none;
-	@include flexbox;@include flex-direction(column);
-}
-.header{
-	@include flex(0,0,0.44rem);@include relative;z-index:10;background-color:rgba(#fff,0.8);
-	@include flexbox;@include justify-content(space-between);@include align-items(center);
-	text-align:center;
-	#{&},#{&} a{font-size:0.18rem;color:$color_dark;}
-	.page-title{font-size:0.2rem;}
-	.action-left,.action-right{@include size(0.50rem,0.44rem);display:block;line-height:0.44rem;}
-}
-.footer{@include flex(0,0,0.44rem);}
-.wrapper{
-	@include flex(1,1,auto);@include relative();font-size:0.14rem;overflow:hidden;
-	&.webkit-scroll{-webkit-overflow-scrolling:touch;overflow-y:scroll;overflow-x:hidden;}
+.page {
+	-webkit-tap-highlight-color: rgba(#000, 0);
+	-webkit-touch-callout: none;
+	@include flexbox;
+	@include flex-direction(column);
 }
 
-.dialog-ctn{
-	@include size(100%);@include fixed(top 0 left 0);z-index:100;
-	@include flexbox();@include align-items(center);@include justify-content(center);
-	@include background-color-rgba(#444,0.68);
-	&.hidden{display:none;}
-	.dialog-content{
-		width:85%;overflow:hidden;background:white;border-radius:0.03rem;
-		.dialog-main{
-			padding:0.06rem 0.1rem;min-height:1rem;
-			@include flexbox();@include justify-content(center);@include align-items(center);
-		}
+.header {
+	@include flex(0, 0, 0.44rem);
+	@include relative;
+	z-index: 10;
+	background-color: rgba(#fff, 0.8);
+	@include flexbox;
+	@include justify-content(space-between);
+	@include align-items(center);
+	text-align: center;
+	#{&}, #{&} a {
+		font-size: 0.18rem;
+		color: $color_dark;
 	}
-	&.loading-state{
-		background-color:rgba(white,0.5);
-		.dialog-content{
-			padding:0.06rem 0.10rem;
-			@include background-color-rgba(transparent,0);
-			@include flexbox();@include justify-content(center);
-		}
+	.page-title {
+		font-size: 0.2rem;
 	}
-	&.dialog-tip{
-		@include background-color-rgba(white,0.01);
-		.dialog-content{
-			width:auto;max-width:85%;min-width:33.333%;
-			padding:0.12rem 0.25rem;
-			@include background-color-rgba(black,0.75);color:white;
-			@include flexbox();@include justify-content(center);
-		}
-	}
-}
-.btn-group{
-	@include flexbox();@include justify-content(center);
-	border-top:0.01rem solid #e2e2e2;
-	span{
-		@include flex(1,1,50%);@include user-select(none);text-align:center;line-height:0.4rem;
-		@include flexbox;@include justify-content(center);@include align-items(center);
-	}
-	.btn-submit{color:hsl(188,72%,51%);border-left:0.01rem solid #e2e2e2;}
-}
-
-.slide-ctn{
-	@include fixed(top 0 left 0,10);@include size(100%);
-	@include flexbox;@include flex-direction(column);
-	@include prefix((transform:translate3d(101%,0,0),transition:all 0.35s ease 0s));
-	background:white;
-	&.slide-in{
-		@include prefix((transform:translate3d(0,0,0)));
+	.action-left, .action-right {
+		@include size(0.50rem, 0.44rem);
+		display: block;
+		line-height: 0.44rem;
 	}
 }
 
-.load-more{
-	display:none;font:16px SimHei;color:$color_blue;
-	height:0.4rem;line-height:0.4rem;
-	text-align:center;
-	.icon-loading{display:none;}
-	&.state-preloading{
-		&:before{content:'加载更多数据……';@include ib;}
+.footer {
+	@include flex(0, 0, 0.44rem);
+}
+
+.wrapper {
+	@include flex(1, 1, auto);
+	@include relative();
+	font-size: 0.14rem;
+	overflow: hidden;
+	&.webkit-scroll {
+		-webkit-overflow-scrolling: touch;
+		overflow-y: scroll;
+		overflow-x: hidden;
 	}
-	&.state-loading,&.state-preloading,&.state-done{display:block;}
-	&.state-loading{
-		&:before{content:normal;}
-		span{display:inline-block;}
+}
+
+.dialog-ctn {
+	@include size(100%);
+	@include fixed(top 0 left 0);
+	z-index: 100;
+	@include flexbox();
+	@include align-items(center);
+	@include justify-content(center);
+	@include background-color-rgba(#444, 0.68);
+	&.hidden {
+		display: none;
 	}
-	&.state-done{
-		&:before{content:'无更多数据';}
-		span{display:none;}
+	.dialog-content {
+		width: 85%;
+		overflow: hidden;
+		background: white;
+		border-radius: 0.03rem;
+		.dialog-main {
+			padding: 0.06rem 0.1rem;
+			min-height: 1rem;
+			@include flexbox();
+			@include justify-content(center);
+			@include align-items(center);
+		}
+	}
+	&.loading-state {
+		background-color: rgba(white, 0.5);
+		.dialog-content {
+			padding: 0.06rem 0.10rem;
+			@include background-color-rgba(transparent, 0);
+			@include flexbox();
+			@include justify-content(center);
+		}
+	}
+	&.dialog-tip {
+		@include background-color-rgba(white, 0.01);
+		.dialog-content {
+			width: auto;
+			max-width: 85%;
+			min-width: 33.333%;
+			padding: 0.12rem 0.25rem;
+			@include background-color-rgba(black, 0.75);
+			color: white;
+			@include flexbox();
+			@include justify-content(center);
+		}
+	}
+}
+
+.btn-group {
+	@include flexbox();
+	@include justify-content(center);
+	border-top: 0.01rem solid #e2e2e2;
+	span {
+		@include flex(1, 1, 50%);
+		@include user-select(none);
+		text-align: center;
+		line-height: 0.4rem;
+		@include flexbox;
+		@include justify-content(center);
+		@include align-items(center);
+	}
+	.btn-submit {
+		color: hsl(188, 72%, 51%);
+		border-left: 0.01rem solid #e2e2e2;
+	}
+}
+
+.slide-ctn {
+	@include fixed(top 0 left 0, 10);
+	@include size(100%);
+	@include flexbox;
+	@include flex-direction(column);
+	@include prefix((transform: translate3d(101%, 0, 0), transition:all 0.35s ease 0s));
+	background: white;
+	&.slide-in {
+		@include prefix((transform: translate3d(0, 0, 0)));
+	}
+}
+
+.load-more {
+	display: none;
+	font: 16px SimHei;
+	color: $color_blue;
+	height: 0.4rem;
+	line-height: 0.4rem;
+	text-align: center;
+	.icon-loading {
+		display: none;
+	}
+	&.state-preloading {
+		&:before {
+			content: '加载更多数据……';
+			@include ib;
+		}
+	}
+	&.state-loading, &.state-preloading, &.state-done {
+		display: block;
+	}
+	&.state-loading {
+		&:before {
+			content: normal;
+		}
+		span {
+			display: inline-block;
+		}
+	}
+	&.state-done {
+		&:before {
+			content: '无更多数据';
+		}
+		span {
+			display: none;
+		}
 	}
 }

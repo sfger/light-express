@@ -18,7 +18,7 @@ audio, canvas, video, .imgc:before, .imgc .iecp, .imgc img, .imge, .ib, .img-ctn
 
 html, body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, form, fieldset, legend, input, button, textarea, hr, pre, code, p, blockquote, th, td { margin: 0; padding: 0; }
 
-html { -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; font: 14px/normal "\5b8b\4f53","Microsoft YaHei"; color: #666; }
+html { -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; font: 14px/normal "\5b8b\4f53", "Microsoft YaHei"; color: #666; }
 
 a, button, input select, textarea { font: inherit; color: inherit; }
 
@@ -27,6 +27,8 @@ fieldset, img { border: none; }
 [hidden] { display: none; }
 
 :focus { outline: none; }
+
+input::-ms-clear, input::-ms-reveal { display: none; }
 
 article, aside, details, figcaption, figure, footer, header, hgroup, main, nav, section, summary { display: block; }
 

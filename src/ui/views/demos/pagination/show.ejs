@@ -21,7 +21,7 @@
     <div class="navi"></div>
     <div class="navi"></div>
 </div>
-<script type="text/javascript" src="../../../js/base.js?<%- __version__ %>"></script>
+<script type="text/javascript" src="../../../js/jquery.js?<%- __version__ %>"></script>
 <script type="text/javascript" src="../../../js/pagination.js?<%- __version__ %>"></script>
 <script>
 var a = function(){
@@ -35,9 +35,9 @@ var a = function(){
 		}
 	});
 };
-var Event = light.Event;
-Event.on('load', window, a, true);
-//Event.off('load', window, a, true);
+$(function(){
+	a();
+});
 </script>
 </body>
 </html>
