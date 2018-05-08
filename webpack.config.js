@@ -2,7 +2,7 @@ const path = require('path');
 const glob = require('glob');
 const root = path.resolve(__dirname);
 const webpack = require('webpack');
-const { VueLoaderPlugin } = require('vue-loader')
+const { VueLoaderPlugin } = require('vue-loader');
 // let WebpackMd5Hash = require('webpack-md5-hash');
 let sassconfig = require('./sass.config.js');
 let es3ifyPlugin = require('es3ify-webpack-plugin');
@@ -138,7 +138,11 @@ module.exports = {
 						insertAt: "bottom"
 					}
 				}, {
-					loader: "css-loader"
+					loader: "css-loader",
+					options: {
+						// modules: true,
+						// localIdentName: '[local]_[hash:base64:8]'
+					}
 				}, {
 					loader: "sass-loader",
 					options: sassconfig
@@ -152,15 +156,29 @@ module.exports = {
 						insertAt: 'bottom'
 					}
 				}, {
-					loader: 'css-loader'
+					loader: "css-loader",
+					options: {
+						// modules: true,
+						// localIdentName: '[local]_[hash:base64:8]'
+					}
 				}, {
 					loader: 'less-loader',
+					options: { javascriptEnabled: true }
 				}]
 			},
 			{
 				test:/\.css$/,
 				// exclude:/(node_modules)/,
-				use:[ 'vue-style-loader', 'css-loader' ]
+				use:[
+					'vue-style-loader',
+					{
+						loader: "css-loader",
+						options: {
+							// modules: true,
+							// localIdentName: '[local]_[hash:base64:8]'
+						}
+					}
+				]
 			},
 			{
 				test:/\.(png|jpg)$/,

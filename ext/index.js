@@ -1,28 +1,34 @@
-var fs            = require( 'fs' );
-var path          = require( 'path' );
-var root          = path.normalize( process.cwd() );
-var { Readable }  = require( 'stream' );
-var static_dir    = path.normalize( root + '/src' );
-var view_dir      = static_dir;
-var route_dir     = path.normalize( root + '/routes' );
-var webpack       = require( "webpack" );
+var fs = require( 'fs' );
+var path = require( 'path' );
+var root = path.normalize( process.cwd() );
+var { Readable } = require( 'stream' );
+var static_dir = path.normalize( root + '/src' );
+var view_dir = static_dir;
+var route_dir = path.normalize( root + '/routes' );
+var webpack = require( "webpack" );
 var webpackConfig = require( '../webpack.config.js' );
-var sassconfig    = require( '../sass.config.js' );
-var WebpackDev    = require( "webpack-dev-middleware" );
-var debug         = require( 'debug' );
-var distDebug     = debug( 'Dist HTML:' );
+var sassconfig = require( '../sass.config.js' );
+var WebpackDev = require( "webpack-dev-middleware" );
+var debug = require( 'debug' );
+var distDebug = debug( 'Dist HTML:' );
 distDebug.enabled = true;
-var scssDebug     = debug( 'SCSS comple:' );
+var scssDebug = debug( 'SCSS comple:' );
 scssDebug.enabled = true;
-var compiler      = webpack( webpackConfig );
-var webpackDev    = WebpackDev( compiler, {
+var compiler = webpack( webpackConfig );
+var webpackDev = WebpackDev( compiler, {
 	// lazy: true,
 	watchOptions: {
 		ignored: /node_modules/,
 		aggregateTimeout: 500,
 		poll: false
 	},
-	stats: { colors: true }
+	stats: {
+		colors: true,
+		// chunks: false,
+		modules: false,
+		// chunkModules: false,
+		entrypoints: false
+	}
 } );
 var memoryfs = webpackDev.fileSystem;
 var mimes = {
@@ -318,4 +324,3 @@ var ext = {
 	}
 };
 module.exports = ext;
-
