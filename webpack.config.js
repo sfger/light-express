@@ -198,6 +198,13 @@ module.exports = {
 		new VueLoaderPlugin(),
 		// new WebpackMd5Hash()
 	],
+	stats: {
+		colors: true,
+		chunks: false,
+		modules: false,
+		chunkModules: false,
+		entrypoints: false
+	},
 	performance: false
 	// performance: {
 	// 	hints: "error"

@@ -75,13 +75,13 @@ gulp.task('del', function(cb){
 		cb();
 	});
 });
-gulp.task('css', ['del'], function(){
+gulp.task('css', function(){
 	var dist = '*'===project ? '' : project;
 	return gulp.src('src/'+project+'/**/*.css')
 		.pipe(cleanCss({compatibility:"ie7"}))
 		.pipe(gulp.dest('dist/'+dist));
 });
-gulp.task('js', ['del'], function(){
+gulp.task('js', function(){
 	var dist = '*'===project ? '' : project;
 	return gulp.src([
 		'src/'+project+'/**/*.js',
@@ -89,7 +89,7 @@ gulp.task('js', ['del'], function(){
 		'!./src/**/parts/*.js'
 	]).pipe(uglify(uglifyjs3_config)).pipe(gulp.dest('dist/'+dist));
 });
-gulp.task('html', ['del'], function(){
+gulp.task('html', function(){
 	var dist = '*'===project ? '' : project;
 	var src = ['src/'+project+'/**/*.html'];
 	if('*'===project) src.push('src/*.html');
@@ -97,7 +97,7 @@ gulp.task('html', ['del'], function(){
 		.pipe(replace(/__version__/gi, timeString))
 		.pipe(gulp.dest('dist/'+dist));
 });
-gulp.task('img', ['del'], function(){
+gulp.task('img', function(){
 	var dist = '*'===project ? '' : project;
 	var list = [
 		'src/'+project+'/**/*.jpg',
@@ -108,13 +108,13 @@ gulp.task('img', ['del'], function(){
 	if( !dist ) list.push( 'src/favicon.ico');
 	return gulp.src(list).pipe(gulp.dest('dist/'+dist));
 });
-gulp.task('sprite', ['del'], function(){
+gulp.task('sprite', function(){
 	var dist = '*'===project ? '' : project;
 	return gulp.src('src/'+project+'/**/*')
 		.pipe(gulp.dest('dist/'+dist));
 });
 
-gulp.task('webpack', ['del'], function(cb){
+gulp.task('webpack', function(cb){
 	var dir = '*'===project ? '' : project;
 	var webpack = require("webpack");
 	// config.plugins = [
@@ -145,12 +145,13 @@ gulp.task('webpack', ['del'], function(cb){
 // 	return gulp.src('dist/'+project+'/**/*')
 // 	.pipe(gulp.dest('dist/list'));
 // });
-var task_list = ['css', 'img', 'webpack', 'js'];
-if('test'===parsed_args.server) task_list.push('html');
-gulp.task('default', task_list, function(){
-	// return Promise.resolve();
+gulp.task('deploy', function(){
 	if('*'===project) project = '';
 	server.remotePath += project;
 	return gulp.src('dist/'+project+'/**/*')
 		.pipe(sftp(server));
 });
+let tasks = ['del', 'css', 'img', 'webpack', 'js', 'html', 'deploy'];
+if('test'===parsed_args.server) tasks.push('html');
+tasks.push('deploy');
+gulp.task('default', gulp.series.call(null, tasks));
