@@ -1,12 +1,12 @@
 import "~public/js/requestAnimationFrame.js";
 import React from 'react';
 import ReactDOM from 'react-dom';
-let mountNode = document.querySelector('#page');
+let mountNode = document.querySelector( '#page' );
 
-(async function(){
+( async function () {
 	await Promise.resolve();
-	console.log('test');
-}());
+	console.log( 'test' );
+}() );
 
 // import "antd/dist/antd.less"; 
 import { Radio, Button, Icon } from 'antd';
@@ -30,8 +30,8 @@ class ButtonSize extends React.Component {
 	// 		size: 'default',
 	// 	};
 	// }
-	handleSizeChange = (e) => {
-		this.setState({ size: e.target.value });
+	handleSizeChange = ( e ) => {
+		this.setState( { size: e.target.value } );
 	}
 
 	render() {
@@ -61,4 +61,4 @@ class ButtonSize extends React.Component {
 	}
 }
 
-ReactDOM.render(<ButtonSize />, mountNode);
+ReactDOM.render( <ButtonSize />, mountNode );

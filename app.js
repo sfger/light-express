@@ -4,13 +4,13 @@
 /* eslint-disable comma-dangle */
 /* eslint-enable comma-dangle */
 
-var express = require( 'express' );
-var app = express();
-var logger = require( 'morgan' );
-var cookie = require( 'cookie-parser' );
-var session = require( 'cookie-session' );
-var bodyParser = require( 'body-parser' );
-var ext = require( './ext' );
+let express = require( 'express' );
+let app = express();
+let logger = require( 'morgan' );
+let cookie = require( 'cookie-parser' );
+let session = require( 'cookie-session' );
+let bodyParser = require( 'body-parser' );
+let ext = require( './ext' );
 app.ext = ext;
 app.use( ext.webpackDev );
 app.set( 'views', ext.view_dir );
@@ -52,4 +52,3 @@ catch( function ( err ) {
 	console.log( 'Global Error', err );
 } );
 module.exports = app;
-
