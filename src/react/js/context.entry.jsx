@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
+import React, { Component, createContext } from 'react';
+import { render as ReactDOMRender } from 'react-dom';
 import { Router, Route, Link } from 'react-router-dom';
 import { createBrowserHistory } from 'history';
-let numContext = React.createContext();
-let listContext = React.createContext();
+let numContext = createContext();
+let listContext = createContext();
 const history = createBrowserHistory();
 
 class CommentBox extends Component {
@@ -206,4 +206,4 @@ class App extends Component {
 	}
 }
 
-ReactDOM.render( <App />, document.querySelector( '#page' ) );
+ReactDOMRender( <App />, document.querySelector( '#page' ) );
