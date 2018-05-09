@@ -4,7 +4,7 @@ import { Router, Route, Link } from 'react-router-dom';
 import { createBrowserHistory } from 'history';
 let numContext = createContext();
 let listContext = createContext();
-const history = createBrowserHistory();
+let history = createBrowserHistory();
 
 class CommentBox extends Component {
 	state = {
