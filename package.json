@@ -4,11 +4,12 @@
   "private": true,
   "sideEffects": false,
   "scripts": {
-    "start": "node ./bin/www"
+    "start": "node ./bin/www",
+    "deploy": "gulp -d "
   },
   "dependencies": {
     "@types/jquery": "^3.3.1",
-    "antd": "^3.5.0",
+    "antd": "^3.5.1",
     "args": "^4.0.0",
     "babel-loader": "^7.1.4",
     "babel-plugin-import": "^1.7.0",
@@ -30,6 +31,7 @@
     "es3ify-webpack-plugin": "0.0.1",
     "express": "^4.16.3",
     "gulp-clean-css": "^3.9.4",
+    "gulp-cli": "^2.0.1",
     "gulp-sftp": "github:sfger/gulp-sftp",
     "gulp-uglify": "^3.0.0",
     "history": "^4.7.2",
@@ -39,7 +41,6 @@
     "morgan": "^1.9.0",
     "mysql": "^2.15.0",
     "node-sass": "^4.9.0",
-    "npm": "^6.0.0",
     "postcss": "^6.0.22",
     "postcss-image-inliner": "^1.0.6",
     "postcss-sprites": "^4.2.0",
