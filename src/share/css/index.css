@@ -183,7 +183,7 @@ html.full-screen #page, html.full-screen .home-page { height: 100%; }
 
 @media screen and (max-width: 640px) { .navi-box { width: 80%; } }
 
-@media \0screen\,screen\9 { .navi-box { filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#4D000000,endColorstr=#4D000000); } }
+@media \0screen { .navi-box { background-color: transparent; filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#4D000000, endColorstr=#4D000000); } }
 
 .navi-box h1, .navi-box h3 { font-size: 25px; margin-bottom: 10px; text-align: center; font-weight: normal; }
 

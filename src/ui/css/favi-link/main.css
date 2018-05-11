@@ -20,7 +20,7 @@ audio, canvas, video, .imgc:before, .imgc .iecp, .imgc img, .imge, .ib, .img-ctn
 
 html, body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, form, fieldset, legend, input, button, textarea, hr, pre, code, p, blockquote, th, td { margin: 0; padding: 0; }
 
-html { -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; font: 14px/normal "\5b8b\4f53","Microsoft YaHei"; color: #666; }
+html { -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; font: 14px/normal "\5b8b\4f53", "Microsoft YaHei"; color: #666; }
 
 a, button, input select, textarea { font: inherit; color: inherit; }
 
@@ -29,6 +29,8 @@ fieldset, img { border: none; }
 [hidden] { display: none; }
 
 :focus { outline: none; }
+
+input::-ms-clear, input::-ms-reveal { display: none; }
 
 article, aside, details, figcaption, figure, footer, header, hgroup, main, nav, section, summary { display: block; }
 
@@ -186,7 +188,7 @@ _:-ms-lang(x), .grid .col-rest { display: inline-block\9; }
 
 .drag-image { position: absolute; left: auto; left: auto; left: auto; left: auto; z-index: 100; background-color: rgba(0, 0, 0, 0.35); }
 
-@media \0screen\,screen\9 { .drag-image { filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#59000000,endColorstr=#59000000); } }
+@media \0screen { .drag-image { background-color: transparent; filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#59000000, endColorstr=#59000000); } }
 
 .tree-container { width: auto; overflow: auto; background: white; }
 
@@ -256,7 +258,7 @@ _:-ms-lang(x), .grid .col-rest { display: inline-block\9; }
 
 .tab-ctn .tab-header .closer:hover { background-color: rgba(13, 13, 13, 0); }
 
-.tab-ctn .tab-header .closer:active { box-shadow: 0 6.88px 10.96px -4px transparent; background-color: transparent; }
+.tab-ctn .tab-header .closer:active { box-shadow: 0 6.88px 10.96px -4px rgba(0, 0, 0, 0); background-color: rgba(0, 0, 0, 0); }
 
 .tab-ctn .tab-header .closer:hover { background: #ccc; }
 
