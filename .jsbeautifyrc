@@ -12,7 +12,7 @@
     "jslint_happy": true,
     "space_after_anon_function": false,
     "space_before_conditional": true,
-    "keep_array_indentation": false,
+    "keep_array_indentation": true,
     "keep_function_indentation": false,
     "break_chained_methods": false,
     "eval_code": false,
