@@ -37,7 +37,6 @@
     "gulp-sftp": "github:sfger/gulp-sftp",
     "gulp-uglify": "^3.0.0",
     "history": "^4.7.2",
-    "install": "^0.11.0",
     "less": "^3.0.4",
     "less-loader": "^4.1.0",
     "morgan": "^1.9.0",
