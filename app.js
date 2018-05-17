@@ -6,7 +6,7 @@
 
 let express = require( 'express' );
 let app = express();
-let logger = require( 'morgan' );
+let morgan = require( 'morgan' );
 let cookie = require( 'cookie-parser' );
 let session = require( 'cookie-session' );
 let bodyParser = require( 'body-parser' );
@@ -27,7 +27,7 @@ app.use( session( {
 	name: '_SSID_',
 	keys: [ 'skey1', 'skey2' ]
 } ) );
-app.use( logger( 'dev' ) );
+app.use( morgan( 'dev' ) );
 
 app.use( ext.CompileSCSS );
 app.use( ext.Compile2JS );

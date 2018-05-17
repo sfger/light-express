@@ -44,24 +44,57 @@ let tArray = [
 ];
 let timeString = tArray.join( '' );
 
-let gulp = require( 'gulp' ),
-	glob = require( 'glob' ),
-	del = require( 'del' ),
-	gutil = require( "gulp-util" ),
-	cleanCss = require( 'gulp-clean-css' ),
-	// jshint       = require('gulp-jshint'),
-	uglify = require( 'gulp-uglify' ),
-	// rename       = require('gulp-rename'),
-	// concat       = require('gulp-concat'),
-	replace = require( 'gulp-replace' ),
-	sftp = require( 'gulp-sftp' ),
-	config = require( './webpack.config.js' );
+let gulp = require( 'gulp' );
+let glob = require( 'glob' );
+let del = require( 'del' );
+let gutil = require( "gulp-util" );
+let cleanCss = require( 'gulp-clean-css' );
+// let jshint       = require('gulp-jshint');
+let uglify = require( 'gulp-uglify' );
+// let rename = require( 'gulp-rename' );
+// let concat = require( 'gulp-concat' );
+let replace = require( 'gulp-replace' );
+let sftp = require( 'gulp-sftp' );
+let config = require( './webpack.config.js' );
+let ansi = require( 'ansi' );
+let cursor = ansi( process.stdout );
+
+function wait( time, fn, ...arg ) {
+	return new Promise( function ( resolve ) {
+		var timer = setTimeout( async function ( ...arg ) {
+			if ( fn ) await fn( ...arg );
+			resolve( timer );
+		}, time, ...arg );
+	} );
+}
+class Progress {
+	constructor() {
+		this.status = true;
+	}
+	async start() {
+		let i = 0;
+		let time = 5;
+		let array = [ ' + ', ' ×' ];
+		while ( this.status ) {
+			i = i < array.length ? i : 0;
+			cursor.reset().fg.red().bold().horizontalAbsolute( 0 ).eraseLine().write( array[ i++ ] ).horizontalAbsolute( 0 ).reset();
+			await wait( time );
+		}
+		cursor.horizontalAbsolute( 0 ).eraseLine().reset();
+	}
+	async done() {
+		this.status = false;
+	}
+}
+let progress = new Progress;
+
 config.mode = "production";
+
+progress.start();
 gulp.task( 'del', function ( cb ) {
 	let dir = '*' === project ? '' : project;
-	// console.log(dir);
-	del( [ 'dist/' + dir + '/**/*' ] ).then( function ( paths ) {
-		console.log( 'Deleted files and folders:\n' + paths.join( '\n' ) );
+	del( [ 'dist/' + dir + '/**/*' ] ).then( function ( /* paths */) {
+		// console.log( 'Deleted files and folders:\n' + paths.join( '\n' ) );
 		cb();
 	} );
 } );
@@ -135,7 +168,11 @@ gulp.task( 'deploy', function () {
 	return gulp.src( 'dist/' + project + '/**/*' )
 		.pipe( sftp( server ) );
 } );
+gulp.task( 'tip', function ( done ) {
+	return progress.done().then( () => done );
+} );
 let tasks = [ 'del', 'css', 'img', 'webpack', 'js' ];
 if ( 'test' === parsed_args.server ) tasks.push( 'html' );
 tasks.push( 'deploy' );
+tasks.push( 'tip' );
 gulp.task( 'default', gulp.series.call( null, tasks ) );

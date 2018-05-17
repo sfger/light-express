@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@types/jquery": "^3.3.2",
+    "ansi": "^0.3.1",
     "antd": "^3.5.2",
     "args": "^4.0.0",
     "babel-loader": "^7.1.4",
