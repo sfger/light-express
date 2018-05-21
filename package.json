@@ -9,7 +9,7 @@
   "dependencies": {
     "@types/jquery": "^3.3.2",
     "ansi": "^0.3.1",
-    "antd": "^3.5.2",
+    "antd": "^3.5.3",
     "args": "^4.0.0",
     "babel-loader": "^7.1.4",
     "babel-plugin-import": "^1.7.0",
@@ -56,7 +56,7 @@
     "ts-loader": "^4.3.0",
     "typescript": "^2.8.3",
     "vue": "^2.5.16",
-    "vue-loader": "^15.0.11",
+    "vue-loader": "^15.1.0",
     "vue-style-loader": "^4.1.0",
     "vue-template-compiler": "^2.5.16",
     "vuex": "^3.0.1",
