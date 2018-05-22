@@ -1,16 +1,16 @@
 {
-    "eol": "\n",
-	"e4x": true,
+  "eol": "\n",
+    "e4x": true,
     "indent_level": 0,
-    "indent_size": 4,
-    "indent_with_tabs": true,
-	"brace_style": "preserve-inline",
-	"preserve_newlines": true,
-	"brace_preserve_inline": true,
+    "indent_size": 2,
+    "indent_with_tabs": false,
+    "brace_style": "preserve-inline",
+    "preserve_newlines": true,
+    "brace_preserve_inline": true,
     "max_preserve_newlines": 10000,
-	"space_in_paren": true,
-    "jslint_happy": true,
-    "space_after_anon_function": false,
+    "space_in_paren": true,
+    "jslint_happy": false,
+    "space_after_anon_function": true,
     "space_before_conditional": true,
     "keep_array_indentation": true,
     "keep_function_indentation": false,
@@ -21,14 +21,14 @@
     "wrap_attributes": "auto",
     "wrap_attributes_indent_size": 4,
     "end_with_newline": false,
-	"css": {
-		"selector_separator_newline": false
-	},
-	"html": {
-		"fileTypes": [".html",".ejs",".wxml"],
-		"end_with_newline": false,
-		"indent_scripts": "keep",
-		"extra_liners": [],
-		"indent_inner_html": false
-	}
+    "css": {
+      "selector_separator_newline": false
+    },
+    "html": {
+      "fileTypes": [".html",".ejs",".wxml"],
+      "end_with_newline": false,
+      "indent_scripts": "keep",
+      "extra_liners": [],
+      "indent_inner_html": false
+    }
 }

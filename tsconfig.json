@@ -1,25 +1,25 @@
 {
-	"compilerOptions": {
-		"outDir": "./dist",
-		"target": "es5",
-		"module": "commonjs",
-		"moduleResolution": "node",
-		"experimentalDecorators": true,
-		"allowJs": true,
-		"baseUrl": ".",
-		"paths": {
-			"@/*": ["./components/*"],
-			"~/*": ["./src/*"]
-		},
-		"allowSyntheticDefaultImports": true,
-		"jsx": "preserve",
-		"lib": ["es2015", "dom", "es5"],
-		"sourceMap": true
-	},
-	"files": [
-		"require.d.ts"
-	],
-	"exclude": [
-		"node_modules"
-	]
+  "compilerOptions": {
+    "outDir": "./dist",
+    "target": "es5",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "experimentalDecorators": true,
+    "allowJs": true,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./components/*"],
+      "~/*": ["./src/*"]
+    },
+    "allowSyntheticDefaultImports": true,
+    "jsx": "preserve",
+    "lib": ["es2015", "dom", "es5"],
+    "sourceMap": true
+  },
+  "files": [
+    "require.d.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
 }

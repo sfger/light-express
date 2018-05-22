@@ -38,9 +38,10 @@ module.exports = {
 		"react/jsx-uses-vars": ["error"],
 		"react/jsx-uses-react": ["error"],
 		"react/prop-types": ["off"],
+    "no-case-declarations": [ "off" ],
 		"no-console": ["off"],
 		"no-empty": ["off"],
-		"indent": ["warn", "tab", {"SwitchCase":1}],
+		"indent": ["warn", 2, {"SwitchCase":1}],
 		"linebreak-style": ["error", "unix"],
 		"semi": ["warn", "always"]
 	}

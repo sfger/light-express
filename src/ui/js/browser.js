@@ -1,156 +1,155 @@
 //Browser{{{
-(function() {
-	"use strict";
-	function uaMatch( ua ) {
-		// If an UA is not provided, default to the current browser UA.
-		if ( ua === undefined ) {
-			ua = window.navigator.userAgent;
-		}
-		ua = ua.toLowerCase();
+( function () {
+  "use strict";
 
-		var match = /(edge)\/([\w.]+)/.exec( ua ) ||
-			/(opr)[\/]([\w.]+)/.exec( ua ) ||
-			/(chrome)[ \/]([\w.]+)/.exec( ua ) ||
-			/(version)(applewebkit)[ \/]([\w.]+).*(safari)[ \/]([\w.]+)/.exec( ua ) ||
-			/(webkit)[ \/]([\w.]+).*(version)[ \/]([\w.]+).*(safari)[ \/]([\w.]+)/.exec( ua ) ||
-			/(webkit)[ \/]([\w.]+)/.exec( ua ) ||
-			/(opera)(?:.*version|)[ \/]([\w.]+)/.exec( ua ) ||
-			/(msie) ([\w.]+)/.exec( ua ) ||
-			ua.indexOf("trident") >= 0 && /(rv)(?::| )([\w.]+)/.exec( ua ) ||
-			ua.indexOf("compatible") < 0 && /(mozilla)(?:.*? rv:([\w.]+)|)/.exec( ua ) ||
-			[];
+  function uaMatch( ua ) {
+    // If an UA is not provided, default to the current browser UA.
+    if ( ua === undefined ) {
+      ua = window.navigator.userAgent;
+    }
+    ua = ua.toLowerCase();
 
-		var platform_match = /(ipad)/.exec( ua ) ||
-			/(ipod)/.exec( ua ) ||
-			/(iphone)/.exec( ua ) ||
-			/(kindle)/.exec( ua ) ||
-			/(silk)/.exec( ua ) ||
-			/(android)/.exec( ua ) ||
-			/(windows phone)/.exec( ua ) ||
-			/(win)/.exec( ua ) ||
-			/(mac)/.exec( ua ) ||
-			/(linux)/.exec( ua ) ||
-			/(cros)/.exec( ua ) ||
-			/(playbook)/.exec( ua ) ||
-			/(bb)/.exec( ua ) ||
-			/(blackberry)/.exec( ua ) ||
-			[];
+    var match = /(edge)\/([\w.]+)/.exec( ua ) ||
+      /(opr)[\/]([\w.]+)/.exec( ua ) ||
+      /(chrome)[ \/]([\w.]+)/.exec( ua ) ||
+      /(version)(applewebkit)[ \/]([\w.]+).*(safari)[ \/]([\w.]+)/.exec( ua ) ||
+      /(webkit)[ \/]([\w.]+).*(version)[ \/]([\w.]+).*(safari)[ \/]([\w.]+)/.exec( ua ) ||
+      /(webkit)[ \/]([\w.]+)/.exec( ua ) ||
+      /(opera)(?:.*version|)[ \/]([\w.]+)/.exec( ua ) ||
+      /(msie) ([\w.]+)/.exec( ua ) ||
+      ua.indexOf( "trident" ) >= 0 && /(rv)(?::| )([\w.]+)/.exec( ua ) ||
+      ua.indexOf( "compatible" ) < 0 && /(mozilla)(?:.*? rv:([\w.]+)|)/.exec( ua ) || [];
 
-		var browser = {};
-		var matched = {
-			browser: match[ 5 ] || match[ 3 ] || match[ 1 ] || "",
-			version: match[ 2 ] || match[ 4 ] || "0",
-			versionNumber: match[ 4 ] || match[ 2 ] || "0",
-			platform: platform_match[ 0 ] || ""
-		};
+    var platform_match = /(ipad)/.exec( ua ) ||
+      /(ipod)/.exec( ua ) ||
+      /(iphone)/.exec( ua ) ||
+      /(kindle)/.exec( ua ) ||
+      /(silk)/.exec( ua ) ||
+      /(android)/.exec( ua ) ||
+      /(windows phone)/.exec( ua ) ||
+      /(win)/.exec( ua ) ||
+      /(mac)/.exec( ua ) ||
+      /(linux)/.exec( ua ) ||
+      /(cros)/.exec( ua ) ||
+      /(playbook)/.exec( ua ) ||
+      /(bb)/.exec( ua ) ||
+      /(blackberry)/.exec( ua ) || [];
 
-		if ( matched.browser ) {
-			browser[ matched.browser ] = true;
-			browser.version = matched.version;
-			browser.versionNumber = parseInt(matched.versionNumber, 10);
-		}
+    var browser = {};
+    var matched = {
+      browser: match[ 5 ] || match[ 3 ] || match[ 1 ] || "",
+      version: match[ 2 ] || match[ 4 ] || "0",
+      versionNumber: match[ 4 ] || match[ 2 ] || "0",
+      platform: platform_match[ 0 ] || ""
+    };
 
-		if ( matched.platform ) {
-			browser[ matched.platform ] = true;
-		}
+    if ( matched.browser ) {
+      browser[ matched.browser ] = true;
+      browser.version = matched.version;
+      browser.versionNumber = parseInt( matched.versionNumber, 10 );
+    }
 
-		// These are all considered mobile platforms, meaning they run a mobile browser
-		if ( browser.android || browser.bb || browser.blackberry || browser.ipad || browser.iphone ||
-			browser.ipod || browser.kindle || browser.playbook || browser.silk || browser[ "windows phone" ]) {
-			browser.mobile = true;
-		}
+    if ( matched.platform ) {
+      browser[ matched.platform ] = true;
+    }
 
-		// These are all considered desktop platforms, meaning they run a desktop browser
-		if ( browser.cros || browser.mac || browser.linux || browser.win ) {
-			browser.desktop = true;
-		}
+    // These are all considered mobile platforms, meaning they run a mobile browser
+    if ( browser.android || browser.bb || browser.blackberry || browser.ipad || browser.iphone ||
+      browser.ipod || browser.kindle || browser.playbook || browser.silk || browser[ "windows phone" ] ) {
+      browser.mobile = true;
+    }
 
-		// Chrome, Opera 15+ and Safari are webkit based browsers
-		if ( browser.chrome || browser.opr || browser.safari ) {
-			browser.webkit = true;
-		}
+    // These are all considered desktop platforms, meaning they run a desktop browser
+    if ( browser.cros || browser.mac || browser.linux || browser.win ) {
+      browser.desktop = true;
+    }
 
-		// IE11 has a new token so we will assign it msie to avoid breaking changes
-		// IE12 disguises itself as Chrome, but adds a new Edge token.
-		if ( browser.rv || browser.edge ) {
-			var ie = "msie";
+    // Chrome, Opera 15+ and Safari are webkit based browsers
+    if ( browser.chrome || browser.opr || browser.safari ) {
+      browser.webkit = true;
+    }
 
-			matched.browser = ie;
-			browser[ie] = true;
-		}
+    // IE11 has a new token so we will assign it msie to avoid breaking changes
+    // IE12 disguises itself as Chrome, but adds a new Edge token.
+    if ( browser.rv || browser.edge ) {
+      var ie = "msie";
 
-		// Blackberry browsers are marked as Safari on BlackBerry
-		if ( browser.safari && browser.blackberry ) {
-			var blackberry = "blackberry";
+      matched.browser = ie;
+      browser[ ie ] = true;
+    }
 
-			matched.browser = blackberry;
-			browser[blackberry] = true;
-		}
+    // Blackberry browsers are marked as Safari on BlackBerry
+    if ( browser.safari && browser.blackberry ) {
+      var blackberry = "blackberry";
 
-		// Playbook browsers are marked as Safari on Playbook
-		if ( browser.safari && browser.playbook ) {
-			var playbook = "playbook";
+      matched.browser = blackberry;
+      browser[ blackberry ] = true;
+    }
 
-			matched.browser = playbook;
-			browser[playbook] = true;
-		}
+    // Playbook browsers are marked as Safari on Playbook
+    if ( browser.safari && browser.playbook ) {
+      var playbook = "playbook";
 
-		// BB10 is a newer OS version of BlackBerry
-		if ( browser.bb ) {
-			var bb = "blackberry";
+      matched.browser = playbook;
+      browser[ playbook ] = true;
+    }
 
-			matched.browser = bb;
-			browser[bb] = true;
-		}
+    // BB10 is a newer OS version of BlackBerry
+    if ( browser.bb ) {
+      var bb = "blackberry";
 
-		// Opera 15+ are identified as opr
-		if ( browser.opr ) {
-			var opera = "opera";
+      matched.browser = bb;
+      browser[ bb ] = true;
+    }
 
-			matched.browser = opera;
-			browser[opera] = true;
-		}
+    // Opera 15+ are identified as opr
+    if ( browser.opr ) {
+      var opera = "opera";
 
-		// Stock Android browsers are marked as Safari on Android.
-		if ( browser.safari && browser.android ) {
-			var android = "android";
+      matched.browser = opera;
+      browser[ opera ] = true;
+    }
 
-			matched.browser = android;
-			browser[android] = true;
-		}
+    // Stock Android browsers are marked as Safari on Android.
+    if ( browser.safari && browser.android ) {
+      var android = "android";
 
-		// Kindle browsers are marked as Safari on Kindle
-		if ( browser.safari && browser.kindle ) {
-			var kindle = "kindle";
+      matched.browser = android;
+      browser[ android ] = true;
+    }
 
-			matched.browser = kindle;
-			browser[kindle] = true;
-		}
+    // Kindle browsers are marked as Safari on Kindle
+    if ( browser.safari && browser.kindle ) {
+      var kindle = "kindle";
 
-		// Kindle Silk browsers are marked as Safari on Kindle
-		if ( browser.safari && browser.silk ) {
-			var silk = "silk";
+      matched.browser = kindle;
+      browser[ kindle ] = true;
+    }
 
-			matched.browser = silk;
-			browser[silk] = true;
-		}
+    // Kindle Silk browsers are marked as Safari on Kindle
+    if ( browser.safari && browser.silk ) {
+      var silk = "silk";
 
-		// Assign the name and platform variable
-		browser.name = matched.browser;
-		browser.platform = matched.platform;
-		return browser;
-	}
+      matched.browser = silk;
+      browser[ silk ] = true;
+    }
 
-	// Run the matching process, also assign the function to the returned object
-	// for manual, jQuery-free use if desired
-	window.jQBrowser = uaMatch( window.navigator.userAgent );
-	window.jQBrowser.uaMatch = uaMatch;
+    // Assign the name and platform variable
+    browser.name = matched.browser;
+    browser.platform = matched.platform;
+    return browser;
+  }
 
-	// Only assign to jQuery.browser if jQuery is loaded
-	if ( window.jQuery ) {
-		jQuery.browser = window.jQBrowser;
-	}
+  // Run the matching process, also assign the function to the returned object
+  // for manual, jQuery-free use if desired
+  window.jQBrowser = uaMatch( window.navigator.userAgent );
+  window.jQBrowser.uaMatch = uaMatch;
 
-	return window.jQBrowser;
-})();
+  // Only assign to jQuery.browser if jQuery is loaded
+  if ( window.jQuery ) {
+    jQuery.browser = window.jQBrowser;
+  }
+
+  return window.jQBrowser;
+} )();
 //}}}

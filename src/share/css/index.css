@@ -155,11 +155,11 @@ _:-ms-lang(x), .grid .col-rest { display: inline-block\9; }
 
 .coffeescript .javascript, .javascript .xml, .lasso .markup, .tex .hljs-formula, .xml .javascript, .xml .vbscript, .xml .css, .xml .hljs-cdata { opacity: 0.5; }
 
-html { font: normal 16px/normal "Helvetica Neue",Helvetica,Arial,"Hiragino Sans GB",sans-serif; }
+html { font: normal 16px/normal "Helvetica Neue", Helvetica, Arial, "Hiragino Sans GB", sans-serif; }
 
 html, html body { padding: 0; margin: 0; }
 
-html.full-screen { background: #ade8aa; background: linear-gradient(0deg, #3b9739, #ade8aa); filter: progid:DXImageTransform.Microsoft.Gradient(gradientType=0,startColorStr=#ade8aa,endColorStr=#3b9739); _background: #ade8aa; }
+html.full-screen { background: #ade8aa; background: linear-gradient(0deg, #3b9739, #ade8aa); filter: progid:DXImageTransform.Microsoft.Gradient(gradientType=0, startColorStr=#ade8aa, endColorStr=#3b9739); _background: #ade8aa; }
 
 html.full-screen, html.full-screen body { height: 100%; overflow: hidden; }
 
@@ -189,7 +189,7 @@ html.full-screen #page, html.full-screen .home-page { height: 100%; }
 
 .navi-box h3 { font-size: 16px; }
 
-.navi-box a { box-sizing: border-box; width: 133px; height: 32px; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; line-height: 30px; border: 1px solid #fff; -webkit-border-radius: 3px; -moz-border-radius: 3px; border-radius: 3px; color: rgba(255, 255, 255, 0); box-shadow: 0 12.8px 16.8px -11.2px rgba(8, 8, 8, 0); text-align: center; background: transparent; cursor: pointer; text-decoration: none; -webkit-transition: background,box-shadow 0.35s ease-out; transition: background,box-shadow 0.35s ease-out; margin: 5px; _margin: 5px 11px; transition: background,color 0.314s ease-in 0s; font-size: 16px; text-decoration: none; color: white; }
+.navi-box a { box-sizing: border-box; width: 133px; height: 32px; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; line-height: 30px; border: 1px solid #fff; -webkit-border-radius: 3px; -moz-border-radius: 3px; border-radius: 3px; color: rgba(255, 255, 255, 0); box-shadow: 0 12.8px 16.8px -11.2px rgba(8, 8, 8, 0); text-align: center; background: transparent; cursor: pointer; text-decoration: none; -webkit-transition: background,box-shadow 0.35s ease-out; transition: background,box-shadow 0.35s ease-out; margin: 5px; _margin: 5px 11px; transition: background, color 0.314s ease-in 0s; font-size: 16px; text-decoration: none; color: white; }
 
 .navi-box a:hover { background-color: rgba(13, 13, 13, 0); }
 

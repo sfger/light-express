@@ -1,61 +1,61 @@
 @charset "utf-8";
 .tab-ctn {
-	.tab-header {
-		@include imgc(0, li, left);
-		li {
-			@include relative(bottom -1px);
-			margin: 0px 1px;
-			border: 1px solid #ccc;
-			border-bottom: none;
-			list-style: none;
-			&.current a {
-				background: white;
-				border-bottom-color: white;
-			}
-		}
-		a {
-			@include user-select(none);
-			@include imgc(0, span);
-			padding: 1px 5px;
-			display: block;
-			border-bottom: 1px solid #ccc;
-			line-height: 20px;
-			background: #e6e6e6;
-			color: black;
-			text-decoration: none;
-			cursor: pointer;
-			&:hover {
-				background: #f3f3f3;
-			}
-		}
-		.icon {
-			@include size(16px);
-		}
-		.title {
-			margin: 0 3px;
-			@include sln;
-		}
-		.closer {
-			font: bold 16px SimHei;
-			@include button(16px, 16px, transparent, none);
-			color: #333;
-			&:hover {
-				background: #ccc;
-			}
-		}
-	}
-	.tab-content {
-		height: 100%;
-	}
-	.tab-panel {
-		overflow: auto;
-		border-top: 1px solid #ccc;
-		.itab {
-			display: none;
-			@include relative(top 0 left 0);
-		}
-		.show {
-			display: block;
-		}
-	}
+  .tab-header {
+    @include imgc(0, li, left);
+    li {
+      @include relative(bottom -1px);
+      margin: 0px 1px;
+      border: 1px solid #ccc;
+      border-bottom: none;
+      list-style: none;
+      &.current a {
+        background: white;
+        border-bottom-color: white;
+      }
+    }
+    a {
+      @include user-select(none);
+      @include imgc(0, span);
+      padding: 1px 5px;
+      display: block;
+      border-bottom: 1px solid #ccc;
+      line-height: 20px;
+      background: #e6e6e6;
+      color: black;
+      text-decoration: none;
+      cursor: pointer;
+      &:hover {
+        background: #f3f3f3;
+      }
+    }
+    .icon {
+      @include size(16px);
+    }
+    .title {
+      margin: 0 3px;
+      @include sln;
+    }
+    .closer {
+      font: bold 16px SimHei;
+      @include button(16px, 16px, transparent, none);
+      color: #333;
+      &:hover {
+        background: #ccc;
+      }
+    }
+  }
+  .tab-content {
+    height: 100%;
+  }
+  .tab-panel {
+    overflow: auto;
+    border-top: 1px solid #ccc;
+    .itab {
+      display: none;
+      @include relative(top 0 left 0);
+    }
+    .show {
+      display: block;
+    }
+  }
 }

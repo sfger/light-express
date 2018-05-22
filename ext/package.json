@@ -1,4 +1,4 @@
 {
-	"name":"ext",
-	"main": "./index.js"
+  "name":"ext",
+  "main": "./index.js"
 }
