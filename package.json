@@ -33,7 +33,7 @@
     "express": "^4.16.3",
     "gulp-clean-css": "^3.9.4",
     "gulp-cli": "^2.0.1",
-    "gulp-sftp": "github:sfger/gulp-sftp",
+    "gulp-sftp": "https://github.com/sfger/gulp-sftp/tarball/0.1.6",
     "gulp-uglify": "^3.0.0",
     "history": "^4.7.2",
     "less": "^3.0.4",
