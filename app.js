@@ -3,6 +3,7 @@
 /* eslint-enable */
 /* eslint-disable comma-dangle */
 /* eslint-enable comma-dangle */
+/* global window,document */
 
 let express = require( 'express' );
 let app = express();
