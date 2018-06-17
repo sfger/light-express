@@ -10,7 +10,7 @@ try {
   parsed_args = args.parse( process.argv );
   if ( parsed_args.help ) throw new Error();
 } catch ( e ) {
-  console.log( options.getHelp() );
+  console.log( options.showHelp() );
   process.exit();
 }
 

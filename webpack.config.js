@@ -43,7 +43,8 @@ module.exports = {
     // filename: "[name]_[chunkhash:8].js",
     filename: '[name].js',
     chunkFilename: '[name].js',
-    libraryTarget: "umd"
+    publicPath: '/',
+    // libraryTarget: "umd"
     // library: 'test',
     // publicPath: '../dist/'
   },

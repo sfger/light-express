@@ -1,17 +1,15 @@
 module.exports = [
   {
-    name: 'dir', // 项目目录
-    init: [ 'd' ],
+    name: [ 'd', 'dir' ], // 项目目录
+    defaultValue: '*',
     description: 'Project directory name'
   },
   {
-    name: 'help', // 帮助信息
-    init: [ 'h' ],
+    name: [ 'h', 'help' ], // 帮助信息
     description: 'Help info'
   },
   {
-    name: 'server', // 目标服务器地址
-    init: [ 's' ],
+    name: [ 's', 'server' ], // 目标服务器地址
     defaultValue: 'test',
     description: 'Server info=>ip user-name password remote-path'
   }

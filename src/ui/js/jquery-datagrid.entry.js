@@ -8,6 +8,12 @@ function getHW( el, type ) {
   return el[ 'offset' + ( type === 'width' ? 'Width' : 'Height' ) ];
 }
 
+// import ( /* webpackChunkName: "abc" */ './test.js' ).then( fn => {
+//   console.log(fn.default());
+// } ).catch( err => {
+//   console.log(err);
+// } );
+
 function align_cell_column( arr, type ) {
   for ( let i = 0, il = arr.length; i < il; i++ ) {
     let column = arr[ i ];
