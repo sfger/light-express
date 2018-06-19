@@ -6,7 +6,7 @@ let numContext = createContext();
 let listContext = createContext();
 let history = createBrowserHistory();
 
-class CommentBox extends Component {
+class List extends Component {
   state = {
     nu: 12
   };
@@ -115,7 +115,7 @@ class Main extends Component {
     return (
       <listContext.Provider value={this.state.array}>
         <numContext.Provider value={this.state.count}>
-          <CommentBox row={'testRow'} {...test} />
+          <List row={'testRow'} {...test} />
         </numContext.Provider>
       </listContext.Provider>
     );
