@@ -101,15 +101,16 @@ function Loading() {
 
 const List = Loadable( {
   loader: async () => {
-    // await new Promise( resolve => {
-    //   setTimeout( resolve, 3000 );
-    // } );
-    return await import( "./parts/list.js" );
+    await new Promise( resolve => {
+      setTimeout( resolve, 3000 );
+    } );
+    return await
+    import ( "./parts/list.js" );
   },
   loading: Loading,
-  render(loaded) {
+  render( loaded, props ) {
     let Component = loaded.default;
-    return <Component numContext={numContext}/>;
+    return <Component numContext={numContext} {...props} />;
   }
 } );
 
