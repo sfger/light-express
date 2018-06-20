@@ -7,7 +7,7 @@
     "deploy": "gulp -d "
   },
   "dependencies": {
-    "@types/jquery": "^3.3.3",
+    "@types/jquery": "^3.3.4",
     "ansi": "^0.3.1",
     "antd": "^3.6.3",
     "args": "^5.0.0",
