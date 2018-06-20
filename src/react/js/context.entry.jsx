@@ -104,8 +104,7 @@ const List = Loadable( {
     await new Promise( resolve => {
       setTimeout( resolve, 3000 );
     } );
-    return await
-    import ( "./parts/list.js" );
+    return await import ( "./parts/list.js" );
   },
   loading: Loading,
   render( loaded, props ) {
