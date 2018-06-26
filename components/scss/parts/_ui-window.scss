@@ -41,11 +41,11 @@ $bar_color:#b3b3b3 !default;
     }
     @include imge;
     @include size(20px);
-    margin-left:-25px;
-    border:none;
-    text-decoration:none;
-    font:normal 20px/1 SimSun;
-    color:black;
+    margin-left: -25px;
+    border: none;
+    text-decoration: none;
+    font: normal 20px/1 SimSun;
+    color: black;
     @include prefix((transition:all 0.5s ease-out 0s));
     &:hover {
       @include prefix((transform: rotate(360deg)));

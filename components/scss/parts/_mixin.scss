@@ -42,7 +42,7 @@ $hack_ie10p: "_:-ms-lang(x)";
         #{'-'+$vendor+'-'+$prop}: $value;
       }
     }
-    #{$prop}:#{$value};
+    #{$prop}: #{$value};
   }
 }
 
@@ -50,10 +50,10 @@ $hack_ie10p: "_:-ms-lang(x)";
   @each $prop, $value in $map {
     @if $vendors {
       @each $vendor in $vendors {
-        #{$prop}:#{'-'+$vendor+'-'+$value};
+        #{$prop}: #{'-'+$vendor+'-'+$value};
       }
     }
-    #{$prop}:#{$value};
+    #{$prop}: #{$value};
   }
 }
 
@@ -85,7 +85,7 @@ $hack_ie10p: "_:-ms-lang(x)";
     *display: inline;
     *zoom: 1;
   }
-  vertical-align:middle; //*vertical-align:auto;
+  vertical-align: middle; //*vertical-align:auto;
 }
 
 %inline-block {
@@ -212,7 +212,7 @@ $hack_ie10p: "_:-ms-lang(x)";
   background-color: $rgba;
   @media #{$hack_ie8} {
     background-color: transparent;
-    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#{$ie-hex-str}, endColorstr=#{$ie-hex-str});
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#{$ie-hex-str}, endColorstr=#{$ie-hex-str});
   }
 }
 
@@ -368,15 +368,15 @@ $animation:null) {
     border: $border;
   }
   @include border-radius(3px);
-  color:invert($bgcolor);
+  color: invert($bgcolor);
   @if($height==auto) {
     $height: 1rem;
   }
   box-shadow: 0 #{$height*0.4} #{$height*0.525} #{-$height*0.35} lighten($bgcolor, 3%);
-  text-align:center;
-  background:$bgcolor;
-  cursor:pointer;
-  text-decoration:none;
+  text-align: center;
+  background: $bgcolor;
+  cursor: pointer;
+  text-decoration: none;
   @include prefix((transition:#{"background,box-shadow"} 0.35s ease-out));
   @if($hover) {
     &:hover {
@@ -616,7 +616,7 @@ $shadowColor: currentcolor) {
     }
     &.position-done {
       @media screen and (min-width: 0) {
-        background-color:$colorDone;
+        background-color: $colorDone;
       }
       .step-arrow {
         border-left-color: $colorDone;

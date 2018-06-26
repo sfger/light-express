@@ -6,7 +6,6 @@ $basePath:'../' !default;
   background: white;
   ul {
     &[data-deep="1"] {
-      /*@include ib(top);*/
       display: inline-block;
       vertical-align: top;
       min-width: 100%;

@@ -27,6 +27,7 @@ module.exports = {
   ],
   "globals": {
     "window": true,
+    "Vue": true,
     "EJS": true,
     "undefined": true,
     "light": true,
