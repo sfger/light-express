@@ -9,7 +9,7 @@ module.exports = {
     "color-no-invalid-hex": true,
     "comment-empty-line-before": [ "always", { "ignore": [ "stylelint-commands", "after-comment" ] } ],
     "declaration-colon-space-after": "always",
-    "indentation": [ "space", { "except": [ "value" ] } ],
+    "indentation": [ 2, { "except": [ "value" ] } ],
     "max-empty-lines": 2,
     "unit-whitelist": [ "em", "rem", "%", "px", "vw", "vh", "rpx", "dpcm", "s", "ms" ]
   }
