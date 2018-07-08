@@ -41,7 +41,7 @@
     "less-loader": "^4.1.0",
     "morgan": "^1.9.0",
     "mysql": "^2.15.0",
-    "node-sass": "^4.9.1",
+    "node-sass": "^4.9.2",
     "postcss": "^6.0.23",
     "postcss-image-inliner": "^1.0.6",
     "postcss-sprites": "^4.2.0",
