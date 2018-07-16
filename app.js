@@ -16,8 +16,10 @@ let ext = require( './ext' );
 app.ext = ext;
 app.use( compression() );
 app.use( ext.webpackDev );
+
 app.set( 'views', ext.view_dir );
-app.set( 'view engine', 'ejs' );
+app.engine( 'jsx', require( 'express-react-views' ).createEngine() );
+
 app.use( bodyParser.json() );
 app.use( bodyParser.urlencoded( {
   extended: false

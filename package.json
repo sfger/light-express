@@ -32,6 +32,7 @@
     "ejs": "^2.6.1",
     "es3ify-webpack-plugin": "0.0.1",
     "express": "^4.16.3",
+    "express-react-views": "^0.10.5",
     "gulp-clean-css": "^3.9.4",
     "gulp-cli": "^2.0.1",
     "gulp-sftp": "https://github.com/sfger/gulp-sftp/tarball/0.1.6",
