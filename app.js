@@ -18,7 +18,22 @@ app.use( compression() );
 app.use( ext.webpackDev );
 
 app.set( 'views', ext.view_dir );
-app.engine( 'jsx', require( 'express-react-views' ).createEngine() );
+app.engine( 'jsx', require( 'express-react-views' ).createEngine( {
+  beautify: true,
+  babel: {
+    presets: [
+      "stage-3",
+      "react",
+      [ 'env', { targets: { node: 'current' } } ]
+    ],
+    plugins: [
+      [ "transform-async-to-generator" ],
+      [ "transform-decorators-legacy" ],
+      [ "transform-class-properties" ],
+      [ "transform-runtime", { polyfill: false, regenerator: true } ]
+    ]
+  }
+} ) );
 
 app.use( bodyParser.json() );
 app.use( bodyParser.urlencoded( {
