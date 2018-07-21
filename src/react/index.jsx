@@ -37,10 +37,9 @@ class Html extends React.Component {
           <script>
             var test = 1;
           </script>
-          <script src="../../../../public/js/es5-shim.js"></script>
-          <script src="../../../../public/js/es5-sham.js"></script>
-          <script src="../../../../public/js/es6-shim.js"></script>
-          <script id="mainjs" data-version={ __version__ } data-main={ './js/context.js?' + __version__ } src={ '../public/js/require.js?' + __version__ }></script>
+          <script src="../../../../public/js/??es5-shim.js,es5-sham.js?test"></script>
+          <script src="../../../../public/js/es6-shim.js?test"></script>
+          <script id="mainjs" data-version={ __version__ } data-main={ './js/??a.js,context.js?' + __version__ } src={ '../public/js/require.js?' + __version__ }></script>
         </body>
       </html>
     );

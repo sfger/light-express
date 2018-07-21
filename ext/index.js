@@ -6,7 +6,14 @@ var static_dir = path.normalize( root + '/src' );
 var view_dir = static_dir;
 var route_dir = path.normalize( root + '/routes' );
 var webpack = require( "webpack" );
+var SingleEntryPlugin = require( 'webpack/lib/SingleEntryPlugin' );
 var webpackConfig = require( '../webpack.config.js' );
+var entry = webpackConfig.entry;
+var entryKey = Object.keys( entry );
+var _entry = {
+  [ entryKey[ 0 ] ]: entry[ entryKey[ 0 ] ]
+};
+webpackConfig.entry = _entry;
 var sassconfig = require( '../sass.config.js' );
 var WebpackDev = require( "webpack-dev-middleware" );
 var debug = require( 'debug' );
@@ -244,6 +251,40 @@ var ext = {
       console.log( e );
     } );
     return true;
+  },
+  CompileJS: ( req, res, next ) => {
+    if ( !/.*\.js/.test( req.originalUrl ) ) return next();
+    var jsList = [];
+    if ( /\?\?/.test( req.originalUrl ) ) {
+      jsList = req.originalUrl.slice( req.originalUrl.indexOf( '??' ) + 2 ).split( '?' )[ 0 ].split( ',' );
+      for ( let item of jsList ) {
+        if ( !/.*\.js/.test( item ) ) return next();
+      }
+    } else {
+      jsList = [ req.path ];
+    }
+    jsList = jsList.map( one => {
+      return req.path + one;
+    } );
+    // console.log(jsList);
+
+    let ret = jsList.reduce( ( o, item ) => {
+      let key = item.slice( 1, -3 );
+      if ( key in entry ) {
+        o[ key ] = entry[ key ];
+        // let p = path.normalize( entry[ key ] );
+        // console.log( '..............', p );
+        compiler.apply( new SingleEntryPlugin( view_dir, entry[ key ], key ) );
+        delete entry[ key ];
+      }
+      return o;
+    }, {} );
+    if ( !Object.keys( ret ).length ) return next();
+    webpackDev.invalidate();
+    webpackDev.waitUntilValid( () => {
+      // res.redirect( req.originalUrl );
+      next();
+    } );
   },
   CompileSCSS: ( req, res, next ) => {
     if ( !/.*\.css$/.test( req.path ) ) return next();

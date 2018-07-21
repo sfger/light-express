@@ -14,8 +14,9 @@ let bodyParser = require( 'body-parser' );
 let compression = require( 'compression' );
 let ext = require( './ext' );
 app.ext = ext;
-app.use( compression() );
 app.use( ext.webpackDev );
+app.use( ext.CompileJS );
+app.use( compression() );
 
 app.set( 'views', ext.view_dir );
 app.engine( 'jsx', require( 'express-react-views' ).createEngine( {
