@@ -1,169 +1,208 @@
-<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8" /><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" /><title>Title</title><meta name="apple-mobile-web-app-capable" content="yes" /><meta name="apple-mobile-web-app-status-bar-style" content="black" /><meta name="format-detection" content="telephone=no" /><meta name="author" content="" /><meta name="revisit-after" content="1 days" /><meta name="keywords" content="" /><meta name="description" content="" /><style type="text/css" media="all">.my-datagrid,.my-datagrid.datagrid-render-ctn{height:400px;width:50%;overflow:hidden;float:left;}
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<title>Title</title>
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+<meta name="format-detection" content="telephone=no" />
+<meta name="author" content="" />
+<meta name="revisit-after" content="1 days" />
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<style type="text/css" media="all">
+.my-datagrid,.my-datagrid.datagrid-render-ctn{height:400px;width:50%;overflow:hidden;float:left;}
 *{padding:0;margin:0;font-size:14px;}
 .warn{color:#ff0101;}
 .normal{color:#008f1f;}
-.btn-group a{margin-right:10px;}</style></head><body><div id="page"><div class="btn-group"><a id="btn-refresh" href="javascript:">刷新数据</a><a id="btn-reset-height" href="javascript:">改变窗口高度</a></div><div class="my-datagrid"></div><div class="my-datagrid"></div></div><!--[if lt IE 9]><script src="../../../../public/js/es5-shim.js"></script><script src="../../../../public/js/es5-sham.js"></script><script>Object.defineProperty = function(obj, key, value){
-obj[key] = value.value||value;
+.btn-group a{margin-right:10px;}
+</style>
+</head>
+<body>
+<div id="page">
+	<div class="btn-group">
+		<a id="btn-refresh" href="javascript:">刷新数据</a>
+		<a id="btn-reset-height" href="javascript:">改变窗口高度</a>
+	</div>
+	<div class="my-datagrid"></div>
+	<div class="my-datagrid"></div>
+</div>
+<!--[if lt IE 9]>
+<script src="../../../../public/js/es5-shim.js"></script>
+<script src="../../../../public/js/es5-sham.js"></script>
+<script>
+Object.defineProperty = function(obj, key, value){
+	obj[key] = value.value||value;
 };
 Object.setPrototypeOf = function(obj, proto){
-obj.prototype = proto;
-return obj;
-};</script><![endif]--><script src="../../../../public/js/es6-shim.js"></script><script id="requirejs" data-version="__version__" src="../../../../public/js/require.js?__version__"></script><script>require.config({
-baseUrl:'../../../../',
-urlArgs:document.getElementById("requirejs").getAttribute("data-version"),
-map:{"*":{css:"require-css"}},
-paths:{
-jquery:'public/js/jquery'
-},
-shim:{
-'ui/js/jquery-datagrid': ['jquery']
-}
+	obj.prototype = proto;
+	return obj;
+};
+</script>
+<![endif]-->
+<script src="../../../../public/js/es6-shim.js"></script>
+<script id="requirejs" data-version="__version__" src="../../../../public/js/require.js?__version__"></script>
+<script>
+require.config({
+	baseUrl:'../../../../',
+	urlArgs:document.getElementById("requirejs").getAttribute("data-version"),
+	map:{"*":{css:"require-css"}},
+	paths:{
+		jquery:'public/js/jquery'
+	},
+	shim:{
+		'ui/js/jquery-datagrid': ['jquery']
+	}
 });
 require(['jquery', 'ui/js/jquery-datagrid'],function($){
 var gen_data = function(cb){
-var data = [];
-for(var row=0; row<50; row++){
-data[row] = {};
-for(var col=0; col<35; col++){
-/* data[row]['col-'+(col+1)] = 'row:' + (row+1) + '<br />col:' + (col+1); */
-data[row]['col-'+(col+1)] = Number(Math.random()*100).toFixed(2);
-}
-}
-setTimeout(function(){
-cb(data);
-}, 0);
-// return data;
+	var data = [];
+	for(var row=0; row<50; row++){
+		data[row] = {};
+		for(var col=0; col<35; col++){
+			/* data[row]['col-'+(col+1)] = 'row:' + (row+1) + '<br />col:' + (col+1); */
+			data[row]['col-'+(col+1)] = Number(Math.random()*100).toFixed(2);
+		} 
+	}
+	setTimeout(function(){
+		cb(data);
+	}, 0);
+	// return data;
 };
 var fieldSortFns = {
-sortStr: null, // default
-sortNum: function(a, b){ // this指{field:field, order:order}
-var field = this.field;
-return a[field] - b[field];
-}
+	sortStr: null, // default
+	sortNum: function(a, b){ // this指{field:field, order:order}
+		var field = this.field;
+		return a[field] - b[field];
+	}
 };
 var options = {
-//data          : [],
-data          : gen_data,
-rowNum        : true,
-autoRowHeight : true,
-autoColWidth  : true,
-/* sortable      : true, */
-sort          : {field:'col-5', order:'desc'},
-/* dataType      : 'number', */
-width         : 200,
-/* remoteSort    : true, */
-triggerRow    : true,
-frozenColumns : [
-[
-{name:'冻结列', colspan:4}
-],
-[
-{name:'冻结列组1', colspan:2},
-{field:'col-3', name:'冻结第三列', rowspan:2},
-{field:'col-4', name:'冻结第四列', rowspan:2}
-],
-[
-{field:'col-1', name:'冻结第一列', sortable:true, sortable:true, // dataType: 'number', // 'string',
-formatter:function(val, row, key){
-return '格式化: ' + (Math.random()>0.5 ? '<br />' : '') + val;
-}
-},
-{field:'col-2', name:'冻结第二列', align:'right', sortable:true, sort:fieldSortFns.sortNum,
-formatter: function(val, row, key){
-var cls = val<60 ? 'warn' : 'normal';
-return '<span class="'+cls+'">' + val + '</span>';
-}
-}
-]
-],
-frozenEndColumns : [
-[
-{name:'尾列', colspan:2}
-],
-[
-{field:'col-34', name:'尾列第一列'},
-{field:'col-35', name:'尾列第二列',
-formatter:function(val, row, key){
-return '格式化: ' + (Math.random()>0.5 ? '<br />' : '') + val;
-}
-}
-]
-],
-columns:[
-[
-{field:'col-5', sortable:true, rowspan:3},
-{name:'非冻结列', colspan:28},
-],
-[
-{field:'col-6', rowspan:2},
-{name:'非冻结列组1', colspan:10},
-{name:'非冻结列组2', colspan:17}
-],
-[
-{field:'col-7'},
-{field:'col-8'},
-{field:'col-9'},
-{field:'col-10'},
-{field:'col-11'},
-{field:'col-12'},
-{field:'col-13'},
-{field:'col-14'},
-{field:'col-15'},
-{field:'col-16'},
-{field:'col-17'},
-{field:'col-18'},
-{field:'col-19'},
-{field:'col-20'},
-{field:'col-21'},
-{field:'col-22'},
-{field:'col-23'},
-{field:'col-24'},
-{field:'col-25'},
-{field:'col-26'},
-{field:'col-27'},
-{field:'col-28'},
-{field:'col-29'},
-{field:'col-30'},
-{field:'col-31', sortable:true, sortable:true, // dataType: 'number', // 'string',
-formatter:function(val, row, key){
-return val;
-}
-},
-{field:'col-32', sortable:true, sort:fieldSortFns.sortNum,
-formatter: function(val, row, key){
-return val;
-}
-},
-{field:'col-33'}
-]
-],
-onUpdate:function(){
-console.log('Load time: ' + (Date.now()-stime));
-/*
-if(!this.userOptions.data.length){
-$grid.datagrid('update', {data:gen_data});
-return false;
-}
-*/
-}
+	//data          : [],
+	data          : gen_data,
+	rowNum        : true,
+	autoRowHeight : true,
+	autoColWidth  : true,
+	/* sortable      : true, */
+	sort          : {field:'col-5', order:'desc'},
+	/* dataType      : 'number', */
+	width         : 200,
+	/* remoteSort    : true, */
+	triggerRow    : true,
+	frozenColumns : [
+		[
+			{name:'冻结列', colspan:4}
+		],
+		[
+			{name:'冻结列组1', colspan:2},
+			{field:'col-3', name:'冻结第三列', rowspan:2},
+			{field:'col-4', name:'冻结第四列', rowspan:2}
+		],
+		[
+			{field:'col-1', name:'冻结第一列', sortable:true, sortable:true, // dataType: 'number', // 'string',
+				formatter:function(val, row, key){
+					return '格式化: ' + (Math.random()>0.5 ? '<br />' : '') + val;
+				}
+			},
+			{field:'col-2', name:'冻结第二列', align:'right', sortable:true, sort:fieldSortFns.sortNum,
+				formatter: function(val, row, key){
+					var cls = val<60 ? 'warn' : 'normal';
+					return '<span class="'+cls+'">' + val + '</span>';
+				}
+			}
+		]
+	],
+	frozenEndColumns : [
+		[
+			{name:'尾列', colspan:2}
+		],
+		[
+			{field:'col-34', name:'尾列第一列'},
+			{field:'col-35', name:'尾列第二列', 
+				formatter:function(val, row, key){
+					return '格式化: ' + (Math.random()>0.5 ? '<br />' : '') + val;
+				}
+			}
+		]
+	],
+	columns:[
+		[
+			{field:'col-5', sortable:true, rowspan:3},
+			{name:'非冻结列', colspan:28},
+		],
+		[
+			{field:'col-6', rowspan:2},
+			{name:'非冻结列组1', colspan:10},
+			{name:'非冻结列组2', colspan:17}
+		],
+		[
+			{field:'col-7'},
+			{field:'col-8'},
+			{field:'col-9'},
+			{field:'col-10'},
+			{field:'col-11'},
+			{field:'col-12'},
+			{field:'col-13'},
+			{field:'col-14'},
+			{field:'col-15'},
+			{field:'col-16'},
+			{field:'col-17'},
+			{field:'col-18'},
+			{field:'col-19'},
+			{field:'col-20'},
+			{field:'col-21'},
+			{field:'col-22'},
+			{field:'col-23'},
+			{field:'col-24'},
+			{field:'col-25'},
+			{field:'col-26'},
+			{field:'col-27'},
+			{field:'col-28'},
+			{field:'col-29'},
+			{field:'col-30'},
+			{field:'col-31', sortable:true, sortable:true, // dataType: 'number', // 'string',
+				formatter:function(val, row, key){
+					return val;
+				}
+			},
+			{field:'col-32', sortable:true, sort:fieldSortFns.sortNum,
+				formatter: function(val, row, key){
+					return val;
+				}
+			},
+			{field:'col-33'}
+		]
+	],
+	onUpdate:function(){
+		console.log('Load time: ' + (Date.now()-stime));
+		/*
+		if(!this.userOptions.data.length){
+			$grid.datagrid('update', {data:gen_data});
+			return false;
+		}
+		*/
+	}
 };
 var stime = Date.now();
 var $grid = $('.my-datagrid');
 $grid.datagrid(options);
 $('#btn-refresh').click(function(){
-$grid.datagrid('update', {data:gen_data});
+	$grid.datagrid('update', {data:gen_data});
 });
 $('#btn-reset-height').click(function(){
-var height = 500 + Math.random()*250;
-$grid.datagrid('resetTableHeight', height);
+	var height = 500 + Math.random()*250;
+	$grid.datagrid('resetTableHeight', height);
 });
 /*
 setInterval(function(){
-stime = Date.now();
-$grid.datagrid('update', {data:gen_data});
-setTimeout(function(){
-$grid.datagrid('sortBy', {field : 'col-2', order : 'asc'});
-}, 5000);
+	stime = Date.now();
+	$grid.datagrid('update', {data:gen_data});
+	setTimeout(function(){
+		$grid.datagrid('sortBy', {field : 'col-2', order : 'asc'});
+	}, 5000);
 }, 10000);
 */
-});</script></body></html>
+});
+</script>
+</body>
+</html>

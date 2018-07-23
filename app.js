@@ -18,12 +18,12 @@ app.use( ext.webpackDev );
 app.use( ext.CompileJS );
 app.use( compression() );
 
-app.set( 'views', ext.view_dir );
+app.set( 'views', './' );
 app.engine( 'jsx', require( 'express-react-views' ).createEngine( {
   beautify: true,
   babel: {
     presets: [
-      "stage-3",
+      "stage-0",
       "react",
       [ 'env', { targets: { node: 'current' } } ]
     ],
@@ -31,7 +31,15 @@ app.engine( 'jsx', require( 'express-react-views' ).createEngine( {
       [ "transform-async-to-generator" ],
       [ "transform-decorators-legacy" ],
       [ "transform-class-properties" ],
-      [ "transform-runtime", { polyfill: false, regenerator: true } ]
+      [ "transform-runtime", { polyfill: false, regenerator: true } ],
+      [ "module-resolver", {
+        root: [ './' ],
+        alias: {
+          "^@(.+)": "./components/\\1",
+          "^~(.+)": "./src/\\1"
+        },
+        extensions: [ ".js", ".jsx", ".ts", ".tsx" ]
+      } ]
     ]
   }
 } ) );

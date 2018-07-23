@@ -168,7 +168,7 @@ var ext = {
     var req = this.req;
     if ( err ) return console.log( err );
     // console.log(ext);
-    if ( req.query.minify !== '0' ) ret = minify_html( ret );
+    // if ( req.query.minify !== '0' ) ret = minify_html( ret );
     if ( req.query.dist !== '0' ) ext.writeStaticCache( this.distPath || req.route.path, ret );
     this.res.send( ret );
   },
@@ -260,13 +260,12 @@ var ext = {
       for ( let item of jsList ) {
         if ( !/.*\.js/.test( item ) ) return next();
       }
+      jsList = jsList.map( one => {
+        return req.path + one;
+      } );
     } else {
       jsList = [ req.path ];
     }
-    jsList = jsList.map( one => {
-      return req.path + one;
-    } );
-    // console.log(jsList);
 
     let ret = jsList.reduce( ( o, item ) => {
       let key = item.slice( 1, -3 );

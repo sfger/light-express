@@ -31,6 +31,9 @@ router.get( [ '/', '/*.html' ], function ( req, res, next ) {
   res.render( view, {
     ___: '',
     __version__: '__version__',
+    // settings: {
+    //   env: 'development'
+    // },
     node: {
       placeholder: {
         white: "/common/img/placeholder.png"
