@@ -14,11 +14,11 @@ let bodyParser = require( 'body-parser' );
 let compression = require( 'compression' );
 let ext = require( './ext' );
 app.ext = ext;
-app.use( ext.webpackDev );
 app.use( ext.CompileJS );
+app.use( ext.webpackDev );
 app.use( compression() );
 
-app.set( 'views', './' );
+// app.set( 'views', ext.root );
 app.engine( 'jsx', require( 'express-react-views' ).createEngine( {
   beautify: true,
   babel: {
@@ -79,4 +79,19 @@ ext.autoAddRoutes( app, ext.route_dir, '/' ).then( () => {
 } ).catch( function ( err ) {
   console.log( 'Global Error', err );
 } );
-module.exports = app;
+
+let debug = require( 'debug' )( 'test' );
+let fs = require( 'fs' );
+
+let port = Number( process.env.PORT ) || 80;
+let https_port = Number( process.env.HTTPS_PORT ) || ( 443 + port - 80 );
+
+require( 'https' ).createServer( {
+  key: fs.readFileSync( './cert/key.pem' ),
+  cert: fs.readFileSync( './cert/cert.pem' )
+}, app ).listen( https_port );
+
+app.set( 'port', port );
+let server = app.listen( app.get( 'port' ), function () {
+  debug( 'Express server listening on port ' + server.address().port );
+} );

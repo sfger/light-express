@@ -23,6 +23,7 @@ var scssDebug = debug( 'SCSS comple:' );
 scssDebug.enabled = true;
 var compiler = webpack( webpackConfig );
 var webpackDev = WebpackDev( compiler, {
+  root,
   // lazy: true,
   watchOptions: {
     ignored: /node_modules/,
@@ -271,17 +272,16 @@ var ext = {
       let key = item.slice( 1, -3 );
       if ( key in entry ) {
         o[ key ] = entry[ key ];
-        // let p = path.normalize( entry[ key ] );
-        // console.log( '..............', p );
         compiler.apply( new SingleEntryPlugin( view_dir, entry[ key ], key ) );
         delete entry[ key ];
       }
       return o;
     }, {} );
+    // console.log(ret);
     if ( !Object.keys( ret ).length ) return next();
     webpackDev.invalidate();
     webpackDev.waitUntilValid( () => {
-      // res.redirect( req.originalUrl );
+      // return res.redirect( req.originalUrl );
       next();
     } );
   },
