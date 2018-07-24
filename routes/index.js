@@ -14,6 +14,7 @@ router.get( [ '/', '/*.html' ], function ( req, res, next ) {
   if ( !url_path ) url_path = 'index';
   var view = url_path.replace( /\/html\//, '/views/' );
   var file = path.join( app.get( 'views' ), view ) + '.ejs';
+  console.log(file);
 
   file = path.normalize( file );
   var exists = fs.existsSync( file );
@@ -21,6 +22,7 @@ router.get( [ '/', '/*.html' ], function ( req, res, next ) {
     app.set( 'view engine', 'ejs' );
   } else {
     file = path.join( app.get( 'views' ), view ) + '.jsx';
+    console.log(file);
     exists = fs.existsSync( file );
     if ( exists ) {
       app.set( 'view engine', 'jsx' );
@@ -28,6 +30,9 @@ router.get( [ '/', '/*.html' ], function ( req, res, next ) {
       return next();
     }
   }
+  console.log(file);
+  delete require.cache[ file ];
+  console.log('..............', view);
   res.render( view, {
     ___: '',
     __version__: '__version__',

@@ -18,7 +18,7 @@ app.use( ext.CompileJS );
 app.use( ext.webpackDev );
 app.use( compression() );
 
-// app.set( 'views', ext.root );
+app.set( 'views', ext.static_dir );
 app.engine( 'jsx', require( 'express-react-views' ).createEngine( {
   beautify: true,
   babel: {

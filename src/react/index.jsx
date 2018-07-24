@@ -7,7 +7,7 @@ class Html extends Component {
       { href: "./css/react.css" }
     ],
     jsList: [
-      { src: "../../../../public/js/??es5-shim.js,es5-sham.js?test" },
+      { src: "../../../../public/js/??es5-shim.js,es5-sham.js?tester" },
       { src: "../../../../public/js/es6-shim.js?test" },
       { id: "mainjs", 'data-main': './js/??a.js,context.js', src: '../public/js/require.js' }
     ]
