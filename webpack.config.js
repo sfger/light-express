@@ -31,7 +31,7 @@ let moduleResolver = [ "module-resolver", {
     // "@": root+"/components",
     // "~": root+"/src"
   },
-  extensions: [ ".js", ".jsx", ".ts", ".tsx" ]
+  extensions: [ ".js", '.scss', ".jsx", ".ts", ".tsx" ]
 } ];
 module.exports = {
   mode: 'development',
@@ -105,7 +105,7 @@ module.exports = {
             presets: [
               [ "es2015", { modules: false } ],
               // ['es2015'],
-              "stage-3",
+              "stage-0",
               "react"
             ],
             plugins: [

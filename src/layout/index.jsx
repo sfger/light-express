@@ -37,9 +37,9 @@ class WapLayout extends Component {
         {props.children}
         {
           (props.jsList||[]).map( (item, i) => {
-            item['data-main'] += '?' + version;
             if( item.id=='requirejs' ) {
               if( !item['data-version'] ) item['data-version'] = version;
+              if( item['data-main'] ) item['data-main'] += '?' + version;
               if( !item.src ) item.src = "/public/js/require-min.js" + '?' + version;
             }
             return <script key={i} {...item}></script>;

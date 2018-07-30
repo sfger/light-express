@@ -9,7 +9,7 @@ class Html extends Component {
     jsList: [
       { src: "../../../../public/js/??es5-shim.js,es5-sham.js?tester" },
       { src: "../../../../public/js/es6-shim.js?test" },
-      { id: "mainjs", 'data-main': './js/??a.js,context.js', src: '../public/js/require.js' }
+      { id: "requirejs", 'data-main': './js/??a.js,context.js', src: '../public/js/require.js' }
     ]
   };
   constructor( props ) {
