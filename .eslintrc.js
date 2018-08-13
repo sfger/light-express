@@ -35,6 +35,7 @@ module.exports = {
     "__version__": true
   },
   "rules": {
+    "react/jsx-curly-spacing": [ 2, "always" ],
     "react/jsx-no-bind": [ "error" ],
     "react/jsx-uses-vars": [ "error" ],
     "react/jsx-uses-react": [ "error" ],
