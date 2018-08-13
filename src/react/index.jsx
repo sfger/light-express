@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { WapLayout } from '../layout/index.jsx';
+import { Layout } from '../layout/index.jsx';
 class Html extends Component {
   state = {
     title: 'React',
@@ -18,9 +18,9 @@ class Html extends Component {
   render() {
     let { state, props } = this;
     return (
-      <WapLayout {...props} {...state} >
+      <Layout { ...props } { ...state } >
         <div id="page"></div>
-      </WapLayout>
+      </Layout>
     );
   }
 }
