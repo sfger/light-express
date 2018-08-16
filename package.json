@@ -7,7 +7,7 @@
     "deploy": "gulp -d "
   },
   "dependencies": {
-    "@types/jquery": "^3.3.5",
+    "@types/jquery": "^3.3.6",
     "ansi": "^0.3.1",
     "antd": "^3.8.1",
     "args": "^5.0.0",
@@ -91,7 +91,7 @@
     "jshint": "^2.9.6",
     "jsx-loader": "^0.13.2",
     "redux": "^4.0.0",
-    "url-loader": "^1.0.1"
+    "url-loader": "^1.1.0"
   },
   "config": {
     "commitizen": {
