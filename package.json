@@ -9,7 +9,7 @@
   "dependencies": {
     "@types/jquery": "^3.3.6",
     "ansi": "^0.3.1",
-    "antd": "^3.8.1",
+    "antd": "^3.8.2",
     "args": "^5.0.0",
     "babel-loader": "^7.1.5",
     "babel-plugin-import": "^1.8.0",
@@ -56,12 +56,12 @@
     "rxjs": "^6.2.2",
     "sass-loader": "^7.1.0",
     "style-loader": "^0.22.1",
-    "stylelint": "^9.4.0",
+    "stylelint": "^9.5.0",
     "stylelint-scss": "^3.3.0",
-    "ts-loader": "^4.4.2",
+    "ts-loader": "^4.5.0",
     "typescript": "^3.0.1",
     "vue": "^2.5.17",
-    "vue-loader": "^15.3.0",
+    "vue-loader": "^15.4.0",
     "vue-style-loader": "^4.1.2",
     "vue-template-compiler": "^2.5.17",
     "vuex": "^3.0.1",
@@ -91,7 +91,7 @@
     "jshint": "^2.9.6",
     "jsx-loader": "^0.13.2",
     "redux": "^4.0.0",
-    "url-loader": "^1.1.0"
+    "url-loader": "^1.1.1"
   },
   "config": {
     "commitizen": {
