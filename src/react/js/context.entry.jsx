@@ -104,7 +104,7 @@ const List = Loadable( {
     await new Promise( resolve => {
       setTimeout( resolve, 3000 );
     } );
-    return await import ( "./parts/list.js" );
+    return await import ( "./parts/list.jsx" );
   },
   loading: Loading,
   render( loaded, props ) {
@@ -128,9 +128,10 @@ class App extends Component {
   };
   constructor( props ) {
     super( props );
-    this.state.count.add_num = this.add_num;
-    this.state.array.list_push = this.list_push;
-    this.state.array.list_pop = this.list_pop;
+    let state = this.state;
+    state.count.add_num = this.add_num;
+    state.array.list_push = this.list_push;
+    state.array.list_pop = this.list_pop;
   }
   list_pop = () => {
     this.setState( ( state ) => {
