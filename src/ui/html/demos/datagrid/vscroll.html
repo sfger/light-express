@@ -11,6 +11,7 @@
 <meta name="revisit-after" content="1 days" />
 <meta name="keywords" content="" />
 <meta name="description" content="" />
+<link rel="stylesheet" type="text/css" href="../../../css/datagrid.css">
 <style type="text/css" media="all">
 .my-datagrid,.my-datagrid.datagrid-render-ctn{height:400px;width:50%;overflow:hidden;float:left;}
 *{padding:0;margin:0;font-size:14px;}
@@ -63,7 +64,7 @@ var gen_data = function(cb){
 		for(var col=0; col<35; col++){
 			/* data[row]['col-'+(col+1)] = 'row:' + (row+1) + '<br />col:' + (col+1); */
 			data[row]['col-'+(col+1)] = Number(Math.random()*100).toFixed(2);
-		} 
+		}
 	}
 	setTimeout(function(){
 		cb(data);
@@ -118,7 +119,7 @@ var options = {
 		],
 		[
 			{field:'col-34', name:'尾列第一列'},
-			{field:'col-35', name:'尾列第二列', 
+			{field:'col-35', name:'尾列第二列',
 				formatter:function(val, row, key){
 					return '格式化: ' + (Math.random()>0.5 ? '<br />' : '') + val;
 				}

@@ -23,16 +23,7 @@ entrysArray.forEach( ( one ) => {
 // 	'webpack-dev-server/client?http://localhost',
 // ];
 // console.log(entryMap);
-let moduleResolver = [ "module-resolver", {
-  root: [ './' ],
-  alias: {
-    "^@(.+)": "./components/\\1",
-    "^~(.+)": "./src/\\1"
-    // "@": root+"/components",
-    // "~": root+"/src"
-  },
-  extensions: [ ".js", '.scss', ".jsx", ".ts", ".tsx" ]
-} ];
+let babelConfig = require( "./babel.config.js" );
 module.exports = {
   mode: 'development',
   context: path.normalize( root + '/src/' ),
@@ -101,24 +92,7 @@ module.exports = {
         type: "javascript/auto",
         use: [ {
           loader: 'babel-loader',
-          options: {
-            presets: [
-              [ "es2015", { modules: false } ],
-              // ['es2015'],
-              "stage-0",
-              "react"
-            ],
-            plugins: [
-              [ "syntax-dynamic-import" ],
-              [ "transform-async-to-generator" ],
-              [ "transform-decorators-legacy" ],
-              [ "transform-class-properties" ],
-              [ "transform-runtime", { polyfill: false, regenerator: true } ],
-              // ["@babel/plugin-transform-flow-strip-types"],
-              [ "import", { "libraryName": "antd", "libraryDirectory": "es", "style": true } ],
-              moduleResolver
-            ]
-          }
+          options: babelConfig,
         } ]
       },
       {
@@ -176,7 +150,9 @@ module.exports = {
         exclude: /(node_modules)/,
         use: [ {
           loader: 'url-loader',
-          options: { limit: 8192 }
+          options: {
+            limit: 8192,
+          }
         } ]
       }
     ]

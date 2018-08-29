@@ -1,3 +1,4 @@
+// import "../../public/js/requestAnimationFrame";
 import "~public/js/requestAnimationFrame.js";
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -8,7 +9,7 @@ let mountNode = document.querySelector( '#page' );
   console.log( 'test' );
 }() );
 
-// import "antd/dist/antd.less"; 
+// import "antd/dist/antd.less";
 import { Radio, Button, Icon } from 'antd';
 
 // import Radio from 'antd/es/radio';
@@ -38,17 +39,17 @@ class ButtonSize extends React.Component {
     const size = this.state.size;
     return (
       <div>
-        <Radio.Group defaultValue={size} onChange={this.handleSizeChange}>
+        <Radio.Group defaultValue={ size } onChange={ this.handleSizeChange }>
           <Radio.Button value="large">Large</Radio.Button>
           <Radio.Button value="default">Default</Radio.Button>
           <Radio.Button value="small">Small</Radio.Button>
         </Radio.Group>
         <br /><br />
-        <Button type="primary" shape="circle" icon="download" size={size} />
-        <Button type="primary" icon="download" size={size}>Download</Button>
-        <Button type="primary" size={size}>Normal</Button>
+        <Button type="primary" shape="circle" icon="download" size={ size } />
+        <Button type="primary" icon="download" size={ size }>Download</Button>
+        <Button type="primary" size={ size }>Normal</Button>
         <br /><br />
-        <Button.Group size={size}>
+        <Button.Group size={ size }>
           <Button type="primary">
             <Icon type="left" />Backward
           </Button>
