@@ -42,6 +42,7 @@ module.exports = {
     "react/prop-types": [ "off" ],
     "no-case-declarations": [ "off" ],
     "no-console": [ "off" ],
+    "no-func-assign": [ "off" ],
     "no-empty": [ "off" ],
     "indent": [ "warn", 2, { "SwitchCase": 1 } ],
     "linebreak-style": [ "error", "unix" ],
