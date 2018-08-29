@@ -31,15 +31,6 @@
 <!--[if lt IE 9]>
 <script src="../../../../public/js/es5-shim.js"></script>
 <script src="../../../../public/js/es5-sham.js"></script>
-<script>
-Object.defineProperty = function(obj, key, value){
-	obj[key] = value.value||value;
-};
-Object.setPrototypeOf = function(obj, proto){
-	obj.prototype = proto;
-	return obj;
-};
-</script>
 <![endif]-->
 <script src="../../../../public/js/es6-shim.js"></script>
 <script id="requirejs" data-version="__version__" src="../../../../public/js/require.js?__version__"></script>
