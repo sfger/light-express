@@ -3,7 +3,6 @@ const glob = require( 'glob' );
 const root = path.resolve( __dirname );
 const webpack = require( 'webpack' );
 const { VueLoaderPlugin } = require( 'vue-loader' );
-// let WebpackMd5Hash = require('webpack-md5-hash');
 let sassconfig = require( './sass.config.js' );
 let es3ifyPlugin = require( 'es3ify-webpack-plugin' );
 let entrysArray = glob.sync( "**/*.@(entry).@(js?(x)|ts)", {
