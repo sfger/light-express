@@ -192,7 +192,7 @@ _:-ms-lang(x), .grid .col-rest { display: inline-block\9; }
 
 .tree-container { width: auto; overflow: auto; background: white; }
 
-.tree-container ul[data-deep="1"] { /*@include ib(top);*/ display: inline-block; vertical-align: top; min-width: 100%; }
+.tree-container ul[data-deep="1"] { display: inline-block; vertical-align: top; min-width: 100%; }
 
 .tree-container ul li ul { width: auto; height: auto; _line-height: 0; _font-size: 0; }
 
