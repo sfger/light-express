@@ -50,7 +50,7 @@
     "debug": "^4.1.0",
     "ejs": "^2.6.1",
     "es3ify-webpack-plugin": "0.0.1",
-    "express": "^4.16.3",
+    "express": "^4.16.4",
     "express-react-views": "^0.10.5",
     "gulp-clean-css": "^3.10.0",
     "gulp-cli": "^2.0.1",
@@ -109,7 +109,7 @@
     "jshint": "^2.9.6",
     "jsx-loader": "^0.13.2",
     "redux": "^4.0.0",
-    "url-loader": "^1.1.1"
+    "url-loader": "^1.1.2"
   },
   "config": {
     "commitizen": {
