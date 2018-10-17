@@ -28,7 +28,7 @@
     "@babel/plugin-transform-runtime": "^7.1.0",
     "@babel/register": "^7.0.0",
     "@babel/runtime": "^7.1.2",
-    "@types/jquery": "^3.3.18",
+    "@types/jquery": "^3.3.19",
     "ansi": "^0.3.1",
     "antd": "^3.10.1",
     "args": "^5.0.0",
