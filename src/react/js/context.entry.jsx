@@ -1,8 +1,8 @@
-import React, { Component, createContext } from 'react';
+import React, { lazy, Suspense, Component, createContext } from 'react';
 import { render as ReactDOMRender } from 'react-dom';
 import { Router, Route, Link } from 'react-router-dom';
 import { createBrowserHistory } from 'history';
-import Loadable from 'react-loadable';
+// import Loadable from 'react-loadable';
 let numContext = createContext();
 let listContext = createContext();
 let history = createBrowserHistory();
@@ -57,27 +57,27 @@ class Foo extends Component {
     return (
       <div className="commentBox">
         <div>
-          <a href="javascript:" data-test="test">row:{row},a:{a},b:{b}</a>
+          <a href="javascript:" data-test="test">row:{ row },a:{ a },b:{ b }</a>
         </div>
         <div>
-          <a href="javascript:" onClick={this.add_nu}>Add nu</a>
+          <a href="javascript:" onClick={ this.add_nu }>Add nu</a>
           <span>{this.state.nu}</span>
         </div>
         <numContext.Consumer>
-          {({num, add_num}) => (
+          { ( { num, add_num } ) => (
             <div>
-              <a href="javascript:" onClick={add_num}>Add num</a>
+              <a href="javascript:" onClick={ add_num }>Add num</a>
               <span>{num}</span>
             </div>
-          )}
+          ) }
         </numContext.Consumer>
         <listContext.Consumer>
           {({list, list_push, list_pop}) => (
             <div>
-              <a href="javascript:" onClick={list_push}>Push list</a>
+              <a href="javascript:" onClick={ list_push }>Push list</a>
               &nbsp;
-              <a href="javascript:" onClick={list_pop}>Pop list</a>
-              <ul>{ list.map(one => <li key={one}>{one}</li>) }</ul>
+              <a href="javascript:" onClick={ list_pop }>Pop list</a>
+              <ul>{ list.map(one => <li key={ one }>{ one }</li>) }</ul>
             </div>
           )}
         </listContext.Consumer>
@@ -90,28 +90,45 @@ class Main extends Component {
   render() {
     let test = { a: 'aaaa', b: 'bbb' };
     return (
-      <Foo row={'testRow'} {...test} />
+      <Foo row={ 'testRow' } { ...test } />
     );
   }
 }
+
+// const List = Loadable( {
+//   loader: async () => {
+//     await new Promise( resolve => {
+//       setTimeout( resolve, 3000 );
+//     } );
+//     return await import( "./parts/list.jsx" );
+//   },
+//   loading: Loading,
+//   render( loaded, props ) {
+//     let Component = loaded.default;
+//     return <Component numContext={ numContext } { ...props } />;
+//   }
+// } );
+
+
+const MyList = lazy( () => {
+  return new Promise( resolve => {
+    setTimeout( () => {
+      resolve( import( './parts/list.jsx' ) );
+    }, 2000 );
+  } );
+} );
 
 function Loading() {
   return <div>正在加载中……</div>;
 }
 
-const List = Loadable( {
-  loader: async () => {
-    await new Promise( resolve => {
-      setTimeout( resolve, 3000 );
-    } );
-    return await import ( "./parts/list.jsx" );
-  },
-  loading: Loading,
-  render( loaded, props ) {
-    let Component = loaded.default;
-    return <Component numContext={numContext} {...props} />;
-  }
-} );
+function List( props ) {
+  return (
+    <Suspense fallback={ <Loading /> }>
+      <MyList numContext={ numContext } { ...props } />
+    </Suspense>
+  );
+}
 
 function Test() {
   return <div>hello world</div>;
@@ -177,19 +194,19 @@ class App extends Component {
   }
   render() {
     return (
-      <listContext.Provider value={this.state.array}>
-        <numContext.Provider value={this.state.count}>
-          <Router history={history}>
+      <listContext.Provider value={ this.state.array }>
+        <numContext.Provider value={ this.state.count }>
+          <Router history={ history }>
             <div>
               <ul>
-                <li><Link to={location.pathname}>Main</Link></li>
+                <li><Link to={ location.pathname }>Main</Link></li>
                 <li><Link to="/list">list</Link></li>
                 <li><Link to="/test">test</Link></li>
               </ul>
-              <div ref={this.ref}></div>
-              <Route path={location.pathname} exact component={Main} />
-              <Route path="/list" component={List} />
-              <Route path="/test" component={Test} />
+              <div ref={ this.ref }></div>
+              <Route path={ location.pathname } exact component={ Main } />
+              <Route path="/list" component={ List } />
+              <Route path="/test" component={ Test } />
             </div>
           </Router>
         </numContext.Provider>
