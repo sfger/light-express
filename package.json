@@ -76,7 +76,7 @@
     "sass-loader": "^7.1.0",
     "style-loader": "^0.23.1",
     "stylelint": "^9.7.1",
-    "stylelint-scss": "^3.3.2",
+    "stylelint-scss": "^3.4.0",
     "ts-loader": "^5.3.0",
     "typescript": "^3.1.5",
     "vue": "^2.5.17",
