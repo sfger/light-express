@@ -20,7 +20,7 @@ class WapLayout extends Component {
         <meta name="x5-page-mode" content="app" />
         {
           (props.metaList||[]).map( (item, i) => {
-            return <link key={i} {...item} />;
+            return <link key={ i } { ...item } />;
           } )
         }
         <title>{props.title||'Title'}</title>
@@ -29,7 +29,7 @@ class WapLayout extends Component {
             item.href += '?' + version;
             item.rel = "stylesheet";
             item.type = "text/css";
-            return <link key={i} {...item} />;
+            return <link key={ i } { ...item } />;
           } )
         }
       </head>
@@ -42,7 +42,7 @@ class WapLayout extends Component {
               if( !item['data-version'] ) item['data-version'] = version;
               if( !item.src ) item.src = "/public/js/require-min.js" + '?' + version;
             }
-            return <script key={i} {...item}></script>;
+            return <script key={ i } { ...item }></script>;
           } )
         }
       </body>
@@ -78,11 +78,11 @@ class WapHeader extends Component {
                 {
                   state.list.map( (item, i) => {
                     return (
-                      <a key={i} href={item.link}>
+                      <a key={ i } href={ item.link }>
                         <div className="img">
-                          <img src={item.img} alt="" />
+                          <img src={ item.img } alt="" />
                         </div>
-                        <div>{item.title}</div>
+                        <div>{ item.title }</div>
                       </a>
                     );
                   } )
@@ -119,9 +119,9 @@ class WapFooter extends Component {
             let linkClass = 'nav-img';
             if( item.title == props.title ) linkClass += ' active';
             return (
-              <a key={i} href="" className={linkClass}>
-                <em className={item.className}></em>
-                <p>{item.title}</p>
+              <a key={ i } href="" className={ linkClass }>
+                <em className={ item.className }></em>
+                <p>{ item.title }</p>
               </a>
             );
           } )
@@ -159,7 +159,7 @@ class Img extends Component {
     let { node, ...attrs } = props;
     if ( !attrs.src ) attrs.src = node.placeholder.white;
     return (
-      <img {...attrs} />
+      <img { ...attrs } />
     );
   }
 }
