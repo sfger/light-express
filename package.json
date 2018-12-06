@@ -28,7 +28,7 @@
     "@babel/plugin-transform-runtime": "^7.2.0",
     "@babel/register": "^7.0.0",
     "@babel/runtime": "^7.2.0",
-    "@types/jquery": "^3.3.22",
+    "@types/jquery": "^3.3.23",
     "ansi": "^0.3.1",
     "antd": "^3.11.0",
     "args": "^5.0.0",
@@ -76,7 +76,7 @@
     "sass-loader": "^7.1.0",
     "style-loader": "^0.23.1",
     "stylelint": "^9.9.0",
-    "stylelint-scss": "^3.4.0",
+    "stylelint-scss": "^3.4.1",
     "ts-loader": "^5.3.1",
     "typescript": "^3.2.1",
     "vue": "^2.5.17",
@@ -84,7 +84,7 @@
     "vue-style-loader": "^4.1.2",
     "vue-template-compiler": "^2.5.17",
     "vuex": "^3.0.1",
-    "webpack": "^4.27.0",
+    "webpack": "^4.27.1",
     "webpack-dev-middleware": "^3.4.0"
   },
   "devDependencies": {
