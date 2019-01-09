@@ -62,7 +62,7 @@
     "morgan": "^1.9.1",
     "mysql": "^2.16.0",
     "node-sass": "^4.11.0",
-    "postcss": "^7.0.7",
+    "postcss": "^7.0.8",
     "postcss-image-inliner": "^1.0.6",
     "postcss-sprites": "^4.2.0",
     "postcss-urlrev": "^2.0.0",
