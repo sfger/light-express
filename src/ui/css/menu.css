@@ -18,7 +18,7 @@ audio, canvas, video, .imgc:before, .imgc .iecp, .imgc img, .imge, .ib, .img-ctn
 
 html, body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, form, fieldset, legend, input, button, textarea, hr, pre, code, p, blockquote, th, td { margin: 0; padding: 0; }
 
-html { -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; font: 14px/normal "\5b8b\4f53","Microsoft YaHei"; color: #666; }
+html { -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; font: 14px/normal "\5b8b\4f53", "Microsoft YaHei"; color: #666; }
 
 a, button, input select, textarea { font: inherit; color: inherit; }
 
@@ -172,7 +172,7 @@ _:-ms-lang(x), .grid .col-rest { display: inline-block\9; }
 
 .menu-ctn ul { width: auto; }
 
-.menu-ctn li { position: relative; /*float:left;width:100%;*/ height: 24px; padding: 1px; list-style: none; }
+.menu-ctn li { position: relative; /* float:left;width:100%; */ height: 24px; padding: 1px; list-style: none; }
 
 .menu-ctn a { display: block; overflow: hidden; -webkit-border-radius: 2px; -moz-border-radius: 2px; border-radius: 2px; padding-right: 8px; color: black; white-space: nowrap; text-decoration: none; }
 
