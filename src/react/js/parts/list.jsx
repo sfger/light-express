@@ -1,40 +1,31 @@
-import React from 'react';
-// export default function List () {
-//   return <div>list</div>;
-// }
+import React, { useContext } from 'react';
+import { numContext } from './contextList';
 
-// export default function Xxxx( { numContext } ) {
-//   return (
-//     <div>
-//       list
-//       <numContext.Consumer>
-//         {({num}) => (
-//           <div>
-//             <span>{num}</span>
-//           </div>
-//         )}
-//       </numContext.Consumer>
-//     </div>
-//   );
-// }
+/*
+export default function List() {
+  return (
+    <div>
+      list
+      <numContext.Consumer>
+        { ( { num } ) => (
+          <div>
+            <span>{num}</span>
+          </div>
+        ) }
+      </numContext.Consumer>
+    </div>
+  );
+}
+*/
 
-export default class Xxxx extends React.Component {
-  constructor( props ) {
-    super( props );
-  }
-  render() {
-    let { numContext } = this.props;
-    return (
+export default function List() {
+  let { num } = useContext( numContext );
+  return (
+    <div>
+      list
       <div>
-        list
-        <numContext.Consumer>
-          {({num}) => (
-            <div>
-              <span>{num}</span>
-            </div>
-          )}
-        </numContext.Consumer>
+        <span>{num}</span>
       </div>
-    );
-  }
+    </div>
+  );
 }

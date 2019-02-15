@@ -1,114 +1,70 @@
-import React, { lazy, Suspense, Component, createContext } from 'react';
+import React, { useState, useReducer, useContext, lazy, Suspense, Component } from 'react';
 import { render as ReactDOMRender } from 'react-dom';
 import { Router, Route, Link } from 'react-router-dom';
 import { createBrowserHistory } from 'history';
-// import Loadable from 'react-loadable';
-let numContext = createContext();
-let listContext = createContext();
+import { numContext, listContext } from './parts/contextList';
 let history = createBrowserHistory();
-// asyncComponent = loadComponent => (
-//   class AsyncComponent extends React.Component {
-//     state = {
-//       Component: null,
-//     }
-
-//     componentWillMount() {
-//       if ( this.hasLoadedComponent() ) {
-//         return;
-//       }
-
-//       loadComponent()
-//         .then( module => module.default )
-//         .then( ( Component ) => {
-//           this.setState( { Component } );
-//         } )
-//         .catch( ( err ) => {
-//           console.error( `Cannot load component in <AsyncComponent />` );
-//           throw err;
-//         } );
-//     }
-
-//     hasLoadedComponent() {
-//       return this.state.Component !== null;
-//     }
-
-//     render() {
-//       const { Component } = this.state;
-//       return ( Component ) ? <Component {...this.props} /> : null;
-//     }
-//   }
-// );
-
-class Foo extends Component {
-  state = {
-    nu: 12
-  };
+class ErrorBoundary extends Component {
   constructor( props ) {
     super( props );
+    this.state = { hasError: false };
   }
-  add_nu = e => {
-    console.log( e );
-    this.setState( {
-      nu: this.state.nu + 1
-    } );
+
+  static getDerivedStateFromError( error ) {
+    console.log( error );
+    // Update state so the next render will show the fallback UI.
+    return { hasError: true };
   }
+
+  componentDidCatch( error, info ) {
+    // You can also log the error to an error reporting service
+    // logErrorToMyService(error, info);
+    console.log( error, info );
+  }
+
   render() {
-    let { row, a, b } = this.props;
-    return (
-      <div className="commentBox">
-        <div>
-          <a href="javascript:" data-test="test">row:{ row },a:{ a },b:{ b }</a>
-        </div>
-        <div>
-          <a href="javascript:" onClick={ this.add_nu }>Add nu</a>
-          <span>{this.state.nu}</span>
-        </div>
-        <numContext.Consumer>
-          { ( { num, add_num } ) => (
-            <div>
-              <a href="javascript:" onClick={ add_num }>Add num</a>
-              <span>{num}</span>
-            </div>
-          ) }
-        </numContext.Consumer>
-        <listContext.Consumer>
-          {({list, list_push, list_pop}) => (
-            <div>
-              <a href="javascript:" onClick={ list_push }>Push list</a>
-              &nbsp;
-              <a href="javascript:" onClick={ list_pop }>Pop list</a>
-              <ul>{ list.map(one => <li key={ one }>{ one }</li>) }</ul>
-            </div>
-          )}
-        </listContext.Consumer>
+    if ( this.state.hasError ) {
+      // You can render any custom fallback UI
+      return <h1>Something went wrong.</h1>;
+    }
+
+    return this.props.children;
+  }
+}
+
+function Foo( props ) {
+  let { row, a, b } = props;
+  let { num, add_num } = useContext( numContext );
+  let { list, list_push, list_pop } = useContext( listContext );
+  return (
+    <div className="commentBox">
+      <div>
+        <a href="javascript:" data-test="test">row:{ row },a:{ a },b:{ b }</a>
       </div>
-    );
-  }
+      <div>
+        <a href="javascript:" onClick={ add_num }>Add num</a>
+        <span>{ num }</span>
+      </div>
+      <div>
+        <a href="javascript:" onClick={ list_push }>Push list</a>
+        &nbsp;
+        <a href="javascript:" onClick={ list_pop }>Pop list</a>
+        <ul>{ list.map( one => <li key={ one }>{ one }</li> ) }</ul>
+      </div>
+    </div>
+  );
 }
 
-class Main extends Component {
-  render() {
-    let test = { a: 'aaaa', b: 'bbb' };
-    return (
+function Main() {
+  let [ state ] = useReducer( reduceCount, store, init );
+  let test = { a: 'aaaa', b: 'bbb' };
+  return (
+    <div>
       <Foo row={ 'testRow' } { ...test } />
-    );
-  }
+      { state.count }
+    </div>
+  );
 }
-
-// const List = Loadable( {
-//   loader: async () => {
-//     await new Promise( resolve => {
-//       setTimeout( resolve, 3000 );
-//     } );
-//     return await import( "./parts/list.jsx" );
-//   },
-//   loading: Loading,
-//   render( loaded, props ) {
-//     let Component = loaded.default;
-//     return <Component numContext={ numContext } { ...props } />;
-//   }
-// } );
-
 
 const MyList = lazy( () => {
   return new Promise( resolve => {
@@ -125,13 +81,51 @@ function Loading() {
 function List( props ) {
   return (
     <Suspense fallback={ <Loading /> }>
-      <MyList numContext={ numContext } { ...props } />
+      <MyList { ...props } />
     </Suspense>
   );
 }
 
+let store = {
+  count: 0,
+};
+
+function init( initial ) {
+  return Object.assign( {}, store, initial );
+}
+
+function reduceCount( state, action ) {
+  switch ( action.type ) {
+    case 'increment':
+      return { count: state.count + 1 };
+    case 'decrement':
+      return { count: state.count - 1 };
+    case 'reset':
+      return init( action.payload );
+    default:
+      throw new Error( "reduceCount need a action type" );
+  }
+}
+
 function Test() {
-  return <div>hello world</div>;
+  let [ text ] = useState( "Count: " );
+  let initialCount = 0;
+  // let [ count, setCount ] = useState( initialCount );
+  let [ state, dispatch ] = useReducer( reduceCount, store, init );
+  store = state;
+  console.log( 'test' );
+  return (
+    <div>
+      { text + state.count }
+      <div>
+        <a href="javascript:" onClick={ () => dispatch( { type: 'reset', payload: initialCount } ) }>reset</a>
+        &nbsp;
+        <a href="javascript:" onClick={ () => dispatch( { type: 'increment' } ) }>+</a>
+        &nbsp;
+        <a href="javascript:" onClick={ () => dispatch( { type: 'decrement' } ) }>-</a>
+      </div>
+    </div>
+  );
 }
 
 class App extends Component {
@@ -194,23 +188,25 @@ class App extends Component {
   }
   render() {
     return (
-      <listContext.Provider value={ this.state.array }>
-        <numContext.Provider value={ this.state.count }>
-          <Router history={ history }>
-            <div>
-              <ul>
-                <li><Link to={ location.pathname }>Main</Link></li>
-                <li><Link to="/list">list</Link></li>
-                <li><Link to="/test">test</Link></li>
-              </ul>
-              <div ref={ this.ref }></div>
-              <Route path={ location.pathname } exact component={ Main } />
-              <Route path="/list" component={ List } />
-              <Route path="/test" component={ Test } />
-            </div>
-          </Router>
-        </numContext.Provider>
-      </listContext.Provider>
+      <ErrorBoundary>
+        <listContext.Provider value={ this.state.array }>
+          <numContext.Provider value={ this.state.count }>
+            <Router history={ history }>
+              <div>
+                <ul>
+                  <li><Link to={ location.pathname }>Main</Link></li>
+                  <li><Link to="/list">list</Link></li>
+                  <li><Link to="/test">test</Link></li>
+                </ul>
+                <div ref={ this.ref }></div>
+                <Route path={ location.pathname } exact component={ Main } />
+                <Route path="/list" component={ List } />
+                <Route path="/test" component={ Test } />
+              </div>
+            </Router>
+          </numContext.Provider>
+        </listContext.Provider>
+      </ErrorBoundary>
     );
   }
 }

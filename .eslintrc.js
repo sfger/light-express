@@ -21,9 +21,10 @@ module.exports = {
     "sourceType": "module"
   },
   "plugins": [
-    'markdown',
     'react',
-    'babel'
+    'react-hooks',
+    'babel',
+    'markdown',
   ],
   "globals": {
     "window": true,
@@ -36,7 +37,7 @@ module.exports = {
   },
   "rules": {
     "react/jsx-curly-spacing": [ 2, "always" ],
-    "react/jsx-no-bind": [ "error" ],
+    "react/jsx-no-bind": [ "off" ],
     "react/jsx-uses-vars": [ "error" ],
     "react/jsx-uses-react": [ "error" ],
     "react/prop-types": [ "off" ],
@@ -46,6 +47,7 @@ module.exports = {
     "no-empty": [ "off" ],
     "indent": [ "warn", 2, { "SwitchCase": 1 } ],
     "linebreak-style": [ "error", "unix" ],
-    "semi": [ "warn", "always" ]
+    "semi": [ "warn", "always" ],
+    "react-hooks/rules-of-hooks": "error",
   }
 };
