@@ -82,11 +82,11 @@
     "ts-loader": "^5.3.3",
     "typescript": "^3.3.3",
     "vue": "^2.6.6",
-    "vue-loader": "^15.6.2",
+    "vue-loader": "^15.6.3",
     "vue-style-loader": "^4.1.2",
     "vue-template-compiler": "^2.6.6",
     "vuex": "^3.1.0",
-    "webpack": "^4.29.4",
+    "webpack": "^4.29.5",
     "webpack-dev-middleware": "^3.5.2"
   },
   "devDependencies": {

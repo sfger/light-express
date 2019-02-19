@@ -1,6 +1,6 @@
 import React, { useState, useReducer, useContext, lazy, Suspense, Component } from 'react';
 import { render as ReactDOMRender } from 'react-dom';
-import { Router, Route, Link } from 'react-router-dom';
+import { Router, Route, Switch, Link } from 'react-router-dom';
 import { createBrowserHistory } from 'history';
 import { numContext, listContext } from './parts/contextList';
 let history = createBrowserHistory();
@@ -199,9 +199,11 @@ class App extends Component {
                   <li><Link to="/test">test</Link></li>
                 </ul>
                 <div ref={ this.ref }></div>
-                <Route path={ location.pathname } exact component={ Main } />
-                <Route path="/list" component={ List } />
-                <Route path="/test" component={ Test } />
+                <Switch>
+                  <Route path={ location.pathname } exact component={ Main } />
+                  <Route path="/list" component={ List } />
+                  <Route path="/test" component={ Test } />
+                </Switch>
               </div>
             </Router>
           </numContext.Provider>
