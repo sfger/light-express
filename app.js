@@ -22,24 +22,10 @@ app.set( 'views', ext.static_dir );
 app.engine( 'jsx', require( 'express-react-views' ).createEngine( {
   beautify: true,
   babel: {
-    presets: [
-      "stage-0",
-      "react",
-      [ 'env', { targets: { node: 'current' } } ]
-    ],
     plugins: [
-      [ "transform-async-to-generator" ],
-      [ "transform-decorators-legacy" ],
-      [ "transform-class-properties" ],
-      [ "transform-runtime", { polyfill: false, regenerator: true } ],
-      [ "module-resolver", {
-        root: [ './' ],
-        alias: {
-          "^@(.+)": "./components/\\1",
-          "^~(.+)": "./src/\\1"
-        },
-        extensions: [ ".js", ".jsx", ".ts", ".tsx" ]
-      } ]
+      [ "@babel/plugin-proposal-decorators", { loose: true, legacy: true } ],
+      [ "@babel/plugin-proposal-class-properties", { loose: true } ],
+      [ "@babel/plugin-transform-flow-strip-types", { loose: true } ],
     ]
   }
 } ) );
