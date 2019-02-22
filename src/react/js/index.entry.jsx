@@ -1,69 +1,73 @@
 import "~public/js/requestAnimationFrame.js";
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { createStore, combineReducers } from 'redux';
-import * as reducers from './parts/reducers';
+import React from "react";
+import ReactDOM from "react-dom";
+import { createStore, combineReducers } from "redux";
+import * as reducers from "./parts/reducers";
 const store = createStore( combineReducers( reducers ), {
   num: 3,
-  list: [ 'test', 'list' ]
+  list: ["test", "list"]
 } );
 const { dispatch, subscribe, getState } = store;
 
 let CommentBox = React.createClass( {
-  getInitialState: function () {
+  getInitialState: function() {
     return { count: 0 };
   },
-  getDefaultProps: function () {
+  getDefaultProps: function() {
     return {
-      title: 'Hello World'
+      title: "Hello World"
     };
   },
-  test: function () {
-    this.setState( {
-      count: this.state.count + 1,
-    }, function () {
-      console.log( 222, this.state.count );
-      console.log( this.props.a, this.props.row );
-    } );
+  test: function() {
+    this.setState(
+      {
+        count: this.state.count + 1
+      },
+      function() {
+        console.log( 222, this.state.count );
+        console.log( this.props.a, this.props.row );
+      }
+    );
     console.log( 111, this.state.count );
   },
-  num: function () {
-    dispatch( { type: 'ADD' } );
+  num: function() {
+    dispatch( { type: "ADD" } );
   },
-  list: function () {
-    dispatch( { type: 'PUSH', text: Number( String( Math.random() ).slice( 2 ) ).toString( 16 ) } );
+  list: function() {
+    dispatch( { type: "PUSH", text: Number( String( Math.random() ).slice( 2 ) ).toString( 16 ) } );
   },
-  render: function () {
+  render: function() {
     return (
       <div className="commentBox">
         <div>
-          <a href="javascript:" data-test="test" onClick={this.test}>{this.props.title}! I am a CommentBox. Counter: {this.state.count}</a>
+          <a href="javascript:" data-test="test" onClick={ this.test }>
+            { this.props.title }! I am a CommentBox. Counter: { this.state.count }
+          </a>
         </div>
         <div>
-          <a href="javascript:" onClick={this.num}>Add num</a>
-          <span>{getState().num}</span>
+          <a href="javascript:" onClick={ this.num }>
+            Add num
+          </a>
+          <span>{ getState().num }</span>
         </div>
         <div>
-          <a href="javascript:" onClick={this.list}>Push list</a>
+          <a href="javascript:" onClick={ this.list }>
+            Push list
+          </a>
           <ul>
-            {
-              getState().list.map(function(one){
-                return <li>{one}</li>;
-              })
-            }
+            { getState().list.map( function( one ) {
+              return <li>{ one }</li>;
+            } ) }
           </ul>
         </div>
       </div>
     );
   }
 } );
-let test = { a: 'aaa', b: 'bbb' };
+let test = { a: "aaa", b: "bbb" };
 
 function render() {
-  ReactDOM.render(
-    <CommentBox row={'row'} {...test} />,
-    document.querySelector( '#page' )
-  );
+  ReactDOM.render( <CommentBox row={ "row" } { ...test } />, document.querySelector( "#page" ) );
 }
 render();
 

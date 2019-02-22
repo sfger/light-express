@@ -1,8 +1,8 @@
-import React, { useState, useReducer, useContext, lazy, Suspense, Component } from 'react';
-import { render as ReactDOMRender } from 'react-dom';
-import { Router, Route, Switch, Link } from 'react-router-dom';
-import { createBrowserHistory } from 'history';
-import { numContext, listContext } from './parts/contextList';
+import React, { useState, useReducer, useContext, lazy, Suspense, Component } from "react";
+import { render as ReactDOMRender } from "react-dom";
+import { Router, Route, Switch, Link } from "react-router-dom";
+import { createBrowserHistory } from "history";
+import { numContext, listContext } from "./parts/contextList";
 let history = createBrowserHistory();
 class ErrorBoundary extends Component {
   constructor( props ) {
@@ -34,28 +34,40 @@ function Foo( props ) {
   return (
     <div className="commentBox">
       <div>
-        <a href="javascript:" data-test="test">row:{ row },a:{ a },b:{ b }</a>
+        <a href="javascript:" data-test="test">
+          row:{ row },a:{ a },b:{ b }
+        </a>
       </div>
       <div>
-        <a href="javascript:" onClick={ add_num }>Add num</a>
+        <a href="javascript:" onClick={ add_num }>
+          Add num
+        </a>
         <span>{ num }</span>
       </div>
       <div>
-        <a href="javascript:" onClick={ list_push }>Push list</a>
+        <a href="javascript:" onClick={ list_push }>
+          Push list
+        </a>
         &nbsp;
-        <a href="javascript:" onClick={ list_pop }>Pop list</a>
-        <ul>{ list.map( one => <li key={ one }>{ one }</li> ) }</ul>
+        <a href="javascript:" onClick={ list_pop }>
+          Pop list
+        </a>
+        <ul>
+          { list.map( one => (
+            <li key={ one }>{ one }</li>
+          ) ) }
+        </ul>
       </div>
     </div>
   );
 }
 
 function Main() {
-  let [ state ] = useReducer( reduceCount, store, init );
-  let test = { a: 'aaaa', b: 'bbb' };
+  let [state] = useReducer( reduceCount, store, init );
+  let test = { a: "aaaa", b: "bbb" };
   return (
     <div>
-      <Foo row={ 'testRow' } { ...test } />
+      <Foo row={ "testRow" } { ...test } />
       { state.count }
     </div>
   );
@@ -64,7 +76,7 @@ function Main() {
 const MyList = lazy( () => {
   return new Promise( resolve => {
     setTimeout( () => {
-      resolve( import( './parts/list.jsx' ) );
+      resolve( import( "./parts/list.jsx" ) );
     }, 2000 );
   } );
 } );
@@ -82,7 +94,7 @@ function List( props ) {
 }
 
 let store = {
-  count: 0,
+  count: 0
 };
 
 function init( initial ) {
@@ -91,11 +103,11 @@ function init( initial ) {
 
 function reduceCount( state, action ) {
   switch ( action.type ) {
-    case 'increment':
+    case "increment":
       return { count: state.count + 1 };
-    case 'decrement':
+    case "decrement":
       return { count: state.count - 1 };
-    case 'reset':
+    case "reset":
       return init( action.payload );
     default:
       throw new Error( "reduceCount need a action type" );
@@ -103,21 +115,27 @@ function reduceCount( state, action ) {
 }
 
 function Test() {
-  let [ text ] = useState( "Count: " );
+  let [text] = useState( "Count: " );
   let initialCount = 0;
   // let [ count, setCount ] = useState( initialCount );
-  let [ state, dispatch ] = useReducer( reduceCount, store, init );
+  let [state, dispatch] = useReducer( reduceCount, store, init );
   store = state;
-  console.log( 'test' );
+  console.log( "test" );
   return (
     <div>
       { text + state.count }
       <div>
-        <a href="javascript:" onClick={ () => dispatch( { type: 'reset', payload: initialCount } ) }>reset</a>
+        <a href="javascript:" onClick={ () => dispatch( { type: "reset", payload: initialCount } ) }>
+          reset
+        </a>
         &nbsp;
-        <a href="javascript:" onClick={ () => dispatch( { type: 'increment' } ) }>+</a>
+        <a href="javascript:" onClick={ () => dispatch( { type: "increment" } ) }>
+          +
+        </a>
         &nbsp;
-        <a href="javascript:" onClick={ () => dispatch( { type: 'decrement' } ) }>-</a>
+        <a href="javascript:" onClick={ () => dispatch( { type: "decrement" } ) }>
+          -
+        </a>
       </div>
     </div>
   );
@@ -129,7 +147,7 @@ class App extends Component {
       num: 5
     },
     array: {
-      list: [ 'list', 'test' ]
+      list: ["list", "test"]
     }
   };
   constructor( props ) {
@@ -140,38 +158,38 @@ class App extends Component {
     state.array.list_pop = this.list_pop;
   }
   list_pop = () => {
-    this.setState( ( state ) => {
+    this.setState( state => {
       let array = state.array;
       if ( array.list.length < 1 ) return false;
       let { list, list_push, list_pop } = array;
       list.pop();
       return {
         array: {
-          list: [ ...list ],
+          list: [...list],
           list_push,
           list_pop
         }
       };
     } );
-  }
-  get_random_item = () => Number( String( Math.random() ).slice( 2 ) ).toString( 16 )
+  };
+  get_random_item = () => Number( String( Math.random() ).slice( 2 ) ).toString( 16 );
   list_push = () => {
-    this.setState( ( state ) => {
+    this.setState( state => {
       let array = state.array;
       if ( array.list.length >= 5 ) return false;
       let item = this.get_random_item();
       let { list, list_push, list_pop } = array;
       return {
         array: {
-          list: [ ...list, item ],
+          list: [...list, item],
           list_push,
           list_pop
         }
       };
     } );
-  }
+  };
   add_num = () => {
-    this.setState( ( state ) => {
+    this.setState( state => {
       let { num, add_num } = state.count;
       return {
         count: {
@@ -180,7 +198,7 @@ class App extends Component {
         }
       };
     } );
-  }
+  };
   render() {
     return (
       <ErrorBoundary>
@@ -189,11 +207,17 @@ class App extends Component {
             <Router history={ history }>
               <div>
                 <ul>
-                  <li><Link to={ location.pathname }>Main</Link></li>
-                  <li><Link to="/list">list</Link></li>
-                  <li><Link to="/test">test</Link></li>
+                  <li>
+                    <Link to={ location.pathname }>Main</Link>
+                  </li>
+                  <li>
+                    <Link to="/list">list</Link>
+                  </li>
+                  <li>
+                    <Link to="/test">test</Link>
+                  </li>
                 </ul>
-                <div ref={ this.ref }></div>
+                <div ref={ this.ref } />
                 <Switch>
                   <Route path={ location.pathname } exact component={ Main } />
                   <Route path="/list" component={ List } />
@@ -208,4 +232,4 @@ class App extends Component {
   }
 }
 
-ReactDOMRender( <App />, document.querySelector( '#page' ) );
+ReactDOMRender( <App />, document.querySelector( "#page" ) );
