@@ -14,7 +14,7 @@ module.exports = {
   ],
   "parser": "babel-eslint",
   "parserOptions": {
-    "ecmaVersion": 8, // or 7
+    "ecmaVersion": 8,
     "ecmaFeatures": {
       "jsx": true,
       "experimentalObjectRestSpread": true
@@ -23,12 +23,9 @@ module.exports = {
   },
   "settings": {
     "react": {
-      "createClass": "createReactClass", // Regex for Component Factory to use,
-      // default to "createReactClass"
-      "pragma": "React", // Pragma to use, default to "React"
-      "version": "detect", // React version. "detect" automatically picks the version you have installed.
-      // You can also use `16.0`, `16.3`, etc, if you want to override the detected value.
-      // "flowVersion": "0.53" // Flow version
+      "createClass": "createReactClass",
+      "pragma": "React",
+      "version": "detect",
     }
   },
   "plugins": [
@@ -80,7 +77,7 @@ module.exports = {
     "block-spacing": [ 2, "always" ],
     "key-spacing": [ 2, { "beforeColon": false, "afterColon": true } ],
     "space-before-blocks": [ 2, "always" ],
-    "space-before-function-paren": [ 2, "never" ],
+    "space-before-function-paren": [ 0, "never" ],
     "space-in-parens": [ 2, "always" ],
     "space-infix-ops": 2,
     "space-unary-ops": [ 2, { "words": true, "nonwords": false } ],
