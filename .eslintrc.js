@@ -54,6 +54,7 @@ module.exports = {
     "react-hooks/rules-of-hooks": "error",
     "react/jsx-max-props-per-line": [ 2, { maximum: 1000000, when: "always" } ],
     "react/jsx-one-expression-per-line": [ 0, "never" ],
+    "react/jsx-child-element-spacing": [ 0, "never" ],
     "array-bracket-newline": [ "error", { multiline: true, minItems: 2 } ],
     "array-element-newline": [ "error", { multiline: true, minItems: 2 } ],
     "array-bracket-spacing": [ "error", "always" ],
