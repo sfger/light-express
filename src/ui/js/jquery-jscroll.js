@@ -4,39 +4,44 @@
  * http://www.winwill.com/jquery/jscroll.html
  * admin@winwill.com
  */
-/*--------------------------------------------------------------------------------------------------*/
-$.fn.extend( { //添加滚轮事件//by jun
-  mousewheel: function ( Func ) {
-    return this.each( function () {
+/* --------------------------------------------------------------------------------------------------*/
+$.fn.extend( {
+  // 添加滚轮事件//by jun
+  mousewheel: function( Func ) {
+    return this.each( function() {
       var _self = this;
-      _self.D = 0; //滚动方向
+      _self.D = 0; // 滚动方向
       // if($.browser.msie||$.browser.safari||$.browser.chrome){
       if ( !$.browser.mozilla ) {
-        _self.onmousewheel = function () {
+        _self.onmousewheel = function() {
           _self.D = event.wheelDelta;
           event.returnValue = false;
           Func && Func.call( _self );
         };
       } else {
-        _self.addEventListener( "DOMMouseScroll", function ( e ) {
-          _self.D = e.detail > 0 ? -1 : 1;
-          e.preventDefault();
-          Func && Func.call( _self );
-        }, false );
+        _self.addEventListener(
+          "DOMMouseScroll",
+          function( e ) {
+            _self.D = e.detail > 0 ? -1 : 1;
+            e.preventDefault();
+            Func && Func.call( _self );
+          },
+          false
+        );
       }
     } );
   }
 } );
 $.fn.extend( {
-  jscroll: function ( j ) {
-    return this.each( function () {
+  jscroll: function( j ) {
+    return this.each( function() {
       j = j || {};
-      j.Bar = j.Bar || {}; //2级对象
-      j.Btn = j.Btn || {}; //2级对象
-      j.Bar.Bg = j.Bar.Bg || {}; //3级对象
-      j.Bar.Bd = j.Bar.Bd || {}; //3级对象
-      j.Btn.uBg = j.Btn.uBg || {}; //3级对象
-      j.Btn.dBg = j.Btn.dBg || {}; //3级对象
+      j.Bar = j.Bar || {}; // 2级对象
+      j.Btn = j.Btn || {}; // 2级对象
+      j.Bar.Bg = j.Bar.Bg || {}; // 3级对象
+      j.Bar.Bd = j.Bar.Bd || {}; // 3级对象
+      j.Btn.uBg = j.Btn.uBg || {}; // 3级对象
+      j.Btn.dBg = j.Btn.dBg || {}; // 3级对象
       var jun = {
         W: "15px",
         BgUrl: "",
@@ -66,7 +71,7 @@ $.fn.extend( {
             Focus: "orange"
           }
         },
-        Fn: function () {}
+        Fn: function() {}
       };
       j.W = j.W || jun.W;
       var BarLimit = j.BarLimit || 10000;
@@ -87,7 +92,8 @@ $.fn.extend( {
       j.Btn.dBg.Focus = j.Btn.dBg.Focus || jun.Btn.dBg.Focus;
       j.Fn = j.Fn || jun.Fn;
       var _self = this;
-      var Stime, Sp = 0,
+      var Stime,
+        Sp = 0,
         Isup = 0;
       $( _self ).css( {
         overflow: "hidden",
@@ -96,14 +102,21 @@ $.fn.extend( {
       } );
       // var dw = $(_self).width();
       var dh = $( _self ).height() - 1;
-      var sw = j.W ? parseInt( j.W ) : 21;
+      var sw = j.W ? parseInt( j.W, 10 ) : 21;
       // var sl = dw - sw;
       var bw = j.Btn.btn == true ? sw : 0;
-      if ( $( _self ).children( ".jscroll-c" ).height() == null ) { //存在性检测
+      if (
+        $( _self )
+          .children( ".jscroll-c" )
+          .height() == null
+      ) {
+        // 存在性检测
         $( _self ).wrapInner( "<div class='jscroll-c' style='top:0px;z-index:9999;zoom:1;position:relative'></div>" );
-        $( _self ).children( ".jscroll-c" ).prepend( "<div style='height:0px;overflow:hidden'></div>" );
-        //$(_self).append("<div class='jscroll-e' unselectable='on' style=' height:100%;top:0px;right:0;-moz-user-select:none;position:absolute;overflow:hidden;z-index:10000;'><div class='jscroll-u' style='position:absolute;top:0px;width:100%;left:0;background:blue;overflow:hidden'></div><div class='jscroll-h'  unselectable='on' style='background:green;position:absolute;left:0;-moz-user-select:none;border:1px solid'></div><div class='jscroll-d' style='position:absolute;bottom:0px;width:100%;left:0;background:blue;overflow:hidden'></div></div>");
-        $( _self ).append( "<div class='jscroll-e' unselectable='on' style=' height:100%;top:0px;right:0;-moz-user-select:none;position:absolute;overflow:hidden;z-index:10000;'><div class='jscroll-u' style='position:absolute;top:0px;width:100%;left:0;background:blue;overflow:hidden'></div><div class='jscroll-h'  unselectable='on' style='cursor:pointer;background:green;position:absolute;left:0;-moz-user-select:none;'></div><div class='jscroll-d' style='position:absolute;bottom:0px;width:100%;left:0;background:blue;overflow:hidden'></div></div>" ); //禁用border
+        $( _self )
+          .children( ".jscroll-c" )
+          .prepend( "<div style='height:0px;overflow:hidden'></div>" );
+        // $(_self).append("<div class='jscroll-e' unselectable='on' style=' height:100%;top:0px;right:0;-moz-user-select:none;position:absolute;overflow:hidden;z-index:10000;'><div class='jscroll-u' style='position:absolute;top:0px;width:100%;left:0;background:blue;overflow:hidden'></div><div class='jscroll-h'  unselectable='on' style='background:green;position:absolute;left:0;-moz-user-select:none;border:1px solid'></div><div class='jscroll-d' style='position:absolute;bottom:0px;width:100%;left:0;background:blue;overflow:hidden'></div></div>");
+        $( _self ).append( "<div class='jscroll-e' unselectable='on' style=' height:100%;top:0px;right:0;-moz-user-select:none;position:absolute;overflow:hidden;z-index:10000;'><div class='jscroll-u' style='position:absolute;top:0px;width:100%;left:0;background:blue;overflow:hidden'></div><div class='jscroll-h'  unselectable='on' style='cursor:pointer;background:green;position:absolute;left:0;-moz-user-select:none;'></div><div class='jscroll-d' style='position:absolute;bottom:0px;width:100%;left:0;background:blue;overflow:hidden'></div></div>" ); // 禁用border
       }
       var jscrollc = $( _self ).children( ".jscroll-c" );
       var jscrolle = $( _self ).children( ".jscroll-e" );
@@ -116,13 +129,13 @@ $.fn.extend( {
       jscrollc.css( {
         "padding-right": sw
       } );
-      //jscrolle.css({width:sw,background:j.Bg,"background-image":j.BgUrl});  //滚动条背景禁用图片
+      // jscrolle.css({width:sw,background:j.Bg,"background-image":j.BgUrl});  //滚动条背景禁用图片
       jscrolle.css( {
         width: sw,
         background: j.Bg,
         "background-image": ""
       } );
-      //jscrollh.css({top:bw,background:j.Bar.Bg.Out,"background-image":j.BgUrl,"border-color":j.Bar.Bd.Out,width:sw-2});
+      // jscrollh.css({top:bw,background:j.Bar.Bg.Out,"background-image":j.BgUrl,"border-color":j.Bar.Bd.Out,width:sw-2});
       jscrollh.css( {
         top: bw,
         left: "1px",
@@ -140,59 +153,65 @@ $.fn.extend( {
         background: j.Btn.dBg.Out,
         "background-image": j.BgUrl
       } );
-      //jscrollh.hover(function(){if(Isup==0)$(this).css({background:j.Bar.Bg.Hover,"background-image":j.BgUrl,"border-color":j.Bar.Bd.Hover})},function(){if(Isup==0)$(this).css({background:j.Bar.Bg.Out,"background-image":j.BgUrl,"border-color":j.Bar.Bd.Out})})
+      // jscrollh.hover(function(){if(Isup==0)$(this).css({background:j.Bar.Bg.Hover,"background-image":j.BgUrl,"border-color":j.Bar.Bd.Hover})},function(){if(Isup==0)$(this).css({background:j.Bar.Bg.Out,"background-image":j.BgUrl,"border-color":j.Bar.Bd.Out})})
       jscrollh.hover(
-        function () {
-          if ( Isup == 0 ) $( this ).css( {
-            background: j.Bar.Bg.Hover,
-            "background-image": j.BgUrl,
-            "border-color": j.Bar.Bd.Hover
-          } );
+        function() {
+          if ( Isup == 0 )
+            $( this ).css( {
+              background: j.Bar.Bg.Hover,
+              "background-image": j.BgUrl,
+              "border-color": j.Bar.Bd.Hover
+            } );
         },
-        function () {
-          if ( Isup == 0 ) $( this ).css( {
-            background: j.Bar.Bg.Out,
-            "background-image": j.BgUrl,
-            "border-color": j.Bar.Bd.Out
-          } );
+        function() {
+          if ( Isup == 0 )
+            $( this ).css( {
+              background: j.Bar.Bg.Out,
+              "background-image": j.BgUrl,
+              "border-color": j.Bar.Bd.Out
+            } );
         }
       );
       jscrollu.hover(
-        function () {
-          if ( Isup == 0 ) $( this ).css( {
-            background: j.Btn.uBg.Hover,
-            "background-image": j.BgUrl
-          } );
+        function() {
+          if ( Isup == 0 )
+            $( this ).css( {
+              background: j.Btn.uBg.Hover,
+              "background-image": j.BgUrl
+            } );
         },
-        function () {
-          if ( Isup == 0 ) $( this ).css( {
-            background: j.Btn.uBg.Out,
-            "background-image": j.BgUrl
-          } );
+        function() {
+          if ( Isup == 0 )
+            $( this ).css( {
+              background: j.Btn.uBg.Out,
+              "background-image": j.BgUrl
+            } );
         }
       );
       jscrolld.hover(
-        function () {
-          if ( Isup == 0 ) $( this ).css( {
-            background: j.Btn.dBg.Hover,
-            "background-image": j.BgUrl
-          } );
+        function() {
+          if ( Isup == 0 )
+            $( this ).css( {
+              background: j.Btn.dBg.Hover,
+              "background-image": j.BgUrl
+            } );
         },
-        function () {
-          if ( Isup == 0 ) $( this ).css( {
-            background: j.Btn.dBg.Out,
-            "background-image": j.BgUrl
-          } );
+        function() {
+          if ( Isup == 0 )
+            $( this ).css( {
+              background: j.Btn.dBg.Out,
+              "background-image": j.BgUrl
+            } );
         }
       );
       var sch = jscrollc.height();
       // var sh = Math.pow(dh,2) / sch;//Math.pow(x,y)x的y次方
-      var sh = ( dh - 2 * bw ) * dh / sch;
+      var sh = ( ( dh - 2 * bw ) * dh ) / sch;
       if ( sh < 10 ) {
         sh = 10;
       }
-      var wh = sh / 6; //滚动时候跳动幅度
-      sh = parseInt( sh );
+      var wh = sh / 6; // 滚动时候跳动幅度
+      sh = parseInt( sh, 10 );
       sh = j.H || sh;
       var curT = 0,
         allowS = false;
@@ -211,22 +230,22 @@ $.fn.extend( {
         curT = dh - sh - bw;
         setT();
       }
-      jscrollh.bind( "mousedown", function ( e ) {
-        j[ 'Fn' ] && j[ 'Fn' ].call( _self );
+      jscrollh.bind( "mousedown", function( e ) {
+        j[ "Fn" ] && j[ "Fn" ].call( _self );
         Isup = 1;
         jscrollh.css( {
           background: j.Bar.Bg.Focus,
           "background-image": j.BgUrl
         } );
         var pageY = e.pageY;
-        var t = parseInt( $( this ).css( "top" ) );
-        $( document ).mousemove( function ( e2 ) {
-          curT = t + e2.pageY - pageY; //pageY浏览器可视区域鼠标位置，screenY屏幕可视区域鼠标位置
+        var t = parseInt( $( this ).css( "top" ), 10 );
+        $( document ).mousemove( function( e2 ) {
+          curT = t + e2.pageY - pageY; // pageY浏览器可视区域鼠标位置，screenY屏幕可视区域鼠标位置
           setT();
         } );
-        $( document ).mouseup( function () {
+        $( document ).mouseup( function() {
           Isup = 0;
-          //jscrollh.css({background:j.Bar.Bg.Out,"background-image":j.BgUrl,"border-color":j.Bar.Bd.Out}) //禁用边框
+          // jscrollh.css({background:j.Bar.Bg.Out,"background-image":j.BgUrl,"border-color":j.Bar.Bd.Out}) //禁用边框
           jscrollh.css( {
             background: j.Bar.Bg.Out,
             "background-image": j.BgUrl
@@ -235,15 +254,15 @@ $.fn.extend( {
         } );
         return false;
       } );
-      jscrollu.bind( "mousedown", function () {
-        j[ 'Fn' ] && j[ 'Fn' ].call( _self );
+      jscrollu.bind( "mousedown", function() {
+        j[ "Fn" ] && j[ "Fn" ].call( _self );
         Isup = 1;
         jscrollu.css( {
           background: j.Btn.uBg.Focus,
           "background-image": j.BgUrl
         } );
         _self.timeSetT( "u" );
-        $( document ).mouseup( function () {
+        $( document ).mouseup( function() {
           Isup = 0;
           jscrollu.css( {
             background: j.Btn.uBg.Out,
@@ -255,15 +274,15 @@ $.fn.extend( {
         } );
         return false;
       } );
-      jscrolld.bind( "mousedown", function () {
-        j[ 'Fn' ] && j[ 'Fn' ].call( _self );
+      jscrolld.bind( "mousedown", function() {
+        j[ "Fn" ] && j[ "Fn" ].call( _self );
         Isup = 1;
         jscrolld.css( {
           background: j.Btn.dBg.Focus,
           "background-image": j.BgUrl
         } );
         _self.timeSetT( "d" );
-        $( document ).mouseup( function () {
+        $( document ).mouseup( function() {
           Isup = 0;
           jscrolld.css( {
             background: j.Btn.dBg.Out,
@@ -275,7 +294,7 @@ $.fn.extend( {
         } );
         return false;
       } );
-      _self.timeSetT = function ( d ) {
+      _self.timeSetT = function( d ) {
         var self = this;
         if ( d == "u" ) {
           curT -= wh;
@@ -288,50 +307,56 @@ $.fn.extend( {
         if ( t <= 0 ) {
           t = 0;
         }
-        Stime = setTimeout( function () {
+        Stime = setTimeout( function() {
           self.timeSetT( d );
         }, t );
       };
-      jscrolle.bind( "mousedown", function ( e ) {
-        j[ 'Fn' ] && j[ 'Fn' ].call( _self );
+      jscrolle.bind( "mousedown", function( e ) {
+        j[ "Fn" ] && j[ "Fn" ].call( _self );
         curT = curT + e.pageY - jscrollh.offset().top - sh / 2;
         asetT();
         return false;
       } );
-      var asetT = function () {
+      var asetT = function() {
         if ( curT < bw ) {
           curT = bw;
         }
         if ( curT > dh - sh - bw ) {
           curT = dh - sh - bw;
         }
-        jscrollh.stop().animate( {
-          top: curT
-        }, 100 );
-        var scT = -( ( curT - bw ) * sch / ( dh - 2 * bw ) );
-        jscrollc.stop().animate( {
-          top: scT
-        }, 1000 );
+        jscrollh.stop().animate(
+          {
+            top: curT
+          },
+          100
+        );
+        var scT = -( ( ( curT - bw ) * sch ) / ( dh - 2 * bw ) );
+        jscrollc.stop().animate(
+          {
+            top: scT
+          },
+          1000
+        );
       };
-      var setT = function () {
+      var setT = function() {
         if ( curT < bw ) {
           curT = bw;
         }
         if ( curT > dh - sh - bw ) {
           curT = dh - sh - bw;
         }
-        if ( curT > parseInt( BarLimit ) ) return;
+        if ( curT > parseInt( BarLimit, 10 ) ) return;
         jscrollh.css( {
           top: curT
         } );
-        var scT = -( ( curT - bw ) * sch / ( dh - 2 * bw ) );
+        var scT = -( ( ( curT - bw ) * sch ) / ( dh - 2 * bw ) );
         jscrollc.css( {
           top: scT
         } );
       };
-      $( _self ).mousewheel( function () {
+      $( _self ).mousewheel( function() {
         if ( allowS != true ) return;
-        j[ 'Fn' ] && j[ 'Fn' ].call( _self );
+        j[ "Fn" ] && j[ "Fn" ].call( _self );
         if ( this.D > 0 ) {
           curT -= wh;
         } else {

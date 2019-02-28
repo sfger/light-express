@@ -1,12 +1,12 @@
-let path = require( 'path' );
+let path = require( "path" );
 let root = path.resolve( __dirname );
 module.exports = {
   alias: {
-    '@': '/components/',
-    '~': '/src/'
+    "@": "/components/",
+    "~": "/src/"
   },
-  includePaths: [ root + '/node_modules/' ],
-  importer: function ( url, prev ) {
+  includePaths: [ root + "/node_modules/" ],
+  importer: function( url, prev ) {
     let leading = url.charAt( 0 );
     let map = this.options.alias;
     if ( leading in map ) {
@@ -16,7 +16,7 @@ module.exports = {
     return { file: url };
   },
   indentWidth: 1,
-  linefeed: 'lf',
-  indentType: 'tab',
-  outputStyle: 'compact'
+  linefeed: "lf",
+  indentType: "tab",
+  outputStyle: "compact"
 };

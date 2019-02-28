@@ -1,44 +1,50 @@
-window.LArea = ( function () {
-  var MobileArea = function ( params ) {
+window.LArea = ( function() {
+  var MobileArea = function( params ) {
     this.container;
     this.index = 0;
-    this.value = ( function () {
-      var ret = [ 0, 0, 0 ];
+    this.value = ( function() {
+      var ret = [
+        0,
+        0,
+        0
+      ];
       if ( params.value.length ) {
-        var id = params.keys[ 'id' ];
+        var id = params.keys[ "id" ];
         if ( params.data[ 0 ].forEach ) {
-          params.data[ 0 ].forEach( function ( one, i ) {
+          params.data[ 0 ].forEach( function( one, i ) {
             if ( one[ id ] == params.value[ 0 ] ) ret[ 0 ] = i;
           } );
           if ( params.value[ 1 ] ) {
-            params.data[ 1 ][ params.value[ 0 ] ].forEach( function ( one, i ) {
+            params.data[ 1 ][ params.value[ 0 ] ].forEach( function( one, i ) {
               if ( one[ id ] == params.value[ 1 ] ) ret[ 1 ] = i;
             } );
           }
           if ( params.value[ 2 ] ) {
-            params.data[ 2 ][ params.value[ 1 ] ].forEach( function ( one, i ) {
+            params.data[ 2 ][ params.value[ 1 ] ].forEach( function( one, i ) {
               if ( one[ id ] == params.value[ 2 ] ) ret[ 2 ] = i;
             } );
           }
         } else {
           var data2, data3;
-          params.data.forEach( function ( one, i ) {
+          params.data.forEach( function( one, i ) {
             if ( one[ id ] == params.value[ 0 ] ) {
               ret[ 0 ] = i;
               data2 = one.child;
             }
           } );
-          data2 && data2.forEach( function ( one, i ) {
-            if ( one[ id ] == params.value[ 1 ] ) {
-              ret[ 1 ] = i;
-              data3 = one.child;
-            }
-          } );
-          data3 && data3.forEach( function ( one, i ) {
-            if ( one[ id ] == params.value[ 2 ] ) {
-              ret[ 2 ] = i;
-            }
-          } );
+          data2 &&
+            data2.forEach( function( one, i ) {
+              if ( one[ id ] == params.value[ 1 ] ) {
+                ret[ 1 ] = i;
+                data3 = one.child;
+              }
+            } );
+          data3 &&
+            data3.forEach( function( one, i ) {
+              if ( one[ id ] == params.value[ 2 ] ) {
+                ret[ 2 ] = i;
+              }
+            } );
         }
       }
       return ret;
@@ -46,7 +52,7 @@ window.LArea = ( function () {
     this.init( params );
   };
   MobileArea.prototype = {
-    init: function ( params ) {
+    init: function( params ) {
       this.params = params;
       this.trigger = document.querySelector( params.trigger );
       if ( params.valueTo ) {
@@ -59,19 +65,19 @@ window.LArea = ( function () {
         case 2:
           break;
         default:
-          throw new Error( '错误提示: 没有这种数据源类型' );
+          throw new Error( "错误提示: 没有这种数据源类型" );
       }
       this.bindEvent();
     },
-    getData: function ( callback ) {
+    getData: function( callback ) {
       var _self = this;
       if ( typeof _self.params.data == "object" ) {
         _self.data = _self.params.data;
         callback();
       } else {
         var xhr = new XMLHttpRequest();
-        xhr.open( 'get', _self.params.data );
-        xhr.onload = function () {
+        xhr.open( "get", _self.params.data );
+        xhr.onload = function() {
           if ( ( xhr.status >= 200 && xhr.status < 300 ) || xhr.status === 0 ) {
             var responseData = JSON.parse( xhr.responseText );
             _self.data = responseData.data;
@@ -83,61 +89,44 @@ window.LArea = ( function () {
         xhr.send();
       }
     },
-    bindEvent: function () {
+    bindEvent: function() {
       var _self = this;
-      //呼出插件
+      // 呼出插件
       function popupArea() {
         _self.container = document.createElement( "div" );
         _self.container.className = "picker-container";
-        _self.container.innerHTML = '<div class="area_ctrl slideInUp">' +
-          '<div class="area_btn_box">' +
-          '<div class="area_btn larea_cancel">取消</div>' +
-          '<div class="area_btn larea_finish">确定</div>' +
-          '</div>' +
-          '<div class="area_roll_mask">' +
-          '<div class="area_roll">' +
-          '<div>' +
-          '<div class="gear area_province" data-areatype="area_province"></div>' +
-          '<div class="area_grid"></div>' +
-          '</div>' +
-          '<div>' +
-          '<div class="gear area_city" data-areatype="area_city"></div>' +
-          '<div class="area_grid"></div>' +
-          '</div>' +
-          '<div>' +
-          '<div class="gear area_county" data-areatype="area_county"></div>' +
-          '<div class="area_grid"></div>' +
-          '</div>' +
-          '</div>' +
-          '</div>' +
-          '</div>';
+        _self.container.innerHTML = '<div class="area_ctrl slideInUp">' + '<div class="area_btn_box">' + '<div class="area_btn larea_cancel">取消</div>' + '<div class="area_btn larea_finish">确定</div>' + "</div>" + '<div class="area_roll_mask">' + '<div class="area_roll">' + "<div>" + '<div class="gear area_province" data-areatype="area_province"></div>' + '<div class="area_grid"></div>' + "</div>" + "<div>" + '<div class="gear area_city" data-areatype="area_city"></div>' + '<div class="area_grid"></div>' + "</div>" + "<div>" + '<div class="gear area_county" data-areatype="area_county"></div>' + '<div class="area_grid"></div>' + "</div>" + "</div>" + "</div>" + "</div>";
         document.body.appendChild( _self.container );
         areaCtrlInit();
         var larea_cancel = _self.container.querySelector( ".larea_cancel" );
-        larea_cancel.addEventListener( 'touchstart', function ( e ) { _self.close( e ); } );
+        larea_cancel.addEventListener( "touchstart", function( e ) {
+          _self.close( e );
+        } );
         var larea_finish = _self.container.querySelector( ".larea_finish" );
-        larea_finish.addEventListener( 'touchstart', function ( e ) { _self.finish( e ); } );
+        larea_finish.addEventListener( "touchstart", function( e ) {
+          _self.finish( e );
+        } );
 
         // 一级或二级时隐藏多余的
-        var sss = _self.container.querySelectorAll( '.area_roll>div:nth-child(n+' + ( _self.data.length + 1 ) + ')' );
+        var sss = _self.container.querySelectorAll( ".area_roll>div:nth-child(n+" + ( _self.data.length + 1 ) + ")" );
         for ( var ii = 0, il = sss.length; ii < il; ii++ ) {
-          sss[ ii ].style.display = 'none';
+          sss[ ii ].style.display = "none";
         }
 
         var area_province = _self.container.querySelector( ".area_province" );
         var area_city = _self.container.querySelector( ".area_city" );
         var area_county = _self.container.querySelector( ".area_county" );
-        area_province.addEventListener( 'touchstart', gearTouchStart );
-        area_city.addEventListener( 'touchstart', gearTouchStart );
-        area_county.addEventListener( 'touchstart', gearTouchStart );
-        area_province.addEventListener( 'touchmove', gearTouchMove );
-        area_city.addEventListener( 'touchmove', gearTouchMove );
-        area_county.addEventListener( 'touchmove', gearTouchMove );
-        area_province.addEventListener( 'touchend', gearTouchEnd );
-        area_city.addEventListener( 'touchend', gearTouchEnd );
-        area_county.addEventListener( 'touchend', gearTouchEnd );
+        area_province.addEventListener( "touchstart", gearTouchStart );
+        area_city.addEventListener( "touchstart", gearTouchStart );
+        area_county.addEventListener( "touchstart", gearTouchStart );
+        area_province.addEventListener( "touchmove", gearTouchMove );
+        area_city.addEventListener( "touchmove", gearTouchMove );
+        area_county.addEventListener( "touchmove", gearTouchMove );
+        area_province.addEventListener( "touchend", gearTouchEnd );
+        area_city.addEventListener( "touchend", gearTouchEnd );
+        area_county.addEventListener( "touchend", gearTouchEnd );
       }
-      //初始化插件默认值
+      // 初始化插件默认值
       function areaCtrlInit() {
         _self.container.querySelector( ".area_province" ).setAttribute( "val", _self.value[ 0 ] );
         _self.container.querySelector( ".area_city" ).setAttribute( "val", _self.value[ 1 ] );
@@ -152,7 +141,7 @@ window.LArea = ( function () {
             break;
         }
       }
-      //触摸开始
+      // 触摸开始
       function gearTouchStart( e ) {
         e.preventDefault();
         var target = e.target;
@@ -161,16 +150,16 @@ window.LArea = ( function () {
         }
         clearInterval( target[ "int_" + target.id ] );
         target[ "old_" + target.id ] = e.targetTouches[ 0 ].screenY;
-        target[ "o_t_" + target.id ] = ( new Date() ).getTime();
-        var top = target.getAttribute( 'top' );
+        target[ "o_t_" + target.id ] = new Date().getTime();
+        var top = target.getAttribute( "top" );
         if ( top ) {
           target[ "o_d_" + target.id ] = parseFloat( top.replace( /em/g, "" ) );
         } else {
           target[ "o_d_" + target.id ] = 0;
         }
-        target.style.webkitTransitionDuration = target.style.transitionDuration = '0ms';
+        target.style.webkitTransitionDuration = target.style.transitionDuration = "0ms";
       }
-      //手指移动
+      // 手指移动
       function gearTouchMove( e ) {
         e.preventDefault();
         var target = e.target;
@@ -178,16 +167,16 @@ window.LArea = ( function () {
           target = target.parentElement;
         }
         target[ "new_" + target.id ] = e.targetTouches[ 0 ].screenY;
-        target[ "n_t_" + target.id ] = ( new Date() ).getTime();
-        var f = ( target[ "new_" + target.id ] - target[ "old_" + target.id ] ) * 30 / window.innerHeight;
+        target[ "n_t_" + target.id ] = new Date().getTime();
+        var f = ( ( target[ "new_" + target.id ] - target[ "old_" + target.id ] ) * 30 ) / window.innerHeight;
         target[ "pos_" + target.id ] = target[ "o_d_" + target.id ] + f;
-        target.style[ "-webkit-transform" ] = 'translate3d(0,' + target[ "pos_" + target.id ] + 'em,0)';
-        target.setAttribute( 'top', target[ "pos_" + target.id ] + 'em' );
+        target.style[ "-webkit-transform" ] = "translate3d(0," + target[ "pos_" + target.id ] + "em,0)";
+        target.setAttribute( "top", target[ "pos_" + target.id ] + "em" );
         if ( e.targetTouches[ 0 ].screenY < 1 ) {
           gearTouchEnd( e );
         }
       }
-      //离开屏幕
+      // 离开屏幕
       function gearTouchEnd( e ) {
         e.preventDefault();
         var target = e.target;
@@ -196,10 +185,10 @@ window.LArea = ( function () {
         }
         var flag = ( target[ "new_" + target.id ] - target[ "old_" + target.id ] ) / ( target[ "n_t_" + target.id ] - target[ "o_t_" + target.id ] );
         if ( Math.abs( flag ) <= 0.2 ) {
-          target[ "spd_" + target.id ] = ( flag < 0 ? -0.08 : 0.08 );
+          target[ "spd_" + target.id ] = flag < 0 ? -0.08 : 0.08;
         } else {
           if ( Math.abs( flag ) <= 0.5 ) {
-            target[ "spd_" + target.id ] = ( flag < 0 ? -0.16 : 0.16 );
+            target[ "spd_" + target.id ] = flag < 0 ? -0.16 : 0.16;
           } else {
             target[ "spd_" + target.id ] = flag / 2;
           }
@@ -209,17 +198,17 @@ window.LArea = ( function () {
         }
         rollGear( target );
       }
-      //缓动效果
+      // 缓动效果
       function rollGear( target ) {
         var d = 0;
         var stopGear = false;
 
         function setDuration() {
-          target.style.webkitTransitionDuration = target.style.transitionDuration = '200ms';
+          target.style.webkitTransitionDuration = target.style.transitionDuration = "200ms";
           stopGear = true;
         }
         clearInterval( target[ "int_" + target.id ] );
-        target[ "int_" + target.id ] = setInterval( function () {
+        target[ "int_" + target.id ] = setInterval( function() {
           var pos = target[ "pos_" + target.id ];
           var speed = target[ "spd_" + target.id ] * Math.exp( -0.03 * d );
           pos += speed;
@@ -245,12 +234,12 @@ window.LArea = ( function () {
             clearInterval( target[ "int_" + target.id ] );
           }
           target[ "pos_" + target.id ] = pos;
-          target.style[ "-webkit-transform" ] = 'translate3d(0,' + pos + 'em,0)';
-          target.setAttribute( 'top', pos + 'em' );
+          target.style[ "-webkit-transform" ] = "translate3d(0," + pos + "em,0)";
+          target.setAttribute( "top", pos + "em" );
           d++;
         }, 30 );
       }
-      //控制插件滚动后停留的值
+      // 控制插件滚动后停留的值
       function setGear( target, val ) {
         if ( !val ) return false;
         val = Math.round( val );
@@ -260,12 +249,12 @@ window.LArea = ( function () {
             _self.setGearTooth( _self.data );
             break;
           case 2:
-            switch ( target.dataset[ 'areatype' ] ) {
-              case 'area_province':
+            switch ( target.dataset[ "areatype" ] ) {
+              case "area_province":
                 _self.setGearTooth( _self.data[ 0 ] );
                 break;
-              case 'area_city':
-                var ref = target.childNodes[ val ].getAttribute( 'ref' );
+              case "area_city":
+                var ref = target.childNodes[ val ].getAttribute( "ref" );
                 var childData = [];
                 var nextData = _self.data[ 2 ];
                 for ( var i in nextData ) {
@@ -280,24 +269,24 @@ window.LArea = ( function () {
             }
         }
       }
-      _self.getData( function () {
-        _self.trigger.addEventListener( 'click', popupArea );
+      _self.getData( function() {
+        _self.trigger.addEventListener( "click", popupArea );
       } );
     },
-    //重置节点个数
-    setGearTooth: function ( data ) {
+    // 重置节点个数
+    setGearTooth: function( data ) {
       var _self = this;
       var item = data || [];
       var l = item.length;
       var gearChild = _self.container.querySelectorAll( ".gear" );
-      var gearVal = gearChild[ _self.index ].getAttribute( 'val' );
+      var gearVal = gearChild[ _self.index ].getAttribute( "val" );
       var maxVal = l - 1;
       if ( gearVal > maxVal ) {
         gearVal = maxVal;
       }
-      gearChild[ _self.index ].setAttribute( 'data-len', l );
+      gearChild[ _self.index ].setAttribute( "data-len", l );
       if ( l > 0 ) {
-        var id = item[ gearVal ][ this.keys[ 'id' ] ];
+        var id = item[ gearVal ][ this.keys[ "id" ] ];
         var childData;
         switch ( _self.type ) {
           case 1:
@@ -317,12 +306,12 @@ window.LArea = ( function () {
         }
         var itemStr = "";
         for ( i = 0; i < l; i++ ) {
-          itemStr += "<div class='tooth'  ref='" + item[ i ][ this.keys[ 'id' ] ] + "'>" + item[ i ][ this.keys[ 'name' ] ] + "</div>";
+          itemStr += "<div class='tooth'  ref='" + item[ i ][ this.keys[ "id" ] ] + "'>" + item[ i ][ this.keys[ "name" ] ] + "</div>";
         }
         gearChild[ _self.index ].innerHTML = itemStr;
-        gearChild[ _self.index ].style[ "-webkit-transform" ] = 'translate3d(0,' + ( -gearVal * 2 ) + 'em,0)';
-        gearChild[ _self.index ].setAttribute( 'top', -gearVal * 2 + 'em' );
-        gearChild[ _self.index ].setAttribute( 'val', gearVal );
+        gearChild[ _self.index ].style[ "-webkit-transform" ] = "translate3d(0," + -gearVal * 2 + "em,0)";
+        gearChild[ _self.index ].setAttribute( "top", -gearVal * 2 + "em" );
+        gearChild[ _self.index ].setAttribute( "val", gearVal );
         _self.index++;
         if ( _self.index > 2 ) {
           _self.index = 0;
@@ -331,40 +320,44 @@ window.LArea = ( function () {
         _self.setGearTooth( childData );
       } else {
         gearChild[ _self.index ].innerHTML = "<div class='tooth'></div>";
-        gearChild[ _self.index ].setAttribute( 'val', 0 );
+        gearChild[ _self.index ].setAttribute( "val", 0 );
         if ( _self.index == 1 ) {
           gearChild[ 2 ].innerHTML = "<div class='tooth'></div>";
-          gearChild[ 2 ].setAttribute( 'val', 0 );
+          gearChild[ 2 ].setAttribute( "val", 0 );
         }
         _self.index = 0;
       }
     },
-    finish: function ( e ) {
+    finish: function( e ) {
       var _self = this;
       var area_province = _self.container.querySelector( ".area_province" );
       var area_city = _self.container.querySelector( ".area_city" );
       var area_county = _self.container.querySelector( ".area_county" );
-      var provinceVal = parseInt( area_province.getAttribute( "val" ) );
+      var provinceVal = parseInt( area_province.getAttribute( "val" ), 10 );
       var provinceText = area_province.childNodes[ provinceVal ].textContent;
-      var provinceCode = area_province.childNodes[ provinceVal ].getAttribute( 'ref' );
-      var cityVal = parseInt( area_city.getAttribute( "val" ) );
+      var provinceCode = area_province.childNodes[ provinceVal ].getAttribute( "ref" );
+      var cityVal = parseInt( area_city.getAttribute( "val" ), 10 );
       var cityText = area_city.childNodes[ cityVal ].textContent;
-      var cityCode = area_city.childNodes[ cityVal ].getAttribute( 'ref' );
-      var countyVal = parseInt( area_county.getAttribute( "val" ) );
+      var cityCode = area_city.childNodes[ cityVal ].getAttribute( "ref" );
+      var countyVal = parseInt( area_county.getAttribute( "val" ), 10 );
       var countyText = area_county.childNodes[ countyVal ].textContent;
-      var countyCode = area_county.childNodes[ countyVal ].getAttribute( 'ref' );
-      _self.trigger.value = provinceText + ( ( cityText ) ? ( ',' + cityText ) : ( '' ) ) + ( ( countyText ) ? ( ',' + countyText ) : ( '' ) );
-      _self.value = [ provinceVal, cityVal, countyVal ];
+      var countyCode = area_county.childNodes[ countyVal ].getAttribute( "ref" );
+      _self.trigger.value = provinceText + ( cityText ? "," + cityText : "" ) + ( countyText ? "," + countyText : "" );
+      _self.value = [
+        provinceVal,
+        cityVal,
+        countyVal
+      ];
       if ( this.valueTo ) {
-        this.valueTo.value = provinceCode + ( ( cityCode ) ? ( ',' + cityCode ) : ( '' ) ) + ( ( countyCode ) ? ( ',' + countyCode ) : ( '' ) );
+        this.valueTo.value = provinceCode + ( cityCode ? "," + cityCode : "" ) + ( countyCode ? "," + countyCode : "" );
       }
       this.params.onSelect && this.params.onSelect.call( this, { text: _self.trigger.value, value: _self.valueTo.value } );
       _self.close( e );
     },
-    close: function ( e ) {
+    close: function( e ) {
       e.preventDefault();
       var _self = this;
-      var evt = new CustomEvent( 'input' );
+      var evt = new CustomEvent( "input" );
       _self.trigger.dispatchEvent( evt );
       document.body.removeChild( _self.container );
     }

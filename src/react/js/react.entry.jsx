@@ -15,7 +15,10 @@ const store = createStore(
   } ),
   {
     num: 3,
-    list: ["test", "list"]
+    list: [
+      "test",
+      "list"
+    ]
   }
 );
 const { /* dispatch,*/ getState } = store;

@@ -2,7 +2,10 @@
 ( function ( root, factory ) {
   'use strict';
   if ( typeof define === 'function' && define.amd ) {
-    define( [ 'jquery', 'date-helper' ], factory );
+    define( [
+      'jquery',
+      'date-helper'
+    ], factory );
   } else if ( typeof exports === 'object' ) {
     module.exports = factory();
   } else {
@@ -43,7 +46,7 @@
 					'<span>小时:</span>' +
 					'<input type="text" value="" />' +
 					'<ul></ul>' +
-				'</label>'+
+				'</label>' +
 				'<span> : </span>' +
 				'<label class="dtp-minute">' +
 					'<span>分钟:</span>' +

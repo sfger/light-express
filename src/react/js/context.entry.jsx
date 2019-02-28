@@ -63,7 +63,7 @@ function Foo( props ) {
 }
 
 function Main() {
-  let [state] = useReducer( reduceCount, store, init );
+  let [ state ] = useReducer( reduceCount, store, init );
   let test = { a: "aaaa", b: "bbb" };
   return (
     <div>
@@ -115,10 +115,13 @@ function reduceCount( state, action ) {
 }
 
 function Test() {
-  let [text] = useState( "Count: " );
+  let [ text ] = useState( "Count: " );
   let initialCount = 0;
   // let [ count, setCount ] = useState( initialCount );
-  let [state, dispatch] = useReducer( reduceCount, store, init );
+  let [
+    state,
+    dispatch
+  ] = useReducer( reduceCount, store, init );
   store = state;
   console.log( "test" );
   return (
@@ -147,7 +150,10 @@ class App extends Component {
       num: 5
     },
     array: {
-      list: ["list", "test"]
+      list: [
+        "list",
+        "test"
+      ]
     }
   };
   constructor( props ) {
@@ -165,7 +171,7 @@ class App extends Component {
       list.pop();
       return {
         array: {
-          list: [...list],
+          list: [ ...list ],
           list_push,
           list_pop
         }
@@ -181,7 +187,10 @@ class App extends Component {
       let { list, list_push, list_pop } = array;
       return {
         array: {
-          list: [...list, item],
+          list: [
+            ...list,
+            item
+          ],
           list_push,
           list_pop
         }

@@ -1,8 +1,8 @@
 function num( state = 0, action ) {
   switch ( action.type ) {
-    case 'ADD':
+    case "ADD":
       return state + 1;
-    case 'MINUS':
+    case "MINUS":
       return state - 1;
     default:
       return state;
@@ -11,7 +11,7 @@ function num( state = 0, action ) {
 
 function list( state = [], action ) {
   switch ( action.type ) {
-    case 'PUSH':
+    case "PUSH":
       return [
         ...state,
         action.text

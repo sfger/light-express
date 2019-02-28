@@ -29,7 +29,7 @@ $.fn.window = function ( options ) {
 '<div class="window-ctn">' +
 	'<div class="window-wrapper">' +
 		'<div class="window-bar window-header">' +
-			'<div class="window-title">' + (options.title||'') + '</div>' +
+			'<div class="window-title">' + ( options.title || '' ) + '</div>' +
 			'<a href="javascript:;" class="window-closer">&times;</a>' +
 			'<!--[if lt IE 8]><p class="iecp"></p><![endif]-->' +
 		'</div>' +
@@ -49,7 +49,10 @@ $.fn.window = function ( options ) {
       this.contents = $( '.window-contents', w ).get( 0 );
       this.title = $( '.window-title', w ).html( options.title ).get( 0 );
       $box.addClass( 'window-view' ).appendTo( this.contents ).show();
-      $( [ 'Height', 'Width' ] ).each( function ( i, one ) {
+      $( [
+        'Height',
+        'Width'
+      ] ).each( function ( i, one ) {
         that[ 'getView' + one ] = ( function () {
           var container = "BackCompat" === document.compatMode ? document.body : document.documentElement;
           return function () {

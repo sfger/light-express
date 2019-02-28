@@ -1,5 +1,5 @@
-import React, { useContext } from 'react';
-import { numContext } from './contextList';
+import React, { useContext } from "react";
+import { numContext } from "./contextList";
 
 /*
 export default function List() {
@@ -24,7 +24,7 @@ export default function List() {
     <div>
       list
       <div>
-        <span>{num}</span>
+        <span>{ num }</span>
       </div>
     </div>
   );

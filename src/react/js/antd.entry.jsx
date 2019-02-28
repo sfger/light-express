@@ -1,16 +1,16 @@
 // import "../../public/js/requestAnimationFrame";
 import "~public/js/requestAnimationFrame.js";
-import React from 'react';
-import ReactDOM from 'react-dom';
-let mountNode = document.querySelector( '#page' );
+import React from "react";
+import ReactDOM from "react-dom";
+let mountNode = document.querySelector( "#page" );
 
-( async function () {
+( async function() {
   await Promise.resolve();
-  console.log( 'test' );
-}() );
+  console.log( "test" );
+} )();
 
 // import "antd/dist/antd.less";
-import { Radio, Button, Icon } from 'antd';
+import { Radio, Button, Icon } from "antd";
 
 // import Radio from 'antd/es/radio';
 // import 'antd/lib/radio/style';
@@ -23,7 +23,7 @@ import { Radio, Button, Icon } from 'antd';
 
 class ButtonSize extends React.Component {
   state = {
-    size: 'default'
+    size: "default"
   };
   // constructor(props) {
   // 	super(props);
@@ -31,9 +31,9 @@ class ButtonSize extends React.Component {
   // 		size: 'default',
   // 	};
   // }
-  handleSizeChange = ( e ) => {
+  handleSizeChange = e => {
     this.setState( { size: e.target.value } );
-  }
+  };
 
   render() {
     const size = this.state.size;
@@ -44,17 +44,25 @@ class ButtonSize extends React.Component {
           <Radio.Button value="default">Default</Radio.Button>
           <Radio.Button value="small">Small</Radio.Button>
         </Radio.Group>
-        <br /><br />
+        <br />
+        <br />
         <Button type="primary" shape="circle" icon="download" size={ size } />
-        <Button type="primary" icon="download" size={ size }>Download</Button>
-        <Button type="primary" size={ size }>Normal</Button>
-        <br /><br />
+        <Button type="primary" icon="download" size={ size }>
+          Download
+        </Button>
+        <Button type="primary" size={ size }>
+          Normal
+        </Button>
+        <br />
+        <br />
         <Button.Group size={ size }>
           <Button type="primary">
-            <Icon type="left" />Backward
+            <Icon type="left" />
+            Backward
           </Button>
           <Button type="primary">
-            Forward<Icon type="right" />
+            Forward
+            <Icon type="right" />
           </Button>
         </Button.Group>
       </div>

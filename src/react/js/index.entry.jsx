@@ -5,7 +5,10 @@ import { createStore, combineReducers } from "redux";
 import * as reducers from "./parts/reducers";
 const store = createStore( combineReducers( reducers ), {
   num: 3,
-  list: ["test", "list"]
+  list: [
+    "test",
+    "list"
+  ]
 } );
 const { dispatch, subscribe, getState } = store;
 
@@ -55,8 +58,8 @@ let CommentBox = React.createClass( {
             Push list
           </a>
           <ul>
-            { getState().list.map( function( one ) {
-              return <li>{ one }</li>;
+            { getState().list.map( function( one, i ) {
+              return <li key={ i }>{ one }</li>;
             } ) }
           </ul>
         </div>

@@ -1,12 +1,12 @@
-define( function ( require, exports, module ) {
+define( function( require, exports, module ) {
   module.exports = {
-    create: function () {
+    create: function() {
       var option = this.option;
       option.app.fullScreen();
-      document.title = 'Share From Water';
-      require( [ 'share/tpl/index.tpl' ], function ( data ) {
+      document.title = "Share From Water";
+      require( [ "share/tpl/index.tpl" ], function( data ) {
         new EJS( {
-          text: data[ 'index.tpl' ]
+          text: data[ "index.tpl" ]
         } ).update( option.app.root, {
           data: {
             __version__: __version__
@@ -15,7 +15,7 @@ define( function ( require, exports, module ) {
         option.next();
       } );
     },
-    destroy: function () {
+    destroy: function() {
       this.option.app.exitFullScreen();
     }
   };
