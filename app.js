@@ -15,12 +15,13 @@ let session = require( "cookie-session" );
 let bodyParser = require( "body-parser" );
 let compression = require( "compression" );
 let ext = require( "./ext" );
+ext.runWebpack();
 app.ext = ext;
 app.use( ext.CompileJS );
 app.use( ext.webpackDev );
 app.use( compression() );
 
-app.set( "views", ext.static_dir );
+app.set( "views", ext.staticRoot );
 app.engine(
   "jsx",
   require( "express-react-views" ).createEngine( {
@@ -55,10 +56,10 @@ app.use( ext.CompileSCSS );
 app.use( ext.Compile2JS );
 app.use( ext.staticHttpCombo );
 ext
-  .autoAddRoutes( app, ext.route_dir, "/" )
+  .autoAddRoutes( app, ext.routeRoot, "/" )
   .then( () => {
     app.use(
-      express.static( ext.static_dir, {
+      express.static( ext.staticRoot, {
         index: "index.html"
       } )
     );

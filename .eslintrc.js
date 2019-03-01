@@ -46,7 +46,6 @@ module.exports = {
     "constructor-super": 2,
     "no-this-before-super": 2,
     "react/jsx-curly-spacing": [ 2, { when: "always", children: true } ],
-    "react/jsx-child-element-spacing": [ 2, {} ],
     "react/jsx-no-bind": [ "off" ],
     "react/jsx-uses-vars": [ "error" ],
     "react/jsx-uses-react": [ "error" ],
