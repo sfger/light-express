@@ -3,6 +3,7 @@ import { render as ReactDOMRender } from "react-dom";
 import { Router, Route, Switch, Link } from "react-router-dom";
 import { createBrowserHistory } from "history";
 import { numContext, listContext } from "./parts/contextList";
+let mainPath = location.pathname;
 let history = createBrowserHistory();
 class ErrorBoundary extends Component {
   constructor( props ) {
@@ -145,40 +146,17 @@ function Test() {
 }
 
 class App extends Component {
-  state = {
-    count: {
-      num: 5
-    },
-    array: {
-      list: [
-        "list",
-        "test"
-      ]
-    }
-  };
-  constructor( props ) {
-    super( props );
-    let state = this.state;
-    state.count.add_num = this.add_num;
-    state.array.list_push = this.list_push;
-    state.array.list_pop = this.list_pop;
-  }
-  list_pop = () => {
+  add_num = () => {
     this.setState( state => {
-      let array = state.array;
-      if ( array.list.length < 1 ) return false;
-      let { list, list_push, list_pop } = array;
-      list.pop();
+      let { num, add_num } = state.count;
       return {
-        array: {
-          list: [ ...list ],
-          list_push,
-          list_pop
+        count: {
+          num: num + 1,
+          add_num
         }
       };
     } );
   };
-  get_random_item = () => Number( String( Math.random() ).slice( 2 ) ).toString( 16 );
   list_push = () => {
     this.setState( state => {
       let array = state.array;
@@ -197,17 +175,43 @@ class App extends Component {
       };
     } );
   };
-  add_num = () => {
+  list_pop = () => {
     this.setState( state => {
-      let { num, add_num } = state.count;
+      let array = state.array;
+      if ( array.list.length < 1 ) return false;
+      let { list, list_push, list_pop } = array;
+      list.pop();
       return {
-        count: {
-          num: num + 1,
-          add_num
+        array: {
+          list: [ ...list ],
+          list_push,
+          list_pop
         }
       };
     } );
   };
+  state = {
+    count: {
+      num: 5,
+      add_num: this.add_num
+    },
+    array: {
+      list: [
+        "list",
+        "test"
+      ],
+      list_push: this.list_push,
+      list_pop: this.list_pop
+    }
+  };
+  constructor( props ) {
+    super( props );
+    // let state = this.state;
+    // state.count.add_num = this.add_num;
+    // state.array.list_push = this.list_push;
+    // state.array.list_pop = this.list_pop;
+  }
+  get_random_item = () => Number( String( Math.random() ).slice( 2 ) ).toString( 16 );
   render() {
     return (
       <ErrorBoundary>
@@ -217,7 +221,7 @@ class App extends Component {
               <div>
                 <ul>
                   <li>
-                    <Link to={ location.pathname }>Main</Link>
+                    <Link to={ mainPath }>Main</Link>
                   </li>
                   <li>
                     <Link to="/list">list</Link>
@@ -228,7 +232,7 @@ class App extends Component {
                 </ul>
                 <div ref={ this.ref } />
                 <Switch>
-                  <Route path={ location.pathname } exact component={ Main } />
+                  <Route path={ mainPath } exact component={ Main } />
                   <Route path="/list" component={ List } />
                   <Route path="/test" component={ Test } />
                 </Switch>
