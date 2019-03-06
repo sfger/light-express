@@ -5,6 +5,10 @@ import { createBrowserHistory } from "history";
 import { numContext, listContext } from "./parts/contextList";
 let mainPath = location.pathname;
 let history = createBrowserHistory();
+let store = {
+  count: 0
+};
+
 class ErrorBoundary extends Component {
   constructor( props ) {
     super( props );
@@ -74,7 +78,7 @@ function Main() {
   );
 }
 
-const MyList = lazy( () => {
+let MyList = lazy( () => {
   return new Promise( resolve => {
     setTimeout( () => {
       resolve( import( "./parts/list.jsx" ) );
@@ -93,10 +97,6 @@ function List( props ) {
     </Suspense>
   );
 }
-
-let store = {
-  count: 0
-};
 
 function init( initial ) {
   return Object.assign( {}, store, initial );
