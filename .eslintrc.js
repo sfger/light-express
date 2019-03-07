@@ -70,6 +70,7 @@ module.exports = {
     radix: 2,
     "semi-spacing": [ 2, { before: false, after: true } ],
     "arrow-spacing": [ 2, { before: true, after: true } ],
+    "comma-dangle": [ 0, "always" ],
     "comma-spacing": [ 2, { before: false, after: true } ],
     "block-spacing": [ 2, "always" ],
     "key-spacing": [ 2, { beforeColon: false, afterColon: true } ],
