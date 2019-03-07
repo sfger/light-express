@@ -3,11 +3,28 @@ import { render as ReactDOMRender } from "react-dom";
 import { Router, Route, Switch, Link } from "react-router-dom";
 import { createBrowserHistory } from "history";
 import { numContext, listContext } from "./parts/contextList";
-let mainPath = location.pathname;
+let pathIndex = location.pathname;
 let history = createBrowserHistory();
 let store = {
   count: 0
 };
+
+function init( initial ) {
+  return Object.assign( {}, store, initial );
+}
+
+function reduceCount( state, action ) {
+  switch ( action.type ) {
+    case "increment":
+      return { count: state.count + 1 };
+    case "decrement":
+      return { count: state.count - 1 };
+    case "reset":
+      return init( action.payload );
+    default:
+      throw new Error( "reduceCount need a action type" );
+  }
+}
 
 class ErrorBoundary extends Component {
   constructor( props ) {
@@ -67,17 +84,6 @@ function Foo( props ) {
   );
 }
 
-function Main() {
-  let [ state ] = useReducer( reduceCount, store, init );
-  let test = { a: "aaaa", b: "bbb" };
-  return (
-    <div>
-      <Foo row={ "testRow" } { ...test } />
-      { state.count }
-    </div>
-  );
-}
-
 let MyList = lazy( () => {
   return new Promise( resolve => {
     setTimeout( () => {
@@ -90,32 +96,18 @@ function Loading() {
   return <div>正在加载中……</div>;
 }
 
-function List( props ) {
+function PageIndex() {
+  let [ state ] = useReducer( reduceCount, store, init );
+  let test = { a: "aaaa", b: "bbb" };
   return (
-    <Suspense fallback={ <Loading /> }>
-      <MyList { ...props } />
-    </Suspense>
+    <div>
+      <Foo row={ "testRow" } { ...test } />
+      { state.count }
+    </div>
   );
 }
 
-function init( initial ) {
-  return Object.assign( {}, store, initial );
-}
-
-function reduceCount( state, action ) {
-  switch ( action.type ) {
-    case "increment":
-      return { count: state.count + 1 };
-    case "decrement":
-      return { count: state.count - 1 };
-    case "reset":
-      return init( action.payload );
-    default:
-      throw new Error( "reduceCount need a action type" );
-  }
-}
-
-function Test() {
+function PageTest() {
   let [ text ] = useState( "Count: " );
   let initialCount = 0;
   // let [ count, setCount ] = useState( initialCount );
@@ -142,6 +134,14 @@ function Test() {
         </a>
       </div>
     </div>
+  );
+}
+
+function PageList( props ) {
+  return (
+    <Suspense fallback={ <Loading /> }>
+      <MyList { ...props } />
+    </Suspense>
   );
 }
 
@@ -221,7 +221,7 @@ class App extends Component {
               <div>
                 <ul>
                   <li>
-                    <Link to={ mainPath }>Main</Link>
+                    <Link to={ pathIndex }>Index</Link>
                   </li>
                   <li>
                     <Link to="/list">list</Link>
@@ -232,9 +232,9 @@ class App extends Component {
                 </ul>
                 <div ref={ this.ref } />
                 <Switch>
-                  <Route path={ mainPath } exact component={ Main } />
-                  <Route path="/list" component={ List } />
-                  <Route path="/test" component={ Test } />
+                  <Route path={ pathIndex } exact component={ PageIndex } />
+                  <Route path="/test" component={ PageTest } />
+                  <Route path="/list" component={ PageList } />
                 </Switch>
               </div>
             </Router>
