@@ -1,5 +1,6 @@
-/* eslint array-bracket-newline: [ "error", { multiline: true, minItems: 100 } ] */
-/* eslint array-element-newline: [ "error", { multiline: true, minItems: 100 } ] */
+/* eslint array-bracket-newline: [ "error", { multiline: true, minItems: 10 } ] */
+/* eslint array-element-newline: [ "error", { multiline: true, minItems: 10 } ] */
+const path = require( "path" );
 module.exports = {
   env: {
     browser: true,
@@ -18,6 +19,7 @@ module.exports = {
     },
     sourceType: "module",
     babelOptions: {
+      cwd: path.resolve( __dirname ),
       configFile: "./babel.config.js"
     }
   },

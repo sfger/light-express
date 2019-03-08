@@ -9,6 +9,8 @@ let store = {
   count: 0
 };
 
+"test" |> `${ # } & list` |> console.log;
+
 function init( initial ) {
   return Object.assign( {}, store, initial );
 }

@@ -24,6 +24,7 @@ module.exports = {
     [ "@babel/plugin-transform-async-to-generator", { loose: true } ],
     [ "@babel/plugin-proposal-decorators", { loose: true, legacy: true } ],
     [ "@babel/plugin-proposal-class-properties", { loose: true } ],
+    [ "@babel/plugin-proposal-pipeline-operator", { proposal: "smart" } ],
     [ "@babel/plugin-transform-runtime", { loose: true, regenerator: true } ],
     [ "@babel/plugin-transform-flow-strip-types", { loose: true } ],
     [ "import", { loose: true, libraryName: "antd", libraryDirectory: "es", style: true }, "antd" ],
