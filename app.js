@@ -8,13 +8,13 @@
 // /* global window, document */
 
 let express = require( "express" );
-let app = express();
 let morgan = require( "morgan" );
 let cookie = require( "cookie-parser" );
 let session = require( "cookie-session" );
 let bodyParser = require( "body-parser" );
 let compression = require( "compression" );
 let ext = require( "./ext" );
+let app = express();
 ext.runWebpack();
 app.ext = ext;
 app.use( ext.CompileJS );
@@ -86,7 +86,7 @@ let debug = require( "debug" )( "test" );
 let fs = require( "fs" );
 
 let port = Number( process.env.PORT ) || 80;
-let https_port = Number( process.env.HTTPS_PORT ) || 443 + port - 80;
+let httpsPort = ( Number( process.env.HTTPS_PORT ) || 443 ) + port - 80;
 
 require( "https" )
   .createServer(
@@ -96,7 +96,7 @@ require( "https" )
     },
     app
   )
-  .listen( https_port );
+  .listen( httpsPort );
 
 app.set( "port", port );
 let server = app.listen( app.get( "port" ), function() {
