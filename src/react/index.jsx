@@ -5,9 +5,10 @@ class Html extends Component {
     title: "React",
     cssList: [ { href: "./css/react.css" } ],
     jsList: [
-      { src: "../../../../public/js/??es5-shim.js,es5-sham.js?tester" },
-      { src: "../../../../public/js/es6-shim.js?test" },
-      { id: "requirejs", "data-main": "./js/??a.js,context.js", src: "../public/js/require.js" }
+      { src: "../public/js/es5-shim.js" },
+      { src: "../public/js/es5-sham.js" },
+      { src: "../public/js/es6-shim.js" },
+      { id: "requirejs", "data-main": "./js/context.js", src: "../public/js/require.js" }
     ]
   };
   constructor( props ) {

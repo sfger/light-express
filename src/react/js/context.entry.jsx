@@ -11,11 +11,11 @@ let store = {
 
 "test" |> `${ # } & list` |> console.log;
 
-function init( initial ) {
+function init( initial: object ) {
   return Object.assign( {}, store, initial );
 }
 
-function reduceCount( state, action ) {
+function reduceCount( state: object, action: string ): object {
   switch ( action.type ) {
     case "increment":
       return { count: state.count + 1 };
