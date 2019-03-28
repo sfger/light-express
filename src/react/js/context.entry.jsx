@@ -1,4 +1,4 @@
-import React, { useState, useReducer, useContext, lazy, Suspense, Component } from "react";
+import React, { useRef, useState, useEffect, useReducer, useContext, lazy, Suspense, Component } from "react";
 import { render as ReactDOMRender } from "react-dom";
 import { Router, Route, Switch, Link } from "react-router-dom";
 import { createBrowserHistory } from "history";
@@ -99,6 +99,7 @@ function Loading() {
 }
 
 function PageIndex() {
+  console.log( 'Page index' );
   let [ state ] = useReducer( reduceCount, store, init );
   let test = { a: "aaaa", b: "bbb" };
   return (
@@ -110,6 +111,7 @@ function PageIndex() {
 }
 
 function PageTest() {
+  console.log( 'Page test' );
   let [ text ] = useState( "Count: " );
   let initialCount = 0;
   // let [ count, setCount ] = useState( initialCount );
@@ -117,8 +119,17 @@ function PageTest() {
     state,
     dispatch
   ] = useReducer( reduceCount, store, init );
-  store = state;
-  console.log( "test" );
+  console.log( state );
+  let _state = useRef( state );
+  console.log( _state );
+  useEffect( () => {
+    store = state;
+    _state.current = state;
+    console.log( _state.current.count );
+    setTimeout( () => {
+      console.log( _state.current.count );
+    }, 1000 );
+  }, [ state ] );
   return (
     <div>
       { text + state.count }
@@ -127,12 +138,12 @@ function PageTest() {
           reset
         </a>
         &nbsp;
-        <a href="javascript:" onClick={ () => dispatch( { type: "increment" } ) }>
-          +
-        </a>
-        &nbsp;
         <a href="javascript:" onClick={ () => dispatch( { type: "decrement" } ) }>
           -
+        </a>
+        &nbsp;
+        <a href="javascript:" onClick={ () => dispatch( { type: "increment" } ) }>
+          +
         </a>
       </div>
     </div>
