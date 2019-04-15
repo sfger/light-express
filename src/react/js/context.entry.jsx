@@ -9,7 +9,9 @@ let store = {
   count: 0
 };
 
-"test" |> `${ # } & list` |> console.log;
+( async() => {
+  "test" |> await Promise.resolve( `${ # } & list` ) |> console.log;
+} )();
 
 function init( initial: object ) {
   return Object.assign( {}, store, initial );
@@ -98,7 +100,8 @@ function Loading() {
   return <div>正在加载中……</div>;
 }
 
-function PageIndex() {
+function PageIndex( props ) {
+  console.log( props );
   console.log( 'Page index' );
   let [ state ] = useReducer( reduceCount, store, init );
   let test = { a: "aaaa", b: "bbb" };
