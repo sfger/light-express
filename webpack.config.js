@@ -2,7 +2,7 @@ const path = require( "path" );
 const glob = require( "glob" );
 const root = path.resolve( __dirname );
 const webpack = require( "webpack" );
-// const { VueLoaderPlugin } = require( "vue-loader" );
+const { VueLoaderPlugin } = require( "vue-loader" );
 let sassconfig = require( "./sass.config.js" );
 let es3ifyPlugin = require( "es3ify-webpack-plugin" );
 let entrysArray = glob.sync( "**/*.@(entry).@(js|ts)?(x)", {
@@ -45,7 +45,7 @@ module.exports = {
     ],
     extensions: [
       ".ts",
-      // ".vue",
+      ".vue",
       ".css",
       ".less",
       ".scss",
@@ -82,10 +82,10 @@ module.exports = {
   },
   module: {
     rules: [
-      // {
-      //   test: /\.vue$/,
-      //   loader: "vue-loader"
-      // },
+      {
+        test: /\.vue$/,
+        loader: "vue-loader"
+      },
       {
         test: /\.ts$/,
         exclude: /(node_modules)/,
@@ -184,7 +184,7 @@ module.exports = {
   plugins: [
     new es3ifyPlugin(),
     new webpack.optimize.ModuleConcatenationPlugin(),
-    // new VueLoaderPlugin()
+    new VueLoaderPlugin()
     // new WebpackMd5Hash()
   ],
   stats: {
