@@ -13,7 +13,6 @@ module.exports = {
     [ "@babel/plugin-proposal-class-properties", { loose: true } ],
     [ "@babel/plugin-proposal-pipeline-operator", { proposal: "smart" } ],
     [ "@babel/plugin-transform-runtime", { loose: true, regenerator: true } ],
-    // [ "@babel/plugin-transform-flow-strip-types", { loose: true } ],
     [
       "import",
       { loose: true, libraryName: "antd", libraryDirectory: "es", style: true },

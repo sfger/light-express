@@ -26,7 +26,11 @@ class Collection {
 }
 
 var c = new Collection();
-c.append( [ 1, 2, 3 ], 0 );
+c.append( [
+  1,
+  2,
+  3
+], 0 );
 c.append( 4, 5, 6 );
 console.log( c.items );
 
@@ -54,7 +58,10 @@ function logToConsole( leadingTip: String ) {
     descriptor.value = function ( ...arg ) {
       let ret = func.apply( this, arg );
       let list = [ ret ];
-      if ( leadingTip ) list = [ leadingTip, ...list ];
+      if ( leadingTip ) list = [
+        leadingTip,
+        ...list
+      ];
       console.log.apply( console, list );
       return ret;
     };
@@ -72,7 +79,11 @@ function logToConsole( leadingTip: String ) {
 var a = {
   @logToConsole( 'xls:' )
   list() {
-    return [ 'a', 'b', 'c' ];
+    return [
+      'a',
+      'b',
+      'c'
+    ];
   },
 
   @toNumber

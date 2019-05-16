@@ -1,13 +1,16 @@
-// import "../../ui/scss/datagrid.scss";
-// import "../../public/js/requestAnimationFrame.js";
-// import { createElement } from "../../../components/fn.js";
+/** @jsx JSX */
+// import defineProperty from "core-js/features/object/define-property.js";
+// window.defineProperty = defineProperty;
+// import defineProperties from "core-js/features/object/define-properties.js";
+// window.defineProperties = defineProperties;
+import JSX from "!jsx.js";
 import "~ui/scss/datagrid.scss";
 import "~public/js/requestAnimationFrame.js";
-import { createElement } from "!fn.js";
 // import "./a.entry.js";
 function getHW( el, type ) {
-  if ( !el ) return false;
-  el.style && ( el.style[ type ] = "" );
+  if ( !el ) return 0;
+  let style = el.style;
+  if ( style ) style[ type ] = "";
   return el[ "offset" + ( type === "width" ? "Width" : "Height" ) ];
 }
 
@@ -17,46 +20,34 @@ function getHW( el, type ) {
 //   console.log(err);
 // } );
 
-function align_cell_column( arr, type ) {
-  for ( let i = 0, il = arr.length; i < il; i++ ) {
-    let column = arr[ i ];
-    let max =
-      column
-        .map( function( one ) {
-          return getHW( one, type );
-        } )
-        .reduce( function( a, b ) {
-          return a >= b ? a : b;
-        }, 0 ) +
-      Math.ceil( il / 2 ) +
-      "px";
-    column.forEach( function( t ) {
-      if ( t && t.style ) t.style[ type ] = max;
-    } );
+function set_list_style( list, property, value ) {
+  for ( let item of list ) {
+    if ( !( item && item.style ) ) continue;
+    item.style[ property ] = value;
   }
 }
 
-function align_cell_row( arr, type ) {
+function align_cell_column( arr, property ) {
   let len = arr.length;
-  for ( let i = 0, il = arr[ 0 ].length; i < il; i++ ) {
-    let j = 0,
-      row = [];
-    while ( j < len ) row.push( arr[ j++ ][ i ] );
-    let max =
-      row
-        .map( function( one ) {
-          return getHW( one, type );
-        } )
-        .reduce( function( a, b ) {
-          return a >= b ? a : b;
-        }, 0 ) +
-      Math.ceil( len / 2 ) +
-      "px";
-    row.forEach( function( t ) {
-      if ( t && t.style ) t.style[ type ] = max;
-    } );
+  for ( let i = 0; i < len; i++ ) {
+    let column = arr[ i ];
+    let list = column.map( one => getHW( one, property ) );
+    let max = Math.max( ...list ) + Math.ceil( len / 2 ) + "px";
+    set_list_style( column, property, max );
   }
 }
+
+function align_cell_row( arr, property ) {
+  let len = arr.length;
+  for ( let i = 0, il = arr[ 0 ].length; i < il; i++ ) {
+    let row = [];
+    for ( let j = 0; j < len; j++ ) row.push( arr[ j ][ i ] );
+    let list = row.map( one => getHW( one, property ) );
+    let max = Math.max( ...list ) + Math.ceil( len / 2 ) + "px";
+    set_list_style( row, property, max );
+  }
+}
+
 $.fn.datagrid = function( options, ...args ) {
   if ( "string" === $.type( options ) ) {
     let ret = this.toArray().map( function( one ) {
@@ -107,11 +98,19 @@ $.fn.datagrid = function( options, ...args ) {
       if ( !rows || ( colsType == "frozenEndColumns" && !options.frozenEndColumns.length ) ) return [];
       let il = rows.length - 1;
       return rows.map( function( row, i ) {
-        return createElement( {
-          name: "tr",
-          children: ( function() {
-            let index = 0;
-            let nodes = row.map( function( option /*, j*/ ) {
+        let index = 0;
+        return (
+          <tr key={ i }>
+            { options.rowNum && !i && ( ( options.frozenColumns.length && colsType == "frozenColumns" ) || ( !options.frozenColumns.length && colsType == "columns" ) || ( !options.frozenColumns.length && !options.columns.length && colsType == "frozenEndColumns" ) ) ? (
+              <td rowSpan={ options.frozenColumns.length || options.columns.length } className="field">
+                <div className="cell-wrapper">
+                  <div className="cell" />
+                </div>
+              </td>
+            ) : (
+              ""
+            ) }
+            { row.map( function( option /*, j*/ ) {
               let title = option.name || option.field || "";
               let td_attr = {};
               if ( option.rowspan ) td_attr[ "rowspan" ] = option.rowspan;
@@ -136,220 +135,116 @@ $.fn.datagrid = function( options, ...args ) {
                 if ( ( options.sortable && option.sortable !== false ) || option.sortable == true ) {
                   class_name.push( "sortable" );
                 }
-                td_attr[ "class" ] = class_name.join( " " );
+                td_attr[ "className" ] = class_name.join( " " );
                 cell_attr[ "data-field" ] = option.field;
               }
-              return createElement( {
-                name: "td",
-                attr: td_attr,
-                children: {
-                  name: "div",
-                  attr: { class: "cell-wrapper" },
-                  children: {
-                    name: "div",
-                    attr: cell_attr,
-                    children: [
-                      " ",
-                      { name: "span", attr: { class: "field-title" }, children: title },
-                      { name: "span", attr: { class: "sort-mark" } },
-                      " "
-                    ]
-                  }
-                }
-              } );
-            } );
-            if ( options.rowNum && !i ) {
-              if ( ( options.frozenColumns.length && colsType == "frozenColumns" ) || ( !options.frozenColumns.length && colsType == "columns" ) || ( !options.frozenColumns.length && !options.columns.length && colsType == "frozenEndColumns" ) ) {
-                nodes.unshift(
-                  createElement( {
-                    name: "td",
-                    attr: { rowspan: options.frozenColumns.length || options.columns.length, class: "field" },
-                    children: {
-                      name: "div",
-                      attr: { class: "cell-wrapper" },
-                      children: {
-                        name: "div",
-                        attr: { class: "cell" }
-                      }
-                    }
-                  } )
-                );
-              }
-            }
-            return nodes;
-          } )()
-        } );
+              return (
+                <td key={ i } { ...td_attr }>
+                  <div className="cell-wrapper">
+                    <div { ...cell_attr }>
+                      <span className="field-title">{ title }</span>
+                      <span className="sort-mark" />
+                    </div>
+                  </div>
+                </td>
+              );
+            } ) }
+          </tr>
+        );
       } );
     }
     function get_data_rows( data, cols, colsType ) {
       if ( colsType === "frozenColumns" && !options.frozenColumns.length ) return [];
       return data.map( function( row, i ) {
-        return createElement( {
-          name: "tr",
-          children: ( function() {
-            let nodes = [];
-            if ( options.rowNum ) {
-              if ( ( options.frozenColumns.length && colsType == "frozenColumns" ) || ( !options.frozenColumns.length && options.columns.length && colsType == "columns" ) || ( !options.frozenColumns.length && !options.columns.length && colsType == "frozenEndColumns" ) ) {
-                nodes.push(
-                  createElement( {
-                    name: "td",
-                    children: {
-                      name: "div",
-                      attr: { class: "cell-wrapper" },
-                      children: {
-                        name: "div",
-                        attr: { class: "cell" },
-                        children: i + options.startRowNum
-                      }
-                    }
-                  } )
-                );
-              }
-            }
-            cols &&
-              cols.forEach( function( option ) {
-                if ( !option ) return true;
+        return (
+          <tr key={ i }>
+            { options.rowNum && ( ( options.frozenColumns.length && colsType == "frozenColumns" ) || ( !options.frozenColumns.length && options.columns.length && colsType == "columns" ) || ( !options.frozenColumns.length && !options.columns.length && colsType == "frozenEndColumns" ) ) ? (
+              <td>
+                <div className="cell-wrapper">
+                  <div className="cell">{ i + options.startRowNum }</div>
+                </div>
+              </td>
+            ) : (
+              ""
+            ) }
+            { cols && cols.length
+              ? cols.map( ( option, i ) => {
+                if ( !option ) return "";
                 let field = option.field,
                   val = row[ field ],
                   formatter = option.formatter,
                   cls_list = [ "cell" ],
                   align = { left: "txt-lt", right: "txt-rt" }[ option.align ] || "";
                 align && cls_list.push( align );
-                nodes.push(
-                  createElement( {
-                    name: "td",
-                    children: {
-                      name: "div",
-                      attr: { class: "cell-wrapper" },
-                      children: {
-                        name: "div",
-                        attr: {
-                          class: cls_list.join( " " ),
-                          style: { width: options.autoColWidth ? "auto" : ( option.width || options.colWidth ) + "px" }
-                        },
-                        children: $.type( formatter ) === "function" ? formatter( val, row, field ) : val
-                      }
-                    }
-                  } )
+                return (
+                  <td key={ i }>
+                    <div className="cell-wrapper">
+                      <div style={ `width:${ options.autoColWidth ? "auto;" : ( option.width || options.colWidth ) + "px;" }` } className={ cls_list.join( " " ) }>
+                        { ( val = $.type( formatter ) === "function" ? formatter( val, row, field ) : val ) }
+                      </div>
+                    </div>
+                  </td>
                 );
-              } );
-            return nodes;
-          } )()
-        } );
+              } )
+              : "" }
+          </tr>
+        );
       } );
     }
-    let ret = {
-      name: "div",
-      attr: { class: "datagrid-ctn" },
-      children: {
-        name: "div",
-        attr: { class: "view-wrapper grid" + ( options.autoRowHeight ? " autoRowHeight" : "" ) },
-        children: [
-          {
-            name: "div",
-            attr: { class: "col-rest col-view auto-view" + ( options.frozenColumns.length || options.frozenEndColumns.length ? " locate-view" : "" ) },
-            children: [
-              {
-                name: "div",
-                children: [
-                  {
-                    name: "div",
-                    attr: { style: "overflow:hidden" },
-                    children: {
-                      name: "div",
-                      attr: { class: "head-wrapper" },
-                      children: {
-                        name: "table",
-                        attr: { class: "head" },
-                        children: {
-                          name: "tbody",
-                          children: get_head_rows( options.columns, "columns" )
-                        }
-                      }
-                    }
-                  },
-                  {
-                    name: "div",
-                    attr: { class: "body-wrapper" },
-                    children: {
-                      name: "table",
-                      attr: { class: "body" },
-                      children: {
-                        name: "tbody",
-                        children: get_data_rows( options.data, that.columns, "columns" )
-                      }
-                    }
-                  }
-                ]
-              }
-            ]
-          }
-        ]
-      }
-    };
-    if ( options.frozenColumns.length )
-      ret.children.children.unshift( {
-        name: "div",
-        attr: { class: "col col-view frozen-view frozen-start" },
-        children: [
-          {
-            name: "div",
-            attr: { class: "head-wrapper" },
-            children: {
-              name: "table",
-              attr: { class: "frozen head" },
-              children: {
-                name: "tbody",
-                children: get_head_rows( options.frozenColumns, "frozenColumns" )
-              }
-            }
-          },
-          {
-            name: "div",
-            attr: { class: "body-wrapper" },
-            children: {
-              name: "table",
-              attr: { class: "frozen body" },
-              children: {
-                name: "tbody",
-                children: get_data_rows( options.data, that.frozenColumns, "frozenColumns" )
-              }
-            }
-          }
-        ]
-      } );
-    if ( options.frozenEndColumns.length )
-      ret.children.children.push( {
-        name: "div",
-        attr: { class: "col col-view frozen-view frozen-end" },
-        children: [
-          {
-            name: "div",
-            attr: { class: "head-wrapper" },
-            children: {
-              name: "table",
-              attr: { class: "frozen head" },
-              children: {
-                name: "tbody",
-                children: get_head_rows( options.frozenEndColumns, "frozenEndColumns" )
-              }
-            }
-          },
-          {
-            name: "div",
-            attr: { class: "body-wrapper" },
-            children: {
-              name: "table",
-              attr: { class: "frozen body" },
-              children: {
-                name: "tbody",
-                children: get_data_rows( options.data, that.frozenEndColumns, "frozenEndColumns" )
-              }
-            }
-          }
-        ]
-      } );
-    return createElement( ret );
+    return (
+      <div className="datagrid-ctn">
+        <div className={ "view-wrapper grid" + ( options.autoRowHeight ? " autoRowHeight" : "" ) }>
+          { options.frozenColumns.length ? (
+            <div className="col col-view frozen-view frozen-start">
+              <div className="head-wrapper">
+                <table className="frozen head">
+                  <tbody>{ get_head_rows( options.frozenColumns, "frozenColumns" ) }</tbody>
+                </table>
+              </div>
+              <div className="body-wrapper">
+                <table className="frozen body">
+                  <tbody>{ get_data_rows( options.data, that.frozenColumns, "frozenColumns" ) }</tbody>
+                </table>
+              </div>
+            </div>
+          ) : (
+            ""
+          ) }
+          <div className={ "col-rest col-view auto-view" + ( options.frozenColumns.length || options.frozenEndColumns.length ? " locate-view" : "" ) }>
+            <div>
+              <div style="overflow:hidden;">
+                <div className="head-wrapper">
+                  <table className="head">
+                    <tbody>{ get_head_rows( options.columns, "columns" ) }</tbody>
+                  </table>
+                </div>
+              </div>
+              <div className="body-wrapper">
+                <table className="body">
+                  <tbody>{ get_data_rows( options.data, that.columns, "columns" ) }</tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          { options.frozenEndColumns.length ? (
+            <div className="col col-view frozen-view frozen-end">
+              <div className="head-wrapper">
+                <table className="frozen head">
+                  <tbody>{ get_head_rows( options.frozenEndColumns, "frozenEndColumns" ) }</tbody>
+                </table>
+              </div>
+              <div className="body-wrapper">
+                <table className="frozen body">
+                  <tbody>{ get_data_rows( options.data, that.frozenEndColumns, "frozenEndColumns" ) }</tbody>
+                </table>
+              </div>
+            </div>
+          ) : (
+            ""
+          ) }
+        </div>
+      </div>
+    );
   }
 
   function set_table_height( value, that, $autoView = null ) {
@@ -488,7 +383,7 @@ $.fn.datagrid = function( options, ...args ) {
       let that = this;
       $( this.render ).addClass( "datagrid-render-ctn state-loading" );
       setTimeout( function() {
-        if ( "function" === $.type( options.data ) ) {
+        if ( "function" === typeof options.data ) {
           options.data( function( data ) {
             options.data = data;
             that._update( options );
@@ -523,9 +418,8 @@ $.fn.datagrid = function( options, ...args ) {
       this.frozenColumns = [];
       this.frozenEndColumns = [];
       this.userOptions = options = this._setOptions( options );
-      $( box )
-        .empty()
-        .append( get_table( options, this ) );
+      box.innerHTML = "";
+      box.insertAdjacentHTML( "beforeEnd", get_table( options, this ) );
       this.allColumns = [].concat( this.frozenColumns, this.columns, this.frozenEndColumns );
       // console.log(this.allColumns);
       this.fieldElements = this.allColumns.map( function( option ) {
