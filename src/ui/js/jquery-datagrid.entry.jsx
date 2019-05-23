@@ -1,7 +1,7 @@
 /** @jsx JSX */
-import "~public/js/requestAnimationFrame.js";
 import JSX from "!jsx.js";
-import "~ui/scss/datagrid.scss";
+import "~public/js/requestAnimationFrame.js";
+// import "~ui/scss/datagrid.scss";
 // import "./a.entry.js";
 
 // import ( /* webpackChunkName: "abc" */ './test.js' ).then( fn => {
@@ -10,12 +10,15 @@ import "~ui/scss/datagrid.scss";
 //   console.log(err);
 // } );
 
-let browser = {};
-let ie = /MSIE (\d+)\.?/.exec( navigator.userAgent );
-if ( ie && ie[ 1 ] ) {
-  browser.ie = true;
-  browser.version = Number( ie[ 1 ] );
-}
+let browser = do {
+  let ret = {};
+  let ie = /MSIE (\d+)\.?/.exec( navigator.userAgent );
+  if ( ie && ie[ 1 ] ) {
+    ret.ie = true;
+    ret.version = Number( ie[ 1 ] );
+  }
+  ret;
+};
 
 function getHW( el, type ) {
   if ( !el ) return 0;
@@ -152,11 +155,13 @@ function get_data_rows( options, cols = [], colsType ) {
   } );
 }
 
-function get_table( options, _this ) {
+function get_table( _this ) {
+  let { userOptions: options } = _this;
+  let { frozenColumns, frozenEndColumns, autoRowHeight } = options;
   return (
     <div className="datagrid-ctn">
-      <div className={ "view-wrapper grid" + ( options.autoRowHeight ? " autoRowHeight" : "" ) }>
-        { options.frozenColumns.length ? (
+      <div className={ "view-wrapper grid" + ( autoRowHeight ? " autoRowHeight" : "" ) }>
+        { frozenColumns.length ? (
           <div className="col col-view frozen-view frozen-start">
             <div className="head-wrapper">
               <table className="frozen head">
@@ -172,7 +177,7 @@ function get_table( options, _this ) {
         ) : (
           ""
         ) }
-        <div className={ "col-rest col-view auto-view" + ( options.frozenColumns.length || options.frozenEndColumns.length ? " locate-view" : "" ) }>
+        <div className={ `col-rest col-view auto-view locate-view` }>
           <div>
             <div style={ { overflow: "hidden" } }>
               <div className="head-wrapper">
@@ -188,7 +193,7 @@ function get_table( options, _this ) {
             </div>
           </div>
         </div>
-        { options.frozenEndColumns.length ? (
+        { frozenEndColumns.length ? (
           <div className="col col-view frozen-view frozen-end">
             <div className="head-wrapper">
               <table className="frozen head">
@@ -209,10 +214,17 @@ function get_table( options, _this ) {
   );
 }
 
-function set_table_height( value, _this, $autoView = null ) {
+function set_table_size( value, _this, $autoView = null ) {
   $autoView = $autoView || $( ".auto-view", _this.render );
   let header_height = $autoView.find( ".head-wrapper" )[ 0 ].offsetHeight;
+  let auto = $autoView.find( ".body-wrapper" )[ 0 ];
   $( ".body-wrapper", _this.render ).css( { height: value - header_height } );
+  if( browser.ie && browser.version < 10 ) requestAnimationFrame( () => {
+    $( ".body-wrapper", _this.render ).css( { height: "auto", width: "auto" } );
+    let bar_width = auto.offsetWidth - auto.clientWidth;
+    $autoView.css( { width: $autoView.find( "table" )[ 1 ].offsetWidth + bar_width } );
+    // $( ".body-wrapper", _this.render ).css( { height: value - header_height + bar_width } );
+  } );
 }
 
 function resize_table( _this ) {
@@ -314,9 +326,9 @@ function resize_table( _this ) {
   tp1.css( { width: "auto" } );
   tp0.parent().css( { width: "auto", overflow: "hidden" } );
   requestAnimationFrame( function() {
-    set_table_height( _this.render.offsetHeight, _this, $autoView );
-    let bar_width = auto.offsetWidth - auto.clientWidth;
-    $autoView.css( { width: $autoView.find( "table" )[ 1 ].offsetWidth + bar_width } );
+    // let style = _this.render.style;
+    // if ( style.height ) style.height = "auto";
+    set_table_size( _this.render.offsetHeight, _this, $autoView );
     requestAnimationFrame( function() {
       let bar_height = auto.offsetHeight - auto.clientHeight;
       let $tables = $( ".frozen-view .body-wrapper table", _this.render );
@@ -329,19 +341,15 @@ function resize_table( _this ) {
   } );
 }
 
-function handler( box, options ) {
-  return new handler.prototype.init( box, options );
-}
-
-handler.prototype = {
-  sortOrderDesc: false, // true:desc, false:asc
-  init: function( box, options ) {
+class Handler {
+  sortOrderDesc: false; // true:desc, false:asc
+  constructor( box, options ) {
     this.render = box;
     this.update( options );
     this.init_event( options );
     options.onCreate && options.onCreate.bind( this )();
-  },
-  update: function( options ) {
+  }
+  update( options ) {
     if ( $( this.render ).hasClass( "state-loading" ) ) return false;
     $( this.render ).addClass( "datagrid-render-ctn state-loading" );
     setTimeout( () => {
@@ -353,8 +361,8 @@ handler.prototype = {
       } else this._update( options );
     }, 0 );
     return this;
-  },
-  _setOptions: function( options ) {
+  }
+  _setOptions( options ) {
     let old_options = this.userOptions;
     if ( old_options ) {
       if ( options.data && options.data.length ) {
@@ -372,15 +380,15 @@ handler.prototype = {
       options = $.extend( true, {}, this.userOptions, options );
     }
     return options;
-  },
-  _update: function( options ) {
+  }
+  _update( options ) {
     let box = this.render;
     this.columns = [];
     this.frozenColumns = [];
     this.frozenEndColumns = [];
     this.userOptions = options = this._setOptions( options );
     box.innerHTML = "";
-    box.insertAdjacentHTML( "beforeEnd", get_table( options, this ) );
+    box.insertAdjacentHTML( "beforeEnd", get_table( this ) );
     this.allColumns = [].concat( this.frozenColumns, this.columns, this.frozenEndColumns );
     // console.log(this.allColumns);
     this.fieldElements = this.allColumns.map( function( option ) {
@@ -413,20 +421,22 @@ handler.prototype = {
       this.sortBy( { field: sort.field, order: sort.order } );
     }
     this.reAlign();
-  },
-  resetTableHeight: function( value ) {
+  }
+  resetTableHeight( value ) {
     $( this.render ).height( value );
-    set_table_height( value, this );
+    set_table_size( value, this );
     return this;
-  },
-  reAlign: function() {
+  }
+  reAlign() {
     /* TODO :
      * 1、全部行、全部列、单行、单列对齐重新对齐功能
      * */
     let _this = this;
-    resize_table( this );
+    resize_table( _this );
+    let { ie, version } = browser;
+    if ( ie && version < 10 ) setTimeout( () => resize_table( _this ), 0 );
     requestAnimationFrame( function() {
-      if ( browser.version < 8 ) {
+      if ( ie && version < 8 ) {
         let $frozen_view = $( ".frozen-view", _this.render );
         let $auto_view = $( ".auto-view", _this.render );
         $auto_view
@@ -447,8 +457,8 @@ handler.prototype = {
       } );
     } );
     return this;
-  },
-  init_event: function( options ) {
+  }
+  init_event( options ) {
     let _this = this;
     let $box = $( this.render );
     if ( !options.remoteSort )
@@ -520,8 +530,8 @@ handler.prototype = {
         },
         ".body-wrapper tr"
       );
-  },
-  sortType: {
+  }
+  sortType = {
     string: function( a, b ) {
       // this指{field:field, order:order}
       let field = this.field;
@@ -534,11 +544,11 @@ handler.prototype = {
       let field = this.field;
       return a[ field ] - b[ field ];
     }
-  },
-  getFieldOption: function( fieldName ) {
-    return this.allColumns.find( one => one.field === fieldName );
-  },
-  getColumnSortFunction: function( { order, field } ) {
+  };
+  getFieldOption( fieldName ) {
+    return this.allColumns.filter( one => one.field === fieldName )[ 0 ];
+  }
+  getColumnSortFunction( { order, field } ) {
     let field_option = this.getFieldOption( field ); // 列的选项
     if ( !field_option ) {
       console.log( { order, field }, "Field not found......" );
@@ -547,8 +557,8 @@ handler.prototype = {
     let sort_type = field_option.dataType || this.userOptions.dataType || "string"; // 排序的类型
     let fn = field_option.sort || this.sortType[ sort_type ]; // 排序的函数
     return ( a, b ) => fn.call( { order, field }, a, b ) * ( order ? -1 : 1 );
-  },
-  sortBy: function( { order, field }, sortElement ) {
+  }
+  sortBy( { order, field }, sortElement ) {
     // order: (true||'desc')->desc, (false||not 'desc')->asc
     let options = this.userOptions;
     let preSortElement = this.sortElement;
@@ -577,8 +587,8 @@ handler.prototype = {
       }, 0 );
     }, 0 );
     return this;
-  },
-  sort_table_dom: function( options ) {
+  }
+  sort_table_dom( options ) {
     let frozenTrDoc = document.createDocumentFragment(),
       frozenEndTrDoc = document.createDocumentFragment(),
       trDoc = document.createDocumentFragment(),
@@ -631,9 +641,7 @@ handler.prototype = {
     ( frozenTrDoc = null ), ( trDoc = null ), ( frozenTbody = null ), ( tbody = null );
     return this;
   }
-};
-
-handler.prototype.init.prototype = handler.prototype;
+}
 
 let defaultOptions = {
   align: "center", // 内容对齐方式
@@ -672,7 +680,7 @@ $.fn.datagrid = function( options, ...args ) {
   if ( !options.columns.length ) throw new Error( "datagrid must have columns option！" );
   return this.each( function() {
     let $this = $( this );
-    let instance = handler( this, $.extend( true, {}, options ) );
+    let instance = new Handler( this, $.extend( true, {}, options ) );
     let ui = $this.data( "ui" );
     if ( ui ) ui.iDatagrid = instance;
     else $this.data( "ui", { iDatagrid: instance } );
