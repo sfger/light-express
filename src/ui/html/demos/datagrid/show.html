@@ -27,10 +27,20 @@
 </div>
 <!--[if lt IE 9]>
 <script src="../../../../public/js/es5-shim.js"></script>
-<script src="../../../../public/js/es5-sham.js"></script>
 <![endif]-->
 <script id="requirejs" data-version="__version__" src="../../../../public/js/require.js?__version__"></script>
 <script>
+try {
+  Object.defineProperty( {}, "__esModule", { value: true } );
+} catch ( e ) {
+  console.log( e );
+  Object.defineProperty = function( obj, property, description ) {
+    var value = description.value
+      || description.get && description.get()
+      || description;
+    obj[ property ] = value && value.__esModule && value[ 'default' ] || value;
+  }
+}
 require.config({
 	baseUrl:'../../../../',
 	urlArgs:document.getElementById("requirejs").getAttribute("data-version"),
@@ -47,9 +57,9 @@ var data = [];
 for(var row=0; row<45; row++){
     data[row] = {};
     for(var col=0; col<35; col++){
-		/* data[row]['col-'+(col+1)] = 'row:' + (row+1) + '<br />col:' + (col+1); */
-		data[row]['col-'+(col+1)] =  Number(Math.random()*100).toFixed(2);
-    } 
+      /* data[row]['col-'+(col+1)] = 'row:' + (row+1) + '<br />col:' + (col+1); */
+      data[row]['col-'+(col+1)] =  Number(Math.random()*100).toFixed(2);
+    }
 }
 var fieldSortFns = {
 	sortStr: null, //default

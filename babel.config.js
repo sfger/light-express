@@ -11,7 +11,9 @@ module.exports = {
     [ "@babel/plugin-transform-async-to-generator", { loose: true } ],
     [ "@babel/plugin-proposal-decorators", { loose: true, legacy: true } ],
     [ "@babel/plugin-proposal-class-properties", { loose: true } ],
-    [ "@babel/plugin-proposal-pipeline-operator", { proposal: "smart" } ],
+    [ "@babel/plugin-proposal-pipeline-operator", { loose: true, proposal: "smart" } ],
+    [ "@babel/plugin-proposal-private-methods", { loose: true } ],
+    [ "@babel/plugin-proposal-do-expressions" ],
     [ "@babel/plugin-transform-runtime", { loose: true, regenerator: true } ],
     [
       "import",
@@ -21,6 +23,7 @@ module.exports = {
     [
       "module-resolver",
       {
+        loose: true,
         root: [ "./" ],
         alias: {
           "^!(.+)": "./components/\\1",

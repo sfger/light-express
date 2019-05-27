@@ -1,16 +1,20 @@
 @charset "utf-8";
 $is_modern:0;
+
 .datagrid-render-ctn {
   width: 100%;
   overflow: hidden; //@include prefix((transition:all 0.1s ease-out));color:#666;
   border-bottom: 1px solid #ccc;
+
   &.state-loading {
     .view-wrapper {
       z-index: -1;
     }
+
     position: relative;
     @include background-color-rgba(black, 0.692);
     color: transparent;
+
     &:before {
       content: "正在加载……";
       display: block;
@@ -27,39 +31,52 @@ $is_modern:0;
 .datagrid-ctn {
   max-width: 100%;
   overflow: hidden;
+  // height: 100%;
   @include ib;
+
   .view-wrapper {
+    // height: 100%;
     position: relative;
     *white-space: nowrap;
     *overflow: hidden;
   }
+
   .col-view {
     *display: inline;
     *zoom: 1;
   }
+
   .head-wrapper {
     overflow: hidden;
   }
+
   table {
     border-collapse: collapse;
+
     &, td {
       border: 1px solid #ccc;
     }
+
     .cell-wrapper {
       padding: 2px 5px;
     }
   }
+
   .body-wrapper {
     table, tr:first-child td {
       border-top: none;
     }
+
     tr:nth-child(even) {
       @include background-color-rgba(#ffe, 0.78);
     }
   }
+
   .frozen-view .body-wrapper {
     overflow: hidden; // table{margin-bottom:17px;}
-  } // .frozen-end{@include relative(left -1px);}
+  }
+
+  // .frozen-end{@include relative(left -1px);}
   .auto-view {
     // @include flex(0,0,auto);
     // width:auto;
@@ -67,30 +84,38 @@ $is_modern:0;
     *position: absolute;
     *top: 0;
     *right: 0;
+
     .body-wrapper {
       overflow: auto;
     }
+
     &.locate-view {
       overflow: hidden;
       *width: 0px;
       position: relative\0;
+
       >div {
         @media \0screen {
           @include absolute(left 0 right 0 top 0 bottom 0);
         }
+
         @media screen and (min-width:0\0) and (min-resolution:.001dpcm) {
           @include absolute(left 0 right 0 top 0 bottom 0);
         }
       }
     }
+
     table, td:first-child {
       border-left: none;
     }
   }
-  .head td:hover, /*.body tr:hover,*/
+
+  .head td:hover,
+  /*.body tr:hover,*/
   .body tr.hover {
     @include background-color-rgba(#e6e6e6, 0.78);
   }
+
   .cell {
     overflow: hidden;
     line-height: 20px;
@@ -99,16 +124,20 @@ $is_modern:0;
     color: #333; // &.txt-rt{text-align:right;}
     // &.txt-lt{text-align:left;}
   }
+
   .field-title {
     @extend %ib;
     margin-left: 12px;
   }
+
   .cell {
     height: 100%;
   }
+
   .sortable {
     cursor: pointer;
     @include background-color-rgba(#f3f3f3, 0.78); // filter:progid:DXImageTransform.Microsoft.Gradient(gradientType=0, startColorStr=#f3f3f3, endColorStr=#d1d1d1);
+
     // background:gradient(top, #f3f3f3, #d1d1d1, #f3f3f3);
     // background:-moz-linear-gradient(top, #f3f3f3, #d1d1d1, #f3f3f3);
     // background:-webkit-gradient(linear, left top, left bottom, color-stop(0%,#f3f3f3), color-stop(50%,#d1d1d1), color-stop(100%,#f3f3f3));
@@ -118,26 +147,33 @@ $is_modern:0;
     // background:linear-gradient(to bottom, #f3f3f3 0%, #d1d1d1 50%,#f3f3f3 100%);
     &:hover {
       @include background-color-rgba(#e6e6e6, 0.78);
-    } // .sort-mark:before{content:"↓";color:#eee;}
+    }
+
+    // .sort-mark:before{content:"↓";color:#eee;}
   }
+
   .sort-mark {
     @include ib;
     width: 12px;
     text-align: center;
     font-family: SimSun;
     color: #b90;
+
     &.desc:before {
       content: "↓";
       color: #b90;
     }
+
     &.asc:before {
       content: "↑";
       color: #b90;
     }
   }
+
   .autoRowHeight .cell {
     height: auto;
   }
+
   .head .cell {
     font-family: MicroSoft Yahei;
     color: #000;
