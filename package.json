@@ -82,7 +82,7 @@
     "react-dom": "^16.8.6",
     "react-loadable": "^5.5.0",
     "react-redux": "^7.0.3",
-    "react-router-dom": "^5.0.0",
+    "react-router-dom": "^5.0.1",
     "react-router-redux": "^4.0.8",
     "rxjs": "^6.5.2",
     "sass-loader": "^7.1.0",
@@ -96,7 +96,7 @@
     "vue-style-loader": "^4.1.2",
     "vue-template-compiler": "^2.6.10",
     "vuex": "^3.1.1",
-    "webpack": "^4.32.2",
+    "webpack": "^4.33.0",
     "webpack-dev-middleware": "^3.7.0"
   },
   "devDependencies": {
