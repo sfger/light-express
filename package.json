@@ -69,6 +69,7 @@
     "gulp-replace": "^1.0.0",
     "gulp-uglify": "^3.0.2",
     "gulp-util": "^3.0.7",
+    "gulp-sftp": "https://github.com/sfger/gulp-sftp/tarball/0.1.6",
     "history": "^4.9.0",
     "less": "^3.9.0",
     "less-loader": "^5.0.0",
