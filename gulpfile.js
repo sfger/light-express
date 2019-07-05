@@ -111,7 +111,7 @@ config.mode = "production";
 progress.start();
 gulp.task( "del", function( cb ) {
   let dir = "*" === project ? "" : project;
-  del( [ "dist/" + dir + "/**/*" ] ).then( function( /* paths */ ) {
+  del( [ "dist/" + dir + "/**/*" ], { dryRun: true } ).then( function( /* paths */ ) {
     // console.log( 'Deleted files and folders:\n' + paths.join( '\n' ) );
     cb();
   } );

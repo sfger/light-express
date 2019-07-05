@@ -13,7 +13,8 @@ module.exports = {
     [ "@babel/plugin-proposal-class-properties", { loose: true } ],
     [ "@babel/plugin-proposal-pipeline-operator", { loose: true, proposal: "smart" } ],
     [ "@babel/plugin-proposal-private-methods", { loose: true } ],
-    [ "@babel/plugin-proposal-do-expressions" ],
+    [ "@babel/plugin-proposal-do-expressions", { loose: true } ],
+    [ "@babel/plugin-proposal-function-bind", { loose: true } ],
     [ "@babel/plugin-transform-runtime", { loose: true, regenerator: true } ],
     [
       "import",
