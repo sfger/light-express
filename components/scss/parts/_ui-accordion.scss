@@ -1,27 +1,33 @@
 @charset "utf-8";
+
 .accordion-ctn {
   border: 1px solid #ccc;
   height: auto;
   width: 200px;
   overflow: hidden;
+
   li {
     float: left;
     width: 100%;
   }
+
   .panel-title {
     border: {
       bottom: 1px solid #e6e6e6;
       top: 1px solid #ccc;
     }
+
     line-height: 26px;
     background: #e6e6e6;
     color: black;
     text-decoration: none;
     display: block;
   }
+
   .selected {
     border-bottom: 1px solid #ccc;
   }
+
   .panel {
     height: 0;
     overflow: auto;

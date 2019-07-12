@@ -41,6 +41,6 @@ var valueParser = function() {
   } );
   return parser;
 };
-// var a = new valueParser;
+// var a = new valueParser();
 // a.value = undefined;
-// console.log(a.number);
+// console.log( a.value );

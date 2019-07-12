@@ -297,17 +297,8 @@ function isStrHasTrunkWith( str, trunk, delimeter ) {
  * @fn   : 延迟执行的函数
  * @arg  : 要传给fn函数的参数
  */
-function wait( time, fn, ...arg ) {
-  return new Promise( function( resolve ) {
-    var timer = setTimeout(
-      async function( ...arg ) {
-        if ( fn ) await fn( ...arg );
-        resolve( timer );
-      },
-      time,
-      ...arg
-    );
-  } );
+function wait( time ) {
+  return new Promise( resolve => setTimeout( resolve, time ) );
 }
 // var title = "ECCO Men's Darren High Moonless 43 (US Men's 9-9.5) D - Medium";
 // var one = "43 (US Men's 9-9.5)";
@@ -553,4 +544,4 @@ function getCurrentScript() {
 // } );
 // console.log( JSON.stringify( test ) );
 
-export { wait, strtotime, pad, date, getType, createElement, numberFormat, numberFromFormat, buildRegString, isStrHasTrunkWith, domCountDown, debounce, throttle, isPlainObject, extend, isWindow, getCurrentScript };
+export { pad, wait, date, extend, getType, debounce, throttle, isWindow, strtotime, numberFormat, domCountDown, createElement, isPlainObject, buildRegString, numberFromFormat, getCurrentScript, isStrHasTrunkWith };

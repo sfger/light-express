@@ -17,7 +17,7 @@ class Collection {
   items: Array < any > = [];
   constructor() {}
   @multicast
-  append( item, ...args: Array < any > ) {
+  append( item, ...args: Array<any> ) {
     // console.log(item, Array.prototype.slice.call(arguments));
     console.log( args );
     this.items.push( item );
@@ -74,7 +74,6 @@ function logToConsole( leadingTip: String ) {
 // 	toNumber,
 // 	toFixed
 // };
-
 
 var a = {
   @logToConsole( 'xls:' )
