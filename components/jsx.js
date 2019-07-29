@@ -121,7 +121,11 @@ function JSX( name, attrs, ...children ) {
   if ( ~singleTagList.indexOf( name ) ) return `<${ name } ${ setAttrs( attrs ) } />`;
   let type = typeof name;
   if ( type == "string" ) return `<${ name } ${ setAttrs( attrs ) }>${ children }</${ name }>`;
-  if ( type == "function" ) return setChildren( name( attrs, children ) );
+  if ( type == "function" ) {
+    if ( !attrs ) attrs = {};
+    attrs.children = children;
+    return setChildren( name( attrs, children ) );
+  }
   return "";
 }
 
