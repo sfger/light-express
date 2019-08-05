@@ -1,6 +1,6 @@
 let singleTagList = "br,img,input".split( "," );
 
-let templateTagList = "template,Fragment".split( "," );
+let templateTagList = "Fragment".split( "," );
 
 let ignoreProperties = { key: 1 };
 
@@ -115,17 +115,13 @@ function setChildren( list ) {
 }
 
 function JSX( name, attrs, ...children ) {
+  if ( !attrs ) attrs = {};
   children = setChildren( children );
-  // console.log( children );
   if ( ~templateTagList.indexOf( name ) ) return children;
   if ( ~singleTagList.indexOf( name ) ) return `<${ name } ${ setAttrs( attrs ) } />`;
   let type = typeof name;
   if ( type == "string" ) return `<${ name } ${ setAttrs( attrs ) }>${ children }</${ name }>`;
-  if ( type == "function" ) {
-    if ( !attrs ) attrs = {};
-    attrs.children = children;
-    return setChildren( name( attrs, children ) );
-  }
+  if ( type == "function" ) return setChildren( name( { ...attrs, children } ) );
   return "";
 }
 
