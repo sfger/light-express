@@ -60,22 +60,22 @@ function Foo( props ) {
   return (
     <div className="commentBox">
       <div>
-        <a href="javascript:" data-test="test">
+        <a href="" data-test="test">
           row:{ row },a:{ a },b:{ b }
         </a>
       </div>
       <div>
-        <a href="javascript:" onClick={ add_num }>
+        <a href="" onClick={ add_num }>
           Add num
         </a>
         <span>{ num }</span>
       </div>
       <div>
-        <a href="javascript:" onClick={ list_push }>
+        <a href="" onClick={ list_push }>
           Push list
         </a>
         &nbsp;
-        <a href="javascript:" onClick={ list_pop }>
+        <a href="" onClick={ list_pop }>
           Pop list
         </a>
         <ul>
@@ -137,15 +137,15 @@ function PageTest() {
     <div>
       { text + state.count }
       <div>
-        <a href="javascript:" onClick={ () => dispatch( { type: "reset", payload: initialCount } ) }>
+        <a href="" onClick={ () => dispatch( { type: "reset", payload: initialCount } ) }>
           reset
         </a>
         &nbsp;
-        <a href="javascript:" onClick={ () => dispatch( { type: "decrement" } ) }>
+        <a href="" onClick={ () => dispatch( { type: "decrement" } ) }>
           -
         </a>
         &nbsp;
-        <a href="javascript:" onClick={ () => dispatch( { type: "increment" } ) }>
+        <a href="" onClick={ () => dispatch( { type: "increment" } ) }>
           +
         </a>
       </div>
@@ -261,4 +261,13 @@ class App extends Component {
   }
 }
 
+document.addEventListener(
+  "click",
+  event => {
+    let target = event.target.closest( "a" );
+    if ( !target ) return;
+    if ( !target.getAttribute( "href" ) ) event.preventDefault();
+  },
+  true
+);
 ReactDOMRender( <App />, document.querySelector( "#page" ) );
