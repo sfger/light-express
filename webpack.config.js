@@ -3,7 +3,7 @@ const glob = require( "glob" );
 const root = path.resolve( __dirname );
 const webpack = require( "webpack" );
 // const { VueLoaderPlugin } = require( "vue-loader" );
-let sassconfig = require( "./sass.config.js" );
+let sassOptions = require( "./sassOptions.js" );
 let es3ifyPlugin = require( "es3ify-webpack-plugin" );
 let entrysArray = glob.sync( "**/*.@(entry).@(js|ts)?(x)", {
   cwd: "./src/",
@@ -128,7 +128,9 @@ module.exports = {
           },
           {
             loader: "sass-loader",
-            options: sassconfig
+            options: {
+              sassOptions
+            }
           }
         ]
       },

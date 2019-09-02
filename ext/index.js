@@ -215,7 +215,7 @@ let ext = {
   nodeSass: ( in_file, out_file, defer, next ) => {
     let sass = require( "node-sass" );
     let postcss = require( "postcss" );
-    let sassconfig = require( "../sass.config.js" );
+    let sassconfig = require( "../sassOptions.js" );
     sassconfig.file = in_file;
     sass.render( sassconfig, ( error, result ) => {
       if ( error ) {
