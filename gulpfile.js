@@ -1,7 +1,7 @@
 let argsOptions = require( "./config/options" );
 let args = require( "args" );
 let options = args.options( argsOptions );
-let uglifyjs3_config = {
+let terser_config = {
   ie8: true
 };
 
@@ -50,7 +50,7 @@ let del = require( "del" );
 let gutil = require( "gulp-util" );
 let cleanCss = require( "gulp-clean-css" );
 // let jshint       = require('gulp-jshint');
-let uglify = require( "gulp-uglify" );
+let terser = require( "gulp-terser" );
 // let rename = require( 'gulp-rename' );
 // let concat = require( 'gulp-concat' );
 let replace = require( "gulp-replace" );
@@ -131,7 +131,7 @@ gulp.task( "js", function() {
       "!./src/" + project + "/**/*.@(entry).js",
       "!./src/**/parts/*.js"
     ] )
-    .pipe( uglify( uglifyjs3_config ) )
+    .pipe( terser( terser_config ) )
     .pipe( gulp.dest( "dist/" + dist ) );
 } );
 gulp.task( "html", function() {

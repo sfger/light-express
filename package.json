@@ -67,7 +67,7 @@
     "gulp-rename": "^1.4.0",
     "gulp-replace": "^1.0.0",
     "gulp-sftp": "https://github.com/sfger/gulp-sftp/tarball/v0.1.6",
-    "gulp-uglify": "^3.0.2",
+    "gulp-terser": "^1.2.0",
     "gulp-util": "^3.0.7",
     "history": "^4.9.0",
     "less": "^3.10.3",
