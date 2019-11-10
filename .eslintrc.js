@@ -1,5 +1,3 @@
-/* eslint array-bracket-newline: [ "error", { multiline: true, minItems: 10 } ] */
-/* eslint array-element-newline: [ "error", { multiline: true, minItems: 10 } ] */
 const path = require( "path" );
 module.exports = {
   env: {
@@ -46,6 +44,7 @@ module.exports = {
     "brace-style": [ 2, "1tbs", { allowSingleLine: true } ],
     "accessor-pairs": 2,
     "constructor-super": 2,
+    "object-curly-spacing": [ "error", "always" ],
     "no-this-before-super": 2,
     "no-trailing-spaces": "error",
     "react/jsx-curly-spacing": [ 2, { when: "always", children: true } ],
@@ -58,8 +57,8 @@ module.exports = {
     "react/jsx-one-expression-per-line": [ 0, "never" ],
     "react/jsx-child-element-spacing": [ 0, "never" ],
     "react/jsx-no-target-blank": [ 0 ],
-    "array-bracket-newline": [ "error", { multiline: true, minItems: 2 } ],
-    "array-element-newline": [ "error", { multiline: true, minItems: 2 } ],
+    // "array-bracket-newline": [ "error", { multiline: true, minItems: 2 } ],
+    // "array-element-newline": [ "error", { multiline: true, minItems: 2 } ],
     "array-bracket-spacing": [ "error", "always" ],
     "computed-property-spacing": [ "error", "always" ],
     "newline-per-chained-call": [ "error", { ignoreChainWithDepth: 5 } ],
@@ -75,7 +74,11 @@ module.exports = {
     "semi-spacing": [ 2, { before: false, after: true } ],
     "arrow-spacing": [ 2, { before: true, after: true } ],
     "comma-spacing": [ 2, { before: false, after: true } ],
-    "comma-style": [ "error", "last", { exceptions: { ArrayExpression: true, ObjectExpression: true } } ],
+    "comma-style": [
+      "error",
+      "last",
+      { exceptions: { ArrayExpression: true, ObjectExpression: true } }
+    ],
     "comma-dangle": [ 0, "always" ],
     // "comma-dangle": [
     //   "error",
@@ -94,7 +97,21 @@ module.exports = {
     "space-in-parens": [ 2, "always" ],
     "space-infix-ops": 2,
     "space-unary-ops": [ 2, { words: true, nonwords: false } ],
-    "spaced-comment": [ 2, "always", { markers: [ "global", "globals", "eslint", "eslint-disable", "*package", "!", "," ] } ],
+    "spaced-comment": [
+      2,
+      "always",
+      {
+        markers: [
+          "global",
+          "globals",
+          "eslint",
+          "eslint-disable",
+          "*package",
+          "!",
+          ","
+        ]
+      }
+    ],
     "use-isnan": 2
   }
 };

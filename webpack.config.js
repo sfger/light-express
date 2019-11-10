@@ -39,10 +39,7 @@ module.exports = {
     // publicPath: '../dist/'
   },
   resolve: {
-    modules: [
-      path.join( root, "src" ),
-      "node_modules"
-    ],
+    modules: [ path.join( root, "src" ), "node_modules" ],
     extensions: [
       ".ts",
       // ".vue",
@@ -187,7 +184,7 @@ module.exports = {
   },
   plugins: [
     new es3ifyPlugin(),
-    new webpack.optimize.ModuleConcatenationPlugin(),
+    new webpack.optimize.ModuleConcatenationPlugin()
     // new VueLoaderPlugin()
     // new WebpackMd5Hash()
   ],

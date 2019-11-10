@@ -1,6 +1,6 @@
 module.exports = {
   bracketSpacing: true,
   jsxBracketSameLine: true,
-  printWidth: 1000000,
+  printWidth: 80,
   parser: 'flow'
 };
