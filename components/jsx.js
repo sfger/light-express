@@ -61,20 +61,6 @@ function setClassName( list ) {
   return setClassNameList( list ).join( " " );
 }
 
-// console.log(
-//   setClassName( [
-//     {
-//       test: 1,
-//       best: 1
-//     },
-//     "test",
-//     "b",
-//     "a",
-//     "c"
-//   ] )
-// );
-// process.exit();
-
 function setStyle( style ) {
   let type = getType( style );
   if ( "string" == type ) return style;
