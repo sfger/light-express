@@ -217,14 +217,13 @@ function get_table( _this ) {
 function set_table_size( value, _this, $autoView = null ) {
   $autoView = $autoView || $( ".auto-view", _this.render );
   let header_height = $autoView.find( ".head-wrapper" )[ 0 ].offsetHeight;
-  let auto = $autoView.find( ".body-wrapper" )[ 0 ];
   $( ".body-wrapper", _this.render ).css( { height: value - header_height } );
-  if( browser.ie && browser.version < 10 ) requestAnimationFrame( () => {
-    $( ".body-wrapper", _this.render ).css( { height: "auto", width: "auto" } );
-    let bar_width = auto.offsetWidth - auto.clientWidth;
-    $autoView.css( { width: $autoView.find( "table" )[ 1 ].offsetWidth + bar_width } );
-    // $( ".body-wrapper", _this.render ).css( { height: value - header_height + bar_width } );
-  } );
+  // let auto = $autoView.find( ".body-wrapper" )[ 0 ];
+  // if( browser.ie && browser.version < 10 ) requestAnimationFrame( () => {
+  //   let bar_width = auto.offsetWidth - auto.clientWidth;
+  //   $autoView.css( { width: $autoView.find( "table" )[ 1 ].offsetWidth - bar_width } );
+  //   $( ".body-wrapper", _this.render ).css( { height: value - header_height } );
+  // } );
 }
 
 function resize_table( _this ) {
@@ -333,10 +332,10 @@ function resize_table( _this ) {
       let bar_height = auto.offsetHeight - auto.clientHeight;
       let $tables = $( ".frozen-view .body-wrapper table", _this.render );
       $tables.css( { marginBottom: bar_height } );
-      browser.version < 8 &&
-        requestAnimationFrame( function() {
-          $tables.css( { marginBottom: bar_height } );
-        } );
+      // browser.version < 8 &&
+      //   requestAnimationFrame( function() {
+      //     $tables.css( { marginBottom: bar_height } );
+      //   } );
     } );
   } );
 }

@@ -31,6 +31,8 @@ module.exports = {
   plugins: [ "react", "react-hooks", "babel", "markdown" ],
   globals: {
     window: true,
+    test: true,
+    expect: true,
     Vue: true,
     EJS: true,
     undefined: true,

@@ -101,7 +101,9 @@ function setAttrs( attrs ) {
     if ( "style" == property ) value = setStyle( value );
     if ( property ) ret.push( `${ property }="${ value }"` );
   }
-  return ret.join( " " );
+  let str = ret.join( " " );
+  if ( str ) str = " " + str;
+  return str;
 }
 
 function setChildren( list ) {
@@ -120,7 +122,7 @@ function JSX( name, attrs, ...children ) {
   if ( ~templateTagList.indexOf( name ) ) return children;
   if ( ~singleTagList.indexOf( name ) ) return `<${ name } ${ setAttrs( attrs ) } />`;
   let type = typeof name;
-  if ( type == "string" ) return `<${ name } ${ setAttrs( attrs ) }>${ children }</${ name }>`;
+  if ( type == "string" ) return `<${ name }${ setAttrs( attrs ) }>${ children }</${ name }>`;
   if ( type == "function" ) return setChildren( name( { ...attrs, children } ) );
   return "";
 }
