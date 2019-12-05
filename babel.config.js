@@ -1,17 +1,21 @@
-/* eslint array-bracket-newline: [ "error", { multiline: true, minItems: 3 } ] */
-/* eslint array-element-newline: [ "error", { multiline: true, minItems: 3 } ] */
 module.exports = {
   presets: [
     [ "@babel/preset-env", { loose: true } ],
     [ "@babel/preset-react", { loose: true } ],
-    [ "@babel/preset-typescript", { loose: true, isTSX: true, allExtensions: true } ]
+    [
+      "@babel/preset-typescript",
+      { loose: true, isTSX: true, allExtensions: true }
+    ]
   ],
   plugins: [
     [ "@babel/plugin-syntax-dynamic-import", { loose: true } ],
     [ "@babel/plugin-transform-async-to-generator", { loose: true } ],
     [ "@babel/plugin-proposal-decorators", { loose: true, legacy: true } ],
     [ "@babel/plugin-proposal-class-properties", { loose: true } ],
-    [ "@babel/plugin-proposal-pipeline-operator", { loose: true, proposal: "smart" } ],
+    [
+      "@babel/plugin-proposal-pipeline-operator",
+      { loose: true, proposal: "smart" }
+    ],
     [ "@babel/plugin-proposal-private-methods", { loose: true } ],
     [ "@babel/plugin-proposal-do-expressions", { loose: true } ],
     [ "@babel/plugin-proposal-function-bind", { loose: true } ],
@@ -30,13 +34,7 @@ module.exports = {
           "^!(.+)": "./components/\\1",
           "^~(.+)": "./src/\\1"
         },
-        extensions: [
-          ".js",
-          ".scss",
-          ".jsx",
-          ".ts",
-          ".tsx"
-        ]
+        extensions: [ ".js", ".scss", ".jsx", ".ts", ".tsx" ]
       }
     ]
   ]

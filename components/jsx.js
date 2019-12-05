@@ -1,9 +1,6 @@
 let singleTagList = "br,img,input".split( "," );
-
 let templateTagList = "Fragment".split( "," );
-
 let ignoreProperties = { key: 1 };
-
 let mapProperties = { className: "class", htmlFor: "for" };
 
 function getType( obj ) {
@@ -20,7 +17,14 @@ function isWindow( obj ) {
 function isPlainObject( obj ) {
   if ( getType( obj ) !== "object" || obj.nodeType || isWindow( obj ) ) return false;
   try {
-    if ( obj.constructor && !Object.prototype.hasOwnProperty.call( obj.constructor.prototype, "isPrototypeOf" ) ) return false;
+    if (
+      obj.constructor &&
+      !Object.prototype.hasOwnProperty.call(
+        obj.constructor.prototype,
+        "isPrototypeOf"
+      )
+    )
+      return false;
   } catch ( e ) {
     return false;
   }
@@ -52,7 +56,9 @@ function setClassNameList( value ) {
       if ( value[ key ] ) ret.push( key );
     }
   } else {
-    throw new Error( `JSX Property className does not support the value type: ${ value }` );
+    throw new Error(
+      `JSX Property className does not support the value type: ${ value }`
+    );
   }
   return ArrayUnique( ret );
 }
@@ -64,7 +70,10 @@ function setClassName( list ) {
 function setStyle( style ) {
   let type = getType( style );
   if ( "string" == type ) return style;
-  if ( !isPlainObject( style ) ) throw new Error( `JSX Property style does not support the value type: ${ style }` );
+  if ( !isPlainObject( style ) )
+    throw new Error(
+      `JSX Property style does not support the value type: ${ style }`
+    );
   let ret = [];
   for ( let property in style ) {
     let value = style[ property ];
@@ -80,10 +89,7 @@ function setAttrs( attrs ) {
     if ( ignoreProperties[ property ] ) continue;
     let value = attrs[ property ];
     property = mapProperties[ property ] || property;
-    if ( ~[
-      "class",
-      "className"
-    ].indexOf( property ) ) value = setClassName( value );
+    if ( ~[ "class", "className" ].indexOf( property ) ) value = setClassName( value );
     if ( "style" == property ) value = setStyle( value );
     if ( property ) ret.push( `${ property }="${ value }"` );
   }
@@ -93,6 +99,7 @@ function setAttrs( attrs ) {
 }
 
 function setChildren( list ) {
+  if ( !list ) return "";
   if ( !isArray( list ) ) return list;
   return list
     .map( function( item ) {
@@ -108,7 +115,8 @@ function JSX( name, attrs, ...children ) {
   if ( ~templateTagList.indexOf( name ) ) return children;
   if ( ~singleTagList.indexOf( name ) ) return `<${ name } ${ setAttrs( attrs ) } />`;
   let type = typeof name;
-  if ( type == "string" ) return `<${ name }${ setAttrs( attrs ) }>${ children }</${ name }>`;
+  if ( type == "string" )
+    return `<${ name }${ setAttrs( attrs ) }>${ children }</${ name }>`;
   if ( type == "function" ) return setChildren( name( { ...attrs, children } ) );
   return "";
 }

@@ -70,9 +70,7 @@ function get_head_rows( _this, options, colsType ) {
               <div className="cell" />
             </div>
           </td>
-        ) : (
-          ""
-        ) }
+        ) : null }
         { row.map( function( option ) {
           let title = option.name || option.field || "";
           let td_attr = {};
@@ -128,9 +126,7 @@ function get_data_rows( options, cols = [], colsType ) {
               <div className="cell">{ i + options.startRowNum }</div>
             </div>
           </td>
-        ) : (
-          ""
-        ) }
+        ) : null }
         { cols.map( ( option, i ) => {
           if ( !option ) return "";
           let field = option.field,
@@ -174,9 +170,7 @@ function get_table( _this ) {
               </table>
             </div>
           </div>
-        ) : (
-          ""
-        ) }
+        ) : null }
         <div className={ `col-rest col-view auto-view locate-view` }>
           <div>
             <div style={ { overflow: "hidden" } }>
@@ -206,9 +200,7 @@ function get_table( _this ) {
               </table>
             </div>
           </div>
-        ) : (
-          ""
-        ) }
+        ) : null }
       </div>
     </div>
   );

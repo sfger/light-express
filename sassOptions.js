@@ -5,7 +5,7 @@ module.exports = {
     "@": "/components/",
     "~": "/src/"
   },
-  includePaths: [ root + "/node_modules/" ],
+  includePaths: [ `${ root }/node_modules/` ],
   importer: function( url, prev ) {
     let leading = url.charAt( 0 );
     let map = this.options.alias;

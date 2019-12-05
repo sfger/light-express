@@ -86,25 +86,13 @@ module.exports = {
       {
         test: /\.ts$/,
         exclude: /(node_modules)/,
-        use: [
-          {
-            loader: "ts-loader",
-            options: {
-              configFile: "tsconfig.json"
-            }
-          }
-        ]
+        use: [ { loader: "ts-loader", options: { configFile: "tsconfig.json" } } ]
       },
       {
         test: /\.jsx?$/,
         exclude: /(node_modules)/,
         type: "javascript/auto",
-        use: [
-          {
-            loader: "babel-loader",
-            options: babelConfig
-          }
-        ]
+        use: [ { loader: "babel-loader", options: babelConfig } ]
       },
       {
         test: /\.scss$/,
@@ -112,9 +100,7 @@ module.exports = {
           {
             // loader: "vue-style-loader",
             loader: "style-loader",
-            options: {
-              insertAt: "bottom"
-            }
+            options: { insertAt: "bottom" }
           },
           {
             loader: "css-loader",
@@ -125,9 +111,7 @@ module.exports = {
           },
           {
             loader: "sass-loader",
-            options: {
-              sassOptions
-            }
+            options: { sassOptions }
           }
         ]
       },
@@ -137,9 +121,7 @@ module.exports = {
           {
             // loader: "vue-style-loader",
             loader: "style-loader",
-            options: {
-              insertAt: "bottom"
-            }
+            options: { insertAt: "bottom" }
           },
           {
             loader: "css-loader",
@@ -148,10 +130,7 @@ module.exports = {
               // localIdentName: '[local]_[hash:base64:8]'
             }
           },
-          {
-            loader: "less-loader",
-            options: { javascriptEnabled: true }
-          }
+          { loader: "less-loader", options: { javascriptEnabled: true } }
         ]
       },
       {
@@ -171,14 +150,7 @@ module.exports = {
       {
         test: /\.(png|jpg)$/,
         exclude: /(node_modules)/,
-        use: [
-          {
-            loader: "url-loader",
-            options: {
-              limit: 8192
-            }
-          }
-        ]
+        use: [ { loader: "url-loader", options: { limit: 8192 } } ]
       }
     ]
   },

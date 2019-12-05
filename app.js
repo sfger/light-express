@@ -26,13 +26,7 @@ app.engine(
   "jsx",
   require( "express-react-views" ).createEngine( {
     beautify: true,
-    babel: {
-      plugins: [
-        [ "@babel/plugin-proposal-decorators", { loose: true, legacy: true } ],
-        [ "@babel/plugin-proposal-class-properties", { loose: true } ],
-        [ "@babel/plugin-transform-flow-strip-types", { loose: true } ]
-      ]
-    }
+    babel: { plugins: [] }
   } )
 );
 

@@ -1,9 +1,7 @@
 let argsOptions = require( "./config/options" );
 let args = require( "args" );
 let options = args.options( argsOptions );
-let terser_config = {
-  ie8: true
-};
+let terser_config = { ie8: true };
 
 let parsed_args;
 try {
@@ -59,17 +57,8 @@ let config = require( "./webpack.config.js" );
 let ansi = require( "ansi" );
 let cursor = ansi( process.stdout );
 
-function wait( time, fn, ...arg ) {
-  return new Promise( function( resolve ) {
-    var timer = setTimeout(
-      async function( ...arg ) {
-        if ( fn ) await fn( ...arg );
-        resolve( timer );
-      },
-      time,
-      ...arg
-    );
-  } );
+function wait( time ) {
+  return new Promise( resolve => setTimeout( resolve, time ) );
 }
 class Progress {
   constructor() {
@@ -78,10 +67,7 @@ class Progress {
   async start() {
     let i = 0;
     let time = 5;
-    let array = [
-      " + ",
-      " ×"
-    ];
+    let array = [ " + ", " ×" ];
     while ( this.status ) {
       i = i < array.length ? i : 0;
       cursor
@@ -171,18 +157,15 @@ gulp.task( "webpack", function( cb ) {
   // process.exit();
   let entryMap = {};
   entrysArray.forEach( one => {
-    entryMap[ dir + "/" + one.replace( /\.entry\.(jsx?|ts)?$/, "" ) ] = "./" + dir + "/" + one;
+    entryMap[ dir + "/" + one.replace( /\.entry\.(jsx?|ts)?$/, "" ) ] =
+      "./" + dir + "/" + one;
   } );
   config.entry = entryMap;
   webpack( config ).run( function( err, stats ) {
     if ( err ) throw new gutil.PluginError( "webpack", err );
     gutil.log(
       "[webpack]",
-      stats.toString( {
-        colors: true,
-        modules: false,
-        entrypoints: false
-      } )
+      stats.toString( { colors: true, modules: false, entrypoints: false } )
     );
     cb();
   } );
@@ -195,14 +178,8 @@ gulp.task( "deploy", function() {
 gulp.task( "tip", function( done ) {
   return progress.done().then( () => done );
 } );
-let tasks = [
-  "del",
-  "css",
-  "img",
-  "webpack",
-  "js"
-];
-if ( "test" === parsed_args.server ) tasks.push( "html" );
+let tasks = [ "del", "css", "img", "webpack", "js" ];
+if ( "testA" === parsed_args.server ) tasks.push( "html" );
 tasks.push( "deploy" );
 tasks.push( "tip" );
 gulp.task( "default", gulp.series.call( null, tasks ) );

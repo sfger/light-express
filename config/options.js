@@ -19,7 +19,7 @@ module.exports = [
       "s",
       "server"
     ], // 目标服务器地址
-    defaultValue: "test",
+    defaultValue: "testA",
     description: "Server info=>ip user-name password remote-path"
   }
 ];

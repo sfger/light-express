@@ -1,5 +1,5 @@
 /* String */
-/* *
+/**
  * @param[in] str 日期字符串 如：2012-12-12 12:12:21
  * @return 返回时间戳
  */
@@ -7,7 +7,7 @@ function strtotime( str ) {
   // if(!str || (typeof str.replace != 'function')) return false;
   return Date.parse( str.replace( /-/g, "/" ) ) / 1000;
 }
-/* *
+/**
  * @param[in] n 被填冲的字符串
  * @param[in] c 要填冲的长度
  * @param[in] s 要填冲的字符
@@ -20,7 +20,7 @@ function pad( n, c, s ) {
   }
   return n;
 }
-/* *
+/**
  * @param[in] format 格式化的格式
  * @param[in] timestamp 时间戳
  * @return 格式化后的字符串
@@ -37,7 +37,15 @@ function date( format, timestamp ) {
     "Friday",
     "Saturday"
   ];
-  var txt_ordin = { 1: "st", 2: "nd", 3: "rd", 21: "st", 22: "nd", 23: "rd", 31: "st" };
+  var txt_ordin = {
+    1: "st",
+    2: "nd",
+    3: "rd",
+    21: "st",
+    22: "nd",
+    23: "rd",
+    31: "st"
+  };
   var txt_months = [
     "",
     "January",
@@ -147,7 +155,11 @@ function date( format, timestamp ) {
     B: function() {
       // peter paul koch:
       var off = ( jsdate.getTimezoneOffset() + 60 ) * 60;
-      var theSeconds = jsdate.getHours() * 3600 + jsdate.getMinutes() * 60 + jsdate.getSeconds() + off;
+      var theSeconds =
+        jsdate.getHours() * 3600 +
+        jsdate.getMinutes() * 60 +
+        jsdate.getSeconds() +
+        off;
       var beat = Math.floor( theSeconds / 86.4 );
       if ( beat > 1000 ) beat -= 1000;
       if ( beat < 0 ) beat += 1000;
@@ -193,7 +205,20 @@ function date( format, timestamp ) {
 
     // Full Date/Time
     c: function() {
-      return f.Y() + "-" + f.m() + "-" + f.d() + "T" + f.h() + ":" + f.i() + ":" + f.s() + f.P();
+      return (
+        f.Y() +
+        "-" +
+        f.m() +
+        "-" +
+        f.d() +
+        "T" +
+        f.h() +
+        ":" +
+        f.i() +
+        ":" +
+        f.s() +
+        f.P()
+      );
     },
     // r not supported yet
     U: function() {
@@ -224,85 +249,27 @@ function getType( obj ) {
     .toLowerCase();
 }
 
-function createElement( node ) {
-  var cd = "",
-    at = [],
-    attr = null,
-    children = null,
-    fn = createElement,
-    node_type = getType( node );
-  if ( node_type === "array" ) {
-    for ( var j in node ) cd += fn( node[ j ] );
-  } else {
-    if ( node_type === "string" || node_type == "number" ) {
-      cd = node;
-    } else if ( node_type === "object" && node.name ) {
-      ( attr = node.attr ), ( children = node.children ), ( at = [] );
-      if ( attr ) {
-        for ( var key in attr ) {
-          if ( key == "className" ) {
-            at.push( 'class="' + attr[ key ] + '"' );
-            continue;
-          } else if ( key == "style" ) {
-            var style = attr[ key ];
-            var ot = getType( style );
-            attr[ key ] = "";
-            if ( ot == "object" ) {
-              for ( var sk in style ) {
-                attr[ key ] += sk + ":" + style[ sk ] + ";";
-              }
-            } else if ( ot == "string" ) {
-              attr[ key ] = style;
-            }
-          }
-          at.push( "" + key + '="' + attr[ key ] + '"' );
-        }
-      }
-      if ( at.length ) at.unshift( "" );
-      if ( children && getType( children ) !== "array" ) children = [ children ];
-      cd = "<" + node.name + at.join( " " ) + ">" + ( children ? fn( children ) : "" ) + "</" + node.name + ">";
-    } else cd = "";
-  }
-  return cd;
-}
-
 function numberFormat( n, x, c ) {
   if ( isNaN( n ) ) return n;
   ( n = n || 0 ), ( x = x || 0 ), ( c = c || 3 );
   n = Number( n ).toFixed( x );
   var end = x === 0 ? "$" : "\\.";
-  return n.replace( new RegExp( "\\B(?=(\\d{" + c + "})+(?=" + end + "))", "g" ), "," );
+  return n.replace(
+    new RegExp( "\\B(?=(\\d{" + c + "})+(?=" + end + "))", "g" ),
+    ","
+  );
 }
 // console.log(numberFormat(22222222.22222, 5, 3));
 function numberFromFormat( str ) {
   return Number( str.replace( /,/g, "" ) );
 }
 
-function buildRegString( s ) {
-  if ( !s ) return s;
-  return String( s ).replace( /[()^$*?+.-\\]/g, function( i ) {
-    return "\\" + i;
-  } );
-}
-
-function isStrHasTrunkWith( str, trunk, delimeter ) {
-  trunk = buildRegString( trunk );
-  if ( delimeter ) {
-    delimeter = buildRegString( delimeter );
-    return new RegExp( "([" + delimeter + "]|^)" + trunk + "([" + delimeter + "]|$)" ).test( str );
-  } else return new RegExp( trunk ).test( str );
-}
-/* *
+/**
  * @time : setTimeout的延迟时间
- * @fn   : 延迟执行的函数
- * @arg  : 要传给fn函数的参数
  */
 function wait( time ) {
   return new Promise( resolve => setTimeout( resolve, time ) );
 }
-// var title = "ECCO Men's Darren High Moonless 43 (US Men's 9-9.5) D - Medium";
-// var one = "43 (US Men's 9-9.5)";
-// console.log( isStrHasTrunkWith(title, title, ' ') );
 function domCountDown( option ) {
   var that = this;
   var get_timestamp = function() {
@@ -441,7 +408,14 @@ function throttle( func, wait, options ) {
 function isPlainObject( obj ) {
   if ( getType( obj ) !== "object" || obj.nodeType || isWindow( obj ) ) return false;
   try {
-    if ( obj.constructor && !Object.prototype.hasOwnProperty.call( obj.constructor.prototype, "isPrototypeOf" ) ) return false;
+    if (
+      obj.constructor &&
+      !Object.prototype.hasOwnProperty.call(
+        obj.constructor.prototype,
+        "isPrototypeOf"
+      )
+    )
+      return false;
   } catch ( e ) {
     return false;
   }
@@ -484,7 +458,11 @@ function extend() {
         if ( target === copy ) {
           continue;
         }
-        if ( deep && copy && ( isPlainObject( copy ) || ( copyIsArray = isArray( copy ) ) ) ) {
+        if (
+          deep &&
+          copy &&
+          ( isPlainObject( copy ) || ( copyIsArray = isArray( copy ) ) )
+        ) {
           if ( copyIsArray ) {
             copyIsArray = false;
             clone = src && isArray( src ) ? src : [];
@@ -544,4 +522,19 @@ function getCurrentScript() {
 // } );
 // console.log( JSON.stringify( test ) );
 
-export { pad, wait, date, extend, getType, debounce, throttle, isWindow, strtotime, numberFormat, domCountDown, createElement, isPlainObject, buildRegString, numberFromFormat, getCurrentScript, isStrHasTrunkWith };
+export {
+  pad,
+  wait,
+  date,
+  extend,
+  getType,
+  debounce,
+  throttle,
+  isWindow,
+  strtotime,
+  numberFormat,
+  domCountDown,
+  isPlainObject,
+  numberFromFormat,
+  getCurrentScript,
+};

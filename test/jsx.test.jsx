@@ -5,6 +5,10 @@ test( "JSX <div /> to be <div></div>", () => {
   expect( <div /> ).toBe( "<div></div>" );
 } );
 
+test( "JSX <div>{ null }</div> to be <div></div>", () => {
+  expect( <div>{ null }</div> ).toBe( "<div></div>" );
+} );
+
 test( `JSX <div id="test" /> to be <div id="test"></div>`, () => {
   expect( <div id="test" /> ).toBe( `<div id="test"></div>` );
 } );
