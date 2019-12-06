@@ -1,4 +1,4 @@
-let singleTagList = "br,img,input".split( "," );
+let singleTagList = "meta,link,br,img,input".split( "," );
 let templateTagList = "Fragment".split( "," );
 let ignoreProperties = { key: 1 };
 let mapProperties = { className: "class", htmlFor: "for" };

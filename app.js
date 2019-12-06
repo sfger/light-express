@@ -1,5 +1,3 @@
-/* eslint array-bracket-newline: [ "error", { multiline: true, minItems: 3 } ] */
-/* eslint array-element-newline: [ "error", { multiline: true, minItems: 3 } ] */
 /* eslint comma-dangle:1 */
 /* eslint-disable */
 /* eslint-enable */
@@ -26,7 +24,12 @@ app.engine(
   "jsx",
   require( "express-react-views" ).createEngine( {
     beautify: true,
-    babel: { plugins: [] }
+    babel: {
+      plugins: [
+        [ "@babel/plugin-proposal-decorators", { loose: true, legacy: true } ],
+        [ "@babel/plugin-proposal-class-properties", { loose: true } ]
+      ]
+    }
   } )
 );
 
