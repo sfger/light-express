@@ -9,9 +9,9 @@ let store = {
   count: 0
 };
 
-( async() => {
-  "test" |> await Promise.resolve( `${ # } & list` ) |> console.log;
-} )();
+// ( async() => {
+//   "test" |> await Promise.resolve( `${ # } & list` ) |> console.log;
+// } )();
 
 function init( initial: object ) {
   return Object.assign( {}, store, initial );

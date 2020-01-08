@@ -9,7 +9,8 @@ module.exports = {
     node: true
   },
   extends: [ "eslint:recommended", "plugin:react/recommended", "prettier" ],
-  parser: "babel-eslint",
+  // parser: "babel-eslint",
+  parser: "@typescript-eslint/parser",
   parserOptions: {
     ecmaVersion: 10,
     ecmaFeatures: {
@@ -28,7 +29,8 @@ module.exports = {
       version: "detect"
     }
   },
-  plugins: [ "react", "react-hooks", "babel", "markdown" ],
+  // plugins: [ "react", "react-hooks", "babel", "markdown" ],
+  plugins: [ "typescript", "react", "react-hooks", "babel", "markdown" ],
   globals: {
     window: true,
     test: true,
