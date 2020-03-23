@@ -150,7 +150,12 @@ module.exports = {
       {
         test: /\.(png|jpg)$/,
         exclude: /(node_modules)/,
-        use: [ { loader: "url-loader", options: { limit: 8192 } } ]
+        use: [
+          {
+            loader: "url-loader",
+            options: { limit: 8192, name: "[path][name].[ext]" }
+          }
+        ]
       }
     ]
   },
