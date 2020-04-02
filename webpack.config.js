@@ -86,13 +86,17 @@ module.exports = {
       {
         test: /\.ts$/,
         exclude: /(node_modules)/,
-        use: [ { loader: "ts-loader", options: { configFile: "tsconfig.json" } } ]
+        use: [
+          { loader: "ts-loader", options: { configFile: "tsconfig.json" } }
+        ]
       },
       {
         test: /\.jsx?$/,
         exclude: /(node_modules)/,
         type: "javascript/auto",
-        use: [ { loader: "babel-loader", options: babelConfig } ]
+        use: [
+          { loader: "babel-loader", options: babelConfig }
+        ]
       },
       {
         test: /\.scss$/,
@@ -153,7 +157,7 @@ module.exports = {
         use: [
           {
             loader: "url-loader",
-            options: { limit: 8192, name: "[path][name].[ext]" }
+            options: { limit: 8192, name: "[path][name].[ext]?[hash]" }
           }
         ]
       }
