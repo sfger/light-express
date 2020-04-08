@@ -13,11 +13,11 @@ let store = {
 //   "test" |> await Promise.resolve( `${ # } & list` ) |> console.log;
 // } )();
 
-function init( initial: object ) {
+function init( initial ) {
   return Object.assign( {}, store, initial );
 }
 
-function reduceCount( state: object, action: string ): object {
+function reduceCount( state, action ) {
   switch ( action.type ) {
     case "increment":
       return { count: state.count + 1 };
