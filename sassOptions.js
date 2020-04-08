@@ -3,7 +3,7 @@ let root = path.resolve( __dirname );
 module.exports = {
   alias: {
     "@": "/components/",
-    "~": "/src/"
+    "~": "/src/",
   },
   includePaths: [ `${ root }/node_modules/` ],
   importer: function( url, prev ) {
@@ -18,5 +18,5 @@ module.exports = {
   indentWidth: 1,
   linefeed: "lf",
   indentType: "tab",
-  outputStyle: "compact"
+  outputStyle: "compact",
 };

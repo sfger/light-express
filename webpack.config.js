@@ -7,7 +7,7 @@ let sassOptions = require( "./sassOptions.js" );
 let es3ifyPlugin = require( "es3ify-webpack-plugin" );
 let entrysArray = glob.sync( "**/*.@(entry).@(js|ts)?(x)", {
   cwd: "./src/",
-  nobrace: true
+  nobrace: true,
 } );
 // console.log( entrysArray );
 // process.exit();
@@ -33,7 +33,7 @@ module.exports = {
     // filename: "[name]_[chunkhash:8].js",
     filename: "[name].js",
     chunkFilename: "[name].js",
-    publicPath: "/"
+    publicPath: "/",
     // libraryTarget: "umd"
     // library: 'test',
     // publicPath: '../dist/'
@@ -50,12 +50,12 @@ module.exports = {
       ".js",
       ".jsx",
       "png",
-      "jpg"
+      "jpg",
     ],
     alias: {
       // vue$: "vue/dist/vue.esm.js"
       // react: "react/index.js"
-    }
+    },
   },
   externals: {
     // jquery: {
@@ -87,16 +87,16 @@ module.exports = {
         test: /\.ts$/,
         exclude: /(node_modules)/,
         use: [
-          { loader: "ts-loader", options: { configFile: "tsconfig.json" } }
-        ]
+          { loader: "ts-loader", options: { configFile: "tsconfig.json" } },
+        ],
       },
       {
         test: /\.jsx?$/,
         exclude: /(node_modules)/,
         type: "javascript/auto",
         use: [
-          { loader: "babel-loader", options: babelConfig }
-        ]
+          { loader: "babel-loader", options: babelConfig },
+        ],
       },
       {
         test: /\.scss$/,
@@ -104,20 +104,20 @@ module.exports = {
           {
             // loader: "vue-style-loader",
             loader: "style-loader",
-            options: { insertAt: "bottom" }
+            options: { insertAt: "bottom" },
           },
           {
             loader: "css-loader",
             options: {
               // modules: true,
               // localIdentName: '[local]_[hash:base64:8]'
-            }
+            },
           },
           {
             loader: "sass-loader",
-            options: { sassOptions }
-          }
-        ]
+            options: { sassOptions },
+          },
+        ],
       },
       {
         test: /\.less$/,
@@ -125,17 +125,17 @@ module.exports = {
           {
             // loader: "vue-style-loader",
             loader: "style-loader",
-            options: { insertAt: "bottom" }
+            options: { insertAt: "bottom" },
           },
           {
             loader: "css-loader",
             options: {
               // modules: true,
               // localIdentName: '[local]_[hash:base64:8]'
-            }
+            },
           },
-          { loader: "less-loader", options: { javascriptEnabled: true } }
-        ]
+          { loader: "less-loader", options: { javascriptEnabled: true } },
+        ],
       },
       {
         test: /\.css$/,
@@ -147,9 +147,9 @@ module.exports = {
             options: {
               // modules: true,
               // localIdentName: '[local]_[hash:base64:8]'
-            }
-          }
-        ]
+            },
+          },
+        ],
       },
       {
         test: /\.(png|jpg)$/,
@@ -157,15 +157,15 @@ module.exports = {
         use: [
           {
             loader: "url-loader",
-            options: { limit: 8192, name: "[path][name].[ext]?[hash]" }
-          }
-        ]
-      }
-    ]
+            options: { limit: 8192, name: "[path][name].[ext]?[hash]" },
+          },
+        ],
+      },
+    ],
   },
   plugins: [
     new es3ifyPlugin(),
-    new webpack.optimize.ModuleConcatenationPlugin()
+    new webpack.optimize.ModuleConcatenationPlugin(),
     // new VueLoaderPlugin()
     // new WebpackMd5Hash()
   ],
@@ -174,9 +174,9 @@ module.exports = {
     chunks: false,
     modules: false,
     chunkModules: false,
-    entrypoints: false
+    entrypoints: false,
   },
-  performance: false
+  performance: false,
   // performance: {
   // 	hints: "error"
   // }

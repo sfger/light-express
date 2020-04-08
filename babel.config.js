@@ -4,8 +4,8 @@ module.exports = {
     [ "@babel/preset-react", { loose: true } ],
     [
       "@babel/preset-typescript",
-      { loose: true, isTSX: true, allExtensions: true }
-    ]
+      { loose: true, isTSX: true, allExtensions: true },
+    ],
   ],
   plugins: [
     [ "@babel/plugin-syntax-dynamic-import", { loose: true } ],
@@ -14,7 +14,7 @@ module.exports = {
     [ "@babel/plugin-proposal-class-properties", { loose: true } ],
     [
       "@babel/plugin-proposal-pipeline-operator",
-      { loose: true, proposal: "smart" }
+      { loose: true, proposal: "smart" },
     ],
     [ "@babel/plugin-proposal-private-methods", { loose: true } ],
     [ "@babel/plugin-proposal-do-expressions", { loose: true } ],
@@ -23,7 +23,7 @@ module.exports = {
     [
       "import",
       { loose: true, libraryName: "antd", libraryDirectory: "es", style: true },
-      "antd"
+      "antd",
     ],
     [
       "module-resolver",
@@ -32,10 +32,10 @@ module.exports = {
         root: [ "./" ],
         alias: {
           "^!(.+)": "./components/\\1",
-          "^~(.+)": "./src/\\1"
+          "^~(.+)": "./src/\\1",
         },
-        extensions: [ ".js", ".scss", ".jsx", ".ts", ".tsx" ]
-      }
-    ]
-  ]
+        extensions: [ ".js", ".scss", ".jsx", ".ts", ".tsx" ],
+      },
+    ],
+  ],
 };

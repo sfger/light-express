@@ -10,15 +10,12 @@ import "~public/js/requestAnimationFrame.js";
 //   console.log(err);
 // } );
 
-let browser = do {
-  let ret = {};
-  let ie = /MSIE (\d+)\.?/.exec( navigator.userAgent );
-  if ( ie && ie[ 1 ] ) {
-    ret.ie = true;
-    ret.version = Number( ie[ 1 ] );
-  }
-  ret;
-};
+let browser = {};
+let ie = /MSIE (\d+)\.?/.exec( navigator.userAgent );
+if ( ie && ie[ 1 ] ) {
+  browser.ie = true;
+  browser.version = Number( ie[ 1 ] );
+}
 
 function getHW( el, type ) {
   if ( !el ) return 0;
@@ -93,7 +90,7 @@ function get_head_rows( _this, options, colsType ) {
           if ( isField ) {
             td_attr[ "className" ] = {
               field: true,
-              sortable: options.sortable || option.sortable
+              sortable: options.sortable || option.sortable,
             };
             cell_attr[ "data-field" ] = option.field;
           }
@@ -260,20 +257,20 @@ function resize_table( _this ) {
         $tables
           .filter( "table:odd" )
           .find( "tr:first-child td .cell" )
-          .toArray()
+          .toArray(),
       ],
       "width"
     );
   } else if ( options.rowNum ) {
     align_cell_row( [
       $( "tr:eq(0) td:eq(0) .cell:eq(0)", $tables[ 0 ] ).toArray(),
-      $( "tr:first-child td:first-child .cell", $tables[ 1 ] ).toArray()
+      $( "tr:first-child td:first-child .cell", $tables[ 1 ] ).toArray(),
     ], "width" );
   }
   if ( options.frozenColumns.length || options.frozenEndColumns.length ) {
     $( [
       $tables[ 1 ],
-      $tables[ 5 ]
+      $tables[ 5 ],
     ] )
       .off( "mousewheel DOMMouseScroll" )
       .on( "mousewheel DOMMouseScroll", function( e ) {
@@ -283,7 +280,7 @@ function resize_table( _this ) {
         let tb3 = $tables[ 3 ].parentNode;
         let list = [
           tb3,
-          $tables[ 1 ].parentNode
+          $tables[ 1 ].parentNode,
         ];
         if ( $tables[ 5 ] ) list.push( $tables[ 5 ].parentNode );
         if ( $( list ).is( ":animated" ) ) return false;
@@ -306,12 +303,12 @@ function resize_table( _this ) {
     }
     align_cell_column( [
       $tables.filter( ":odd" ).toArray(),
-      $tables.filter( ":even" ).toArray()
+      $tables.filter( ":even" ).toArray(),
     ], "height" );
   }
   align_cell_row( [
     $tables.filter( ":odd" ).toArray(),
-    $tables.filter( ":even" ).toArray()
+    $tables.filter( ":even" ).toArray(),
   ], "width" );
 
   tp1.css( { width: "auto" } );
@@ -333,7 +330,7 @@ function resize_table( _this ) {
 }
 
 class Handler {
-  sortOrderDesc: false; // true:desc, false:asc
+  sortOrderDesc = false; // true:desc, false:asc
   constructor( box, options ) {
     this.render = box;
     this.update( options );
@@ -405,7 +402,7 @@ class Handler {
     if ( options.remoteSort ) {
       let sort_order = ~[
         true,
-        "desc"
+        "desc",
       ].indexOf( sort.order ) ? "desc" : "asc";
       $( `.head-wrapper [data-field="${ sort.field }"] .sort-mark`, box ).addClass( sort_order );
     } else if ( sort ) {
@@ -434,7 +431,7 @@ class Handler {
           .css( {
             width: "auto",
             "margin-left": $frozen_view[ 0 ].offsetWidth,
-            "margin-right": $frozen_view[ 1 ].offsetWidth
+            "margin-right": $frozen_view[ 1 ].offsetWidth,
           } )
           .find( ".body-wrapper" )
           .css( { "margin-top": "-2px" } );
@@ -458,7 +455,7 @@ class Handler {
         _this.sortBy(
           {
             field: $( cell ).data( "field" ),
-            order: !cell.order || _this.sortOrderDesc
+            order: !cell.order || _this.sortOrderDesc,
           },
           cell
         );
@@ -480,7 +477,7 @@ class Handler {
                   [
                     data.frozenTr,
                     data.frozenEndTr,
-                    data.tr
+                    data.tr,
                   ].filter( function( item ) {
                     return item;
                   } )
@@ -490,7 +487,7 @@ class Handler {
                 [
                   data.frozenTr,
                   data.frozenEndTr,
-                  data.tr
+                  data.tr,
                 ].filter( function( item ) {
                   return item;
                 } )
@@ -510,14 +507,14 @@ class Handler {
                   [
                     data.frozenTr,
                     data.frozenEndTr,
-                    data.tr
+                    data.tr,
                   ].filter( function( item ) {
                     return item;
                   } )
                 ).removeClass( "hover" );
               _this.relatedData = null;
             } );
-          }
+          },
         },
         ".body-wrapper tr"
       );
@@ -534,7 +531,7 @@ class Handler {
     number: function( a, b ) {
       let field = this.field;
       return a[ field ] - b[ field ];
-    }
+    },
   };
   getFieldOption( fieldName ) {
     return this.allColumns.filter( one => one.field === fieldName )[ 0 ];
@@ -555,7 +552,7 @@ class Handler {
     let preSortElement = this.sortElement;
     order = ~[
       true,
-      "desc"
+      "desc",
     ].indexOf( order ) ? true : false;
     this.sortElement = sortElement = sortElement || $( `.head-wrapper [data-field="${ field }"]`, this.render )[ 0 ];
     if ( preSortElement ) {
@@ -649,7 +646,7 @@ let defaultOptions = {
   remoteSort: false, // 是否服务器排序
   frozenColumns: [], // 冻结列
   frozenEndColumns: [], // 冻结列
-  columns: [] // 普通列
+  columns: [], // 普通列
 };
 
 $.fn.datagrid = function( options, ...args ) {

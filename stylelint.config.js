@@ -5,7 +5,7 @@ module.exports = {
     "color-no-invalid-hex": true,
     "comment-empty-line-before": [
       "always",
-      { ignore: [ "stylelint-commands", "after-comment" ] }
+      { ignore: [ "stylelint-commands", "after-comment" ] },
     ],
     "declaration-colon-space-after": "always",
     indentation: [ 2, { except: [ "value" ] } ],
@@ -21,7 +21,7 @@ module.exports = {
       "dpcm",
       "s",
       "ms",
-      "deg"
-    ]
-  }
+      "deg",
+    ],
+  },
 };

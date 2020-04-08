@@ -6,7 +6,7 @@ module.exports = {
     jquery: true,
     amd: true,
     es6: true,
-    node: true
+    node: true,
   },
   extends: [
     "eslint:recommended",
@@ -19,20 +19,20 @@ module.exports = {
   parserOptions: {
     ecmaVersion: 10,
     ecmaFeatures: {
-      jsx: true
+      jsx: true,
     },
     sourceType: "module",
     babelOptions: {
       cwd: path.resolve( __dirname ),
-      configFile: "./babel.config.js"
-    }
+      configFile: "./babel.config.js",
+    },
   },
   settings: {
     react: {
       createClass: "createReactClass",
       pragma: "React",
-      version: "detect"
-    }
+      version: "detect",
+    },
   },
   // plugins: [ "react", "react-hooks", "babel", "markdown" ],
   plugins: [ "typescript", "react", "react-hooks", "babel", "markdown" ],
@@ -45,7 +45,7 @@ module.exports = {
     undefined: true,
     light: true,
     __non_webpack_require__: true,
-    __version__: true
+    __version__: true,
   },
   rules: {
     "linebreak-style": [ "error", "unix" ],
@@ -86,19 +86,19 @@ module.exports = {
     "comma-style": [
       "error",
       "last",
-      { exceptions: { ArrayExpression: true, ObjectExpression: true } }
+      { exceptions: { ArrayExpression: true, ObjectExpression: true } },
     ],
-    "comma-dangle": [ 0, "always" ],
-    // "comma-dangle": [
-    //   "error",
-    //   {
-    //     arrays: "always-multiline",
-    //     objects: "always-multiline",
-    //     imports: "always-multiline",
-    //     exports: "always-multiline",
-    //     functions: "never",
-    //   },
-    // ],
+    // "comma-dangle": [ 0, "always" ],
+    "comma-dangle": [
+      "off",
+      {
+        arrays: "always-multiline",
+        objects: "always-multiline",
+        imports: "always-multiline",
+        exports: "always-multiline",
+        functions: "never",
+      },
+    ],
     "block-spacing": [ 2, "always" ],
     "key-spacing": [ 2, { beforeColon: false, afterColon: true } ],
     "space-before-blocks": [ 2, "always" ],
@@ -117,10 +117,21 @@ module.exports = {
           "eslint-disable",
           "*package",
           "!",
-          ","
-        ]
-      }
+          ",",
+        ],
+      },
     ],
-    "use-isnan": 2
-  }
+    "use-isnan": 2,
+    "@typescript-eslint/explicit-function-return-type": [ "off" ],
+    "prefer-const": [ "off" ],
+    "@typescript-eslint/camelcase": [ "off" ],
+    "@typescript-eslint/no-explicit-any": [ "off" ],
+    "@typescript-eslint/no-empty-function": [ "off" ],
+    "@typescript-eslint/no-use-before-define": [ "off" ],
+    "@typescript-eslint/no-var-requires": [ "off" ],
+    "@typescript-eslint/no-inferrable-types": [ "off" ],
+    "@typescript-eslint/no-this-alias": [ "off" ],
+    "prefer-spread": [ "off" ],
+    "no-var": [ "off" ],
+  },
 };
