@@ -1,4 +1,13 @@
-import React, { useRef, useState, useEffect, useReducer, useContext, lazy, Suspense, Component } from "react";
+import React, {
+  lazy,
+  useRef,
+  useState,
+  Suspense,
+  Component,
+  useEffect,
+  useReducer,
+  useContext,
+} from "react";
 import { render as ReactDOMRender } from "react-dom";
 import { Router, Route, Switch, Link } from "react-router-dom";
 import { createBrowserHistory } from "history";
