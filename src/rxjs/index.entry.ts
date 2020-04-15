@@ -14,7 +14,7 @@ var decrease = Rx.Observable.fromEvent( decreaseButton, "click" ) // .startWith(
     return Object.assign( {}, state, { count: state.count - 1 } );
   } );
 
-var inputElement: any = document.querySelector( "#input" );
+var inputElement = document.querySelector( "#input" );
 var input = Rx.Observable.fromEvent( inputElement, "input" )
   .throttleTime( 300 )
   .startWith( { target: { value: inputElement.value } } )
@@ -31,7 +31,10 @@ var obserable = Rx.Observable.merge( increase, decrease, input ).scan( ( state, 
 // 	document.querySelector('#hello').innerHTML = 'Hello ' + state.inputValue;
 // });
 
-var prevState: any = {};
+var prevState = {
+  count: 0,
+  inputValue: "",
+};
 obserable.subscribe( state => {
   console.log( state );
   if ( state.count !== prevState.count ) {

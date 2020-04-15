@@ -14,10 +14,10 @@ function multicast( target, key, descriptor ) {
 }
 
 class Collection {
-  items: Array < any > = [];
+  items = [];
   constructor() {}
   @multicast
-  append( item, ...args: Array<any> ) {
+  append( item, ...args ) {
     // console.log(item, Array.prototype.slice.call(arguments));
     console.log( args );
     this.items.push( item );
@@ -52,7 +52,7 @@ function toFixed( n ) {
   };
 }
 
-function logToConsole( leadingTip: String ) {
+function logToConsole( leadingTip ) {
   return function ( target, key, descriptor ) {
     let func = descriptor.value;
     descriptor.value = function ( ...arg ) {
@@ -75,7 +75,7 @@ function logToConsole( leadingTip: String ) {
 // 	toFixed
 // };
 
-var a = {
+class A {
   @logToConsole( 'xls:' )
   list() {
     return [
@@ -83,17 +83,17 @@ var a = {
       'b',
       'c'
     ];
-  },
+  }
 
   @toNumber
   @toFixed( 2 )
-  test( arg ) {
+  static test( arg ) {
     return arg;
   }
 };
 // var a = new test();
 // a.test;
-var b = a.test( '3333.333333' );
+var b = A.test( '3333.333333' );
 console.log( b );
 console.log( typeof b );
-a.list();
+A.list();
