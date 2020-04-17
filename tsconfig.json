@@ -7,10 +7,11 @@
     "moduleResolution": "node",
     "experimentalDecorators": true,
     "allowJs": true,
+    "rootDir": ".",
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./components/*"],
-      "~/*": ["./src/*"]
+      "@/components/*": ["components/*"],
+      "@/src/*": ["src/*"]
     },
     "allowSyntheticDefaultImports": true,
     "jsx": "react",

@@ -42,6 +42,7 @@ module.exports = {
     modules: [ path.join( root, "src" ), "node_modules" ],
     extensions: [
       ".ts",
+      ".tsx",
       // ".vue",
       ".css",
       ".less",
@@ -84,7 +85,7 @@ module.exports = {
       //   loader: "vue-loader"
       // },
       {
-        test: /\.ts$/,
+        test: /\.tsx?$/,
         exclude: /(node_modules)/,
         use: [
           { loader: "ts-loader", options: { configFile: "tsconfig.json" } },
