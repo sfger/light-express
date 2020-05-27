@@ -295,7 +295,8 @@ let ext = {
       let key = item.slice( 1, -3 );
       if ( key in allEntry ) {
         o[ key ] = allEntry[ key ];
-        webpackCompiler.apply( new SingleEntryPlugin( viewRoot, allEntry[ key ], key ) );
+        // webpackCompiler.apply( new SingleEntryPlugin( viewRoot, allEntry[ key ], key ) );
+        new SingleEntryPlugin( viewRoot, allEntry[ key ], key ).apply( webpackCompiler );
         delete allEntry[ key ];
       }
       return o;
