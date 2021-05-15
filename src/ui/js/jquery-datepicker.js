@@ -114,22 +114,22 @@
               break;
           }
         }
-        var sdate = dh.get_first_date_of_month(); // First date
-        var sday = sdate.php_date( 'w' ); // First date's day
-        var total = sdate.php_date( 't' ); // Total days
+        var sDate = dh.get_first_date_of_month(); // First date
+        var sDay = sDate.php_date( 'w' ); // First date's day
+        var total = sDate.php_date( 't' ); // Total days
         var ii = 1; // 第几天
         var dl = ''; // li elements string
 
         for ( var i = 0; i < 42; i++ ) {
           var sc = ''; // element class
-          var fd = sdate.php_date( 'Y-m-' + date_helper.pad( ii, 2 ) );
+          var fd = sDate.php_date( 'Y-m-' + date_helper.pad( ii, 2 ) );
           if ( abd && fd < abd ) sc = ' class="disabled"';
-          else if ( i < sday || ii > total ) sc = ' class="disabled"';
+          else if ( i < sDay || ii > total ) sc = ' class="disabled"';
           else if ( fd == init_date.current_date ) sc = ' class="selected"';
-          var show = i < sday || ii > total ? date_helper.date( 'j', sdate.current_timestamp + ( -sday + i ) * 86400 ) : ii++; // 显示日期
+          var show = i < sDay || ii > total ? date_helper.date( 'j', sDate.current_timestamp + ( -sDay + i ) * 86400 ) : ii++; // 显示日期
           dl += '<li' + sc + '>' + show + '</li>';
         }
-        $( '.dtp-header li', ret ).eq( n ).html( '<dfn>' + sdate.php_date( 'Y' ) + '</dfn>' + '<span>年</span><dfn>' + sdate.php_date( 'n' ) + '</dfn>' + '<span>月</span>' );
+        $( '.dtp-header li', ret ).eq( n ).html( '<dfn>' + sDate.php_date( 'Y' ) + '</dfn>' + '<span>年</span><dfn>' + sDate.php_date( 'n' ) + '</dfn>' + '<span>月</span>' );
         $( '.dtp-wd', ret ).eq( n ).append( dl );
         $( '.dtp-item', ret ).eq( 0 ).css( { borderColor: 'white' } );
         if ( render && render.ui && render.ui.renderTo ) render.ui.renderTo.innerHTML = ret.html();
@@ -140,7 +140,7 @@
     }
 
     function set_date_val( input, li ) {
-      var value = li ? date_helper( input.ui.skipdate ).get_first_date_of_month().get_offset_date( $( li ).closest( '.dtp-item' ).index(), 'm' ).get_offset_date( Number( li.innerHTML - 1 ) ).current_date : input.value.split( ' ' )[ 0 ];
+      var value = li ? date_helper( input.ui.skipDate ).get_first_date_of_month().get_offset_date( $( li ).closest( '.dtp-item' ).index(), 'm' ).get_offset_date( Number( li.innerHTML - 1 ) ).current_date : input.value.split( ' ' )[ 0 ];
       if ( op.type === 'dateTime' ) value += ' ' + $( input.ui.renderTo ).find( '.dtp-hour input' ).val() + ':' + $( input.ui.renderTo ).find( '.dtp-minute input' ).val();
       input.value = value;
     }
@@ -149,7 +149,7 @@
       var val = this.value;
       this.ui = {
         hovered: false,
-        skipdate: val,
+        skipDate: val,
         renderTo: draw_ui( val, that )
       };
       $( this.ui.renderTo ).css( {
@@ -159,13 +159,13 @@
       } );
       $( this.ui.renderTo ).on( {
         click: function () {
-          that.ui.skipdate = date_helper( that.ui.skipdate ).get_offset_date( -Number( op.monthNum ), 'm' ).current_date;
-          draw_ui( that.ui.skipdate, that );
+          that.ui.skipDate = date_helper( that.ui.skipDate ).get_offset_date( -Number( op.monthNum ), 'm' ).current_date;
+          draw_ui( that.ui.skipDate, that );
         }
       }, '.dtp-prev' ).on( {
         click: function () {
-          that.ui.skipdate = date_helper( that.ui.skipdate ).get_offset_date( Number( op.monthNum ), 'm' ).current_date;
-          draw_ui( that.ui.skipdate, that );
+          that.ui.skipDate = date_helper( that.ui.skipDate ).get_offset_date( Number( op.monthNum ), 'm' ).current_date;
+          draw_ui( that.ui.skipDate, that );
         }
       }, '.dtp-next' ).on( {
         click: function () {
@@ -186,7 +186,7 @@
           op.proxy.trigger( 'click' );
           draw_ui( this.value, this );
           this.ui.hovered = true;
-          this.ui.skipdate = this.value;
+          this.ui.skipDate = this.value;
           $( this.ui.renderTo ).show();
         },
         'blur': function () {

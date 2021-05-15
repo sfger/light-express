@@ -47,12 +47,12 @@ let ext = {
     };
     this.webpackCompiler = webpack( webpackConfig );
     this.webpackDev = WebpackDev( this.webpackCompiler, {
-      root,
-      watchOptions: {
-        ignored: /node_modules/,
-        aggregateTimeout: 500,
-        poll: false
-      },
+      // root,
+      // watchOptions: {
+      //   ignored: /node_modules/,
+      //   aggregateTimeout: 500,
+      //   poll: false
+      // },
       stats: {
         colors: true,
         modules: false,
@@ -69,7 +69,7 @@ let ext = {
   pipe_stream_list_to_writer: async function( list, writer ) {
     // 先判断所有文件是否存在
     let exist = true;
-    let memoryfs = this.webpackDev.fileSystem;
+    let memoryfs = this.webpackDev.context.outputFileSystem;
     for ( let item of list ) {
       if ( !fs.existsSync( item ) ) {
         try {

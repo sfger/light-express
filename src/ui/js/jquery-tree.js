@@ -25,9 +25,9 @@ $.fn.tree = function( options ) {
   var handler = function( box, options ) {
     return new handler.prototype.init( box, options );
   };
-  var createTree = function( data, deep, container, deepest_ul, interal_init ) {
+  var createTree = function( data, deep, container, deepest_ul, internal_init ) {
     if ( !deep ) deep = 1;
-    if ( !interal_init ) {
+    if ( !internal_init ) {
       container.innerHTML = '<ul data-deep="0"><li class="line" style="display:block;"><a style="display:none;"><span class="title">__ROOT__</span></a></li></ul>';
       container = container.children[ 0 ].children[ 0 ];
       container.children[ 0 ].option = { name: "__ROOT__", children: data };
@@ -179,7 +179,7 @@ $.fn.tree = function( options ) {
       if ( options.dnd ) {
         var drag = {
           updatePosition: function( e ) {
-            $( that.dragingProxyElement ).css( { top: e.pageY, left: e.pageX + 25 } );
+            $( that.draggingProxyElement ).css( { top: e.pageY, left: e.pageX + 25 } );
           },
           // drag start {{{
           start: function() {
@@ -192,7 +192,7 @@ $.fn.tree = function( options ) {
           // drag move {{{
           move: function( e ) {
             that.disableSelection();
-            if ( that.dragingProxyElement.style.display !== "block" ) that.dragingProxyElement.style.display = "block";
+            if ( that.draggingProxyElement.style.display !== "block" ) that.draggingProxyElement.style.display = "block";
             drag.updatePosition( e );
             var pointElement = document.elementFromPoint( e.pageX, e.pageY );
             var line;
@@ -204,7 +204,7 @@ $.fn.tree = function( options ) {
               line = pointElement.parentNode;
             }
             if ( drag.prevLine ) $( drag.prevLine ).css( { border: "", boxSizing: "" } );
-            if ( line && line != that.dragingElement && !$.contains( that.dragingElement.parentNode, line ) ) {
+            if ( line && line != that.draggingElement && !$.contains( that.draggingElement.parentNode, line ) ) {
               var ht = line.offsetHeight,
                 $line = $( line ),
                 pos = $line.position();
@@ -224,7 +224,7 @@ $.fn.tree = function( options ) {
             }
           },
           // }}}
-          updateChildrenIndext: function( ul, gap ) {
+          updateChildrenIndent: function( ul, gap ) {
             // {{{
             if ( !ul ) return;
             var real_ul;
@@ -253,12 +253,12 @@ $.fn.tree = function( options ) {
                   line.removeChild( line.children[ _gap ] );
                 }
               }
-              drag.updateChildrenIndext( line.nextSibling, gap );
+              drag.updateChildrenIndent( line.nextSibling, gap );
             }
           }, // }}}
           end: function() {
             // {{{
-            $( that.dragingProxyElement ).hide();
+            $( that.draggingProxyElement ).hide();
             $( drag.prevLine ).css( { border: "none" } );
             $( document ).off( {
               mousemove: drag.move,
@@ -266,35 +266,35 @@ $.fn.tree = function( options ) {
             } );
             if ( drag.dropPosition ) {
               if ( options.onBeforeDrop ) {
-                var tag = options.onBeforeDrop.bind( that )( drag.prevLine, that.dragingElement, drag.dropPosition );
+                var tag = options.onBeforeDrop.bind( that )( drag.prevLine, that.draggingElement, drag.dropPosition );
                 if ( tag === false ) return;
               }
-              var sli = that.dragingElement.parentNode,
+              var sli = that.draggingElement.parentNode,
                 tli = drag.prevLine.parentNode;
               var sul = sli.parentNode;
               var gap = tli.parentNode.getAttribute( "data-deep" ) - sli.parentNode.getAttribute( "data-deep" );
-              var sindex = $( sli ).index();
-              var spoption = that.getParentNode( sli ).option.children;
-              var soption = spoption[ sindex ];
-              spoption.splice( sindex, 1 );
+              var sIndex = $( sli ).index();
+              var spOption = that.getParentNode( sli ).option.children;
+              var sOption = spOption[ sIndex ];
+              spOption.splice( sIndex, 1 );
               if ( drag.dropPosition === "append" ) {
                 if ( that.isLeaf( drag.prevLine ) ) return;
                 drag.prevLine.nextSibling.appendChild( sli );
-                drag.prevLine.option.children.push( soption );
+                drag.prevLine.option.children.push( sOption );
                 // console.log(tli.children[0].option);
               } else {
                 var to_index;
                 if ( tli.parentNode === sli.parentNode ) {
-                  to_index = $( tli ).index() - ( $( tli ).index() > sindex ) + ( drag.dropPosition === "after" );
-                  that.getParentNode( tli ).option.children.splice( to_index, 0, soption );
+                  to_index = $( tli ).index() - ( $( tli ).index() > sIndex ) + ( drag.dropPosition === "after" );
+                  that.getParentNode( tli ).option.children.splice( to_index, 0, sOption );
                 } else {
                   to_index = $( tli ).index() + ( drag.dropPosition === "after" );
-                  that.getParentNode( tli ).option.children.splice( to_index, 0, soption );
+                  that.getParentNode( tli ).option.children.splice( to_index, 0, sOption );
                 }
                 $( tli )[ drag.dropPosition ]( sli );
                 // console.log(that.getParentNode(tli).option);
               }
-              drag.updateChildrenIndext( { children: [ sli ] }, gap );
+              drag.updateChildrenIndent( { children: [ sli ] }, gap );
               drag.dropPosition = null;
               if ( options.checkbox ) {
                 if ( sli ) check.updateParentCheckState( sli.parentNode );
@@ -302,14 +302,14 @@ $.fn.tree = function( options ) {
                 if ( tli ) check.updateParentCheckState( tli.parentNode );
               }
               if ( options.onDrop ) {
-                options.onDrop.bind( that )( drag.prevLine, that.dragingElement, drag.dropPosition );
+                options.onDrop.bind( that )( drag.prevLine, that.draggingElement, drag.dropPosition );
               }
             }
           } // }}}
         };
         if ( /Chrome/.test( navigator.userAgent ) ) {
-          // Chrome draging hover state fixed {{{
-          $( this.contents ).delegate( "a", {
+          // Chrome dragging hover state fixed {{{
+          $( this.contents ).on( "a", {
             mouseenter: function() {
               $( this ).addClass( "hover" );
             },
@@ -318,15 +318,15 @@ $.fn.tree = function( options ) {
             }
           } );
         } // }}}
-        $( this.contents ).delegate( "a", {
+        $( this.contents ).on( "a", {
           mousedown: function( e ) {
-            that.dragingElement = this;
-            if ( !that.dragingProxyElement ) {
-              that.dragingProxyElement = document.createElement( "div" );
-              document.body.appendChild( that.dragingProxyElement );
-              $( that.dragingProxyElement ).addClass( "tree-draging-proxy" );
+            that.draggingElement = this;
+            if ( !that.draggingProxyElement ) {
+              that.draggingProxyElement = document.createElement( "div" );
+              document.body.appendChild( that.draggingProxyElement );
+              $( that.draggingProxyElement ).addClass( "tree-dragging-proxy" );
             }
-            $( that.dragingProxyElement ).html( that.dragingElement.option.name );
+            $( that.draggingProxyElement ).html( that.draggingElement.option.name );
             drag.updatePosition( e );
             drag.start();
             return false;

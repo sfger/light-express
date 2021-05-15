@@ -195,7 +195,7 @@ html.full-screen #page, html.full-screen .home-page { height: 100%; }
 
 .navi-box a:active { box-shadow: 0 13.76px 21.92px -8px rgba(0, 0, 0, 0); background-color: rgba(0, 0, 0, 0); }
 
-.navi-box a:hover { background: white; color: #666; /*transform:rotate(3deg);*/ }
+.navi-box a:hover { background: white; color: #666; }
 
 .wrap { width: 980px; margin: auto; }
 

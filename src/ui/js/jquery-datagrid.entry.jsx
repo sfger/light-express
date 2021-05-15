@@ -226,15 +226,15 @@ function resize_table( _this ) {
   let options = _this.userOptions;
 
   function update_scroll_offset() {
-    let aview = tp0[ 0 ].parentNode;
-    aview.scrollLeft = this.scrollLeft;
+    let aView = tp0[ 0 ].parentNode;
+    aView.scrollLeft = this.scrollLeft;
     if ( options.frozenColumns.length ) {
-      let fview = $tables[ 1 ].parentNode;
-      fview.scrollTop = this.scrollTop;
+      let fView = $tables[ 1 ].parentNode;
+      fView.scrollTop = this.scrollTop;
     }
     if ( options.frozenEndColumns.length ) {
-      let feview = $( ".frozen-end table", _this.render )[ 1 ].parentNode;
-      feview.scrollTop = this.scrollTop;
+      let feView = $( ".frozen-end table", _this.render )[ 1 ].parentNode;
+      feView.scrollTop = this.scrollTop;
     }
   }
   $( ".auto-view .body-wrapper", _this.render )
@@ -653,7 +653,7 @@ $.fn.datagrid = function( options, ...args ) {
   if ( "string" === $.type( options ) ) {
     let ret = this.toArray().map( function( one ) {
       let ui = $( one ).data( "ui" );
-      if ( ui && ui.iDatagrid ) {
+      if ( ui && ui.iDataGrid ) {
         return ui.iDatagrid[ options ].apply( ui.iDatagrid, args );
       } else {
         throw new Error( "UI:datagrid does not init..." );

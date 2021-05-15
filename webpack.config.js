@@ -142,7 +142,7 @@ module.exports = {
         test: /\.css$/,
         // exclude:/(node_modules)/,
         use: [
-          "vue-style-loader",
+          "style-loader",
           {
             loader: "css-loader",
             options: {
@@ -165,8 +165,8 @@ module.exports = {
     ],
   },
   plugins: [
-    new es3ifyPlugin(),
-    new webpack.optimize.ModuleConcatenationPlugin(),
+    // new es3ifyPlugin(),
+    // new webpack.optimize.ModuleConcatenationPlugin(),
     // new VueLoaderPlugin()
     // new WebpackMd5Hash()
   ],

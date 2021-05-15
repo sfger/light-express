@@ -54,47 +54,47 @@ let terser = require( "gulp-terser" );
 let replace = require( "gulp-replace" );
 let sftp = require( "gulp-sftp" );
 let config = require( "./webpack.config.js" );
-let ansi = require( "ansi" );
-let cursor = ansi( process.stdout );
+// let ansi = require( "ansi" );
+// let cursor = ansi( process.stdout );
 
 function wait( time ) {
   return new Promise( resolve => setTimeout( resolve, time ) );
 }
-class Progress {
-  constructor() {
-    this.status = true;
-  }
-  async start() {
-    let i = 0;
-    let time = 5;
-    let array = [ " + ", " ×" ];
-    while ( this.status ) {
-      i = i < array.length ? i : 0;
-      cursor
-        .reset()
-        .fg.red()
-        .bold()
-        .horizontalAbsolute( 0 )
-        .eraseLine()
-        .write( array[ i++ ] )
-        .horizontalAbsolute( 0 )
-        .reset();
-      await wait( time );
-    }
-    cursor
-      .horizontalAbsolute( 0 )
-      .eraseLine()
-      .reset();
-  }
-  async done() {
-    this.status = false;
-  }
-}
-let progress = new Progress();
+// class Progress {
+//   constructor() {
+//     this.status = true;
+//   }
+//   async start() {
+//     let i = 0;
+//     let time = 5;
+//     let array = [ " + ", " ×" ];
+//     while ( this.status ) {
+//       i = i < array.length ? i : 0;
+//       cursor
+//         .reset()
+//         .fg.red()
+//         .bold()
+//         .horizontalAbsolute( 0 )
+//         .eraseLine()
+//         .write( array[ i++ ] )
+//         .horizontalAbsolute( 0 )
+//         .reset();
+//       await wait( time );
+//     }
+//     cursor
+//       .horizontalAbsolute( 0 )
+//       .eraseLine()
+//       .reset();
+//   }
+//   async done() {
+//     this.status = false;
+//   }
+// }
+// let progress = new Progress();
 
 config.mode = "production";
 
-progress.start();
+// progress.start();
 gulp.task( "del", function( cb ) {
   let dir = "*" === project ? "" : project;
   del( [ "dist/" + dir + "/**/*" ], { dryRun: true } ).then( function( /* paths */ ) {
@@ -175,11 +175,11 @@ gulp.task( "deploy", function() {
   server.remotePath += project;
   return gulp.src( "dist/" + project + "/**/*" ).pipe( sftp( server ) );
 } );
-gulp.task( "tip", function( done ) {
-  return progress.done().then( () => done );
-} );
+// gulp.task( "tip", function( done ) {
+//   return progress.done().then( () => done );
+// } );
 let tasks = [ "del", "css", "img", "webpack", "js" ];
 if ( "testA" === parsed_args.server ) tasks.push( "html" );
 tasks.push( "deploy" );
-tasks.push( "tip" );
+// tasks.push( "tip" );
 gulp.task( "default", gulp.series.call( null, tasks ) );

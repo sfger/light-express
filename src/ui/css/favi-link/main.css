@@ -230,7 +230,7 @@ _:-ms-lang(x), .grid .col-rest { display: inline-block\9; }
 
 .tree-container .file { background-position: -240px 0; }
 
-.tree-draging-proxy { display: none; position: absolute; padding: 2px 8px; border: 1px solid #ccc; background: #eee; border-radius: 3px; }
+.tree-dragging-proxy { display: none; position: absolute; padding: 2px 8px; border: 1px solid #ccc; background: #eee; border-radius: 3px; }
 
 .tab-ctn .tab-header { font-size: 0; text-align: left; }
 
